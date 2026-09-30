@@ -1,0 +1,16 @@
+{
+  "triangles": 42064,
+  "meshes_after_join": 55,
+  "draw_calls_approx": 55,
+  "animations": [
+    "Lantern_Pivot_00Action",
+    "Lantern_Pivot_01Action",
+    "Lantern_Pivot_02Action",
+    "Lantern_Pivot_03Action",
+    "Lantern_Pivot_04Action",
+    "Lantern_Pivot_05Action",
+    "Lantern_Pivot_06Action"
+  ],
+  "lantern_pivots": 7,
+  "glb_bytes": 5135328
+}

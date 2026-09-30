@@ -1,0 +1,17 @@
+{
+  "triangles": 42924,
+  "meshes_after_join": 54,
+  "draw_calls_approx": 54,
+  "animations": [
+    "Flag_Pivot_00Action",
+    "Flag_Pivot_01Action",
+    "Flag_Pivot_02Action",
+    "Flag_Pivot_03Action",
+    "Flag_Pivot_04Action",
+    "Flag_Pivot_05Action",
+    "Flag_Pivot_06Action",
+    "Flag_Pivot_07Action"
+  ],
+  "flag_pivots": 8,
+  "glb_bytes": 4973000
+}

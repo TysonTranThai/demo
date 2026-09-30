@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Art Heritage — 3D Asset Previews</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #101014; color: #e8e6e0;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 48px 24px 64px;
+  }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.02em; }
+  .sub { margin: 10px 0 40px; color: #9a968c; font-size: 14px; }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; width: 100%; max-width: 1080px;
+  }
+  a.card {
+    display: block; text-decoration: none; color: inherit;
+    background: #191920; border: 1px solid #2a2a33; border-radius: 14px;
+    padding: 22px 24px; transition: border-color .15s, transform .15s;
+  }
+  a.card:hover { border-color: #b0432f; transform: translateY(-2px); }
+  .name { font-size: 19px; font-weight: 650; }
+  .en { color: #8f8b82; font-size: 13px; margin-top: 3px; }
+  .stats { margin-top: 14px; font-size: 12.5px; color: #7fb37f; }
+  .links { margin-top: 14px; font-size: 12.5px; display: flex; gap: 14px; }
+  .links span { color: #b0432f; text-decoration: underline; text-underline-offset: 3px; }
+  footer { margin-top: 44px; color: #5d5a54; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>Smart Art Heritage — 3D Previews</h1>
+  <div class="sub">Five procedural Blender assets · Three.js previews · crowd pass complete</div>
+
+  <div class="grid">
+    <a class="card" href="Chua%20Keo/preview/index.html">
+      <div class="name">Chùa Keo</div>
+      <div class="en">Keo Pagoda · Thai Binh</div>
+      <div class="stats">41.8k tris · GLB 3.4 MB · 26 visitors</div>
+      <div class="links"><span>interactive</span><span>standalone → Chua%20Keo/preview/preview_standalone.html</span></div>
+    </a>
+
+    <a class="card" href="den-mau/preview/index.html">
+      <div class="name">Đền Mẫu</div>
+      <div class="en">Mother Goddess Temple</div>
+      <div class="stats">37.3k tris · GLB 4.1 MB · 25 visitors · 18 anims</div>
+      <div class="links"><span>interactive</span><span>standalone → den-mau/preview/preview_standalone.html</span></div>
+    </a>
+
+    <a class="card" href="den-tran/preview/index.html">
+      <div class="name">Đền Trần</div>
+      <div class="en">Tran Temple · Nam Dinh</div>
+      <div class="stats">42.9k tris · GLB 5.0 MB · 28 visitors · 8 anims</div>
+      <div class="links"><span>interactive</span><span>standalone → den-tran/preview/preview_standalone.html</span></div>
+    </a>
+
+    <a class="card" href="le-quy-don/preview/index.html">
+      <div class="name">Lê Quý Đôn</div>
+      <div class="en">Memorial Hall</div>
+      <div class="stats">22.2k tris · GLB 3.3 MB · 24 visitors · 4 anims</div>
+      <div class="links"><span>interactive</span><span>standalone → le-quy-don/preview/preview_standalone.html</span></div>
+    </a>
+
+    <a class="card" href="dong-xam/preview/index.html">
+      <div class="name">Đồng Xâm</div>
+      <div class="en">Đền Thờ Tổ · Thai Binh</div>
+      <div class="stats">42.1k tris · GLB 5.1 MB · 30 visitors · 7 anims</div>
+      <div class="links"><span>interactive</span><span>standalone → dong-xam/preview/preview_standalone.html</span></div>
+    </a>
+  </div>
+
+  <footer>Served locally · approval checkpoint — not integrated into the production website</footer>
+
+<script>
+  // turn the standalone hints into real links
+  document.querySelectorAll('.links').forEach(function (el) {
+    var txt = el.lastElementChild.textContent.replace('standalone → ', '');
+    var a = document.createElement('a');
+    a.href = txt; a.textContent = 'standalone';
+    a.style.cssText = 'color:#7f9fb3;text-decoration:underline;text-underline-offset:3px';
+    el.replaceChild(a, el.lastElementChild);
+  });
+</script>
+</body>
+</html>

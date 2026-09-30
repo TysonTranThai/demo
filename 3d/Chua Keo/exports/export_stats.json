@@ -1,0 +1,27 @@
+{
+  "triangles": 41802,
+  "meshes_after_join": 48,
+  "draw_calls_approx": 48,
+  "animations": [
+    "Lantern_Pivot_01Action",
+    "Lantern_Pivot_02Action",
+    "Lantern_Pivot_03Action",
+    "Lantern_Pivot_04Action",
+    "Lantern_Pivot_05Action",
+    "Lantern_Pivot_06Action",
+    "Lantern_Pivot_07Action",
+    "Lantern_Pivot_08Action",
+    "Lantern_Pivot_09Action",
+    "Lantern_Pivot_10Action",
+    "Lantern_Pivot_11Action",
+    "Lantern_Pivot_12Action",
+    "Lantern_Pivot_13Action",
+    "Lantern_Pivot_14Action",
+    "Lantern_Pivot_15Action",
+    "Lantern_Pivot_16Action",
+    "Lantern_Pivot_17Action",
+    "Lantern_Pivot_18Action"
+  ],
+  "glb_bytes": 3361792,
+  "lantern_pivots": 18
+}

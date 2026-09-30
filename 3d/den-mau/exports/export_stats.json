@@ -1,0 +1,27 @@
+{
+  "triangles": 37392,
+  "meshes_after_join": 54,
+  "draw_calls_approx": 54,
+  "animations": [
+    "Flag_Pivot_00Action",
+    "Flag_Pivot_01Action",
+    "Flag_Pivot_02Action",
+    "Flag_Pivot_03Action",
+    "Flag_Pivot_04Action",
+    "Flag_Pivot_05Action",
+    "Flag_Pivot_06Action",
+    "Flag_Pivot_07Action",
+    "Flag_Pivot_08Action",
+    "Flag_Pivot_09Action",
+    "Flag_Pivot_10Action",
+    "Flag_Pivot_11Action",
+    "Flag_Pivot_12Action",
+    "Flag_Pivot_13Action",
+    "Flag_Pivot_14Action",
+    "Flag_Pivot_15Action",
+    "Flag_Pivot_16Action",
+    "Flag_Pivot_17Action"
+  ],
+  "flag_pivots": 18,
+  "glb_bytes": 4122848
+}

@@ -1,0 +1,47 @@
+<svg width="480" height="320" viewBox="0 0 480 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="480" height="320" rx="16" fill="#FBF9F5"/>
+  <!-- Orbiting Circle System -->
+  <circle cx="240" cy="160" r="90" stroke="#DCD3C4" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <!-- Central Pedagogical Core -->
+  <circle cx="240" cy="160" r="34" fill="#171716" stroke="#FFF" stroke-width="3"/>
+  <text x="240" y="156" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#F1EDE5" text-anchor="middle">AI 5A</text>
+  <text x="240" y="170" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#C89547" text-anchor="middle">ASSISTANT</text>
+  <!-- Node A1: ASK (Top) -->
+  <g transform="translate(240, 70)">
+    <circle cx="0" cy="0" r="22" fill="#FFF" stroke="#C89547" stroke-width="2"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#C89547" text-anchor="middle">A1</text>
+    <text x="0" y="10" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#171716" text-anchor="middle">ASK</text>
+  </g>
+  <!-- Node A2: ANALYZE (Right Top) -->
+  <g transform="translate(325, 125)">
+    <circle cx="0" cy="0" r="22" fill="#FFF" stroke="#C46238" stroke-width="2"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#C46238" text-anchor="middle">A2</text>
+    <text x="0" y="10" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="700" fill="#171716" text-anchor="middle">ANALYZE</text>
+  </g>
+  <!-- Node A3: ADVISE (Right Bottom) -->
+  <g transform="translate(295, 230)">
+    <circle cx="0" cy="0" r="22" fill="#FFF" stroke="#435C4B" stroke-width="2"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#435C4B" text-anchor="middle">A3</text>
+    <text x="0" y="10" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#171716" text-anchor="middle">ADVISE</text>
+  </g>
+  <!-- Node A4: ADAPT (Left Bottom) -->
+  <g transform="translate(185, 230)">
+    <circle cx="0" cy="0" r="22" fill="#FFF" stroke="#7C4C28" stroke-width="2"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#7C4C28" text-anchor="middle">A4</text>
+    <text x="0" y="10" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#171716" text-anchor="middle">ADAPT</text>
+  </g>
+  <!-- Node A5: ART (Left Top) -->
+  <g transform="translate(155, 125)">
+    <circle cx="0" cy="0" r="22" fill="#FFF" stroke="#171716" stroke-width="2"/>
+    <text x="0" y="-2" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#171716" text-anchor="middle">A5</text>
+    <text x="0" y="10" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#C46238" text-anchor="middle">ART</text>
+  </g>
+  <!-- Output Palette Pills at bottom -->
+  <g transform="translate(185, 280)">
+    <circle cx="0" cy="0" r="8" fill="#7C4C28" stroke="#FFF" stroke-width="1.5"/>
+    <circle cx="24" cy="0" r="8" fill="#C46238" stroke="#FFF" stroke-width="1.5"/>
+    <circle cx="48" cy="0" r="8" fill="#C89547" stroke="#FFF" stroke-width="1.5"/>
+    <circle cx="72" cy="0" r="8" fill="#435C4B" stroke="#FFF" stroke-width="1.5"/>
+    <circle cx="96" cy="0" r="8" fill="#171716" stroke="#FFF" stroke-width="1.5"/>
+  </g>
+</svg>

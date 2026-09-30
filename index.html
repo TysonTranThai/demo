@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMART ART HERITAGE V1.0 — Hệ sinh thái Mĩ thuật số thông minh</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans for high-craft editorial typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Three.js r128 (vendored) — used by models.html, not needed here -->
+
+  <!-- Custom Core Design System -->
+  <link rel="stylesheet" href="css/smart-art-heritage.css?v=2">
+</head>
+<body>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-inner">
+        <!-- Brand -->
+        <a href="#" class="brand-group">
+          <div class="brand-logo-text">
+            <span>SMART ART HERITAGE</span>
+          </div>
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+          <li><a href="#selectedWork" class="nav-link">Di sản <span class="badge-count">(5)</span></a></li>
+          <li><button type="button" class="nav-link" onclick="location.href='models.html'">Mô hình 3D</button></li>
+          <li><button type="button" class="nav-link" onclick="openModal('modal321')">Phiếu 3–2–1</button></li>
+          <li><button type="button" class="nav-link" onclick="openModal('ai5aStudioModal')">Trợ lí AI 5A</button></li>
+          <li><button type="button" class="nav-link" onclick="openModal('creativeStudioModal')">Xưởng vẽ</button></li>
+          <li><button type="button" class="nav-link" onclick="openModal('dashboardModal')">Giáo viên</button></li>
+        </ul>
+
+        <!-- Right Action Button -->
+        <div class="nav-actions">
+          <button type="button" class="btn-pill-cta" onclick="location.href='di-san.html'">
+            <span>Bắt đầu khám phá</span>
+            <span class="btn-icon-circle">↗</span>
+          </button>
+          <button class="mobile-menu-btn" type="button" onclick="location.href='di-san.html'">☰</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION (AUTHENTIC HERITAGE ARCHITECTURAL LAYOUT) -->
+    <section class="hero-wrapper">
+      <div class="container">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div class="hero-visual-frame">
+              <!-- Authentic Heritage Architectural Monument -->
+              <img class="hero-image-bg" src="assets/heritage/hero_heritage_keo.jpg" alt="Gác Chuông Chùa Keo — Kiệt tác kiến trúc gỗ 3 tầng 12 mái cong" />
+              <div class="hero-overlay-gradient"></div>
+
+              <!-- Floating Spotlight Card (Middle Right of Hero) -->
+              <div class="floating-spotlight-card" onclick="location.href='models.html'">
+                <img class="spotlight-thumb" src="assets/heritage/thumb_dragon_carving.jpg" alt="Gác Chuông Chùa Keo" />
+                <div class="spotlight-info">
+                  <h4 class="spotlight-title">Gác Chuông Chùa Keo</h4>
+                  <div class="spotlight-badges">
+                    <span class="badge-pill-dark">DI SẢN</span>
+                    <span class="badge-pill-outline">KIẾN TRÚC GỖ</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Giant Overlapping Headline -->
+              <div class="hero-typography-container">
+                <h1 id="heroGrandTitle" class="hero-grand-title">HERITAGE</h1>
+              </div>
+            </div>
+
+            <!-- Hero Substrip: Stats & Quick Actions -->
+            <div class="hero-substrip">
+              <div class="hero-substrip-meta">
+                <div class="meta-counter">
+                  <span class="counter-num">120+</span>
+                  <span class="counter-label">PROJECTS & TÁC PHẨM</span>
+                </div>
+                <div class="meta-counter">
+                  <span class="counter-num">05</span>
+                  <span class="counter-label">QUẦN THỂ DI SẢN</span>
+                </div>
+                <div class="meta-counter">
+                  <span class="counter-num">75</span>
+                  <span class="counter-label">ẢNH & HOTSPOT 3D</span>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <button type="button" class="btn-outline-pill" onclick="location.href='models.html'">
+                  <span>Trải nghiệm 3D Gác Chuông ↗</span>
+                </button>
+                <button type="button" class="btn-pill-cta" onclick="openModal('modal321')">
+                  <span>Mở Phiếu 3–2–1</span>
+                  <span class="btn-icon-circle">✎</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY & EDITORIAL INTRO SECTION -->
+    <section class="editorial-intro-section">
+      <div class="container">
+        <div class="editorial-intro-grid">
+          <!-- Sidebar Meta -->
+          <div class="intro-sidebar">
+            <span class="intro-metric">120+ PROJECTS</span>
+            <span class="intro-metric">HƯNG YÊN • VIỆT NAM</span>
+            <span class="text-eyebrow" style="margin-top:12px;">MĨ THUẬT SỐ THCS</span>
+          </div>
+
+          <!-- Main Content -->
+          <div class="intro-main-content">
+            <div class="intro-avatars-row">
+              <div class="avatar-pair">
+                <img class="avatar-squircle green-accent" src="assets/heritage/edu_avatar.svg" alt="Đội ngũ Sư phạm Mĩ thuật" />
+              </div>
+              <span style="font-size:0.875rem; font-weight:600; color:var(--text-muted);">Đội ngũ Sư phạm Mĩ thuật & Kiến trúc di sản</span>
+            </div>
+
+            <h2 id="manifestoQuote" class="manifesto-quote">
+              Chúng tôi kiến tạo không gian mĩ thuật số kết nối di sản ngàn năm — tĩnh tại, chuẩn xác và đánh thức tư duy sáng tạo độc bản của học sinh.
+            </h2>
+
+            <div class="approach-row">
+              <span class="approach-label">OUR APPROACH</span>
+              <p id="approachText" class="approach-text">
+                <span class="approach-highlight">NGUYÊN TẮC CỐT LÕI: NO OBSERVATION → NO AI.</span> Học sinh phải trực tiếp quan sát thực địa, tương tác các điểm chạm Hotspot kiến trúc, hoàn thiện phiếu tư duy 3–2–1 trước khi kích hoạt Trợ lí AI 5A hỗ trợ phát triển tác phẩm nghệ thuật cá nhân.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYTICAL 3 TRỤ CỘT CÔNG NGHỆ -->
+    <section class="analytical-section">
+      <div class="container">
+        <div class="section-head-minimal">
+          <span class="section-head-title">KIẾN TRÚC DI SẢN & PHƯƠNG PHÁP SƯ PHẠM</span>
+          <span class="text-eyebrow">3 TRỤ CỘT CÔNG NGHỆ</span>
+        </div>
+
+        <div class="diagram-cards-grid">
+          <!-- Diagram 1: Mô hình 3D Keo -->
+          <div class="diagram-card" onclick="location.href='models.html'">
+            <div class="diagram-preview-box">
+              <img class="diagram-img" src="assets/heritage/diagram_3d_keo.svg" alt="Mô hình 3D Gác Chuông Chùa Keo" />
+            </div>
+            <div class="diagram-tag-row">
+              <span class="diagram-bullet"></span>
+              <span class="diagram-category">MÔ HÌNH 3D • GIẢI PHẪU KẾT CẤU</span>
+            </div>
+            <h3 class="diagram-title">Mô hình 3D tương tác xoay 360° bóc tách vì kèo gỗ lim</h3>
+            <p class="diagram-desc">Khám phá kết cấu đấu củng 3 tầng 12 mái cong Chùa Keo trực quan, không dùng đinh sắt qua công nghệ WebGL Three.js.</p>
+            <span class="diagram-link">
+              Trải nghiệm mô hình 3D
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </span>
+          </div>
+
+          <!-- Diagram 2: Hotspot & Phiếu 3-2-1 -->
+          <div class="diagram-card" onclick="openModal('modal321')">
+            <div class="diagram-preview-box">
+              <img class="diagram-img" src="assets/heritage/diagram_hotspot_321.svg" alt="75 Điểm chạm Hotspot và Phiếu 3-2-1" />
+            </div>
+            <div class="diagram-tag-row">
+              <span class="diagram-bullet"></span>
+              <span class="diagram-category">QUAN SÁT THỰC ĐỊA • PHIẾU 3–2–1</span>
+            </div>
+            <h3 class="diagram-title">75 Điểm chạm Hotspot liên kết tiến trình phản tư 3–2–1</h3>
+            <p class="diagram-desc">Rèn luyện năng lực quan sát thẩm mĩ, phát hiện giá trị hoa văn rồng phượng và không gian kiến trúc trước khi sáng tạo.</p>
+            <span class="diagram-link">
+              Làm Phiếu 3–2–1
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </span>
+          </div>
+
+          <!-- Diagram 3: AI 5A Studio -->
+          <div class="diagram-card" onclick="openModal('ai5aStudioModal')">
+            <div class="diagram-preview-box">
+              <img class="diagram-img" src="assets/heritage/diagram_ai_5a.svg" alt="Quy trình AI 5A Studio" />
+            </div>
+            <div class="diagram-tag-row">
+              <span class="diagram-bullet"></span>
+              <span class="diagram-category">TRỢ LÍ AI 5A • ĐỒNG HÀNH SÁNG TẠO</span>
+            </div>
+            <h3 class="diagram-title">Quy trình AI 5A gợi mở tư duy, không vẽ thay học sinh</h3>
+            <p class="diagram-desc">Hệ thống 5 bước (Ask–Analyze–Advise–Adapt–Art) bảo vệ cảm xúc độc bản và hỗ trợ học sinh THCS phát triển tác phẩm nghệ thuật.</p>
+            <span class="diagram-link">
+              Khởi động Trợ lí AI 5A
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK / 5 HERITAGE SITES SHOWCASE -->
+    <section id="selectedWork" class="selected-work-section">
+      <div class="container">
+        <div class="selected-work-header">
+          <span class="text-eyebrow" style="display:block; margin-bottom:12px;">SELECTED WORK</span>
+          <h2 id="selectedWorkHeadline" class="selected-work-headline">
+            5 Quần thể di sản và làng nghề tiêu biểu của đất Hưng Yên - Phố Hiến
+          </h2>
+          <p id="selectedWorkSubline" class="selected-work-subline">
+            Mỗi di sản mở ra một kho tàng kiến trúc gỗ lim, chạm khắc tinh xảo và nguồn cảm hứng sáng tác mĩ thuật sống động.
+          </p>
+        </div>
+
+        <!-- 6 Project Cards Grid -->
+        <div id="projectsGridContainer" class="projects-grid">
+          <!-- Card 1: Phố Hiến -->
+          <div class="project-card" onclick="handleProjectCardClick('phohien')">
+            <div class="project-meta-row">
+              <span class="project-code-title">01 — PHỐ HIẾN</span>
+              <span class="project-year">THẾ KỶ XVII</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/cover_phohien.jpeg" alt="Phố Hiến" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">THƯƠNG CẢNG CỔ</span>
+                <span class="tag-mini">ĐỀN MẪU</span>
+                <span class="tag-mini">HỒ BÁN NGUYỆT</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Quần thể di tích thương cảng cổ kính sầm uất với đền Mẫu và chùa Chuông.</span>
+              <button class="project-explore-btn" type="button">
+                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Chùa Keo -->
+          <div class="project-card" onclick="handleProjectCardClick('chuakeo')">
+            <div class="project-meta-row">
+              <span class="project-code-title">02 — CHÙA KEO</span>
+              <span class="project-year">KIẾN TRÚC GỖ</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/cover_chuakeo.jpeg" alt="Chùa Keo" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">GÁC CHUÔNG 3 TẦNG</span>
+                <span class="tag-mini">12 MÁI CONG</span>
+                <span class="tag-mini">GỖ LIM</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Gác chuông ba tầng 12 mái cong kiệt tác đấu củng gỗ không dùng đinh sắt.</span>
+              <button class="project-explore-btn" type="button">
+                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Đền Trần -->
+          <div class="project-card" onclick="handleProjectCardClick('dentran')">
+            <div class="project-meta-row">
+              <span class="project-code-title">03 — ĐỀN TRẦN HƯNG HÀ</span>
+              <span class="project-year">HÀO KHÍ ĐÔNG A</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/cover_dentran.jpeg" alt="Đền Trần" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">LĂNG MỘ VUA TRẦN</span>
+                <span class="tag-mini">RỒNG ĐÁ</span>
+                <span class="tag-mini">TRỤC THẦN ĐẠO</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Vùng đất phát tích vương triều Trần với không gian tưởng niệm và lễ hội trang nghiêm.</span>
+              <button class="project-explore-btn" type="button">
+                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4: Lê Quý Đôn -->
+          <div class="project-card" onclick="handleProjectCardClick('lequydon')">
+            <div class="project-meta-row">
+              <span class="project-code-title">04 — KHU LƯU NIỆM LÊ QUÝ ĐÔN</span>
+              <span class="project-year">DANH NHÂN VĂN HÓA</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/cover_lequydon.jpeg" alt="Lê Quý Đôn" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">NHÀ BÁC HỌC</span>
+                <span class="tag-mini">TƯỢNG ĐỒNG</span>
+                <span class="tag-mini">THƯ TỊCH CỔ</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Không gian tưởng niệm Nhà bác học Lê Quý Đôn kết nối học liệu mĩ thuật số.</span>
+              <button class="project-explore-btn" type="button">
+                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 5: Đồng Xâm -->
+          <div class="project-card" onclick="handleProjectCardClick('dongxam')">
+            <div class="project-meta-row">
+              <span class="project-code-title">05 — LÀNG NGHỀ CHẠM BẠC ĐỒNG XÂM</span>
+              <span class="project-year">LÀNG NGHỀ 500 NĂM</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/cover_dongxam.jpeg" alt="Đồng Xâm" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">CHẠM BẠC KIM HOÀN</span>
+                <span class="tag-mini">HOA VĂN TINH XẢO</span>
+                <span class="tag-mini">NGHỆ NHÂN</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Nghệ thuật chạm khắc kim hoàn thủ công truyền thống tinh hoa đất Bắc.</span>
+              <button class="project-explore-btn" type="button">
+                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 6: Studio & AR Gallery -->
+          <div class="project-card" onclick="handleProjectCardClick('studio')">
+            <div class="project-meta-row">
+              <span class="project-code-title">06 — XƯỞNG SÁNG TẠO & AR GALLERY</span>
+              <span class="project-year">TRIỂN LÃM MĨ THUẬT</span>
+            </div>
+            <div class="project-photo-wrapper">
+              <img class="project-photo" src="assets/extracted/002_Cong_di_tich_kien_truc_co.jpeg" alt="Xưởng sáng tạo & AR" loading="lazy" />
+              <div class="project-hover-curtain"></div>
+              <div class="project-floating-tags">
+                <span class="tag-mini">CANVAS DRAWING</span>
+                <span class="tag-mini">AI 5A ASSISTANT</span>
+                <span class="tag-mini">VIRTUAL AR</span>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <span class="project-subtitle-text">Không gian phác thảo, hoàn thiện tác phẩm mĩ thuật và triển lãm AR trên di động.</span>
+              <button class="project-explore-btn" type="button">
+                Vào xưởng sáng tạo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       MODAL 3: 3–2–1 INTERACTIVE REFLECTION FORM
+       ========================================================================== -->
+  <div id="modal321" class="modal-backdrop">
+    <div class="modal-sheet" style="max-width:1040px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Phiếu Tư Duy & Phản Tư 3–2–1</h3>
+          <span class="modal-subtitle">Nguyên tắc: NO OBSERVATION → NO AI • Tự động lưu trữ tiến độ</span>
+        </div>
+        <button class="modal-close-btn" type="button" onclick="closeModal('modal321')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="worksheetForm321" onsubmit="return false;">
+          <div class="form-321-grid">
+            <!-- Left Info Panel -->
+            <div class="student-card-panel">
+              <h4 style="font-size:0.875rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);">
+                THÔNG TIN HỌC SINH
+              </h4>
+
+              <div class="form-group">
+                <label class="form-label" for="form321StudentId">Mã Học Sinh</label>
+                <input class="form-input" id="form321StudentId" type="text" value="HS-6A1-024" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="form321Class">Lớp</label>
+                <input class="form-input" id="form321Class" type="text" value="6A1" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="form321Project">Di Sản Lựa Chọn</label>
+                <select class="form-select" id="form321Project">
+                  <option value="chuakeo">Chùa Keo — Kiến trúc gỗ</option>
+                  <option value="phohien">Phố Hiến — Đô thị cổ</option>
+                  <option value="dentran">Đền Trần — Hào khí Đông A</option>
+                  <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
+                  <option value="dongxam">Chạm bạc Đồng Xâm</option>
+                </select>
+              </div>
+
+              <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--border-subtle);">
+                <span id="save321Status" class="autosave-pill">✓ Đã sẵn sàng</span>
+              </div>
+            </div>
+
+            <!-- Right Steps Panel -->
+            <div class="steps-321-container">
+              <!-- Step 3 -->
+              <div class="step-card-321">
+                <div class="step-header-321">
+                  <span class="step-badge-number">3</span>
+                  <div class="step-header-text">
+                    <h3>3 Điều quan sát ấn tượng nhất</h3>
+                    <p>Ghi lại 3 chi tiết về đường nét, hình khối, hoa văn, hoặc màu sắc khiến em xúc động.</p>
+                  </div>
+                </div>
+                <textarea id="field321_3" class="form-textarea" placeholder="1. Nhịp điệu 12 đầu đao mái cong thanh thoát...&#10;2. Kết cấu con sơn vì kèo tầng 2 bằng gỗ lim khít khao...&#10;3. Sự tương phản giữa màu đỏ ngói và màu xanh mặt hồ..."></textarea>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="step-card-321">
+                <div class="step-header-321">
+                  <span class="step-badge-number">2</span>
+                  <div class="step-header-text">
+                    <h3>2 Câu hỏi tò mò / thắc mắc</h3>
+                    <p>Đặt 2 câu hỏi mà em muốn tìm hiểu sâu về kỹ thuật dựng hoặc ý nghĩa văn hóa.</p>
+                  </div>
+                </div>
+                <textarea id="field321_2" class="form-textarea" placeholder="1. Làm thế nào người xưa đưa quả chuông đồng nặng hàng tấn lên đỉnh tầng 3?&#10;2. Tại sao kiến trúc không dùng đinh sắt mà vẫn vững chãi qua bão gió?"></textarea>
+              </div>
+
+              <!-- Step 1 -->
+              <div class="step-card-321">
+                <div class="step-header-321">
+                  <span class="step-badge-number">1</span>
+                  <div class="step-header-text">
+                    <h3>1 Ý tưởng nghệ thuật cá nhân</h3>
+                    <p>Đề xuất 1 ý tưởng tác phẩm mĩ thuật số mà em muốn tự tay thực hiện.</p>
+                  </div>
+                </div>
+                <textarea id="field321_1" class="form-textarea" placeholder="Em muốn sáng tác một bức tranh màu nước góc nhìn ngước lên từ chân gác chuông, nhấn mạnh ánh hoàng hôn xuyên qua các khe vì kèo gỗ..."></textarea>
+              </div>
+
+              <!-- Actions -->
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:8px;">
+                <button id="btnExport321" type="button" class="btn-outline-pill">
+                  <span>In / Xuất PDF</span>
+                </button>
+
+                <button id="btnSendToAI5A" type="button" class="btn-pill-cta">
+                  <span>Chuyển dữ liệu sang Trợ lí AI 5A</span>
+                  <span class="btn-icon-circle">↗</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: AI 5A ART ASSISTANT STUDIO
+       ========================================================================== -->
+  <div id="ai5aStudioModal" class="modal-backdrop">
+    <div class="modal-sheet" style="max-width:1100px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">AI Art Assistant — Quy trình 5A</h3>
+          <span class="modal-subtitle">Ask • Analyze • Advise • Adapt • Art (AI đồng hành gợi mở — Không vẽ thay học sinh)</span>
+        </div>
+        <button class="modal-close-btn" type="button" onclick="closeModal('ai5aStudioModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="ai5a-studio-layout">
+          <!-- 5 Steps Stepper -->
+          <div id="aiStepsSidebar" class="ai5a-stepper-sidebar">
+            <!-- Dynamically rendered -->
+          </div>
+
+          <!-- Chat Stage -->
+          <div class="ai5a-chat-stage">
+            <div id="aiChatHistory" class="ai5a-chat-history">
+              <!-- Initial AI Greeting -->
+              <div class="chat-bubble ai">
+                Chào em! Thầy/Cô AI đồng hành cùng em trong dự án <b>SMART ART HERITAGE</b>.<br><br>
+                Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, chúng ta sẽ bắt đầu từ những cảm nhận thật của em trên Phiếu 3–2–1. Em đang chọn khám phá di sản nào và có mong muốn sáng tác bức tranh như thế nào?
+                <div class="ai-suggestions-chips">
+                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('chuakeo', 'Mái cong 12 đầu đao', 'Tranh màu nước hoàng hôn')">Chùa Keo: Tranh màu nước hoàng hôn</button>
+                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('phohien', 'Đền Mẫu hồ Bán Nguyệt', 'Tranh khắc gỗ đồ họa')">Phố Hiến: Đồ họa cổ điển</button>
+                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('dentran', 'Rồng đá tam cấp', 'Tạo hình 3D pop-up')">Đền Trần: Tạo hình 3D</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="ai5a-input-bar">
+              <input id="aiChatInput" class="form-input" style="background:#ffffff;" type="text" placeholder="Nhập câu trả lời hoặc suy nghĩ của em để AI gợi ý tiếp..." />
+              <button id="btnAiSend" class="btn-pill-cta" type="button">
+                <span>Gửi</span>
+                <span class="btn-icon-circle">↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 5: CANVAS CREATIVE STUDIO & PORTFOLIO
+       ========================================================================== -->
+  <div id="creativeStudioModal" class="modal-backdrop">
+    <div class="modal-sheet" style="max-width:1120px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Xưởng Sáng Tạo — Creative Studio</h3>
+          <span class="modal-subtitle">Phác thảo ý tưởng • Lưu trữ tác phẩm vào Portfolio cá nhân</span>
+        </div>
+        <button class="modal-close-btn" type="button" onclick="closeModal('creativeStudioModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="canvas-studio-grid">
+          <!-- Canvas Board -->
+          <div class="canvas-board-wrapper">
+            <div class="canvas-tools-bar">
+              <!-- Colors -->
+              <div class="color-swatches">
+                <button class="swatch-btn active" style="background:#171716;" data-color="#171716" title="Đen mực"></button>
+                <button class="swatch-btn" style="background:#7c4c28;" data-color="#7c4c28" title="Nâu gỗ lim"></button>
+                <button class="swatch-btn" style="background:#c46238;" data-color="#c46238" title="Đỏ chu sa"></button>
+                <button class="swatch-btn" style="background:#c89547;" data-color="#c89547" title="Vàng hoàng cung"></button>
+                <button class="swatch-btn" style="background:#3b5f48;" data-color="#3b5f48" title="Xanh rêu cổ"></button>
+              </div>
+
+              <!-- Brush Size -->
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:0.75rem; color:var(--text-muted);">Nét cọ:</span>
+                <input id="brushSizeInput" type="range" min="1" max="24" value="4" style="width:90px;" />
+              </div>
+
+              <!-- Actions -->
+              <div style="display:flex; gap:8px;">
+                <button id="btnClearCanvas" class="btn-outline-pill" style="padding:6px 12px; font-size:0.75rem;" type="button">Xóa nét vẽ</button>
+                <button id="btnSaveToPortfolio" class="btn-pill-cta" style="padding:6px 14px; font-size:0.75rem;" type="button">
+                  <span>Lưu Portfolio</span>
+                  <span class="btn-icon-circle">✓</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Drawing Surface -->
+            <canvas id="artCanvas"></canvas>
+          </div>
+
+          <!-- Portfolio Sidebar -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <h4 style="font-size:0.875rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);">
+              PORTFOLIO TÁC PHẨM CÁ NHÂN
+            </h4>
+
+            <div id="portfolioItemsList" style="display:flex; flex-direction:column; gap:12px; max-height:420px; overflow-y:auto;">
+              <!-- Rendered items -->
+            </div>
+
+            <div style="margin-top:auto; padding:14px; background:#f4efe6; border-radius:12px;">
+              <span style="font-size:0.75rem; font-weight:700; color:var(--text-primary); display:block; margin-bottom:4px;">RUBRIC ĐÁNH GIÁ THCS:</span>
+              <p style="font-size:0.75rem; color:var(--text-secondary); line-height:1.4;">
+                • Nhận thức di sản (25%)<br>
+                • Ý tưởng sáng tạo độc bản (25%)<br>
+                • Kỹ thuật tạo hình mĩ thuật (25%)<br>
+                • Tính thẩm mĩ & hoàn thiện (25%)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 6: TEACHER DASHBOARD & EVALUATION ANALYTICS
+       ========================================================================== -->
+  <div id="dashboardModal" class="modal-backdrop">
+    <div class="modal-sheet" style="max-width:1120px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Dashboard Giáo Viên Mĩ Thuật</h3>
+          <span class="modal-subtitle">Dữ liệu thực nghiệm Pre-test / Post-test & Tiến độ học tập ẩn danh</span>
+        </div>
+        <button class="modal-close-btn" type="button" onclick="closeModal('dashboardModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- KPI Cards -->
+        <div class="dashboard-kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-value">128</div>
+            <div class="kpi-title">Học sinh tham gia</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value">86%</div>
+            <div class="kpi-title">Tỉ lệ hoàn thành</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value">245</div>
+            <div class="kpi-title">Tác phẩm phác thảo</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-value">8.9/10</div>
+            <div class="kpi-title">Điểm Rubric trung bình</div>
+          </div>
+        </div>
+
+        <!-- Pre-test vs Post-test Chart -->
+        <div class="chart-comparison-box">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h4 style="font-size:1.0625rem; font-weight:700;">Kết quả thực nghiệm sư phạm: Pre-Test vs Post-Test</h4>
+            <div style="display:flex; gap:14px; font-size:0.75rem; font-weight:600;">
+              <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#a8a49a; border-radius:2px;"></span> Trước trải nghiệm (Pre)</span>
+              <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#435c4b; border-radius:2px;"></span> Sau trải nghiệm (Post)</span>
+            </div>
+          </div>
+
+          <div class="chart-bars-group">
+            <div class="chart-bar-row">
+              <span style="font-size:0.8125rem; font-weight:600;">Nhận thức di sản</span>
+              <div class="bar-track">
+                <div class="bar-pre" style="width:42%;"></div>
+                <div class="bar-post" style="width:47%;"></div>
+              </div>
+              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">8.9/10</span>
+            </div>
+
+            <div class="chart-bar-row">
+              <span style="font-size:0.8125rem; font-weight:600;">Kĩ năng quan sát</span>
+              <div class="bar-track">
+                <div class="bar-pre" style="width:51%;"></div>
+                <div class="bar-post" style="width:41%;"></div>
+              </div>
+              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.2/10</span>
+            </div>
+
+            <div class="chart-bar-row">
+              <span style="font-size:0.8125rem; font-weight:600;">Sáng tạo mĩ thuật</span>
+              <div class="bar-track">
+                <div class="bar-pre" style="width:48%;"></div>
+                <div class="bar-post" style="width:39%;"></div>
+              </div>
+              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">8.7/10</span>
+            </div>
+
+            <div class="chart-bar-row">
+              <span style="font-size:0.8125rem; font-weight:600;">Ứng dụng công nghệ 3D/AI</span>
+              <div class="bar-track">
+                <div class="bar-pre" style="width:39%;"></div>
+                <div class="bar-post" style="width:51%;"></div>
+              </div>
+              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.0/10</span>
+            </div>
+
+            <div class="chart-bar-row">
+              <span style="font-size:0.8125rem; font-weight:600;">Hứng thú học tập</span>
+              <div class="bar-track">
+                <div class="bar-pre" style="width:62%;"></div>
+                <div class="bar-post" style="width:33%;"></div>
+              </div>
+              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.5/10</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Progress Table -->
+        <div style="background:#ffffff; border:1px solid var(--border-subtle); border-radius:14px; padding:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h4 style="font-size:0.9375rem; font-weight:700;">Danh sách học sinh thực hiện (Mã ẩn danh)</h4>
+            <button id="btnExportDashboardCsv" class="btn-outline-pill" style="font-size:0.75rem; padding:6px 14px;" type="button">
+              Xuất dữ liệu CSV ↗
+            </button>
+          </div>
+
+          <table class="student-data-table">
+            <thead>
+              <tr>
+                <th>Mã Học Sinh</th>
+                <th>Lớp</th>
+                <th>Di Sản Đang Chọn</th>
+                <th>Quan Sát Hotspot</th>
+                <th>Phiếu 3–2–1</th>
+                <th>AI 5A</th>
+                <th>Tác Phẩm</th>
+                <th>Điểm Rubric</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>HS-6A1-001</b></td>
+                <td>6A1</td>
+                <td>Chùa Keo</td>
+                <td><span class="badge-status done">15/15 ảnh</span></td>
+                <td><span class="badge-status done">Đã hoàn thành</span></td>
+                <td><span class="badge-status done">5/5 bước</span></td>
+                <td><span class="badge-status done">Đã nộp</span></td>
+                <td><b>9.5</b></td>
+              </tr>
+              <tr>
+                <td><b>HS-6A1-002</b></td>
+                <td>6A1</td>
+                <td>Phố Hiến</td>
+                <td><span class="badge-status done">15/15 ảnh</span></td>
+                <td><span class="badge-status done">Đã hoàn thành</span></td>
+                <td><span class="badge-status pending">Bước A3</span></td>
+                <td><span class="badge-status pending">Đang vẽ</span></td>
+                <td><b>8.0</b></td>
+              </tr>
+              <tr>
+                <td><b>HS-6A1-003</b></td>
+                <td>6A1</td>
+                <td>Đền Trần</td>
+                <td><span class="badge-status done">15/15 ảnh</span></td>
+                <td><span class="badge-status done">Đã hoàn thành</span></td>
+                <td><span class="badge-status done">5/5 bước</span></td>
+                <td><span class="badge-status done">Đã nộp</span></td>
+                <td><b>9.0</b></td>
+              </tr>
+              <tr>
+                <td><b>HS-6A1-004</b></td>
+                <td>6A1</td>
+                <td>Khu lưu niệm Lê Quý Đôn</td>
+                <td><span class="badge-status done">12/15 ảnh</span></td>
+                <td><span class="badge-status pending">Đang viết</span></td>
+                <td><span class="badge-status pending">Chưa làm</span></td>
+                <td><span class="badge-status pending">Chưa nộp</span></td>
+                <td><b>7.5</b></td>
+              </tr>
+              <tr>
+                <td><b>HS-6A1-005</b></td>
+                <td>6A1</td>
+                <td>Chạm bạc Đồng Xâm</td>
+                <td><span class="badge-status done">15/15 ảnh</span></td>
+                <td><span class="badge-status done">Đã hoàn thành</span></td>
+                <td><span class="badge-status done">5/5 bước</span></td>
+                <td><span class="badge-status done">Đã nộp</span></td>
+                <td><b>8.5</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>SMART ART HERITAGE V1.0</h4>
+          <p class="footer-desc">
+            Hệ sinh thái Mĩ thuật số thông minh hỗ trợ học sinh THCS khám phá, sáng tạo và trải nghiệm di sản Hưng Yên bằng công nghệ AI, mô hình 3D và AR.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>QUẦN THỂ DI SẢN</h5>
+          <ul>
+            <li><a href="di-san.html#phohien">Phố Hiến thế kỷ XVII</a></li>
+            <li><a href="di-san.html#chuakeo">Chùa Keo kiến trúc gỗ</a></li>
+            <li><a href="di-san.html#dentran">Đền Trần Hưng Hà</a></li>
+            <li><a href="di-san.html#lequydon">Nhà bác học Lê Quý Đôn</a></li>
+            <li><a href="di-san.html#dongxam">Chạm bạc Đồng Xâm</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>CÔNG NGHỆ & SƯ PHẠM</h5>
+          <ul>
+            <li><a href="models.html">Phòng 3D Di Sản WebGL</a></li>
+            <li><a href="javascript:openModal('modal321')">Phiếu tư duy 3–2–1</a></li>
+            <li><a href="javascript:openModal('ai5aStudioModal')">Quy trình AI 5A Studio</a></li>
+            <li><a href="javascript:openModal('creativeStudioModal')">Xưởng vẽ & Portfolio</a></li>
+            <li><a href="javascript:openModal('dashboardModal')">Thực nghiệm Pre/Post</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>TIÊU CHUẨN KỸ THUẬT</h5>
+          <ul>
+            <li><span style="font-size:0.875rem; color:#aca79c;">100% Client-side privacy</span></li>
+            <li><span style="font-size:0.875rem; color:#aca79c;">Mã học sinh ẩn danh</span></li>
+            <li><span style="font-size:0.875rem; color:#aca79c;">Responsive Mobile/Tablet</span></li>
+            <li><span style="font-size:0.875rem; color:#aca79c;">Bản quyền Mĩ thuật số</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 SMART ART HERITAGE V1.0. All rights reserved. Hệ sinh thái Mĩ thuật số di sản Việt Nam.</span>
+        <span>NO OBSERVATION → NO AI</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script src="js/smart-art-heritage.js"></script>
+</body>
+</html>

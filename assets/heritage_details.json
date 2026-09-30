@@ -1,0 +1,437 @@
+{
+  "phohien": {
+    "info": {
+      "id": "p1",
+      "name": "Phố Hiến",
+      "subtitle": "Đô thị & Thương cảng cổ thế kỷ XVII",
+      "year": "Thế kỷ XVII",
+      "location": "Thành phố Hưng Yên"
+    },
+    "photos": [
+      {
+        "index": 1,
+        "caption": "01. Pho Hien tong quan",
+        "image": "assets/extracted/000_Ph__Hi_n.jpeg"
+      },
+      {
+        "index": 2,
+        "caption": "02. Cong di tich kien truc co",
+        "image": "assets/extracted/001_Pho_Hien_tong_quan.jpeg"
+      },
+      {
+        "index": 3,
+        "caption": "03. Cong tam quan",
+        "image": "assets/extracted/002_Cong_di_tich_kien_truc_co.jpeg"
+      },
+      {
+        "index": 4,
+        "caption": "04. Cong di tich co",
+        "image": "assets/extracted/003_Cong_tam_quan.jpeg"
+      },
+      {
+        "index": 5,
+        "caption": "05. Kien truc co Pho Hien",
+        "image": "assets/extracted/004_Cong_di_tich_co.jpeg"
+      },
+      {
+        "index": 6,
+        "caption": "06. Kien truc cong co",
+        "image": "assets/extracted/005_Kien_truc_co_Pho_Hien.jpeg"
+      },
+      {
+        "index": 7,
+        "caption": "07. Cong va khong gian di tich",
+        "image": "assets/extracted/006_Kien_truc_cong_co.jpeg"
+      },
+      {
+        "index": 8,
+        "caption": "08. Khong gian di tich",
+        "image": "assets/extracted/007_Cong_va_khong_gian_di_tich.jpeg"
+      },
+      {
+        "index": 9,
+        "caption": "09. Kien truc noi tu",
+        "image": "assets/extracted/008_Khong_gian_di_tich.jpeg"
+      },
+      {
+        "index": 10,
+        "caption": "10. Khong gian tho tu",
+        "image": "assets/extracted/009_Kien_truc_noi_tu.jpeg"
+      },
+      {
+        "index": 11,
+        "caption": "11. Kien truc go",
+        "image": "assets/extracted/010_Khong_gian_tho_tu.jpeg"
+      },
+      {
+        "index": 12,
+        "caption": "12. Kien truc go noi dien",
+        "image": "assets/extracted/011_Kien_truc_go.jpeg"
+      },
+      {
+        "index": 13,
+        "caption": "13. Noi that tho tu",
+        "image": "assets/extracted/012_Kien_truc_go_noi_dien.jpeg"
+      },
+      {
+        "index": 14,
+        "caption": "14. Den Ba Chua Kho",
+        "image": "assets/extracted/013_Noi_that_tho_tu.jpeg"
+      },
+      {
+        "index": 15,
+        "caption": "15. San noi tu",
+        "image": "assets/extracted/014_Den_Ba_Chua_Kho.jpeg"
+      }
+    ],
+    "hotspots": []
+  },
+  "chuakeo": {
+    "info": {
+      "id": "p2",
+      "name": "Chùa Keo",
+      "subtitle": "Kiệt tác kiến trúc gỗ & Gác chuông 3 tầng",
+      "year": "Khởi dựng 1632",
+      "location": "Vũ Thư / Thái Bình (nguồn gốc Hưng Yên)"
+    },
+    "photos": [
+      {
+        "index": 1,
+        "caption": "01. Toan canh quan the Chua Keo tu tren cao",
+        "image": "assets/extracted/015_San_noi_tu.jpeg"
+      },
+      {
+        "index": 2,
+        "caption": "02. Khong gian ho va quan the",
+        "image": "assets/extracted/016_Pho_Hien_tong_quan.jpeg"
+      },
+      {
+        "index": 3,
+        "caption": "03. Kien truc soi bong mat nuoc",
+        "image": "assets/extracted/017_Cong_di_tich_kien_truc_co.jpeg"
+      },
+      {
+        "index": 4,
+        "caption": "04. Toa nha chinh tren truc than dao",
+        "image": "assets/extracted/018_Cong_tam_quan.jpeg"
+      },
+      {
+        "index": 5,
+        "caption": "05. Kien truc go co",
+        "image": "assets/extracted/019_Cong_di_tich_co.jpeg"
+      },
+      {
+        "index": 6,
+        "caption": "06. Khong gian kien truc go va mai ngoi",
+        "image": "assets/extracted/020_Kien_truc_co_Pho_Hien.jpeg"
+      },
+      {
+        "index": 7,
+        "caption": "07. Gac chuong ba tang",
+        "image": "assets/extracted/021_Kien_truc_cong_co.jpeg"
+      },
+      {
+        "index": 8,
+        "caption": "08. Gac chuong goc nhin khac",
+        "image": "assets/extracted/022_Cong_va_khong_gian_di_tich.jpeg"
+      },
+      {
+        "index": 9,
+        "caption": "09. Cua go cham khac rong",
+        "image": "assets/extracted/023_Khong_gian_di_tich.jpeg"
+      },
+      {
+        "index": 10,
+        "caption": "10. Chi tiet cham khac ket cau go",
+        "image": "assets/extracted/024_Kien_truc_noi_tu.jpeg"
+      },
+      {
+        "index": 11,
+        "caption": "11. Chi tiet trang tri kien truc",
+        "image": "assets/extracted/025_Khong_gian_tho_tu.jpeg"
+      },
+      {
+        "index": 12,
+        "caption": "12. Hanh lang go",
+        "image": "assets/extracted/026_Kien_truc_go.jpeg"
+      },
+      {
+        "index": 13,
+        "caption": "13. Khong gian tho tu noi that",
+        "image": "assets/extracted/027_Kien_truc_go_noi_dien.jpeg"
+      },
+      {
+        "index": 14,
+        "caption": "14. Thap da va canh quan",
+        "image": "assets/extracted/028_Noi_that_tho_tu.jpeg"
+      },
+      {
+        "index": 15,
+        "caption": "15. Bia da di vat",
+        "image": "assets/extracted/029_Den_Ba_Chua_Kho.jpeg"
+      }
+    ],
+    "hotspots": []
+  },
+  "dentran": {
+    "info": {
+      "id": "p3",
+      "name": "Đền Trần Hưng Hà",
+      "subtitle": "Vùng đất phát tích & Lăng mộ các vua Trần",
+      "year": "Hào khí Đông A",
+      "location": "Hưng Hà"
+    },
+    "photos": [
+      {
+        "index": 1,
+        "caption": "01. Toan canh quan the tu tren cao",
+        "image": "assets/extracted/030_San_noi_tu.jpeg"
+      },
+      {
+        "index": 2,
+        "caption": "02. Truc than dao va khong gian quan the",
+        "image": "assets/extracted/031_Ch_a_Keo.jpeg"
+      },
+      {
+        "index": 3,
+        "caption": "03. Cong va kien truc tong the",
+        "image": "assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg"
+      },
+      {
+        "index": 4,
+        "caption": "04. Nghi mon den Tran",
+        "image": "assets/extracted/033_Khong_gian_ho_va_quan_the.jpeg"
+      },
+      {
+        "index": 5,
+        "caption": "05. Kien truc chinh dien",
+        "image": "assets/extracted/034_Kien_truc_soi_bong_mat_nuoc.jpeg"
+      },
+      {
+        "index": 6,
+        "caption": "06. Khong gian san va tien te",
+        "image": "assets/extracted/035_Toa_nha_chinh_tren_truc_than_d.jpeg"
+      },
+      {
+        "index": 7,
+        "caption": "07. Khu phan mo trong quan the",
+        "image": "assets/extracted/036_Kien_truc_go_co.jpeg"
+      },
+      {
+        "index": 8,
+        "caption": "08. Gian tho vua Tran Thai Tong",
+        "image": "assets/extracted/037_Khong_gian_kien_truc_go_va_mai.jpeg"
+      },
+      {
+        "index": 9,
+        "caption": "09. Ban tho noi that",
+        "image": "assets/extracted/038_Gac_chuong_ba_tang.jpeg"
+      },
+      {
+        "index": 10,
+        "caption": "10. Chi tiet do tho noi that",
+        "image": "assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg"
+      },
+      {
+        "index": 11,
+        "caption": "11. Duong vao quan the co hoi",
+        "image": "assets/extracted/040_Cua_go_cham_khac_rong.jpeg"
+      },
+      {
+        "index": 12,
+        "caption": "12. Nghi thuc ruoc trong le hoi",
+        "image": "assets/extracted/041_Chi_tiet_cham_khac_ket_cau_go.jpeg"
+      },
+      {
+        "index": 13,
+        "caption": "13. Ruoc rong le hoi",
+        "image": "assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg"
+      },
+      {
+        "index": 14,
+        "caption": "14. Nghi le dan gian",
+        "image": "assets/extracted/043_Hanh_lang_go.jpeg"
+      },
+      {
+        "index": 15,
+        "caption": "15. Khong khi le hoi toan canh",
+        "image": "assets/extracted/044_Khong_gian_tho_tu_noi_that.jpeg"
+      }
+    ],
+    "hotspots": []
+  },
+  "lequydon": {
+    "info": {
+      "id": "p4",
+      "name": "Khu lưu niệm Lê Quý Đôn",
+      "subtitle": "Danh nhân văn hóa - Nhà bác học thế kỷ XVIII",
+      "year": "Thế kỷ XVIII",
+      "location": "Diên Hà"
+    },
+    "photos": [
+      {
+        "index": 1,
+        "caption": "01. Chan dung bac hoc Le Quy Don",
+        "image": "assets/extracted/045_Thap_da_va_canh_quan.jpeg"
+      },
+      {
+        "index": 2,
+        "caption": "02. Tuong va tu lieu ton vinh Le Quy Don",
+        "image": "assets/extracted/046_Bia_da_di_vat.jpeg"
+      },
+      {
+        "index": 3,
+        "caption": "03. Khu luu niem nha bac hoc",
+        "image": "assets/extracted/047_Toan_canh_quan_the_Chua_Keo_tu.jpeg"
+      },
+      {
+        "index": 4,
+        "caption": "04. Khu luu niem danh nhan",
+        "image": "assets/extracted/048_Khong_gian_ho_va_quan_the.jpeg"
+      },
+      {
+        "index": 5,
+        "caption": "05. Khong gian tho tu noi that",
+        "image": "assets/extracted/049_Kien_truc_soi_bong_mat_nuoc.jpeg"
+      },
+      {
+        "index": 6,
+        "caption": "06. Kien truc va hoanh phi noi that",
+        "image": "assets/extracted/050_Toa_nha_chinh_tren_truc_than_d.jpeg"
+      },
+      {
+        "index": 7,
+        "caption": "07. Khong gian trung bay di san",
+        "image": "assets/extracted/051_Kien_truc_go_co.jpeg"
+      },
+      {
+        "index": 8,
+        "caption": "08. Tham quan huong dan tai khu luu niem",
+        "image": "assets/extracted/052_Khong_gian_kien_truc_go_va_mai.jpeg"
+      },
+      {
+        "index": 9,
+        "caption": "09. Hoat dong giao duc trai nghiem",
+        "image": "assets/extracted/053_Gac_chuong_ba_tang.jpeg"
+      },
+      {
+        "index": 10,
+        "caption": "10. Dang huong tuong niem",
+        "image": "assets/extracted/054_Gac_chuong_goc_nhin_khac.jpeg"
+      },
+      {
+        "index": 11,
+        "caption": "11. Hoat dong tuong niem tai di tich",
+        "image": "assets/extracted/055_Cua_go_cham_khac_rong.jpeg"
+      },
+      {
+        "index": 12,
+        "caption": "12. Hoi thao ky niem tai khu luu niem",
+        "image": "assets/extracted/056_Chi_tiet_cham_khac_ket_cau_go.jpeg"
+      },
+      {
+        "index": 13,
+        "caption": "13. Su kien ky niem 300 nam",
+        "image": "assets/extracted/057_Chi_tiet_trang_tri_kien_truc.jpeg"
+      },
+      {
+        "index": 14,
+        "caption": "14. Chuong trinh nghe thuat ton vinh",
+        "image": "assets/extracted/058_Hanh_lang_go.jpeg"
+      },
+      {
+        "index": 15,
+        "caption": "15. Hinh anh nhan dien ky niem 300 nam",
+        "image": "assets/extracted/059_Khong_gian_tho_tu_noi_that.jpeg"
+      }
+    ],
+    "hotspots": []
+  },
+  "dongxam": {
+    "info": {
+      "id": "p5",
+      "name": "Làng nghề chạm bạc Đồng Xâm",
+      "subtitle": "Nghệ thuật chạm khắc kim hoàn 500 năm",
+      "year": "Truyền thống 500 năm",
+      "location": "Kiến Xương"
+    },
+    "photos": [
+      {
+        "index": 1,
+        "caption": "01. Den tho To nghe kim hoan Dong Xam",
+        "image": "assets/extracted/060_Thap_da_va_canh_quan.jpeg"
+      },
+      {
+        "index": 2,
+        "caption": "02. Nghe nhan trong xuong cham bac",
+        "image": "assets/extracted/061_Bia_da_di_vat.jpeg"
+      },
+      {
+        "index": 3,
+        "caption": "03. Thao tac cham tren phoi kim loai",
+        "image": "assets/extracted/062___n_Tr_n_H_ng_H_.jpeg"
+      },
+      {
+        "index": 4,
+        "caption": "04. Nghe nhan cham tac hoa van",
+        "image": "assets/extracted/063_Toan_canh_quan_the_tu_tren_cao.jpeg"
+      },
+      {
+        "index": 5,
+        "caption": "05. Truyen nghe va thuc hanh cham bac",
+        "image": "assets/extracted/064_Truc_than_dao_va_khong_gian_qu.jpeg"
+      },
+      {
+        "index": 6,
+        "caption": "06. Ky thuat tao net tren be mat",
+        "image": "assets/extracted/065_Cong_va_kien_truc_tong_the.jpeg"
+      },
+      {
+        "index": 7,
+        "caption": "07. Can canh ky thuat cham",
+        "image": "assets/extracted/066_Nghi_mon_den_Tran.jpeg"
+      },
+      {
+        "index": 8,
+        "caption": "08. Nhom tho thuc hien san pham lon",
+        "image": "assets/extracted/067_Kien_truc_chinh_dien.jpeg"
+      },
+      {
+        "index": 9,
+        "caption": "09. Phoi hop cham tac chi tiet",
+        "image": "assets/extracted/068_Khong_gian_san_va_tien_te.jpeg"
+      },
+      {
+        "index": 10,
+        "caption": "10. Hoan thien mang cham trang tri",
+        "image": "assets/extracted/069_Khu_phan_mo_trong_quan_the.jpeg"
+      },
+      {
+        "index": 11,
+        "caption": "11. Chi tiet hoa van rong cham noi",
+        "image": "assets/extracted/070_Gian_tho_vua_Tran_Thai_Tong.jpeg"
+      },
+      {
+        "index": 12,
+        "caption": "12. San pham mam cham trang tri",
+        "image": "assets/extracted/071_Ban_tho_noi_that.jpeg"
+      },
+      {
+        "index": 13,
+        "caption": "13. San pham ong bac cham hoa van",
+        "image": "assets/extracted/072_Chi_tiet_do_tho_noi_that.jpeg"
+      },
+      {
+        "index": 14,
+        "caption": "14. San pham gia dung bang bac",
+        "image": "assets/extracted/073_Duong_vao_quan_the_co_hoi.jpeg"
+      },
+      {
+        "index": 15,
+        "caption": "15. Nghe nhan va san pham tieu bieu",
+        "image": "assets/extracted/074_Nghi_thuc_ruoc_trong_le_hoi.jpeg"
+      }
+    ],
+    "hotspots": []
+  }
+}

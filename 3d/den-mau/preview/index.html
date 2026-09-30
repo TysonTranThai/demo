@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART ART HERITAGE — Đền Mẫu Phố Hiến 3D Preview (GLB)</title>
+<style>
+  :root { color-scheme: light; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, #9ec3e4 0%, #cfe0ec 55%, #e8dccb 100%);
+    overflow: hidden;
+  }
+  #stage { position: fixed; inset: 0; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+  .hud {
+    position: fixed; z-index: 10;
+    background: rgba(20, 18, 15, 0.78);
+    color: #f2ede2; backdrop-filter: blur(8px);
+    border: 1px solid rgba(241, 208, 132, 0.25);
+    border-radius: 12px;
+  }
+  #panel { top: 16px; left: 16px; padding: 14px 18px; max-width: 300px; }
+  #panel h1 { font-size: 0.95rem; font-weight: 800; letter-spacing: 0.02em; color: #f1d084; margin-bottom: 4px; }
+  #panel p { font-size: 0.72rem; line-height: 1.5; color: #cfc8b8; }
+  #panel .stat { color: #9fe0a8; font-weight: 700; }
+
+  #controls { bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; padding: 8px; }
+  #controls button {
+    font: 600 0.72rem/1 'Plus Jakarta Sans', sans-serif;
+    padding: 9px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(241, 208, 132, 0.35);
+    background: rgba(42, 42, 39, 0.9); color: #f1d084;
+    transition: background 0.15s;
+  }
+  #controls button:hover { background: rgba(241, 208, 132, 0.18); }
+  #controls button.active { background: #f1d084; color: #221f1a; }
+
+  #loader {
+    position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+    background: rgba(15, 14, 12, 0.92); color: #f1d084;
+    transition: opacity 0.4s ease;
+  }
+  #loader.hidden { opacity: 0; pointer-events: none; }
+  #loader .bar { width: 220px; height: 4px; background: rgba(241, 208, 132, 0.2); border-radius: 4px; overflow: hidden; }
+  #loader .bar > div { height: 100%; width: 0%; background: #f1d084; transition: width 0.2s; }
+  #loader .label { font-size: 0.78rem; letter-spacing: 0.06em; }
+
+  #err {
+    position: fixed; inset: auto 16px 16px 16px; z-index: 30; display: none;
+    padding: 12px 16px; border-radius: 10px;
+    background: #5c1f1f; color: #ffd9d9; font-size: 0.78rem; line-height: 1.5;
+  }
+  @media (max-width: 640px) {
+    #panel { max-width: 240px; padding: 10px 14px; }
+    #panel h1 { font-size: 0.8rem; }
+    #panel p { font-size: 0.64rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stage"></div>
+
+<div id="panel" class="hud">
+  <h1>ĐỀN MẪU PHỐ HIẾN — 3D PREVIEW</h1>
+  <p>Nghi môn gate, temple, hồ Bán Nguyệt and waving flags from the Blender master.
+     <span class="stat" id="statLine">loading…</span><br>
+     Drag to orbit · scroll/pinch to zoom · double-click to reset</p>
+</div>
+
+<div id="controls" class="hud">
+  <button id="btnAuto" class="active">Auto-orbit</button>
+  <button id="btnLanterns">Flags: On</button>
+  <button id="btnReset">Reset view</button>
+</div>
+
+<div id="loader">
+  <div class="label">LOADING 3D MODEL</div>
+  <div class="bar"><div id="barFill"></div></div>
+</div>
+
+<div id="err"></div>
+
+<script src="vendor/three.min.js"></script>
+<script src="vendor/GLTFLoader.js"></script>
+<script src="vendor/OrbitControls.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var stage = document.getElementById('stage');
+  var errBox = document.getElementById('err');
+  var loader = document.getElementById('loader');
+  var barFill = document.getElementById('barFill');
+  var statLine = document.getElementById('statLine');
+
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var scene, camera, renderer, controls, mixer, gltfScene;
+  var autoOrbit = !prefersReduced;
+  var lanternsOn = true;
+  var clock = new THREE.Clock();
+
+  function fail(msg) {
+    errBox.style.display = 'block';
+    errBox.textContent = msg;
+    loader.classList.add('hidden');
+  }
+
+  if (!window.THREE) { fail('three.js failed to load — check your connection and reload.'); return; }
+  if (!window.THREE.GLTFLoader) { fail('GLTFLoader failed to load — check your connection and reload.'); return; }
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xaecbe6);
+  scene.fog = new THREE.Fog(0xaecbe6, 50, 160);
+
+  camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 400);
+  (function () {
+    var aspect0 = window.innerWidth / Math.max(window.innerHeight, 1);
+    var dist = aspect0 < 0.8 ? 1.55 : (aspect0 < 1.2 ? 1.25 : 1.0);
+    camera.position.set(27 * dist, 15 * dist, 31 * dist);
+  })();
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  stage.appendChild(renderer.domElement);
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 3.4, 0);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.minDistance = 10;
+  controls.maxDistance = 95;
+  controls.maxPolarAngle = Math.PI * 0.52;
+  controls.autoRotate = autoOrbit;
+  controls.autoRotateSpeed = 0.9;
+
+  // --- lighting: warm key sun with shadows + cool sky fill
+  var hemi = new THREE.HemisphereLight(0xbfd8f0, 0x8a7a5c, 0.75);
+  scene.add(hemi);
+
+  var sun = new THREE.DirectionalLight(0xfff0dc, 1.5);
+  sun.position.set(-18, 22, -14);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -30; sun.shadow.camera.right = 30;
+  sun.shadow.camera.top = 34; sun.shadow.camera.bottom = -10;
+  sun.shadow.camera.far = 150;
+  sun.shadow.bias = -0.0004;
+  scene.add(sun);
+
+  var fill = new THREE.DirectionalLight(0xcfe0ff, 0.35);
+  fill.position.set(14, 10, 16);
+  scene.add(fill);
+
+  // --- ground: warm clay disc matching the reference courtyard
+  var ground = new THREE.Mesh(
+    new THREE.CircleGeometry(70, 48),
+    new THREE.MeshStandardMaterial({ color: 0xb99a72, roughness: 0.95 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.86;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // --- load the GLB
+  var gltfLoader = new THREE.GLTFLoader();
+  gltfLoader.load(
+    '../exports/den-mau-model.glb',
+    function (gltf) {
+      gltfScene = gltf.scene;
+      window.__gltfScene = gltfScene;
+      window.__gltf = gltf;
+
+      var maxAniso = renderer.capabilities.getMaxAnisotropy();
+      gltfScene.traverse(function (node) {
+        if (node.isMesh) {
+          node.castShadow = true;
+          node.receiveShadow = true;
+          if (node.material) {
+            node.material.envMapIntensity = 0.6;
+            ['map', 'roughnessMap', 'metalnessMap', 'normalMap'].forEach(function (slot) {
+              if (node.material[slot]) node.material[slot].anisotropy = maxAniso;
+            });
+            node.material.needsUpdate = true;
+          }
+        }
+      });
+
+      scene.add(gltfScene);
+      // debug: report lantern rig nodes
+      var rigReport = [];
+      gltfScene.traverse(function (n) {
+        if (/Lantern_Pivot/.test(n.name) || /Flag_Pivot/.test(n.name) || (n.parent && (/^Lantern_/.test(n.parent.name) || /^Flag_Pivot/.test(n.parent.name)))) {
+          rigReport.push({ name: n.name, type: n.type, visible: n.visible,
+            children: n.children ? n.children.length : 0,
+            pos: [n.position.x.toFixed(2), n.position.y.toFixed(2), n.position.z.toFixed(2)] });
+        }
+      });
+      window.__rigReport = rigReport;
+
+      if (gltf.animations && gltf.animations.length) {
+        mixer = new THREE.AnimationMixer(gltfScene);
+        gltf.animations.forEach(function (clip) {
+          var act = mixer.clipAction(clip);
+          act.play();
+          if (prefersReduced) act.paused = true;
+        });
+      }
+
+      document.getElementById('statLine').textContent =
+        gltf.animations.length + ' animations · 37.3k tris · GLB 4.1 MB';
+
+      loader.classList.add('hidden');
+      animate();
+    },
+    function (xhr) {
+      if (xhr.total) barFill.style.width = Math.round(xhr.loaded / xhr.total * 100) + '%';
+    },
+    function (err) {
+      fail('Failed to load the GLB model: ' + err);
+    }
+  );
+
+  // --- interaction
+  var btnAuto = document.getElementById('btnAuto');
+  var btnLant = document.getElementById('btnLanterns');
+  var btnReset = document.getElementById('btnReset');
+
+  btnAuto.classList.toggle('active', autoOrbit);
+  btnAuto.addEventListener('click', function () {
+    autoOrbit = !autoOrbit;
+    controls.autoRotate = autoOrbit;
+    btnAuto.classList.toggle('active', autoOrbit);
+  });
+
+  btnLant.addEventListener('click', function () {
+    lanternsOn = !lanternsOn;
+    if (!gltfScene || !mixer) return;
+    mixer.timeScale = lanternsOn ? 1 : 0;
+    gltfScene.traverse(function (node) {
+      var p = node.parent, hit = false;
+      while (p) { if (/^Lantern_Pivot|^Flag_Pivot/.test(p.name)) { hit = true; break; } p = p.parent; }
+      if (hit) node.visible = lanternsOn;
+    });
+    btnLant.textContent = 'Flags: ' + (lanternsOn ? 'On' : 'Off');
+  });
+
+  var homePos = camera.position.clone();
+  var homeTgt = controls.target.clone();
+  btnReset.addEventListener('click', resetView);
+  renderer.domElement.addEventListener('dblclick', resetView);
+
+  function resetView() {
+    camera.position.copy(homePos);
+    controls.target.copy(homeTgt);
+  }
+
+  function syncSize() {
+    var w = stage.clientWidth || window.innerWidth;
+    var h = stage.clientHeight || window.innerHeight;
+    if (w === 0 || h === 0) return;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+  }
+  window.addEventListener('resize', syncSize);
+  if (window.ResizeObserver) {
+    new ResizeObserver(syncSize).observe(stage);
+  }
+  syncSize();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    var dt = clock.getDelta();
+    if (stage.clientWidth && renderer.domElement.width === 0) syncSize();
+    if (mixer && lanternsOn) mixer.update(dt);
+    controls.update();
+    renderer.render(scene, camera);
+    window.__pagodaDebug = { calls: renderer.info.render.calls, tris: renderer.info.render.triangles, fpsFrames: (window.__pagodaDebug && window.__pagodaDebug.fpsFrames || 0) + 1 };
+  }
+})();
+</script>
+</body>
+</html>

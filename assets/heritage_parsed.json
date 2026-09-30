@@ -1,0 +1,1337 @@
+{
+  "phohien": {
+    "info": {
+      "id": "p1",
+      "name": "Phố Hiến",
+      "subtitle": "Đô thị & Thương cảng cổ thế kỷ XVII",
+      "year": "Thế kỷ XVII",
+      "location": "Hưng Yên"
+    },
+    "photos_count": 15,
+    "hotspots": [
+      {
+        "index": 1,
+        "code": "PH01 • Toàn cảnh Phố Hiến",
+        "title": "Pho Hien tong quan",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em thấy các công trình nằm gần nhau hay tách thành nhiều điểm khác nhau?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Phố Hiến là một quần thể gồm nhiều di tích, phản ánh ký ức của một đô thị – thương cảng cổ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn 2 chi tiết làm bằng chứng cho câu trả lời."
+        }
+      },
+      {
+        "index": 2,
+        "code": "PH02 • Đền Mẫu – hồ Bán Nguyệt",
+        "title": "Cong di tich kien truc co",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Mặt nước trước công trình làm cảnh quan rộng và đẹp hơn như thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đền Mẫu nằm cạnh hồ Bán Nguyệt; mặt nước là một phần quan trọng của cảnh quan di tích."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: phác 3–5 nét chính em vừa quan sát."
+        }
+      },
+      {
+        "index": 3,
+        "code": "PH03 • Cây cổ thụ",
+        "title": "Cong tam quan",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Dáng thân và cành cây làm em cảm nhận tuổi đời của không gian ra sao?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Cây cổ thụ góp phần tạo cảm giác cổ kính và liên tục của không gian di sản."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: khoanh hoặc chỉ đúng vị trí em đang nói tới."
+        }
+      },
+      {
+        "index": 4,
+        "code": "PH04 • Văn Miếu Xích Đằng",
+        "title": "Cong di tich co",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nào trong ảnh gợi cho em về truyền thống học tập?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Văn Miếu Xích Đằng gắn với truyền thống hiếu học và khoa bảng của Hưng Yên."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghi 1 điều nhìn thấy và 1 điều muốn biết thêm."
+        }
+      },
+      {
+        "index": 5,
+        "code": "PH05 • Bia đá khoa bảng",
+        "title": "Kien truc co Pho Hien",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Trên bia em nhìn thấy chữ, hoa văn hay hình khối nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bia đá vừa có giá trị tạo hình vừa lưu giữ thông tin lịch sử; phần chữ không rõ cần tra cứu, không đoán."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: biến một chi tiết thành biểu tượng nhỏ."
+        }
+      },
+      {
+        "index": 6,
+        "code": "PH06 • Chùa Chuông – trục kiến trúc",
+        "title": "Kien truc cong co",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Từ cổng nhìn vào, các lớp công trình có nối tiếp theo một hướng không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Chùa Chuông nổi bật với bố cục cân xứng trên trục từ tam quan vào các lớp kiến trúc."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tìm trục hoặc hướng nhìn chính."
+        }
+      },
+      {
+        "index": 7,
+        "code": "PH07 • Nhịp mái chùa",
+        "title": "Cong va khong gian di tich",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Các lớp mái lặp lại tạo nhịp điệu như thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Nhịp mái, cột và khoảng sân tạo tiết tấu thị giác của kiến trúc truyền thống."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: mô tả nhịp điệu bằng các nét lặp."
+        }
+      },
+      {
+        "index": 8,
+        "code": "PH08 • Tam quan",
+        "title": "Khong gian di tich",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Cổng vừa để đi qua vừa tạo dấu hiệu gì cho không gian phía trong?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Tam quan đánh dấu sự chuyển tiếp từ không gian bên ngoài vào không gian tôn giáo."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn một chi tiết làm điểm nhấn."
+        }
+      },
+      {
+        "index": 9,
+        "code": "PH09 • Dấu ấn giao thoa văn hóa",
+        "title": "Kien truc noi tu",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nào trong ảnh khác với những di tích Việt truyền thống em thường thấy?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Phố Hiến có dấu ấn giao lưu của nhiều cộng đồng và tín ngưỡng, tạo nên sự đa dạng di tích."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: so sánh với một ảnh khác trong cùng hồ sơ."
+        }
+      },
+      {
+        "index": 10,
+        "code": "PH10 • Không gian cộng đồng",
+        "title": "Khong gian tho tu",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Không gian này có dấu hiệu nào cho thấy nhiều người từng gặp gỡ hoặc sinh hoạt tại đây?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Một số di tích phản ánh đời sống cộng đồng của cư dân và thương nhân Phố Hiến."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: viết 3 từ khóa Mĩ thuật phù hợp."
+        }
+      },
+      {
+        "index": 11,
+        "code": "PH11 • Đình – chùa",
+        "title": "Kien truc go",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em thấy kiến trúc và cảnh quan hỗ trợ nhau như thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Quần thể Phố Hiến cho thấy đời sống tín ngưỡng và cộng đồng cùng tồn tại trong không gian đô thị cổ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tách 'nhìn thấy' và 'cần tra cứu'."
+        }
+      },
+      {
+        "index": 12,
+        "code": "PH12 • Bảng màu di sản",
+        "title": "Kien truc go noi dien",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Những màu nào xuất hiện nhiều nhất trong ảnh?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Màu nâu gỗ, đỏ, vàng, xám ngói và xanh cây tạo bảng màu đặc trưng của nhiều di tích cổ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: lập bảng màu 3–4 ô."
+        }
+      },
+      {
+        "index": 13,
+        "code": "PH13 • Hoa văn",
+        "title": "Noi that tho tu",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em tìm được mô-típ nào lặp lại trên mái, cửa hoặc đồ trang trí?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Hoa văn truyền thống thường dùng cách điệu, lặp lại và đối xứng."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chép một mô-típ bằng nét đơn giản."
+        }
+      },
+      {
+        "index": 14,
+        "code": "PH14 • Sự đa dạng di tích",
+        "title": "Den Ba Chua Kho",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Sau nhiều ảnh, em thấy các di tích giống hệt nhau hay có nét riêng?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu di tích quốc gia đặc biệt Phố Hiến gồm nhiều di tích tiêu biểu, vì vậy sự đa dạng chính là một giá trị quan trọng."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghép 2 ảnh để kể một câu chuyện."
+        }
+      },
+      {
+        "index": 15,
+        "code": "PH15 • Bảo tồn Phố Hiến",
+        "title": "San noi tu",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nào cần giữ gìn nhất để người sau vẫn nhận ra bản sắc Phố Hiến?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bảo tồn cần quan tâm đồng thời lịch sử, kiến trúc, cảnh quan và dấu vết văn hóa."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: đề xuất một sản phẩm số nhỏ để giới thiệu/bảo tồn di sản."
+        }
+      }
+    ]
+  },
+  "chuakeo": {
+    "info": {
+      "id": "p2",
+      "name": "Chùa Keo",
+      "subtitle": "Kiệt tác kiến trúc gỗ & Gác chuông 3 tầng",
+      "year": "1632",
+      "location": "Vũ Thư - Hưng Yên cổ"
+    },
+    "photos_count": 15,
+    "hotspots": [
+      {
+        "index": 1,
+        "code": "CK01 • Nhìn toàn cảnh",
+        "title": "Toan canh quan the Chua Keo tu tren cao",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em nhìn thấy các công trình được xếp thẳng theo một hướng hay nằm rải ra nhiều phía?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Chùa Keo có nhiều hạng mục được tổ chức thành các lớp không gian. Cách sắp xếp có trật tự giúp người xem cảm nhận rõ đường đi từ ngoài vào khu thờ tự."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Dùng ngón tay lần theo hướng đi từ ngoài vào trong ảnh và kể tên những phần em nhận ra."
+        }
+      },
+      {
+        "index": 2,
+        "code": "CK02 • Hồ nước trước chùa",
+        "title": "Khong gian ho va quan the",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hồ nước nằm trước khu kiến trúc có làm không gian trông rộng và thoáng hơn không? Vì sao?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Hồ nước tạo khoảng đệm cảnh quan giữa các lớp kiến trúc. Mặt nước còn góp phần làm dịu không gian và tạo thêm hiệu quả phản chiếu."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Tìm 2 yếu tố trong ảnh cho thấy hồ nước có liên hệ với kiến trúc xung quanh."
+        }
+      },
+      {
+        "index": 3,
+        "code": "CK03 • Bóng chùa trên mặt nước",
+        "title": "Kien truc soi bong mat nuoc",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em thấy phần nào của công trình được phản chiếu xuống mặt nước? Hình thật và bóng phản chiếu có tạo cảm giác cân bằng không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Phản chiếu tạo một hình ảnh gần đối xứng qua mặt nước, giúp cảnh quan có chiều sâu và tăng vẻ yên tĩnh."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Chọn một đường chính của công trình và tìm đường tương ứng trong phần phản chiếu."
+        }
+      },
+      {
+        "index": 4,
+        "code": "CK04 • Trục chính",
+        "title": "Toa nha chinh tren truc than dao",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu đứng ở giữa lối đi và nhìn thẳng vào chùa, mắt em thường hướng đến công trình nào trước?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Nhiều công trình kiến trúc truyền thống được tổ chức theo trục chính. Trục giúp tạo thứ tự, sự cân đối và dẫn hướng người xem."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Tìm đường giữa của ảnh và xem hai phía có cân bằng với nhau không."
+        }
+      },
+      {
+        "index": 5,
+        "code": "CK05 • Bộ khung gỗ",
+        "title": "Kien truc go co",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em hãy tìm trong ảnh những cột gỗ đứng thẳng và những thanh gỗ nằm ngang. Theo em chúng phối hợp với nhau để làm gì?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Kiến trúc Chùa Keo sử dụng hệ khung gỗ gồm nhiều cấu kiện liên kết với nhau để đỡ mái và tạo không gian bên trong."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Chỉ ra 1 cột đứng và 1 thanh ngang mà em nhìn thấy rõ nhất."
+        }
+      },
+      {
+        "index": 6,
+        "code": "CK06 • Mái ngói",
+        "title": "Khong gian kien truc go va mai ngoi",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Các hàng ngói trên mái lặp lại đều hay không đều? Sự lặp lại đó làm mái chùa trông như thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Mái Chùa Keo lợp ngói mũi hài. Những hàng ngói lặp lại tạo nhịp điệu, còn đường mái góp phần tạo vẻ mềm mại cho công trình."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Vẽ nhanh 5–7 nét lặp để mô tả nhịp của hàng ngói."
+        }
+      },
+      {
+        "index": 7,
+        "code": "CK07 • Gác chuông",
+        "title": "Gac chuong ba tang",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Quan sát gác chuông: tầng trên nhỏ hơn hay lớn hơn tầng dưới? Cách xếp như vậy làm công trình có cảm giác cao hơn hay thấp hơn?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Gác chuông Chùa Keo có 3 tầng, 12 mái, làm theo kiểu chồng diêm cổ các. Các tầng thu dần giúp công trình vừa vươn cao vừa giữ được sự cân đối."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Dùng 3 hình đơn giản xếp chồng để phác lại dáng chính của gác chuông."
+        }
+      },
+      {
+        "index": 8,
+        "code": "CK08 • Chuông và các tầng",
+        "title": "Gac chuong goc nhin khac",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Theo em vì sao công trình này phải làm nhiều tầng chứ không chỉ một tầng?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Gác chuông vừa có giá trị kiến trúc vừa có công năng. Tư liệu di sản cho biết các tầng lưu giữ khánh đá và những quả chuông khác nhau."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Quan sát hình dáng rồi nêu 1 điểm cho thấy đây vừa là công trình sử dụng được, vừa là công trình đẹp."
+        }
+      },
+      {
+        "index": 9,
+        "code": "CK09 • Cửa chạm rồng",
+        "title": "Cua go cham khac rong",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hai hình rồng trên cửa quay về cùng một phía hay hướng vào giữa? Nếu kẻ một đường ở chính giữa, hai bên có cân nhau không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bộ cửa trung quan nổi tiếng với nghệ thuật chạm khắc thế kỷ XVII. Cách bố trí rồng hướng về trung tâm tạo trục đối xứng và điểm nhấn."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Tìm trục giữa và dùng hai nét cong để mô phỏng hướng chuyển động của hai hình rồng."
+        }
+      },
+      {
+        "index": 10,
+        "code": "CK10 • Chạm khắc gỗ",
+        "title": "Chi tiet cham khac ket cau go",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em tìm thấy hình hoặc đường nét trang trí nào được chạm trên gỗ? Chi tiết ấy nổi lên hay chìm xuống bề mặt?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Ở Chùa Keo, nhiều cấu kiện gỗ vừa tham gia kiến trúc vừa được chạm khắc công phu, tạo nên giá trị Mĩ thuật đặc sắc."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Chọn 1 chi tiết chạm và mô tả bằng 3 từ về hình, nét hoặc độ nổi."
+        }
+      },
+      {
+        "index": 11,
+        "code": "CK11 • Trang trí trên kiến trúc",
+        "title": "Chi tiet trang tri kien truc",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Các họa tiết trong ảnh được lặp lại, đặt đối xứng hay tập trung ở một điểm chính?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Nghệ thuật trang trí kiến trúc thường dùng lặp lại, đối xứng và cách điệu để làm đẹp nhưng vẫn hòa với cấu trúc công trình."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Chọn 1 nguyên tắc em nhận ra và chỉ đúng vị trí trong ảnh."
+        }
+      },
+      {
+        "index": 12,
+        "code": "CK12 • Hành lang",
+        "title": "Hanh lang go",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Các hàng cột chạy dài làm mắt em nhìn theo hướng nào? Cột ở xa trông to hơn hay nhỏ hơn cột ở gần?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Chùa Keo có hai dãy hành lang Đông và Tây bao quanh khu chùa Phật – đền Thánh. Nhịp cột kéo dài vừa dẫn lối vừa tạo chiều sâu."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Tìm điểm mà các đường của hành lang có cảm giác tiến gần lại nhau."
+        }
+      },
+      {
+        "index": 13,
+        "code": "CK13 • Không gian thờ tự",
+        "title": "Khong gian tho tu noi that",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Trong ảnh, màu sắc, ánh sáng và đồ thờ tạo cho em cảm giác trang nghiêm bằng cách nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Chùa Keo không chỉ thờ Phật mà còn thờ Đức Thánh Dương Không Lộ. Không gian thờ tự được tổ chức để tạo sự tôn kính và tập trung."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Nêu 2 chi tiết em nhìn thấy trực tiếp làm cho không gian trở nên trang nghiêm."
+        }
+      },
+      {
+        "index": 14,
+        "code": "CK14 • Tháp đá",
+        "title": "Thap da va canh quan",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Tháp đá khác các công trình gỗ trong ảnh ở điểm nào về màu sắc, bề mặt và hình khối?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Trong một quần thể di tích, sự khác nhau về vật liệu như gỗ và đá tạo nên nhiều chất cảm và giúp người xem nhận biết các loại công trình."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "So sánh gỗ và đá bằng 3 từ: màu – bề mặt – cảm giác."
+        }
+      },
+      {
+        "index": 15,
+        "code": "CK15 • Bia đá",
+        "title": "Bia da di vat",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em nhìn thấy trên bia những gì: chữ, hoa văn, hình dáng hay cả ba? Theo em bia đá giúp người sau biết thêm điều gì?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bia đá vừa là hiện vật tạo hình vừa có thể lưu giữ thông tin lịch sử. Khi nghiên cứu bia, cần quan sát hình dáng, chất liệu, chữ khắc, hoa văn và vị trí đặt bia."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Ghi 2 điều nhìn thấy rõ trong ảnh và 1 điều em cần tra cứu thêm; không đoán phần chữ không đọc được."
+        }
+      }
+    ]
+  },
+  "dentran": {
+    "info": {
+      "id": "p3",
+      "name": "Đền Trần Hưng Hà",
+      "subtitle": "Vùng đất phát tích & Lăng mộ các vua Trần",
+      "year": "Triều Trần",
+      "location": "Hưng Hà"
+    },
+    "photos_count": 15,
+    "hotspots": [
+      {
+        "index": 1,
+        "code": "DT01 • Toàn cảnh quần thể",
+        "title": "Toan canh quan the tu tren cao",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Khu đền được tổ chức theo một trục hay nhiều cụm?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đây là quần thể gắn với vùng đất phát tích và tưởng niệm các vị vua triều Trần."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn 2 chi tiết làm bằng chứng cho câu trả lời."
+        }
+      },
+      {
+        "index": 2,
+        "code": "DT02 • Cổng đền",
+        "title": "Truc than dao va khong gian quan the",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Yếu tố nào làm cổng có vẻ trang nghiêm?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Cổng tạo ngưỡng chuyển tiếp và thứ bậc không gian."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: phác 3–5 nét chính em vừa quan sát."
+        }
+      },
+      {
+        "index": 3,
+        "code": "DT03 • Sân và trục chính",
+        "title": "Cong va kien truc tong the",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Khoảng sân rộng giúp công trình chính nổi bật thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khoảng trống trước kiến trúc giúp tạo tầm nhìn và nhấn trục chính."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: khoanh hoặc chỉ đúng vị trí em đang nói tới."
+        }
+      },
+      {
+        "index": 4,
+        "code": "DT04 • Đền thờ các vua Trần",
+        "title": "Nghi mon den Tran",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Dấu hiệu nào cho em biết đây là nơi tưởng niệm?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Kiến trúc, đồ thờ và bố cục cùng tạo không gian tôn kính các vua Trần."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghi 1 điều nhìn thấy và 1 điều muốn biết thêm."
+        }
+      },
+      {
+        "index": 5,
+        "code": "DT05 • Mái đền",
+        "title": "Kien truc chinh dien",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Mái tạo cảm giác vững chắc hay thanh thoát?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đường ngang chắc chắn và đường cong mái tạo sự cân bằng thị giác."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: biến một chi tiết thành biểu tượng nhỏ."
+        }
+      },
+      {
+        "index": 6,
+        "code": "DT06 • Không gian thờ tự",
+        "title": "Khong gian san va tien te",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Ánh sáng và màu sắc bên trong tạo cảm giác gì?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Không gian thờ tự dùng ánh sáng, màu và bố cục để tăng sự tập trung, trang nghiêm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tìm trục hoặc hướng nhìn chính."
+        }
+      },
+      {
+        "index": 7,
+        "code": "DT07 • Khu lăng mộ",
+        "title": "Khu phan mo trong quan the",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Không gian lăng mộ khác khu đền thờ ở điểm nào dễ thấy nhất?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Lăng mộ và đền thờ có chức năng khác nhau nhưng cùng thuộc không gian tưởng niệm triều Trần."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: mô tả nhịp điệu bằng các nét lặp."
+        }
+      },
+      {
+        "index": 8,
+        "code": "DT08 • Cảnh quan lăng mộ",
+        "title": "Gian tho vua Tran Thai Tong",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Cây xanh và khoảng trống quanh mộ làm không gian thay đổi ra sao?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Cảnh quan là một phần của giá trị di tích, không chỉ là phần trang trí."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn một chi tiết làm điểm nhấn."
+        }
+      },
+      {
+        "index": 9,
+        "code": "DT09 • Bia/biển thông tin",
+        "title": "Ban tho noi that",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Thông tin nào em đọc được chắc chắn, thông tin nào cần tra cứu?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bia và biển giới thiệu là nguồn hỗ trợ; học sinh cần phân biệt dữ kiện với suy đoán."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: so sánh với một ảnh khác trong cùng hồ sơ."
+        }
+      },
+      {
+        "index": 10,
+        "code": "DT10 • Biểu tượng triều Trần",
+        "title": "Chi tiet do tho noi that",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nào có thể dùng làm hình ảnh kể chuyện về triều Trần?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Biểu tượng thị giác giúp cô đọng câu chuyện lịch sử thành hình ảnh dễ nhớ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: viết 3 từ khóa Mĩ thuật phù hợp."
+        }
+      },
+      {
+        "index": 11,
+        "code": "DT11 • Không gian lễ hội",
+        "title": "Duong vao quan the co hoi",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Khoảng sân và lối đi có thể được sử dụng thế nào khi có lễ hội?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Di sản vật thể và hoạt động văn hóa cùng tạo nên đời sống của di tích."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tách 'nhìn thấy' và 'cần tra cứu'."
+        }
+      },
+      {
+        "index": 12,
+        "code": "DT12 • Vật liệu",
+        "title": "Nghi thuc ruoc trong le hoi",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Gỗ, ngói và đá có bề mặt khác nhau ra sao?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Vật liệu giúp cảm nhận kỹ thuật, tuổi đời và quá trình bảo tồn."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: lập bảng màu 3–4 ô."
+        }
+      },
+      {
+        "index": 13,
+        "code": "DT13 • Đối xứng",
+        "title": "Ruoc rong le hoi",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu kẻ đường giữa, hai phía công trình có cân bằng không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đối xứng thường tạo trật tự và tính nghi lễ trong kiến trúc tưởng niệm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chép một mô-típ bằng nét đơn giản."
+        }
+      },
+      {
+        "index": 14,
+        "code": "DT14 • Đền và lăng",
+        "title": "Nghi le dan gian",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Vì sao cần xem cả khu đền và khu lăng mộ để hiểu di tích?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đọc cả đền thờ và lăng mộ giúp hiểu đầy đủ hơn cấu trúc và ý nghĩa của quần thể."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghép 2 ảnh để kể một câu chuyện."
+        }
+      },
+      {
+        "index": 15,
+        "code": "DT15 • Bảo tồn quần thể",
+        "title": "Khong khi le hoi toan canh",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Theo em cần giữ đồng thời những yếu tố nào của quần thể?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Quy hoạch bảo tồn hiện xem khu lăng mộ và đền thờ như một tổng thể cảnh quan – lịch sử."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: đề xuất một sản phẩm số nhỏ để giới thiệu/bảo tồn di sản."
+        }
+      }
+    ]
+  },
+  "lequydon": {
+    "info": {
+      "id": "p4",
+      "name": "Khu lưu niệm Lê Quý Đôn",
+      "subtitle": "Danh nhân văn hóa - Nhà bác học bách khoa",
+      "year": "1726 - 1784",
+      "location": "Diên Hà"
+    },
+    "photos_count": 15,
+    "hotspots": [
+      {
+        "index": 1,
+        "code": "LQD01 • Toàn cảnh khu lưu niệm",
+        "title": "Chan dung bac hoc Le Quy Don",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em thấy những khu vực chính nào trong toàn cảnh?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu lưu niệm là không gian tưởng niệm và giáo dục về cuộc đời, sự nghiệp Lê Quý Đôn."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn 2 chi tiết làm bằng chứng cho câu trả lời."
+        }
+      },
+      {
+        "index": 2,
+        "code": "LQD02 • Tượng Lê Quý Đôn",
+        "title": "Tuong va tu lieu ton vinh Le Quy Don",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Tư thế và vị trí đặt tượng làm em cảm nhận nhân vật thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Tượng danh nhân dùng hình khối, tư thế và vị trí để tạo hình ảnh tưởng niệm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: phác 3–5 nét chính em vừa quan sát."
+        }
+      },
+      {
+        "index": 3,
+        "code": "LQD03 • Đền thờ",
+        "title": "Khu luu niem nha bac hoc",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Yếu tố nào làm đền thờ trang trọng?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đền thờ thể hiện sự tri ân đối với nhà bác học."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: khoanh hoặc chỉ đúng vị trí em đang nói tới."
+        }
+      },
+      {
+        "index": 4,
+        "code": "LQD04 • Kiến trúc truyền thống",
+        "title": "Khu luu niem danh nhan",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Mái, cột và sân gợi nét kiến trúc truyền thống nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu lưu niệm mang ngôn ngữ kiến trúc truyền thống Việt Nam."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghi 1 điều nhìn thấy và 1 điều muốn biết thêm."
+        }
+      },
+      {
+        "index": 5,
+        "code": "LQD05 • Thư viện",
+        "title": "Khong gian tho tu noi that",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Vì sao thư viện rất phù hợp với một khu lưu niệm về Lê Quý Đôn?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu lưu niệm có hạng mục thư viện, kết nối tưởng niệm với học tập và nghiên cứu."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: biến một chi tiết thành biểu tượng nhỏ."
+        }
+      },
+      {
+        "index": 6,
+        "code": "LQD06 • Sách và tri thức",
+        "title": "Kien truc va hoanh phi noi that",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu có sách/tư liệu, em sẽ chia chúng thành nhóm thế nào để dễ hiểu?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Lê Quý Đôn để lại một di sản học thuật lớn ở nhiều lĩnh vực."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tìm trục hoặc hướng nhìn chính."
+        }
+      },
+      {
+        "index": 7,
+        "code": "LQD07 • Không gian trưng bày",
+        "title": "Khong gian trung bay di san",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Ảnh, chữ và hiện vật nên sắp xếp ra sao để không rối mắt?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Thiết kế trưng bày là Mĩ thuật ứng dụng, cần thứ bậc thông tin rõ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: mô tả nhịp điệu bằng các nét lặp."
+        }
+      },
+      {
+        "index": 8,
+        "code": "LQD08 • Quê hương",
+        "title": "Tham quan huong dan tai khu luu niem",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Cảnh quan quê hương làm câu chuyện về danh nhân gần gũi hơn thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu lưu niệm gắn với quê hương của Lê Quý Đôn, giúp nối nhân vật lịch sử với địa phương."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn một chi tiết làm điểm nhấn."
+        }
+      },
+      {
+        "index": 9,
+        "code": "LQD09 • Tinh thần hiếu học",
+        "title": "Hoat dong giao duc trai nghiem",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Ảnh nào khiến em nghĩ nhiều nhất đến việc học?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đây là địa chỉ giáo dục truyền thống và tinh thần hiếu học cho thế hệ trẻ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: so sánh với một ảnh khác trong cùng hồ sơ."
+        }
+      },
+      {
+        "index": 10,
+        "code": "LQD10 • Chân dung danh nhân",
+        "title": "Dang huong tuong niem",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu làm poster, em đặt chân dung ở đâu để nổi bật?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bố cục chân dung cần điểm nhấn và khoảng trống cho thông tin."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: viết 3 từ khóa Mĩ thuật phù hợp."
+        }
+      },
+      {
+        "index": 11,
+        "code": "LQD11 • Dấu mốc 300 năm",
+        "title": "Hoat dong tuong niem tai di tich",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Một biểu trưng kỷ niệm cần đơn giản và dễ nhớ như thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Năm 2026 diễn ra kỷ niệm 300 năm ngày sinh Lê Quý Đôn, làm nổi bật giá trị di sản của danh nhân."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tách 'nhìn thấy' và 'cần tra cứu'."
+        }
+      },
+      {
+        "index": 12,
+        "code": "LQD12 • Di sản học thuật",
+        "title": "Hoi thao ky niem tai khu luu niem",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Theo em di sản của một nhà bác học có chỉ là công trình kiến trúc không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Di sản danh nhân còn nằm ở trước tác, tri thức và ảnh hưởng đối với các thế hệ sau."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: lập bảng màu 3–4 ô."
+        }
+      },
+      {
+        "index": 13,
+        "code": "LQD13 • Học từ hiện vật",
+        "title": "Su kien ky niem 300 nam",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Một hiện vật có giá trị chỉ vì đẹp hay còn vì câu chuyện của nó?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Trong giáo dục di sản, hình thức Mĩ thuật và thông tin lịch sử cần được đọc cùng nhau."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chép một mô-típ bằng nét đơn giản."
+        }
+      },
+      {
+        "index": 14,
+        "code": "LQD14 • Lớp học di sản",
+        "title": "Chuong trinh nghe thuat ton vinh",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu đưa lớp học đến đây, em muốn học ở điểm nào nhất?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Khu lưu niệm có thể trở thành lớp học ngoài nhà trường, kết nối nhiều môn học."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghép 2 ảnh để kể một câu chuyện."
+        }
+      },
+      {
+        "index": 15,
+        "code": "LQD15 • Số hóa di sản",
+        "title": "Hinh anh nhan dien ky niem 300 nam",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Làm thế nào dùng công nghệ để giới thiệu di sản mà vẫn tôn trọng tư liệu gốc?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Số hóa giúp lan tỏa di sản nhưng phải ghi nguồn và phân biệt dữ kiện với sáng tạo."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: đề xuất một sản phẩm số nhỏ để giới thiệu/bảo tồn di sản."
+        }
+      }
+    ]
+  },
+  "dongxam": {
+    "info": {
+      "id": "p5",
+      "name": "Làng nghề chạm bạc Đồng Xâm",
+      "subtitle": "Nghệ thuật chạm khắc kim hoàn truyền thống",
+      "year": "Hơn 500 năm",
+      "location": "Kiến Xương"
+    },
+    "photos_count": 15,
+    "hotspots": [
+      {
+        "index": 1,
+        "code": "DX01 • Toàn cảnh làng nghề",
+        "title": "Den tho To nghe kim hoan Dong Xam",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Em thấy con người, nơi làm nghề hay sản phẩm nào nổi bật?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đồng Xâm nổi tiếng với nghề chạm bạc truyền thống; di sản gồm người thợ, kỹ thuật và sản phẩm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn 2 chi tiết làm bằng chứng cho câu trả lời."
+        }
+      },
+      {
+        "index": 2,
+        "code": "DX02 • Người nghệ nhân",
+        "title": "Nghe nhan trong xuong cham bac",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Bàn tay và tư thế làm việc cho thấy công việc cần sự tập trung thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Kỹ năng nghệ nhân được hình thành qua thực hành và kinh nghiệm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: phác 3–5 nét chính em vừa quan sát."
+        }
+      },
+      {
+        "index": 3,
+        "code": "DX03 • Dụng cụ",
+        "title": "Thao tac cham tren phoi kim loai",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hai dụng cụ trong ảnh khác nhau ở phần đầu ra sao?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Dụng cụ chuyên biệt giúp tạo đường, mảng và độ nổi/chìm trên kim loại."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: khoanh hoặc chỉ đúng vị trí em đang nói tới."
+        }
+      },
+      {
+        "index": 4,
+        "code": "DX04 • Quy trình tạo hoa văn",
+        "title": "Nghe nhan cham tac hoa van",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hoa văn được tạo ngay một lần hay qua nhiều bước?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Sản phẩm chạm bạc trải qua nhiều thao tác tạo hình và hoàn thiện."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghi 1 điều nhìn thấy và 1 điều muốn biết thêm."
+        }
+      },
+      {
+        "index": 5,
+        "code": "DX05 • Nổi và chìm",
+        "title": "Truyen nghe va thuc hanh cham bac",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nào nổi lên và chi tiết nào chìm xuống?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Độ nổi/chìm làm bề mặt bắt sáng khác nhau và tạo chiều sâu."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: biến một chi tiết thành biểu tượng nhỏ."
+        }
+      },
+      {
+        "index": 6,
+        "code": "DX06 • Ánh sáng trên bạc",
+        "title": "Ky thuat tao net tren be mat",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Vì sao cùng một bề mặt bạc có chỗ sáng và chỗ tối?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Kim loại phản xạ ánh sáng mạnh; hướng bề mặt quyết định sắc độ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tìm trục hoặc hướng nhìn chính."
+        }
+      },
+      {
+        "index": 7,
+        "code": "DX07 • Đối xứng",
+        "title": "Can canh ky thuat cham",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu kẻ đường giữa, hai bên hoa văn có cân nhau không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Đối xứng tạo trật tự và cân bằng cho trang trí."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: mô tả nhịp điệu bằng các nét lặp."
+        }
+      },
+      {
+        "index": 8,
+        "code": "DX08 • Lặp lại",
+        "title": "Nhom tho thuc hien san pham lon",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Mô-típ nào xuất hiện nhiều lần?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Lặp lại tạo nhịp điệu và phát triển mô-típ thành dải hoa văn."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chọn một chi tiết làm điểm nhấn."
+        }
+      },
+      {
+        "index": 9,
+        "code": "DX09 • Cách điệu",
+        "title": "Phoi hop cham tac chi tiet",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hoa lá/con vật giống hệt tự nhiên hay đã được giản lược?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Cách điệu giữ đặc điểm dễ nhận biết nhưng biến đổi để phù hợp trang trí."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: so sánh với một ảnh khác trong cùng hồ sơ."
+        }
+      },
+      {
+        "index": 10,
+        "code": "DX10 • Bố cục sản phẩm",
+        "title": "Hoan thien mang cham trang tri",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Điểm nào thu hút mắt em đầu tiên?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bố cục cần chính – phụ và điểm nhấn rõ."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: viết 3 từ khóa Mĩ thuật phù hợp."
+        }
+      },
+      {
+        "index": 11,
+        "code": "DX11 • Chữ và hoa văn",
+        "title": "Chi tiet hoa van rong cham noi",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Nếu có chữ, chữ được đặt với hoa văn thế nào để dễ đọc?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Chữ vừa mang thông tin vừa là yếu tố tạo hình."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: tách 'nhìn thấy' và 'cần tra cứu'."
+        }
+      },
+      {
+        "index": 12,
+        "code": "DX12 • Công năng sản phẩm",
+        "title": "San pham mam cham trang tri",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hình dáng sản phẩm gợi cho em biết nó dùng vào việc gì?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Công năng ảnh hưởng kích thước, hình dáng và cách trang trí sản phẩm."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: lập bảng màu 3–4 ô."
+        }
+      },
+      {
+        "index": 13,
+        "code": "DX13 • Tay nghề",
+        "title": "San pham ong bac cham hoa van",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Chi tiết nhỏ và dày cho thấy sản phẩm cần nhiều công sức thế nào?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Giá trị thủ công còn nằm ở thời gian, độ chính xác và kỹ năng."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: chép một mô-típ bằng nét đơn giản."
+        }
+      },
+      {
+        "index": 14,
+        "code": "DX14 • Thiết kế mới",
+        "title": "San pham gia dung bang bac",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Hoa văn truyền thống có thể đưa lên sản phẩm hiện đại không?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Thiết kế mới có thể kế thừa mô-típ truyền thống nếu hiểu đặc trưng và ghi nhận nguồn cảm hứng."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: ghép 2 ảnh để kể một câu chuyện."
+        }
+      },
+      {
+        "index": 15,
+        "code": "DX15 • Bảo tồn nghề",
+        "title": "Nghe nhan va san pham tieu bieu",
+        "q1": {
+          "title": "① Nhìn ảnh – trả lời",
+          "content": "Điều gì cần truyền lại: sản phẩm, dụng cụ hay kỹ năng người thợ?"
+        },
+        "q2": {
+          "title": "② Em có biết?",
+          "content": "Bảo tồn làng nghề cần giữ kỹ năng, tri thức nghề, mẫu hoa văn và cộng đồng thực hành."
+        },
+        "q3": {
+          "title": "③ Thử làm nhé",
+          "content": "Thử làm: đề xuất một sản phẩm số nhỏ để giới thiệu/bảo tồn di sản."
+        }
+      }
+    ]
+  }
+}

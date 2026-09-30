@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Chùa Keo — Di sản &amp; Câu hỏi — Smart Art Heritage</title>
+  <meta name="description" content="Hồ sơ khám phá di sản: 15 điểm chạm quan sát với hình ảnh chất lượng cao và bộ câu hỏi ① Nhìn ảnh – trả lời ② Em có biết? ③ Thử làm nhé.">
+  <meta name="theme-color" content="#0e1116">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #f2eee6;
+      --ink-dim: rgba(242, 238, 230, 0.62);
+      --ink-faint: rgba(242, 238, 230, 0.34);
+      --glass: rgba(14, 17, 22, 0.55);
+      --glass-strong: rgba(14, 17, 22, 0.82);
+      --gold: #f1d084;
+      --terra: #c46238;
+      --hair: rgba(242, 238, 230, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      background: #0e1116;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ---------- top bar ---------- */
+    .ds-top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      background: rgba(14, 17, 22, 0.86);
+      border-bottom: 1px solid var(--hair);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .ds-home {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--glass-strong);
+      border: 1px solid var(--hair);
+      color: var(--ink-dim);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .ds-home svg { width: 20px; height: 20px; }
+    .ds-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
+
+    .ds-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 62vw;
+    }
+    .ds-tabs::-webkit-scrollbar { display: none; }
+
+    .ds-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink-dim);
+      font-family: inherit;
+      font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .ds-tab:hover { background: rgba(242, 238, 230, 0.08); color: var(--ink); }
+    .ds-tab.is-active {
+      background: rgba(241, 208, 132, 0.14);
+      border-color: rgba(241, 208, 132, 0.35);
+      color: var(--gold);
+    }
+    .ds-tab-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ---------- hero header ---------- */
+    .ds-hero {
+      position: relative;
+      min-height: 44vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .ds-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.92);
+    }
+    .ds-hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,17,22,0.42) 0%, rgba(14,17,22,0.12) 40%, rgba(14,17,22,0.96) 100%);
+    }
+    .ds-hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 28px 30px;
+    }
+    .ds-hero-eyebrow {
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.36em;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .ds-hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      margin: 0;
+      line-height: 1.04;
+      text-shadow: 0 8px 50px rgba(0,0,0,0.5);
+    }
+    .ds-hero-sub {
+      margin-top: 12px;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-dim);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+    .ds-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .ds-meta-chip {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ink-dim);
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* ---------- main ---------- */
+    .ds-main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 28px 90px;
+    }
+
+    .ds-section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .ds-section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    .ds-section-note {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    /* ---------- hotspot masonry ---------- */
+    .ds-grid {
+      column-count: 3;
+      column-gap: 18px;
+    }
+    @media (max-width: 1024px) { .ds-grid { column-count: 2; } }
+    @media (max-width: 640px)  { .ds-grid { column-count: 1; } }
+
+    .hs-card {
+      break-inside: avoid;
+      margin: 0 0 18px;
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .hs-card:hover { border-color: rgba(241, 208, 132, 0.4); }
+
+    .hs-photo-wrap {
+      position: relative;
+      background: #20242b;
+    }
+    .hs-photo {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: saturate(0.95);
+    }
+    .hs-no {
+      position: absolute;
+      top: 10px; left: 10px;
+      font-size: 0.6rem; font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #17171
+6;
+      background: var(--gold);
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+
+    .hs-body { padding: 16px 18px 14px; }
+    .hs-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 12px;
+    }
+
+    .hs-q { border-top: 1px solid var(--hair); }
+    .hs-q summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 2px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--ink-dim);
+      transition: color 0.2s ease;
+      user-select: none;
+    }
+    .hs-q summary::-webkit-details-marker { display: none; }
+    .hs-q summary:hover, .hs-q[open] summary { color: var(--ink); }
+    .hs-q-mark {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--hair);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .hs-q[open] .hs-q-mark { background: rgba(241, 208, 132, 0.14); border-color: rgba(241, 208, 132, 0.35); }
+    .hs-q-chev {
+      margin-left: auto;
+      font-size: 0.7rem;
+      transition: transform 0.25s ease;
+      color: var(--ink-faint);
+    }
+    .hs-q[open] .hs-q-chev { transform: rotate(90deg); }
+    .hs-q-body {
+      padding: 2px 2px 14px 31px;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: var(--ink-dim);
+    }
+
+    .hs-open-all {
+      margin-top: 4px;
+    }
+
+    /* ---------- footer note ---------- */
+    .ds-foot {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .ds-foot-text {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .ds-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ds-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      color: var(--ink-dim);
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .ds-btn:hover { background: var(--glass-strong); color: var(--ink); }
+    .ds-btn-primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #171716;
+    }
+    .ds-btn-primary:hover { background: #f7dfa8; color: #171716; }
+
+    /* ---------- skeleton / loading ---------- */
+    .ds-loading {
+      padding: 80px 0;
+      text-align: center;
+      color: var(--ink-faint);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- responsive top bar ---------- */
+    @media (max-width: 768px) {
+      .ds-home-text { display: none; }
+      .ds-home { width: 38px; height: 38px; }
+      .ds-tabs { max-width: none; }
+      .ds-hero-inner { padding: 36px 18px 24px; }
+      .ds-main { padding: 24px 18px 70px; }
+      .ds-foot { padding: 0 18px 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="ds-top">
+    <a class="ds-home" href="index.html" title="Về trang chủ" aria-label="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+        <path d="M10 21v-6h4v6"/>
+      </svg>
+    </a>
+    <nav class="ds-tabs" id="dsTabs" aria-label="Chọn di sản"></nav>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="ds-hero">
+    <img class="ds-hero-img" id="dsHeroImg" src="assets/extracted/cover_chuakeo.jpeg" alt="">
+    <div class="ds-hero-scrim"></div>
+    <div class="ds-hero-inner">
+      <div class="ds-hero-eyebrow" id="dsCrumb">DI SẢN 02 / 05</div>
+      <h1 class="ds-hero-title" id="dsTitle">Chùa Keo</h1>
+      <p class="ds-hero-sub" id="dsDesc">Đang tải hồ sơ di sản…</p>
+      <div class="ds-hero-meta" id="dsMeta"></div>
+    </div>
+  </header>
+
+  <!-- ============ HOTSPOTS + QUESTIONS ============ -->
+  <main class="ds-main">
+    <div class="ds-section-head">
+      <h2 class="ds-section-title">15 Điểm chạm quan sát &amp; câu hỏi</h2>
+      <span class="ds-section-note" id="dsCount"></span>
+    </div>
+
+    <div class="ds-grid" id="dsGrid">
+      <div class="ds-loading">Đang tải điểm chạm…</div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="ds-foot">
+    <span class="ds-foot-text">NO OBSERVATION → NO AI · Quan sát thật trước khi sáng tạo</span>
+    <div class="ds-actions">
+      <a class="ds-btn" href="models.html">Vào phòng 3D ↗</a>
+      <a class="ds-btn ds-btn-primary" href="index.html#selectedWork">Tất cả di sản</a>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var ORDER = ['phohien', 'chuakeo', 'dentran', 'lequydon', 'dongxam'];
+
+    var META = {
+      phohien: {
+        name: 'Phố Hiến', crumbName: 'Phố Hiến',
+        tagline: 'Đô thị & Thương cảng cổ thế kỷ XVII',
+        year: 'Thế kỷ XVII', location: 'Thành phố Hưng Yên',
+        cover: 'assets/extracted/cover_phohien.jpeg',
+        description: "Từng được mệnh danh là 'Thứ nhất Kinh Kỳ, thứ nhì Phố Hiến', đây là thương cảng quốc tế sầm uất bậc nhất Đàng Ngoài với quần thể di tích đình, đền, chùa và hồ Bán Nguyệt thơ mộng.",
+        tags: ['Thương Cảng Cổ', 'Đền Mẫu', 'Hồ Bán Nguyệt', 'Kiến Trúc Gỗ'],
+        color: '#c46238'
+      },
+      chuakeo: {
+        name: 'Chùa Keo', crumbName: 'Chùa Keo',
+        tagline: 'Kiệt tác kiến trúc gỗ & Gác chuông 3 tầng 12 mái',
+        year: 'Khởi dựng 1632', location: 'Hưng Yên cổ / Thái Bình',
+        cover: 'assets/extracted/cover_chuakeo.jpeg',
+        description: 'Đỉnh cao của kiến trúc gỗ cổ truyền Việt Nam. Gác chuông Chùa Keo cao 11.04m với 3 tầng 12 mái cong hình đầu đao, liên kết bằng hệ thống con sơn đấu củng chịu lực tinh xảo hoàn toàn không dùng đinh sắt.',
+        tags: ['Gác Chuông 3 Tầng', '12 Mái Cong', 'Đấu Củng', 'Gỗ Lim'],
+        color: '#7c4c28'
+      },
+      dentran: {
+        name: 'Đền Trần Hưng Hà', crumbName: 'Đền Trần',
+        tagline: 'Vùng đất phát tích & Lăng mộ các vua triều Trần',
+        year: 'Hào khí Đông A', location: 'Hưng Hà',
+        cover: 'assets/extracted/cover_dentran.jpeg',
+        description: 'Nơi an nghỉ của các vị vua khởi nghiệp nhà Trần, mang đậm hào khí Đông A với kiến trúc trục thần đạo trang nghiêm, bậc tam cấp chạm rồng đá và các lễ hội rước nước, kéo chữ truyền thống.',
+        tags: ['Lăng Mộ Triều Trần', 'Hào Khí Đông A', 'Rồng Đá', 'Trục Thần Đạo'],
+        color: '#435c4b'
+      },
+      lequydon: {
+        name: 'Khu lưu niệm Lê Quý Đôn', crumbName: 'Lê Quý Đôn',
+        tagline: 'Không gian tưởng niệm Nhà bác học bách khoa thế kỷ XVIII',
+        year: 'Thế kỷ XVIII', location: 'Diên Hà, Thái Bình',
+        cover: 'assets/extracted/cover_lequydon.jpeg',
+        description: 'Khu lưu niệm tôn vinh danh nhân văn hóa, nhà bác học lỗi lạc Lê Quý Đôn. Không gian kết hợp giữa đền thờ truyền thống, tượng danh nhân, thư tịch cổ và các hoạt động giáo dục địa phương.',
+        tags: ['Nhà Bác Học', 'Tượng Đồng Danh Nhân', 'Thư Tịch Cổ', 'Giáo Dục Địa Phương'],
+        color: '#a39e93'
+      },
+      dongxam: {
+        name: 'Làng nghề chạm bạc Đồng Xâm', crumbName: 'Đồng Xâm',
+        tagline: 'Nghệ thuật chạm khắc kim hoàn thủ công tinh xảo 500 năm',
+        year: 'Truyền thống 500 năm', location: 'Kiến Xương, Thái Bình',
+        cover: 'assets/extracted/cover_dongxam.jpeg',
+        description: 'Cái nôi của nghề chạm bạc truyền thống Việt Nam. Với kỹ thuật "thúc, ve, trổ, chạm" điêu luyện, nghệ nhân Đồng Xâm thổi hồn vào các tấm kim loại bạc, đồng thành những tác phẩm hoa văn rồng phượng sống động.',
+        tags: ['Chạm Bạc', 'Nghệ Nhân Kim Hoàn', 'Hoa Văn Rồng Phượng', 'Thủ Công Mỹ Nghệ'],
+        color: '#c89547'
+      }
+    };
+
+    function $(id) { return document.getElementById(id); }
+
+    var state = { key: null, data: null };
+
+    function init() {
+      var hash = (location.hash || '').replace('#', '');
+      buildTabs();
+      var startKey = ORDER.indexOf(hash) >= 0 ? hash : 'chuakeo';
+      loadData(startKey);
+      window.addEventListener('hashchange', function () {
+        var k = (location.hash || '').replace('#', '');
+        if (ORDER.indexOf(k) >= 0 && k !== state.key) loadData(k);
+      });
+    }
+
+    function buildTabs() {
+      var tabs = $('dsTabs');
+      tabs.innerHTML = '';
+      ORDER.forEach(function (key, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ds-tab';
+        b.dataset.heritage = key;
+        b.innerHTML =
+          '<span class="ds-tab-dot" style="background:' + META[key].color + '"></span>' +
+          '0' + (i + 1) + ' • ' + META[key].crumbName;
+        b.addEventListener('click', function () { location.hash = key; window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        tabs.appendChild(b);
+      });
+    }
+
+    function loadData(key) {
+      state.key = key;
+      Array.prototype.forEach.call($('dsTabs').children, function (t) {
+        t.classList.toggle('is-active', t.dataset.heritage === key);
+      });
+
+      if (!state.data) {
+        $('dsGrid').innerHTML = '<div class="ds-loading">Đang tải hồ sơ di sản…</div>';
+        fetch('assets/heritage_complete.json')
+          .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+          .then(function (json) {
+            state.data = json;
+            render(key);
+          })
+          .catch(function () {
+            $('dsGrid').innerHTML = '<div class="ds-loading">Không tải được dữ liệu điểm chạm — hãy thử tải lại trang.</div>';
+          });
+      } else {
+        render(key);
+      }
+    }
+
+    function render(key) {
+      var m = META[key];
+      var site = state.data && state.data[key];
+      var hotspots = site && site.hotspots ? site.hotspots : [];
+      var info = site && site.info ? site.info : {};
+
+      document.title = m.name + ' — Di sản & Câu hỏi — Smart Art Heritage';
+      $('dsCrumb').textContent = 'DI SẢN 0' + (ORDER.indexOf(key) + 1) + ' / 05 — ' + (m.year || '');
+      $('dsTitle').textContent = m.name;
+      $('dsDesc').textContent = m.description;
+      $('dsHeroImg').src = m.cover;
+      $('dsHeroImg').alt = m.name;
+
+      var meta = $('dsMeta');
+      meta.innerHTML = '';
+      meta.appendChild(chip('📍 ' + (info.location || m.location)));
+      meta.appendChild(chip('🕰 ' + (info.year || m.year)));
+      meta.appendChild(chip(hotspots.length + ' điểm chạm'));
+      (m.tags || []).forEach(function (t) { meta.appendChild(chip(t)); });
+
+      $('dsCount').textContent = hotspots.length + ' HÌNH ẢNH · ' + hotspots.length + ' BỘ CÂU HỎI';
+
+      renderGrid(hotspots);
+    }
+
+    function chip(text) {
+      var s = document.createElement('span');
+      s.className = 'ds-meta-chip';
+      s.textContent = text;
+      return s;
+    }
+
+    function renderGrid(hotspots) {
+      var grid = $('dsGrid');
+      if (!hotspots.length) {
+        grid.innerHTML = '<div class="ds-loading">Chưa có dữ liệu điểm chạm cho di sản này.</div>';
+        return;
+      }
+
+      grid.innerHTML = hotspots.map(function (h, idx) {
+        var code = h.code || ('HOTSPOT #' + (idx + 1));
+        var img = h.image || 'assets/extracted/cover_chuakeo.jpeg';
+        var q1 = h.q1 || {}, q2 = h.q2 || {}, q3 = h.q3 || {};
+        var badge = code.split('•')[0].trim();
+        var heading = code.indexOf('•') >= 0 ? code.split('•').slice(1).join('•').trim() : code;
+        return '' +
+          '<article class="hs-card">' +
+            '<div class="hs-photo-wrap">' +
+              '<img class="hs-photo" src="' + img + '" alt="' + escapeAttr(heading) + '" loading="lazy" ' +
+                'onerror="this.onerror=null;this.src=\'assets/extracted/cover_chuakeo.jpeg\'">' +
+              '<span class="hs-no">' + badge + '</span>' +
+            '</div>' +
+            '<div class="hs-body">' +
+              '<h3 class="hs-title">' + escapeHtml(heading) + '</h3>' +
+              '<details class="hs-q" open>' + qBlock(q1, '①', 'Nhìn ảnh – trả lời') + '</details>' +
+              '<details class="hs-q">' + qBlock(q2, '②', 'Em có biết?') + '</details>' +
+              '<details class="hs-q">' + qBlock(q3, '③', 'Thử làm nhé') + '</details>' +
+            '</div>' +
+          '</article>';
+      }).join('');
+    }
+
+    function qBlock(q, mark, fallbackTitle) {
+      var title = q.title || fallbackTitle;
+      if (title.indexOf('①') === 0 || title.indexOf('②') === 0 || title.indexOf('③') === 0) {
+        title = title.replace(/^[①②③]\s*/, '');
+      }
+      var content = q.content || '—';
+      return '<summary><span class="hs-q-mark">' + mark + '</span>' + escapeHtml(title) +
+             '<span class="hs-q-chev">›</span></summary>' +
+             '<div class="hs-q-body">' + escapeHtml(content) + '</div>';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escapeAttr(s) {
+      return escapeHtml(s).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>

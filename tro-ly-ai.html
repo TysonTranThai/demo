@@ -278,6 +278,125 @@
     }
     .tlai-send:hover { filter: brightness(1.07); transform: translateY(-1px); }
 
+    /* ---------- connection badge ---------- */
+    .tlai-conn {
+      font-family: inherit;
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-faint);
+      background: transparent;
+      border: 1px solid var(--hair);
+      border-radius: 999px;
+      padding: 7px 13px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .tlai-conn:hover { color: var(--gold); border-color: rgba(241, 208, 132, 0.5); }
+    .tlai-conn.connected { color: var(--gold); border-color: rgba(241, 208, 132, 0.55); background: rgba(241, 208, 132, 0.08); }
+
+    /* ---------- typing indicator ---------- */
+    .tlai-typing { display: flex; gap: 5px; align-items: center; padding: 18px 22px; }
+    .tlai-typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--ink-faint);
+      animation: tlaiBounce 1.2s infinite;
+    }
+    .tlai-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .tlai-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes tlaiBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* ---------- settings modal ---------- */
+    .tlai-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5, 7, 10, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 24px;
+    }
+    .tlai-modal.open { display: flex; }
+    .tlai-modal-card {
+      width: min(480px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      border: 1px solid var(--hair);
+      background: rgba(20, 24, 30, 0.97);
+      padding: 26px 26px 22px;
+    }
+    .tlai-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .tlai-modal-head h3 { margin: 0 0 6px; font-size: 1.15rem; font-weight: 800; }
+    .tlai-modal-head p { margin: 0; font-size: 0.8rem; line-height: 1.6; color: var(--ink-dim); }
+    .tlai-modal-x {
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink-dim);
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 50%;
+      width: 34px; height: 34px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .tlai-modal-x:hover { color: var(--ink); }
+    .tlai-modal label {
+      display: block;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 16px 0 6px;
+    }
+    .tlai-key-row { display: flex; gap: 8px; }
+    .tlai-modal input, .tlai-modal select {
+      flex: 1;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: var(--field);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .tlai-modal input:focus, .tlai-modal select:focus { border-color: rgba(241, 208, 132, 0.55); }
+    .tlai-modal select option { background: #171b22; }
+    .tlai-eye {
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink-dim);
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      padding: 0 14px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .tlai-cfg-status { margin: 12px 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--ink-dim); min-height: 1.2em; }
+    .tlai-cfg-status.ok { color: var(--gold); }
+    .tlai-cfg-status.err { color: #ff9d8a; }
+    .tlai-modal-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .tlai-modal-actions .tlai-send { flex: 1; justify-content: center; }
+    .tlai-modal-actions .tlai-chip { align-self: center; }
+    .tlai-modal-note {
+      margin: 16px 0 0;
+      font-size: 0.7rem;
+      line-height: 1.65;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--hair);
+      padding-top: 14px;
+    }
+    .tlai-modal-note b { color: var(--ink-dim); }
+
     /* ---------- responsive ---------- */
     @media (max-width: 960px) {
       .tlai-main { grid-template-columns: 1fr; }
@@ -337,6 +456,7 @@
         <span class="tlai-chat-dot"></span>
         <span class="tlai-chat-title">AI Art Assistant — Quy trình 5A</span>
         <span class="tlai-chat-note">Không vẽ thay học sinh</span>
+        <button id="tlaiConnBadge" class="tlai-conn" type="button" title="Kết nối ChatGPT để chat thật">⚙ Kết nối ChatGPT</button>
       </div>
 
       <div id="aiChatHistory" class="tlai-history">
@@ -362,6 +482,45 @@
     </section>
 
   </main>
+
+  <!-- ChatGPT connection settings -->
+  <div id="tlaiSettings" class="tlai-modal" role="dialog" aria-modal="true">
+    <div class="tlai-modal-card">
+      <div class="tlai-modal-head">
+        <div>
+          <h3>Kết nối ChatGPT</h3>
+          <p>Dùng API key OpenAI của bạn để Trợ Lý Ai trả lời thật thay vì kịch bản có sẵn.</p>
+        </div>
+        <button id="tlaiSettingsClose" class="tlai-modal-x" type="button">✕</button>
+      </div>
+
+      <label for="cfgKey">OpenAI API Key</label>
+      <div class="tlai-key-row">
+        <input id="cfgKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false">
+        <button id="cfgEye" class="tlai-eye" type="button" title="Hiện / ẩn">👁</button>
+      </div>
+
+      <label for="cfgModel">Mô hình</label>
+      <select id="cfgModel">
+        <option value="gpt-4o-mini">gpt-4o-mini — nhanh, tiết kiệm (khuyên dùng)</option>
+        <option value="gpt-4o">gpt-4o — sáng tạo hơn</option>
+        <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+        <option value="gpt-4.1">gpt-4.1 — mạnh nhất</option>
+      </select>
+
+      <p id="cfgStatus" class="tlai-cfg-status"></p>
+
+      <div class="tlai-modal-actions">
+        <button id="cfgConnect" class="tlai-send" type="button"><span>Kết nối &amp; kiểm tra</span><span>↗</span></button>
+        <button id="cfgDisconnect" class="tlai-chip" type="button" hidden>Ngắt kết nối</button>
+      </div>
+
+      <p class="tlai-modal-note">
+        <b>Riêng tư:</b> khoá API chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng đến OpenAI khi chat.
+        <b>Chi phí:</b> mỗi lượt chat tính phí theo tài khoản OpenAI của bạn — gpt-4o-mini rẻ nhất cho lớp học.
+      </p>
+    </div>
+  </div>
 
   <script>
   (function () {
@@ -400,6 +559,20 @@
     function selectAiStep(idx) {
       SAH_STATE.currentAiStep = idx;
       renderAiStepList();
+
+      if (window.__tlaiLive && window.__tlaiLive.connected()) {
+        var ask = [
+          'Chuyển sang bước A1 — ASK: thầy/cô muốn em kể điều em ấn tượng nhất về di sản em đã quan sát.',
+          'Chuyển sang bước A2 — ANALYZE: em hãy mô tả đường nét, màu sắc và không gian của di sản theo cảm nhận của em.',
+          'Chuyển sang bước A3 — ADVISE: em muốn thử chất liệu tạo hình nào (màu nước, đồ họa, xé dán...)?',
+          'Chuyển sang bước A4 — ADAPT: điều gì ở phong cách của riêng em em muốn nhấn mạnh trong tác phẩm?',
+          'Chuyển sang bước A5 — ART: thầy/cô sẽ cùng em tổng hợp bảng màu, bố cục và bước vẽ đầu tiên.'
+        ];
+        appendChatMessage('user', ask[idx]);
+        window.__tlaiLive.reply();
+        return;
+      }
+
       respondAiForStep(idx);
     }
 
@@ -411,7 +584,11 @@
       appendChatMessage('user', text);
       input.value = '';
 
-      // Simulate contextual AI reaction
+      // Live ChatGPT mode when connected; scripted 5A flow otherwise
+      if (window.__tlaiLive && window.__tlaiLive.connected()) {
+        window.__tlaiLive.reply();
+        return;
+      }
       setTimeout(function () { generateAiResponse(text); }, 700);
     }
 
@@ -423,6 +600,7 @@
       var bubble = document.createElement('div');
       bubble.className = 'tlai-bubble ' + sender;
       bubble.innerHTML = content;
+      if (window.__tlaiAppendOriginal) { /* not used */ }
 
       if (suggestions.length > 0) {
         var chipBox = document.createElement('div');
@@ -443,10 +621,20 @@
 
       history.appendChild(bubble);
       history.scrollTop = history.scrollHeight;
-    }
-
-    function triggerAiWith321Context(project, q3, q1) {
+    }    function triggerAiWith321Context(project, q3, q1) {
       var name = HERITAGE_NAMES[project] || 'Chùa Keo';
+
+      if (window.__tlaiLive && window.__tlaiLive.connected()) {
+        SAH_STATE.currentAiStep = 0;
+        renderAiStepList();
+        appendChatMessage('ai',
+          'Thầy/Cô đã nhận được Phiếu 3–2–1 của em về <b>' + name + '</b>.<br>' +
+          '<b>Ý tưởng của em:</b> <i>"' + (q1 || 'chưa ghi') + '"</i><br><br>' +
+          'Em kể thêm vì sao chi tiết đó khiến em xúc động nhé?');
+        window.__tlaiLive.reply();
+        return;
+      }
+
       appendChatMessage('ai',
         'Chào em! Thầy/Cô AI đã nhận được Phiếu 3–2–1 của em về <b>' + name + '</b>.<br><br>' +
         '<b>Ý tưởng ban đầu của em:</b> <i>"' + (q1 || 'Tập trung vào đường nét mái cong và cột gỗ lim') + '"</i>.<br><br>' +
@@ -532,6 +720,11 @@
     // Inline onclick handlers in the markup need these as globals
     window.triggerAiWith321Context = triggerAiWith321Context;
     window.selectAiStep = selectAiStep;
+    window.handleUserSendMessage = handleUserSendMessage;
+    window.generateAiResponse = generateAiResponse;
+    window.SAH_STATE = SAH_STATE;
+    // Live-mode bridge needs to append replies outside the scripted flow
+    window.__tlaiAppend = appendChatMessage;
 
     document.addEventListener('DOMContentLoaded', function () {
       renderAiStepList();
@@ -546,6 +739,241 @@
 
       checkAi5aHandoff();
     });
+  })();
+
+  /* ========================================================================
+     CHATGPT LIVE MODE — plug in an OpenAI API key for real conversations.
+     When connected, user messages go to the OpenAI Chat Completions API
+     with a teacher-crafted system prompt; the scripted 5A flow stays as
+     the offline fallback. Key is stored locally only.
+     ======================================================================== */
+  (function () {
+    'use strict';
+
+    var CFG_KEY = 'sah_chatgpt_cfg';
+    var MODELS_FALLBACK = ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'];
+
+    var HERITAGE_FACTS = {
+      chuakeo: 'Chùa Keo (Thái Bình, dựng 1632): gác chuông 11,04m, 3 tầng 12 mái cong đầu đao, kết cấu gỗ lim toàn đấu củng KHÔNG dùng đinh sắt, 16 chữ Hán trong bia.',
+      phohien: 'Phố Hiến (Hưng Yên): thương cảng quốc tế thế kỷ XVII, "Thứ nhất Kinh Kỳ, thứ nhì Phố Hiến", hồ Bán Nguyệt, đền Mẫu, kiến trúc đình chùa cổ.',
+      dentran: 'Đền Trần (Hưng Yên): nơi thờ các vua Trần, kiến trúc "Thiên trường cổ tự", rồng đá độc đáo, lễ hội đền Trần, hào khí Đông A.',
+      lequydon: 'Khu lưu niệm Lê Quý Đôn (Hưng Yên): nhà bác học Lê Quý Đôn (1726-1784), tác phẩm Vân Đài Loại Ngữ, tri thức bách khoa thời Lê.',
+      dongxam: 'Làng chạm bạc Đồng Xâm (Thái Bình): nghề 500 năm, truyền thuyết Trần Thủ Độ, nghệ nhân Kim Hoàn, chạm nổi hoa văn tứ linh tinh xảo.'
+    };
+
+    function cfg() {
+      try { return JSON.parse(localStorage.getItem(CFG_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function saveCfg(c) { localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
+
+    function connected() {
+      var c = cfg();
+      return !!(c.key && c.validated);
+    }
+
+    function model() {
+      var c = cfg();
+      return c.model || 'gpt-4o-mini';
+    }
+
+    function buildSystemPrompt() {
+      var draft = null;
+      try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
+      var lines = [
+        'Em là "Thầy/Cô AI" đồng hành mĩ thuật cho học sinh THCS (12-15 tuổi) trong dự án SMART ART HERITAGE về di sản Hưng Yên, Việt Nam.',
+        'NGUYÊN TẮC TUYỆT ĐỐI: NO OBSERVATION → NO AI. Em KHÔNG BAO GIỜ vẽ/tạo hình thay học sinh. Em chỉ hỏi gợi mở, phân tích mĩ thuật, gợi ý phương án, khích lệ.',
+        'Quy trình 5A: A1 ASK (đặt câu hỏi khơi gợi) → A2 ANALYZE (phân tích đường nét, màu sắc, bố cục) → A3 ADVISE (đề xuất 3 phương án tạo hình) → A4 ADAPT (cá nhân hoá theo sở thích học sinh) → A5 ART (bảng màu cụ thể, bố cục, gợi ý bước vẽ đầu tiên).',
+        'Trả lời TIẾNG VIỆT, ấm áp, xưng "thầy/cô" - "em", ngắn gọn (dưới 120 từ), phù hợp lứa tuổi THCS, luôn kết thúc bằng 1-2 câu hỏi mở để học sinh tiếp tục suy nghĩ.',
+        'Nếu học sinh chưa quan sát kỹ: nhắc em quay lại quan sát di sản trước khi cho ý kiến, thay vì đưa ý tưởng sẵn.'
+      ];
+      if (draft && draft.project) {
+        lines.push('Di sản học sinh đang chọn: ' + (HERITAGE_FACTS[draft.project] || draft.project));
+      }
+      if (draft && (draft.q3 || draft.q1)) {
+        lines.push('Phiếu 3-2-1 của học sinh — 3 điều quan sát: ' + (draft.q3 || '(trống)') + '. Ý tưởng: ' + (draft.q1 || '(trống)'));
+      }
+      return lines.join('\n');
+    }
+
+    function buildHistory() {
+      var out = [];
+      document.querySelectorAll('#aiChatHistory .tlai-bubble').forEach(function (b) {
+        var isAi = b.classList.contains('ai');
+        var text = b.cloneNode(true);
+        text.querySelectorAll('.tlai-chips').forEach(function (c) { c.remove(); });
+        var t = text.textContent.replace(/\s+/g, ' ').trim();
+        if (!t) return;
+        out.push({ role: isAi ? 'assistant' : 'user', content: t.slice(0, 1500) });
+      });
+      return out.slice(-16);
+    }
+
+    async function callOpenAI(userText) {
+      var c = cfg();
+      var res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + c.key
+        },
+        body: JSON.stringify({
+          model: model(),
+          messages: [
+            { role: 'system', content: buildSystemPrompt() }
+          ].concat(buildHistory())
+        })
+      });
+      if (!res.ok) {
+        var err = {};
+        try { err = await res.json(); } catch (e) {}
+        throw new Error(err.error && err.error.message ? err.error.message : ('HTTP ' + res.status));
+      }
+      var data = await res.json();
+      var msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      if (!msg) throw new Error('Phản hồi trống từ OpenAI');
+      return msg.trim();
+    }
+
+    /* ---------- chat UI integration ---------- */
+    var origAppend = window.__tlaiAppend;
+    var typingEl = null;
+
+    function showTyping() {
+      hideTyping();
+      var history = document.getElementById('aiChatHistory');
+      typingEl = document.createElement('div');
+      typingEl.className = 'tlai-bubble ai';
+      typingEl.innerHTML = '<div class="tlai-typing"><span></span><span></span><span></span></div>';
+      history.appendChild(typingEl);
+      history.scrollTop = history.scrollHeight;
+    }
+    function hideTyping() {
+      if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+      typingEl = null;
+    }
+
+    async function liveReply() {
+      showTyping();
+      try {
+        var reply = await callOpenAI();
+        hideTyping();
+        origAppend('ai', reply.replace(/\n/g, '<br>'));
+      } catch (e) {
+        hideTyping();
+        origAppend('ai',
+          '<b>⚠ Không gọi được ChatGPT:</b> ' + String(e.message || e).replace(/</g, '&lt;') +
+          '<br><br>Kiểm tra kết nối mạng / API key trong phần ⚙ Kết nối ChatGPT. Trong lúc đó em vẫn chat với bản kịch bản nhé.');
+      }
+    }
+
+    function initChatGptBridge() {
+      var badge = document.getElementById('tlaiConnBadge');
+      var modal = document.getElementById('tlaiSettings');
+      var keyInput = document.getElementById('cfgKey');
+      var modelSel = document.getElementById('cfgModel');
+      var eyeBtn = document.getElementById('cfgEye');
+      var connectBtn = document.getElementById('cfgConnect');
+      var disconnectBtn = document.getElementById('cfgDisconnect');
+      var statusEl = document.getElementById('cfgStatus');
+      var closeBtn = document.getElementById('tlaiSettingsClose');
+
+      function refreshBadge() {
+        if (connected()) {
+          badge.textContent = '● ' + model();
+          badge.classList.add('connected');
+        } else {
+          badge.textContent = '⚙ Kết nối ChatGPT';
+          badge.classList.remove('connected');
+        }
+      }
+
+      function openModal() {
+        var c = cfg();
+        if (c.model) modelSel.value = c.model;
+        if (c.key) { keyInput.value = c.key; }
+        statusEl.className = 'tlai-cfg-status';
+        statusEl.textContent = connected()
+          ? '✓ Đang kết nối với mô hình ' + model() + '. Chat hiện dùng ChatGPT thật.'
+          : 'Chưa kết nối — chat đang dùng kịch bản 5A có sẵn (hoạt động offline).';
+        disconnectBtn.hidden = !connected();
+        modal.classList.add('open');
+      }
+      function closeModal() { modal.classList.remove('open'); }
+
+      badge.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+
+      eyeBtn.addEventListener('click', function () {
+        keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
+      });
+
+      connectBtn.addEventListener('click', async function () {
+        var key = keyInput.value.trim();
+        if (!key) {
+          statusEl.className = 'tlai-cfg-status err';
+          statusEl.textContent = 'Hãy dán API key (bắt đầu bằng sk-...).';
+          return;
+        }
+        statusEl.className = 'tlai-cfg-status';
+        statusEl.textContent = 'Đang kiểm tra...';
+        connectBtn.disabled = true;
+        try {
+          var res = await fetch('https://api.openai.com/v1/models', {
+            headers: { 'Authorization': 'Bearer ' + key }
+          });
+          if (!res.ok) {
+            var err = {};
+            try { err = await res.json(); } catch (e) {}
+            throw new Error(err.error && err.error.message ? err.error.message : ('HTTP ' + res.status));
+          }
+          var data = await res.json();
+          var available = (data.data || []).map(function (m) { return m.id; });
+          var picked = modelSel.value;
+          var options = MODELS_FALLBACK.filter(function (m) { return available.indexOf(m) !== -1; });
+          if (options.length && options.indexOf(picked) === -1) {
+            picked = options[0];
+            modelSel.value = picked;
+          }
+          saveCfg({ key: key, model: picked, validated: true });
+          statusEl.className = 'tlai-cfg-status ok';
+          statusEl.textContent = '✓ Kết nối thành công! Từ giờ chat sẽ dùng ' + picked + '. Chi phí tính theo tài khoản OpenAI của bạn.';
+          disconnectBtn.hidden = false;
+          refreshBadge();
+        } catch (e) {
+          statusEl.className = 'tlai-cfg-status err';
+          statusEl.textContent = '✗ ' + String(e.message || e) + ' — kiểm tra lại key hoặc mạng.';
+        }
+        connectBtn.disabled = false;
+      });
+
+      disconnectBtn.addEventListener('click', function () {
+        localStorage.removeItem(CFG_KEY);
+        statusEl.className = 'tlai-cfg-status';
+        statusEl.textContent = 'Đã ngắt kết nối — quay lại kịch bản 5A offline.';
+        disconnectBtn.hidden = true;
+        refreshBadge();
+      });
+
+      refreshBadge();
+    }
+
+    /* expose for the scripted IIFE to call when live mode is on */
+    window.__tlaiLive = {
+      connected: connected,
+      reply: liveReply
+    };
+
+    // self-initialize (this IIFE runs after the chat IIFE, which owns DOMContentLoaded)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChatGptBridge);
+    } else {
+      initChatGptBridge();
+    }
   })();
   </script>
 </body>

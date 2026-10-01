@@ -127,7 +127,7 @@ function renderHeritageProjectsGrid() {
 function handleProjectCardClick(key) {
   if (key === 'studio') {
     // Creative studio now lives on its own page (student work portfolio)
-    location.href = 'xuong-ve.html';
+    location.href = 'trien-lam.html';
   } else {
     // Heritage explorer now lives on its own immersive page
     location.href = 'di-san.html#' + key;

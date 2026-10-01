@@ -13,7 +13,6 @@ const SAH_STATE = {
   activeLighting: 'day',
   activeHotspot3D: null,
   heritageData: null,
-  portfolioArtworks: JSON.parse(localStorage.getItem('sah_portfolio') || '[]'),
   currentAiStep: 0,
   chatHistory: []
 };
@@ -83,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeritageModals();
   init3DViewer();
   initForm321();
-  initCanvasStudio();
-  initARPreview();
   initTeacherDashboard();
   loadSavedData();
   checkAi5aHandoff();
@@ -129,7 +126,8 @@ function renderHeritageProjectsGrid() {
 
 function handleProjectCardClick(key) {
   if (key === 'studio') {
-    openModal('creativeStudioModal');
+    // Creative studio now lives on its own page (student work portfolio)
+    location.href = 'xuong-ve.html';
   } else {
     // Heritage explorer now lives on its own immersive page
     location.href = 'di-san.html#' + key;
@@ -623,143 +621,6 @@ function debounce(fn, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
-}
-
-/* ==========================================================================
-   CANVAS CREATIVE STUDIO & PORTFOLIO STORAGE
-   ========================================================================== */
-function initCanvasStudio() {
-  const canvas = document.getElementById('artCanvas');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  let isDrawing = false;
-  let currentColor = '#171716';
-  let currentBrushSize = 4;
-
-  // Set real canvas dimensions
-  function resizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-  setTimeout(resizeCanvas, 200);
-
-  // Drawing Handlers
-  canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
-  });
-
-  canvas.addEventListener('mousemove', (e) => {
-    if (!isDrawing) return;
-    ctx.strokeStyle = currentColor;
-    ctx.lineWidth = currentBrushSize;
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-  });
-
-  window.addEventListener('mouseup', () => { isDrawing = false; });
-
-  // Touch handlers
-  canvas.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      isDrawing = true;
-      const rect = canvas.getBoundingClientRect();
-      ctx.beginPath();
-      ctx.moveTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-    }
-  }, { passive: true });
-
-  canvas.addEventListener('touchmove', (e) => {
-    if (!isDrawing || e.touches.length !== 1) return;
-    const rect = canvas.getBoundingClientRect();
-    ctx.strokeStyle = currentColor;
-    ctx.lineWidth = currentBrushSize;
-    ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-    ctx.stroke();
-  }, { passive: true });
-
-  canvas.addEventListener('touchend', () => { isDrawing = false; });
-
-  // Color Swatches
-  document.querySelectorAll('.swatch-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentColor = btn.dataset.color;
-    });
-  });
-
-  // Brush Size
-  document.getElementById('brushSizeInput')?.addEventListener('input', (e) => {
-    currentBrushSize = parseInt(e.target.value, 10);
-  });
-
-  // Clear Canvas
-  document.getElementById('btnClearCanvas')?.addEventListener('click', () => {
-    if (confirm("Em có chắc muốn xóa bản vẽ để vẽ lại từ đầu?")) {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-  });
-
-  // Save to Portfolio
-  document.getElementById('btnSaveToPortfolio')?.addEventListener('click', () => {
-    const dataUrl = canvas.toDataURL('image/png');
-    const title = prompt("Đặt tên cho phác thảo của em:", "Phác thảo Gác Chuông Chùa Keo") || "Tác phẩm Mĩ thuật Di sản";
-
-    const item = {
-      id: Date.now(),
-      title,
-      studentId: SAH_STATE.studentId,
-      image: dataUrl,
-      createdAt: new Date().toLocaleDateString('vi-VN')
-    };
-
-    SAH_STATE.portfolioArtworks.push(item);
-    localStorage.setItem('sah_portfolio', JSON.stringify(SAH_STATE.portfolioArtworks));
-    alert("✓ Đã lưu tác phẩm vào Portfolio của em thành công!");
-    renderPortfolioList();
-  });
-
-  renderPortfolioList();
-}
-
-function renderPortfolioList() {
-  const container = document.getElementById('portfolioItemsList');
-  if (!container) return;
-
-  const items = SAH_STATE.portfolioArtworks;
-  if (items.length === 0) {
-    container.innerHTML = `<p style="font-size:0.8125rem; color:var(--text-muted);">Chưa có tác phẩm nào được lưu. Hãy vẽ phác thảo ở khung bên trái và bấm Lưu!</p>`;
-    return;
-  }
-
-  container.innerHTML = items.map(it => `
-    <div style="display:flex; gap:10px; align-items:center; background:#f9f7f2; padding:8px; border-radius:10px; border:1px solid #e5dfd2;">
-      <img src="${it.image}" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid #d2cbbe;" alt="Thumb" />
-      <div style="flex:1;">
-        <h6 style="font-size:0.8125rem; font-weight:700; margin-bottom:2px;">${it.title}</h6>
-        <span style="font-size:0.6875rem; color:var(--text-muted);">${it.studentId} • ${it.createdAt}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ==========================================================================
-   AR GALLERY & QR PREVIEW
-   ========================================================================== */
-function initARPreview() {
-  // Mobile AR trigger
-  document.getElementById('btnLaunchAR')?.addEventListener('click', () => {
-    openModal('arPreviewModal');
-  });
 }
 
 /* ==========================================================================

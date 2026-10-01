@@ -34,7 +34,7 @@
           <li><button type="button" class="nav-link" onclick="location.href='models.html'">Mô hình 3D</button></li>
           <li><button type="button" class="nav-link" onclick="location.href='phieu-3-2-1.html'">Phiếu 3–2–1</button></li>
           <li><a href="tro-ly-ai.html" class="nav-link">Trợ Lý Ai</a></li>
-          <li><button type="button" class="nav-link" onclick="openModal('creativeStudioModal')">Xưởng vẽ</button></li>
+          <li><a href="xuong-ve.html" class="nav-link">Xưởng Vẽ</a></li>
           <li><button type="button" class="nav-link" onclick="openModal('dashboardModal')">Giáo viên</button></li>
         </ul>
 
@@ -366,79 +366,6 @@
       </div>
     </section>
   </main>
-
-  <!-- ==========================================================================
-       MODAL 5: CANVAS CREATIVE STUDIO & PORTFOLIO
-       ========================================================================== -->
-  <div id="creativeStudioModal" class="modal-backdrop">
-    <div class="modal-sheet" style="max-width:1120px;">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <h3 class="modal-title">Xưởng Sáng Tạo — Creative Studio</h3>
-          <span class="modal-subtitle">Phác thảo ý tưởng • Lưu trữ tác phẩm vào Portfolio cá nhân</span>
-        </div>
-        <button class="modal-close-btn" type="button" onclick="closeModal('creativeStudioModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="canvas-studio-grid">
-          <!-- Canvas Board -->
-          <div class="canvas-board-wrapper">
-            <div class="canvas-tools-bar">
-              <!-- Colors -->
-              <div class="color-swatches">
-                <button class="swatch-btn active" style="background:#171716;" data-color="#171716" title="Đen mực"></button>
-                <button class="swatch-btn" style="background:#7c4c28;" data-color="#7c4c28" title="Nâu gỗ lim"></button>
-                <button class="swatch-btn" style="background:#c46238;" data-color="#c46238" title="Đỏ chu sa"></button>
-                <button class="swatch-btn" style="background:#c89547;" data-color="#c89547" title="Vàng hoàng cung"></button>
-                <button class="swatch-btn" style="background:#3b5f48;" data-color="#3b5f48" title="Xanh rêu cổ"></button>
-              </div>
-
-              <!-- Brush Size -->
-              <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size:0.75rem; color:var(--text-muted);">Nét cọ:</span>
-                <input id="brushSizeInput" type="range" min="1" max="24" value="4" style="width:90px;" />
-              </div>
-
-              <!-- Actions -->
-              <div style="display:flex; gap:8px;">
-                <button id="btnClearCanvas" class="btn-outline-pill" style="padding:6px 12px; font-size:0.75rem;" type="button">Xóa nét vẽ</button>
-                <button id="btnSaveToPortfolio" class="btn-pill-cta" style="padding:6px 14px; font-size:0.75rem;" type="button">
-                  <span>Lưu Portfolio</span>
-                  <span class="btn-icon-circle">✓</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Drawing Surface -->
-            <canvas id="artCanvas"></canvas>
-          </div>
-
-          <!-- Portfolio Sidebar -->
-          <div style="display:flex; flex-direction:column; gap:16px;">
-            <h4 style="font-size:0.875rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);">
-              PORTFOLIO TÁC PHẨM CÁ NHÂN
-            </h4>
-
-            <div id="portfolioItemsList" style="display:flex; flex-direction:column; gap:12px; max-height:420px; overflow-y:auto;">
-              <!-- Rendered items -->
-            </div>
-
-            <div style="margin-top:auto; padding:14px; background:#f4efe6; border-radius:12px;">
-              <span style="font-size:0.75rem; font-weight:700; color:var(--text-primary); display:block; margin-bottom:4px;">RUBRIC ĐÁNH GIÁ THCS:</span>
-              <p style="font-size:0.75rem; color:var(--text-secondary); line-height:1.4;">
-                • Nhận thức di sản (25%)<br>
-                • Ý tưởng sáng tạo độc bản (25%)<br>
-                • Kỹ thuật tạo hình mĩ thuật (25%)<br>
-                • Tính thẩm mĩ & hoàn thiện (25%)
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
        MODAL 6: TEACHER DASHBOARD & EVALUATION ANALYTICS
        ========================================================================== -->
   <div id="dashboardModal" class="modal-backdrop">
@@ -637,7 +564,7 @@
             <li><a href="models.html">Phòng 3D Di Sản WebGL</a></li>
             <li><a href="phieu-3-2-1.html">Phiếu tư duy 3–2–1</a></li>
             <li><a href="tro-ly-ai.html">Trợ Lý Ai — Quy trình 5A</a></li>
-            <li><a href="javascript:openModal('creativeStudioModal')">Xưởng vẽ & Portfolio</a></li>
+            <li><a href="xuong-ve.html">Xưởng Vẽ — Hồ sơ tác phẩm</a></li>
             <li><a href="javascript:openModal('dashboardModal')">Thực nghiệm Pre/Post</a></li>
           </ul>
         </div>

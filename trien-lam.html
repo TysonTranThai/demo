@@ -307,6 +307,33 @@
     .xv-work-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
     .xv-work-title { font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
     .xv-work-meta { font-size: 0.7rem; color: var(--ink-faint); }
+    .xv-grade {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #17130b;
+      background: var(--gold);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+    .xv-teacher-note {
+      font-size: 0.74rem;
+      line-height: 1.55;
+      color: var(--gold);
+      background: rgba(241, 208, 132, 0.07);
+      border: 1px solid rgba(241, 208, 132, 0.3);
+      border-radius: 12px;
+      padding: 9px 12px;
+    }
+    .xv-teacher-note b {
+      display: block;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      margin-bottom: 3px;
+      opacity: 0.8;
+    }
     .xv-work-heritage {
       align-self: flex-start;
       font-size: 0.6rem; font-weight: 800;
@@ -756,6 +783,10 @@
 
       empty.hidden = list.length > 0;
       grid.innerHTML = list.map(function (w) {
+        var grades = {};
+        try { grades = JSON.parse(localStorage.getItem('sah_work_grades') || '{}'); } catch (e) {}
+        var g = grades[w.id];
+
         var thumb;
         if (w.kind === 'image') {
           thumb = '<img src="' + w.dataUrl + '" alt="' + esc(w.title) + '" loading="lazy">';
@@ -766,6 +797,7 @@
           '<div class="xv-work-thumb" data-act="view">' +
             thumb +
             '<span class="xv-kind-badge">' + (w.kind === 'pdf' ? 'PDF' : 'ẢNH') + '</span>' +
+            (g ? '<span class="xv-grade" style="position:absolute; top:10px; right:10px;">★ ' + g.total.toFixed(1) + '/10</span>' : '') +
           '</div>' +
           '<div class="xv-work-body">' +
             '<h3 class="xv-work-title">' + esc(w.title) + '</h3>' +
@@ -774,6 +806,7 @@
               (w.bytes ? ' · ' + fmtSize(w.bytes) : '') + '</span>' +
             (w.heritage ? '<span class="xv-work-heritage">' + esc(HERITAGE_NAMES[w.heritage] || w.heritage) + '</span>' : '') +
             (w.note ? '<span class="xv-work-meta" style="font-style:italic;">' + esc(w.note) + '</span>' : '') +
+            (g && g.feedback ? '<div class="xv-teacher-note"><b>NHẬN XÉT CỦA GIÁO VIÊN</b>' + esc(g.feedback) + '</div>' : '') +
             '<div class="xv-work-actions">' +
               '<button class="xv-mini" data-act="view" type="button">Xem</button>' +
               '<a class="xv-mini" data-act="download" href="' + w.dataUrl + '" download="' + esc(w.fileName || (w.title + (w.kind === 'pdf' ? '.pdf' : '.jpg'))) + '">Tải xuống</a>' +

@@ -372,6 +372,16 @@
     </aside>
 
     <section class="p321-steps">
+      <div id="teacherFeedbackBox" hidden style="
+        border: 1px solid rgba(241, 208, 132, 0.45);
+        background: rgba(241, 208, 132, 0.08);
+        border-radius: 16px;
+        padding: 16px 18px;
+        margin-bottom: 18px;">
+        <div style="font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em; color: #f1d084; margin-bottom: 6px;">PHẢN HỒI CỦA GIÁO VIÊN</div>
+        <p id="teacherFeedbackText" style="margin: 0; font-size: 0.9rem; line-height: 1.65; color: rgba(242, 238, 230, 0.9);"></p>
+      </div>
+
       <form id="worksheetForm321" onsubmit="return false;">
         <div style="display:flex; flex-direction:column; gap:18px;">
 
@@ -459,6 +469,15 @@
       }
     }
     var debouncedSave = debounce(autoSave, 500);
+
+    /* ---------- teacher feedback banner ---------- */
+    try {
+      var fbMap = JSON.parse(localStorage.getItem('sah_321_feedback') || '{}');
+      if (fbMap['321']) {
+        document.getElementById('teacherFeedbackText').textContent = fbMap['321'];
+        document.getElementById('teacherFeedbackBox').hidden = false;
+      }
+    } catch (e) {}
 
     // Restore saved draft
     try {

@@ -273,9 +273,88 @@
     }
     .gv-warnbox b { color: var(--bad); }
 
+    /* ---------- rubric grading & profiles ---------- */
+    .gp-thumb {
+      width: 220px;
+      height: 150px;
+      border-radius: 14px;
+      border: 1px solid var(--hair);
+      overflow: hidden;
+      background: rgba(242, 238, 230, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.8rem;
+      color: var(--ink-dim);
+    }
+    .gp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 28px; max-width: 760px; }
+    .gp-crit { display: flex; align-items: center; gap: 12px; }
+    .gp-crit-name { width: 170px; font-size: 0.78rem; font-weight: 600; color: var(--ink-dim); flex-shrink: 0; }
+    .gp-crit input[type="range"] { flex: 1; accent-color: var(--gold); }
+    .gp-crit-v { width: 34px; text-align: right; font-size: 0.85rem; }
+    .gp-total {
+      margin: 18px 0 4px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em;
+      color: var(--ink-faint);
+    }
+    .gp-total b { color: var(--gold); font-size: 1.3rem; margin-left: 6px; }
+    .gp-feedback-block { margin-top: 14px; max-width: 760px; }
+    .gp-feedback-block label, .gv-field-label {
+      display: block;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 6px;
+    }
+    .gp-feedback-block textarea, .gv-textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--field);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      padding: 12px 14px;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+    }
+    .gp-feedback-block textarea:focus, .gv-textarea:focus { border-color: rgba(241, 208, 132, 0.55); }
+    .gp-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .gp-actions .gv-gate-btn { width: auto; padding: 12px 26px; margin-top: 0; }
+
+    tr.gv-click-row { cursor: pointer; }
+    tr.gv-click-row:hover td { background: rgba(242, 238, 230, 0.04); }
+    .gv-profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .gv-profile-item { border: 1px solid rgba(242, 238, 230, 0.07); background: var(--field); border-radius: 12px; padding: 12px 14px; font-size: 0.8rem; line-height: 1.55; }
+    .gv-profile-item b { color: var(--gold); }
+
+    #gvToast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      z-index: 120;
+      background: var(--glass-strong);
+      border: 1px solid rgba(241, 208, 132, 0.45);
+      color: var(--gold);
+      font-size: 0.8rem; font-weight: 700;
+      border-radius: 999px;
+      padding: 11px 22px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    #gvToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
     @media (max-width: 900px) {
       .gv-kpis { grid-template-columns: repeat(2, 1fr); }
       .gv-bar-label { width: 140px; }
+      .gp-grid { grid-template-columns: 1fr; }
+      .gp-crit-name { width: 130px; }
     }
     @media (max-width: 560px) {
       .gv-top { padding: 12px 14px; }
@@ -375,13 +454,14 @@
         <div class="gv-card">
           <div class="gv-card-head">
             <h3 class="gv-card-title">Danh sách học sinh</h3>
-            <span class="gv-card-note">Tổng hợp từ Phiếu 3–2–1, Triển Lãm & hoạt động AI 5A</span>
+            <span class="gv-card-note">Bấm vào từng hàng để xem hồ sơ chi tiết của em</span>
           </div>
           <div class="gv-actions-bar" style="margin-bottom:14px;">
             <button id="btnExportCsv" class="gv-mini" type="button">⬇ Xuất CSV</button>
           </div>
           <div class="gv-table-wrap" id="studentsTableWrap"></div>
         </div>
+        <div id="studentProfile" class="gv-card" hidden></div>
       </section>
 
       <!-- ============ WORKS ============ -->
@@ -389,9 +469,27 @@
         <div class="gv-card">
           <div class="gv-card-head">
             <h3 class="gv-card-title">Tác phẩm trên Triển Lãm</h3>
-            <span class="gv-card-note">Quản lý toàn bộ tệp học sinh đã tải lên</span>
+            <span class="gv-card-note">Bấm vào một tác phẩm để chấm điểm rubric &amp; nhận xét</span>
           </div>
           <div class="gv-table-wrap" id="worksTableWrap"></div>
+        </div>
+
+        <div id="gradePanel" class="gv-card" hidden>
+          <div class="gv-card-head">
+            <h3 class="gv-card-title" id="gpTitle">Chấm điểm</h3>
+            <span class="gv-card-note" id="gpMeta"></span>
+          </div>
+          <div id="gpThumb" class="gp-thumb"></div>
+          <div class="gp-grid" id="gpCriteria"></div>
+          <div class="gp-total">TỔNG ĐIỂM TRUNG BÌNH <b id="gpTotal">—</b> / 10</div>
+          <div class="gp-feedback-block">
+            <label for="gpFeedback">Nhận xét gửi học sinh (hiện trên Triển Lãm của em)</label>
+            <textarea id="gpFeedback" rows="3" placeholder="Khen điều em làm tốt, gợi ý điều em có thể thử tiếp..."></textarea>
+          </div>
+          <div class="gp-actions">
+            <button id="gpSave" class="gv-gate-btn" type="button">Lưu đánh giá</button>
+            <button id="gpClose" class="gv-mini" type="button" style="align-self:center;">Đóng</button>
+          </div>
         </div>
       </section>
 
@@ -403,6 +501,15 @@
             <span class="gv-card-note">Nội dung nháp mới nhất của từng học sinh</span>
           </div>
           <div class="gv-table-wrap" id="worksheetsTableWrap"></div>
+        </div>
+
+        <div id="wsFeedbackCard" class="gv-card" hidden>
+          <div class="gv-card-label">PHẢN HỒI GIÁO VIÊN — HIỆN TRÊN PHIẾU CỦA HỌC SINH</div>
+          <textarea id="wsFeedbackText" class="gv-textarea" rows="3" placeholder="VD: Quan sát rất tinh tế! Em thử tìm hiểu thêm về con sơn đấu củng nhé..."></textarea>
+          <div class="gp-actions">
+            <button id="wsFeedbackSave" class="gv-gate-btn" type="button">Lưu phản hồi</button>
+          </div>
+          <p id="wsFeedbackMsg" style="font-size:0.78rem; color:var(--ok); min-height:1.2em; margin:10px 0 0;"></p>
         </div>
       </section>
 
@@ -482,6 +589,8 @@
 
     </main>
   </div>
+
+  <div id="gvToast"></div>
 
   <script>
   (function () {
@@ -641,7 +750,24 @@
       var w = readJSON('sah_student_works', []);
       return Array.isArray(w) ? w : [];
     }
+    function getGrades() {
+      var g = readJSON('sah_work_grades', {});
+      return (g && typeof g === 'object' && !Array.isArray(g)) ? g : {};
+    }
+    function getFeedbackMap() {
+      var f = readJSON('sah_321_feedback', {});
+      return (f && typeof f === 'object' && !Array.isArray(f)) ? f : {};
+    }
     function getLog() { return readJSON(LOG_KEY, []); }
+
+    var toastTimer = null;
+    function toast(msg) {
+      var el = document.getElementById('gvToast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2600);
+    }
     function fmtSize(b) {
       if (!b) return '—';
       if (b > 1024 * 1024) return (b / (1024 * 1024)).toFixed(1) + ' MB';
@@ -737,12 +863,13 @@
       });
       // AI activity marker: worksheets that reached AI page (from session log is per-tab; use draft presence as proxy)
       var ids = Object.keys(map).sort();
+      window.__studentRows = map;
       document.getElementById('studentsTableWrap').innerHTML = ids.length
         ? '<table class="gv-t"><thead><tr>' +
           '<th>Mã HS</th><th>Lớp</th><th>Di sản</th><th>Phiếu 3–2–1</th><th>Tác phẩm</th><th>Hoạt động gần nhất</th></tr></thead><tbody>' +
           ids.map(function (id) {
             var r = map[id];
-            return '<tr>' +
+            return '<tr class="gv-click-row" data-student="' + esc(id) + '">' +
               '<td><b>' + esc(id) + '</b></td>' +
               '<td>' + esc(r.cls || '—') + '</td>' +
               '<td>' + esc(r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '—') + '</td>' +
@@ -754,14 +881,73 @@
         : '<div class="gv-empty">Chưa có học sinh nào hoạt động trên máy này.</div>';
     }
 
-    /* ================= works admin ================= */
+    document.getElementById('studentsTableWrap').addEventListener('click', function (e) {
+      var tr = e.target.closest('tr[data-student]');
+      if (!tr) return;
+      openStudentProfile(tr.dataset.student);
+    });
+
+    function openStudentProfile(id) {
+      var r = (window.__studentRows || {})[id];
+      var draft = getDraft();
+      var works = getWorks().filter(function (w) { return w.studentId === id; });
+      var grades = getGrades();
+      var feedbackMap = getFeedbackMap();
+
+      var gvals = works.map(function (w) { return grades[w.id]; }).filter(Boolean);
+      var avg = gvals.length
+        ? (gvals.reduce(function (s, g) { return s + (g.total || 0); }, 0) / gvals.length).toFixed(1)
+        : null;
+
+      var fb = (draft && draft.studentId === id) ? (feedbackMap['321'] || '') : '';
+      var profile = document.getElementById('studentProfile');
+      profile.hidden = false;
+      profile.innerHTML =
+        '<div class="gv-card-head"><h3 class="gv-card-title">Hồ sơ: ' + esc(id) + '</h3>' +
+        '<button class="gv-mini" id="profileClose" type="button">Đóng hồ sơ</button></div>' +
+        '<div class="gv-profile-grid">' +
+          '<div class="gv-profile-item"><b>Lớp:</b> ' + esc((r && r.cls) || (draft && draft.studentId === id && draft.studentClass) || '—') + '</div>' +
+          '<div class="gv-profile-item"><b>Di sản:</b> ' + esc((r && r.heritage) ? (HERITAGE_NAMES[r.heritage] || r.heritage) : ((draft && draft.studentId === id && draft.project) ? (HERITAGE_NAMES[draft.project] || draft.project) : '—')) + '</div>' +
+          '<div class="gv-profile-item"><b>Phiếu 3–2–1:</b> ' + ((draft && draft.studentId === id && draft.q3) ? '<span class="gv-badge ok">Đã làm</span>' : '<span class="gv-badge bad">Chưa</span>') + '</div>' +
+          '<div class="gv-profile-item"><b>Điểm trung bình rubric:</b> ' + (avg ? '<b style="color:var(--gold);">' + avg + '/10</b> (' + gvals.length + ' TP)' : 'Chưa chấm') + '</div>' +
+        '</div>' +
+        (fb ? '<div class="gv-profile-item" style="margin-top:12px;"><b>Phản hồi của giáo viên cho phiếu:</b><br>' + esc(fb) + '</div>' : '') +
+        '<div class="gv-card-label" style="margin-top:16px;">TÁC PHẨM CỦA EM</div>' +
+        (works.length
+          ? '<div class="gv-profile-grid">' + works.map(function (w) {
+              var g = grades[w.id];
+              return '<div class="gv-profile-item"><b>' + esc(w.title) + '</b><br>' +
+                (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + ' · ' + fmtSize(w.bytes) + ' · ' + esc(w.createdAt) + '<br>' +
+                (g ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>' : '<span class="gv-badge warn">Chưa chấm</span>') +
+                (g && g.feedback ? '<br><i>' + esc(g.feedback) + '</i>' : '') +
+              '</div>';
+            }).join('') + '</div>'
+          : '<div class="gv-empty">Em chưa tải tác phẩm nào lên Triển Lãm.</div>');
+
+      document.getElementById('profileClose').addEventListener('click', function () {
+        profile.hidden = true;
+      });
+      profile.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* ================= works admin + rubric grading ================= */
+    var RUBRIC = [
+      { key: 'heritage', name: 'Nhận thức di sản' },
+      { key: 'creative', name: 'Ý tưởng sáng tạo độc bản' },
+      { key: 'technique', name: 'Kỹ thuật tạo hình mĩ thuật' },
+      { key: 'aesthetic', name: 'Tính thẩm mĩ & hoàn thiện' }
+    ];
+    var gradingId = null;
+
     function renderWorks() {
       var works = getWorks();
+      var grades = getGrades();
       document.getElementById('worksTableWrap').innerHTML = works.length
         ? '<table class="gv-t"><thead><tr>' +
-          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Dung lượng</th><th>Ngày</th><th></th></tr></thead><tbody>' +
+          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Dung lượng</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
           works.map(function (w) {
-            return '<tr>' +
+            var g = grades[w.id];
+            return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
               '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
               '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
               '<td>' + esc(w.studentClass || '—') + '</td>' +
@@ -769,6 +955,7 @@
               '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
               '<td>' + fmtSize(w.bytes) + '</td>' +
               '<td>' + esc(w.createdAt) + '</td>' +
+              '<td>' + (g ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>' : '<span class="gv-badge warn">Chưa chấm</span>') + '</td>' +
               '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
             '</tr>';
           }).join('') + '</tbody></table>'
@@ -776,30 +963,109 @@
     }
 
     document.getElementById('worksTableWrap').addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-del]');
-      if (!btn) return;
-      var id = btn.dataset.del;
-      var works = getWorks();
-      var target = works.find(function (w) { return w.id === id; });
-      if (!target) return;
-      if (!confirm('Xoá tác phẩm "' + target.title + '" của học sinh ' + (target.studentId || 'ẩn danh') + '?')) return;
-      works = works.filter(function (w) { return w.id !== id; });
-      localStorage.setItem('sah_student_works', JSON.stringify(works));
-      addLog('delete-work', 'Xoá tác phẩm: ' + target.title);
-      renderWorks();
-      renderOverview();
+      var delBtn = e.target.closest('[data-del]');
+      if (delBtn) {
+        var id = delBtn.dataset.del;
+        var works = getWorks();
+        var target = works.find(function (w) { return w.id === id; });
+        if (!target) return;
+        if (!confirm('Xoá tác phẩm "' + target.title + '" của học sinh ' + (target.studentId || 'ẩn danh') + '?')) return;
+        works = works.filter(function (w) { return w.id !== id; });
+        localStorage.setItem('sah_student_works', JSON.stringify(works));
+        addLog('delete-work', 'Xoá tác phẩm: ' + target.title);
+        renderWorks();
+        renderOverview();
+        return;
+      }
+
+      var row = e.target.closest('tr[data-work]');
+      if (row) openGradePanel(row.dataset.work);
     });
 
-    /* ================= worksheets ================= */
+    function openGradePanel(id) {
+      var works = getWorks();
+      var w = works.find(function (x) { return x.id === id; });
+      if (!w) return;
+      gradingId = id;
+      var grades = getGrades();
+      var g = grades[id] || { scores: {}, feedback: '' };
+
+      document.getElementById('gpTitle').textContent = 'Chấm điểm: ' + w.title;
+      document.getElementById('gpMeta').textContent =
+        (w.studentId || 'Ẩn danh') + (w.studentClass ? ' · ' + w.studentClass : '') +
+        (w.heritage ? ' · ' + (HERITAGE_NAMES[w.heritage] || w.heritage) : '') + ' · ' + w.createdAt;
+
+      var thumb = document.getElementById('gpThumb');
+      thumb.innerHTML = w.kind === 'image'
+        ? '<img src="' + w.dataUrl + '" alt="">'
+        : '📄';
+
+      document.getElementById('gpCriteria').innerHTML = RUBRIC.map(function (c) {
+        var v = (g.scores && typeof g.scores[c.key] === 'number') ? g.scores[c.key] : 5;
+        return '<div class="gp-crit">' +
+          '<span class="gp-crit-name">' + c.name + '</span>' +
+          '<input type="range" min="0" max="10" step="0.5" value="' + v + '" data-crit="' + c.key + '">' +
+          '<span class="gp-crit-v" data-v="' + c.key + '">' + v + '</span>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('gpFeedback').value = g.feedback || '';
+      updateTotal();
+
+      document.getElementById('gradePanel').hidden = false;
+      document.getElementById('gradePanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function updateTotal() {
+      var inputs = document.querySelectorAll('#gpCriteria input[type="range"]');
+      var sum = 0;
+      inputs.forEach(function (i) { sum += parseFloat(i.value); });
+      var avg = inputs.length ? (sum / inputs.length) : 0;
+      document.getElementById('gpTotal').textContent = avg.toFixed(1);
+    }
+
+    document.getElementById('gpCriteria').addEventListener('input', function (e) {
+      if (e.target.type === 'range') {
+        document.querySelector('[data-v="' + e.target.dataset.crit + '"]').textContent = e.target.value;
+        updateTotal();
+      }
+    });
+
+    document.getElementById('gpSave').addEventListener('click', function () {
+      if (!gradingId) return;
+      var scores = {};
+      document.querySelectorAll('#gpCriteria input[type="range"]').forEach(function (i) {
+        scores[i.dataset.crit] = parseFloat(i.value);
+      });
+      var vals = Object.keys(scores).map(function (k) { return scores[k]; });
+      var total = vals.reduce(function (s, v) { return s + v; }, 0) / vals.length;
+      var feedback = document.getElementById('gpFeedback').value.trim();
+
+      var grades = getGrades();
+      grades[gradingId] = { scores: scores, total: total, feedback: feedback, gradedAt: new Date().toISOString() };
+      localStorage.setItem('sah_work_grades', JSON.stringify(grades));
+      addLog('grade', 'Chấm tác phẩm (điểm ' + total.toFixed(1) + ')');
+
+      renderWorks();
+      toast('✓ Đã lưu đánh giá ' + total.toFixed(1) + '/10');
+    });
+
+    document.getElementById('gpClose').addEventListener('click', function () {
+      document.getElementById('gradePanel').hidden = true;
+      gradingId = null;
+    });
+
+    /* ================= worksheets + teacher feedback ================= */
     function renderWorksheets() {
       var d = getDraft();
       var wrap = document.getElementById('worksheetsTableWrap');
       if (!d || (!d.q3 && !d.q2 && !d.q1)) {
         wrap.innerHTML = '<div class="gv-empty">Chưa có phiếu 3–2–1 nào được lưu trên máy này.</div>';
+        document.getElementById('wsFeedbackCard').hidden = true;
         return;
       }
       wrap.innerHTML = '<table class="gv-t"><thead><tr>' +
-        '<th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>3 quan sát</th><th>2 câu hỏi</th><th>1 ý tưởng</th><th>Cập nhật</th></tr></thead><tbody>' +
+        '<th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>3 quan sát</th><th>2 câu hỏi</th><th>1 ý tưởng</th><th>Cập nhật</th><th>Phản hồi</th></tr></thead><tbody>' +
         '<tr>' +
           '<td><b>' + esc(d.studentId || 'Ẩn danh') + '</b></td>' +
           '<td>' + esc(d.studentClass || '—') + '</td>' +
@@ -808,8 +1074,82 @@
           '<td style="max-width:220px;">' + esc(d.q2 || '—') + '</td>' +
           '<td style="max-width:220px;">' + esc(d.q1 || '—') + '</td>' +
           '<td>' + esc(d.updatedAt ? new Date(d.updatedAt).toLocaleString('vi-VN') : '—') + '</td>' +
+          '<td>' + (getFeedbackMap()['321'] ? '<span class="gv-badge ok">Đã gửi</span>' : '<span class="gv-badge warn">Chưa</span>') + '</td>' +
         '</tr></tbody></table>';
+
+      var card = document.getElementById('wsFeedbackCard');
+      card.hidden = false;
+      document.getElementById('wsFeedbackText').value = getFeedbackMap()['321'] || '';
     }
+
+    document.getElementById('wsFeedbackSave').addEventListener('click', function () {
+      var text = document.getElementById('wsFeedbackText').value.trim();
+      var map = getFeedbackMap();
+      if (!text) {
+        delete map['321'];
+        localStorage.setItem('sah_321_feedback', JSON.stringify(map));
+        document.getElementById('wsFeedbackMsg').textContent = 'Đã xoá phản hồi.';
+      } else {
+        map['321'] = text;
+        map['321_at'] = new Date().toISOString();
+        localStorage.setItem('sah_321_feedback', JSON.stringify(map));
+        addLog('feedback', 'Gửi phản hồi phiếu 3–2–1');
+        document.getElementById('wsFeedbackMsg').textContent = '✓ Đã lưu — học sinh sẽ thấy phản hồi này trên phiếu của em.';
+      }
+      renderWorksheets();
+    });
+
+    /* ================= CSV export ================= */
+    document.getElementById('btnExportCsv').addEventListener('click', function () {
+      var works = getWorks();
+      var draft = getDraft();
+      var grades = getGrades();
+      var feedbackMap = getFeedbackMap();
+      var map = {};
+
+      function row(id) {
+        if (!map[id]) map[id] = { id: id, cls: '', heritage: '', sheet: false, works: 0, total: null, fb: '' };
+        return map[id];
+      }
+      if (draft && draft.studentId) {
+        var r = row(draft.studentId);
+        r.cls = draft.studentClass || '';
+        r.heritage = draft.project || '';
+        r.sheet = !!draft.q3;
+        r.fb = feedbackMap['321'] || '';
+      }
+      var gradeSum = 0, gradeN = 0;
+      works.forEach(function (w) {
+        if (!w.studentId) return;
+        var r = row(w.studentId);
+        r.cls = r.cls || w.studentClass || '';
+        r.heritage = r.heritage || w.heritage || '';
+        r.works++;
+        if (grades[w.id]) { gradeSum += grades[w.id].total; gradeN++; }
+      });
+
+      var ids = Object.keys(map).sort();
+      if (!ids.length) { toast('Chưa có học sinh nào để xuất.'); return; }
+
+      var csv = '\uFEFFMã Học Sinh,Lớp,Di Sản,Phiếu 3-2-1,Số Tác Phẩm,Điểm Rubric TB,Phản Hồi Của Giáo Viên\n';
+      ids.forEach(function (id) {
+        var r = map[id];
+        var avg = gradeN ? (gradeSum / gradeN).toFixed(1) : '';
+        csv += [id, r.cls, r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '',
+                r.sheet ? 'Đã làm' : 'Chưa', r.works, avg, r.fb]
+          .map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',') + '\n';
+      });
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'hoc-sinh-smart-art-heritage.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+      addLog('export', 'Xuất CSV danh sách học sinh');
+    });
 
     /* ================= settings: backup / restore / wipe ================= */
     function downloadFile(name, content, mime) {
@@ -829,7 +1169,7 @@
         version: 1,
         data: {}
       };
-      ['sah_321_draft', 'sah_student_works', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
+      ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
         var v = localStorage.getItem(k);
         if (v !== null) backup.data[k] = v;
       });
@@ -879,7 +1219,7 @@
     document.getElementById('btnWipeAll').addEventListener('click', function () {
       if (confirm('Xoá MỌI dữ liệu nền tảng (phiếu, tác phẩm, nhật ký)? Hành động này không thể hoàn tác.') &&
           confirm('Xác nhận lần cuối: toàn bộ dữ liệu học sinh sẽ bị xoá vĩnh viễn.')) {
-        ['sah_321_draft', 'sah_student_works', 'sah_teacher_log'].forEach(function (k) { localStorage.removeItem(k); });
+        ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_teacher_log'].forEach(function (k) { localStorage.removeItem(k); });
         addLog('wipe', 'Xoá MỌI dữ liệu nền tảng');
         refreshAll();
       }
@@ -894,7 +1234,8 @@
             var label = {
               login: 'Đăng nhập', fail: 'Thất bại', logout: 'Đăng xuất',
               password: 'Đổi mật khẩu', backup: 'Sao lưu', restore: 'Khôi phục',
-              wipe: 'Xoá dữ liệu', 'delete-work': 'Xoá tác phẩm'
+              wipe: 'Xoá dữ liệu', 'delete-work': 'Xoá tác phẩm',
+              grade: 'Chấm điểm', feedback: 'Phản hồi phiếu', export: 'Xuất CSV'
             }[l.type] || l.type;
             return '<div class="gv-log-row">' +
               '<span class="gv-log-time">' + esc(l.at) + '</span>' +

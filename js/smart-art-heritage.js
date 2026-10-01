@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeritageModals();
   init3DViewer();
   initForm321();
-  initAi5aStudio();
   initCanvasStudio();
   initARPreview();
   initTeacherDashboard();
@@ -616,19 +615,6 @@ function initForm321() {
   document.getElementById('btnExport321')?.addEventListener('click', () => {
     window.print();
   });
-
-  // Transfer to AI 5A
-  document.getElementById('btnSendToAI5A')?.addEventListener('click', () => {
-    const q1Text = f1?.value || '';
-    const q3Text = f3?.value || '';
-    const proj = document.getElementById('form321Project')?.value || 'chuakeo';
-
-    closeModal('modal321');
-    openModal('ai5aStudioModal');
-
-    // Trigger AI initiation with context
-    triggerAiWith321Context(proj, q3Text, q1Text);
-  });
 }
 
 function debounce(fn, delay) {
@@ -637,154 +623,6 @@ function debounce(fn, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
-}
-
-/* ==========================================================================
-   AI 5A ART ASSISTANT STUDIO (Ask -> Analyze -> Advise -> Adapt -> Art)
-   ========================================================================== */
-const AI_5A_STEPS = [
-  { code: "A1 — ASK", name: "Đặt câu hỏi gợi mở", desc: "Hỏi để khơi sâu cảm xúc & ấn tượng mĩ thuật" },
-  { code: "A2 — ANALYZE", name: "Phân tích mĩ thuật", desc: "Mổ xẻ bố cục, đường nét, tương phản & ánh sáng" },
-  { code: "A3 — ADVISE", name: "Gợi ý phương án", desc: "Đề xuất 3 hướng tạo hình & chất liệu phù hợp" },
-  { code: "A4 — ADAPT", name: "Cá nhân hóa ý tưởng", desc: "Điều chỉnh theo phong cách & kỹ năng cá nhân" },
-  { code: "A5 — ART", name: "Bản thiết kế tác phẩm", desc: "Tổng hợp Moodboard, Bảng màu & Kế hoạch vẽ" }
-];
-
-function initAi5aStudio() {
-  renderAiStepList();
-
-  const sendBtn = document.getElementById('btnAiSend');
-  const input = document.getElementById('aiChatInput');
-
-  sendBtn?.addEventListener('click', handleUserSendMessage);
-  input?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleUserSendMessage();
-  });
-}
-
-function renderAiStepList() {
-  const container = document.getElementById('aiStepsSidebar');
-  if (!container) return;
-
-  container.innerHTML = AI_5A_STEPS.map((s, idx) => `
-    <div class="ai5a-step-item ${idx === SAH_STATE.currentAiStep ? 'active' : ''}" onclick="selectAiStep(${idx})">
-      <span class="ai5a-step-code">${s.code}</span>
-      <h5 class="ai5a-step-name">${s.name}</h5>
-      <p class="ai5a-step-desc">${s.desc}</p>
-    </div>
-  `).join('');
-}
-
-function selectAiStep(idx) {
-  SAH_STATE.currentAiStep = idx;
-  renderAiStepList();
-  respondAiForStep(idx);
-}
-
-function handleUserSendMessage() {
-  const input = document.getElementById('aiChatInput');
-  const text = input?.value.trim();
-  if (!text) return;
-
-  appendChatMessage('user', text);
-  input.value = '';
-
-  // Simulate contextual AI reaction
-  setTimeout(() => {
-    generateAiResponse(text);
-  }, 700);
-}
-
-function appendChatMessage(sender, content, suggestions = []) {
-  const history = document.getElementById('aiChatHistory');
-  if (!history) return;
-
-  const bubble = document.createElement('div');
-  bubble.className = `chat-bubble ${sender}`;
-  bubble.innerHTML = content;
-
-  if (suggestions.length > 0) {
-    const chipBox = document.createElement('div');
-    chipBox.className = 'ai-suggestions-chips';
-    suggestions.forEach(s => {
-      const chip = document.createElement('button');
-      chip.className = 'chip-suggestion';
-      chip.textContent = s;
-      chip.onclick = () => {
-        document.getElementById('aiChatInput').value = s;
-        handleUserSendMessage();
-      };
-      chipBox.appendChild(chip);
-    });
-    bubble.appendChild(chipBox);
-  }
-
-  history.appendChild(bubble);
-  history.scrollTop = history.scrollHeight;
-}
-
-function triggerAiWith321Context(project, q3, q1) {
-  const info = BUILTIN_HERITAGES[project] || BUILTIN_HERITAGES.chuakeo;
-  const history = document.getElementById('aiChatHistory');
-  if (history) history.innerHTML = '';
-
-  appendChatMessage('ai', `
-    Chào em! Thầy/Cô AI đã nhận được Phiếu 3–2–1 của em về <b>${info.name}</b>.<br><br>
-    <b>Ý tưởng ban đầu của em:</b> <i>"${q1 || 'Tập trung vào đường nét mái cong và cột gỗ lim'}"</i>.<br><br>
-    Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, AI sẽ không vẽ thay em, mà sẽ cùng em thực hiện quy trình 5 bước <b>AI 5A</b> để nâng tầm ý tưởng này thành một tác phẩm mĩ thuật độc bản nhé!
-  `, [
-    "Em muốn vẽ tranh màu nước về Gác Chuông",
-    "Em muốn làm tranh xé dán hoa văn",
-    "Em muốn nhấn mạnh độ tương phản ánh sáng"
-  ]);
-}
-
-function generateAiResponse(userText) {
-  const step = SAH_STATE.currentAiStep;
-  if (step === 0) {
-    appendChatMessage('ai', `
-      Tuyệt vời! Để định hình rõ hơn ở bước <b>A1 — ASK</b>, thầy muốn hỏi em:<br>
-      • Trong 3 tầng mái của Chùa Keo, em muốn góc nhìn từ dưới ngước lên (tạo cảm giác kỳ vĩ) hay góc nhìn toàn cảnh soi bóng mặt hồ (tạo cảm giác thanh bình tĩnh lặng)?
-    `, ["Góc nhìn ngước từ dưới lên kỳ vĩ", "Góc nhìn toàn cảnh soi bóng hồ nước"]);
-    SAH_STATE.currentAiStep = 1;
-    renderAiStepList();
-  } else if (step === 1) {
-    appendChatMessage('ai', `
-      Phân tích mĩ thuật (<b>A2 — ANALYZE</b>):<br>
-      • <b>Đường nét:</b> Sự kết hợp giữa đường thẳng đứng vững chãi của cột lim và nhịp điệu uốn lượn mềm mại của 12 đầu đao.<br>
-      • <b>Màu sắc:</b> Tông nâu gỗ lim trầm ấm đối sánh với màu ngói đỏ đất nung và sắc xanh ngọc của mặt hồ.<br>
-      • <b>Điểm nhấn:</b> Quả chuông đồng cổ ở tầng 3 sẽ là trung tâm hút mắt người xem.
-    `, ["Chuyển sang bước A3 Gợi ý phương án", "Em muốn điều chỉnh bảng màu"]);
-    SAH_STATE.currentAiStep = 2;
-    renderAiStepList();
-  } else if (step === 2) {
-    appendChatMessage('ai', `
-      Gợi ý phương án tạo hình (<b>A3 — ADVISE</b>):<br>
-      <b>Phương án 1:</b> Tranh đồ họa khắc gỗ đen trắng, tập trung vào kết cấu vì kèo ngàm mộng.<br>
-      <b>Phương án 2:</b> Tranh màu nước tông hoàng hôn (ấm áp, dùng kỹ thuật loang màu trên nền ướt).<br>
-      <b>Phương án 3:</b> Tạo hình xé dán 3D nhiều lớp (Paper Cut Art), tạo chiều sâu không gian gác chuông.
-    `, ["Em chọn Phương án 2: Màu nước hoàng hôn", "Em chọn Phương án 3: Xé dán 3D"]);
-    SAH_STATE.currentAiStep = 3;
-    renderAiStepList();
-  } else {
-    appendChatMessage('ai', `
-      Hoàn thiện ý tưởng (<b>A5 — ART</b>):<br>
-      🎨 <b>Bảng màu đề xuất:</b> #7C4C28 (Nâu gỗ lim), #C46238 (Đỏ chu sa ngói cổ), #C89547 (Vàng son ánh kim), #2D3D33 (Xanh rêu cổ kính).<br>
-      📐 <b>Bố cục:</b> Tỉ lệ 1/3, đặt gác chuông hơi lệch phải để tạo khoảng thở mặt trời lặn bên trái.<br><br>
-      👉 Bây giờ em hãy mở <b>Xưởng sáng tạo (Creative Studio)</b> để bắt đầu vẽ phác thảo nhé!
-    `, ["Mở Xưởng sáng tạo để vẽ ngay", "Lưu ý tưởng này vào Portfolio"]);
-  }
-}
-
-function respondAiForStep(idx) {
-  const steps = [
-    "Bước A1 (ASK): Em muốn truyền tải thông điệp gì nhất qua tác phẩm di sản này?",
-    "Bước A2 (ANALYZE): Quan sát tương quan tỉ lệ giữa con người và công trình kiến trúc.",
-    "Bước A3 (ADVISE): Đề xuất sử dụng màu nước hoặc tranh đồ họa in nổi.",
-    "Bước A4 (ADAPT): Thử nghiệm đảo ngược màu nền để tạo ấn tượng thị giác mới lạ.",
-    "Bước A5 (ART): Lập dàn ý phác thảo và tiến hành vẽ nét phác đầu tiên."
-  ];
-  appendChatMessage('ai', steps[idx]);
 }
 
 /* ==========================================================================
@@ -976,9 +814,11 @@ function checkAi5aHandoff() {
   // Stale handoffs (> 1h) are ignored
   if (!payload.ts || Date.now() - payload.ts > 3600000) return;
 
-  openModal('ai5aStudioModal');
-  triggerAiWith321Context(payload.project, payload.q3, payload.q1);
-  if (location.hash === '#ai5a') history.replaceState(null, '', location.pathname);
+  // The AI 5A studio now lives on its own page; forward the handoff there.
+  if (location.hash.startsWith('#ai5a')) {
+    history.replaceState(null, '', location.pathname);
+    location.href = 'tro-ly-ai.html';
+  }
 }
 
 /* ==========================================================================

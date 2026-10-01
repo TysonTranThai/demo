@@ -33,7 +33,7 @@
           <li><a href="#selectedWork" class="nav-link">Di sản <span class="badge-count">(5)</span></a></li>
           <li><button type="button" class="nav-link" onclick="location.href='models.html'">Mô hình 3D</button></li>
           <li><button type="button" class="nav-link" onclick="location.href='phieu-3-2-1.html'">Phiếu 3–2–1</button></li>
-          <li><button type="button" class="nav-link" onclick="openModal('ai5aStudioModal')">Trợ lí AI 5A</button></li>
+          <li><a href="tro-ly-ai.html" class="nav-link">Trợ Lý Ai</a></li>
           <li><button type="button" class="nav-link" onclick="openModal('creativeStudioModal')">Xưởng vẽ</button></li>
           <li><button type="button" class="nav-link" onclick="openModal('dashboardModal')">Giáo viên</button></li>
         </ul>
@@ -139,7 +139,7 @@
             <div class="approach-row">
               <span class="approach-label">OUR APPROACH</span>
               <p id="approachText" class="approach-text">
-                <span class="approach-highlight">NGUYÊN TẮC CỐT LÕI: NO OBSERVATION → NO AI.</span> Học sinh phải trực tiếp quan sát thực địa, tương tác các điểm chạm Hotspot kiến trúc, hoàn thiện phiếu tư duy 3–2–1 trước khi kích hoạt Trợ lí AI 5A hỗ trợ phát triển tác phẩm nghệ thuật cá nhân.
+                <span class="approach-highlight">NGUYÊN TẮC CỐT LÕI: NO OBSERVATION → NO AI.</span> Học sinh phải trực tiếp quan sát thực địa, tương tác các điểm chạm Hotspot kiến trúc, hoàn thiện phiếu tư duy 3–2–1 trước khi kích hoạt Trợ Lý Ai hỗ trợ phát triển tác phẩm nghệ thuật cá nhân.
               </p>
             </div>
           </div>
@@ -191,7 +191,7 @@
           </div>
 
           <!-- Diagram 3: AI 5A Studio -->
-          <div class="diagram-card" onclick="openModal('ai5aStudioModal')">
+          <div class="diagram-card" onclick="location.href='tro-ly-ai.html'">
             <div class="diagram-preview-box">
               <img class="diagram-img" src="assets/heritage/diagram_ai_5a.svg" alt="Quy trình AI 5A Studio" />
             </div>
@@ -202,7 +202,7 @@
             <h3 class="diagram-title">Quy trình AI 5A gợi mở tư duy, không vẽ thay học sinh</h3>
             <p class="diagram-desc">Hệ thống 5 bước (Ask–Analyze–Advise–Adapt–Art) bảo vệ cảm xúc độc bản và hỗ trợ học sinh THCS phát triển tác phẩm nghệ thuật.</p>
             <span class="diagram-link">
-              Khởi động Trợ lí AI 5A
+              Khởi động Trợ Lý Ai
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </span>
           </div>
@@ -366,54 +366,6 @@
       </div>
     </section>
   </main>
-
-  <!-- ==========================================================================
-       MODAL 4: AI 5A ART ASSISTANT STUDIO
-       ========================================================================== -->
-  <div id="ai5aStudioModal" class="modal-backdrop">
-    <div class="modal-sheet" style="max-width:1100px;">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <h3 class="modal-title">AI Art Assistant — Quy trình 5A</h3>
-          <span class="modal-subtitle">Ask • Analyze • Advise • Adapt • Art (AI đồng hành gợi mở — Không vẽ thay học sinh)</span>
-        </div>
-        <button class="modal-close-btn" type="button" onclick="closeModal('ai5aStudioModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="ai5a-studio-layout">
-          <!-- 5 Steps Stepper -->
-          <div id="aiStepsSidebar" class="ai5a-stepper-sidebar">
-            <!-- Dynamically rendered -->
-          </div>
-
-          <!-- Chat Stage -->
-          <div class="ai5a-chat-stage">
-            <div id="aiChatHistory" class="ai5a-chat-history">
-              <!-- Initial AI Greeting -->
-              <div class="chat-bubble ai">
-                Chào em! Thầy/Cô AI đồng hành cùng em trong dự án <b>SMART ART HERITAGE</b>.<br><br>
-                Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, chúng ta sẽ bắt đầu từ những cảm nhận thật của em trên Phiếu 3–2–1. Em đang chọn khám phá di sản nào và có mong muốn sáng tác bức tranh như thế nào?
-                <div class="ai-suggestions-chips">
-                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('chuakeo', 'Mái cong 12 đầu đao', 'Tranh màu nước hoàng hôn')">Chùa Keo: Tranh màu nước hoàng hôn</button>
-                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('phohien', 'Đền Mẫu hồ Bán Nguyệt', 'Tranh khắc gỗ đồ họa')">Phố Hiến: Đồ họa cổ điển</button>
-                  <button class="chip-suggestion" type="button" onclick="triggerAiWith321Context('dentran', 'Rồng đá tam cấp', 'Tạo hình 3D pop-up')">Đền Trần: Tạo hình 3D</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Input Bar -->
-            <div class="ai5a-input-bar">
-              <input id="aiChatInput" class="form-input" style="background:#ffffff;" type="text" placeholder="Nhập câu trả lời hoặc suy nghĩ của em để AI gợi ý tiếp..." />
-              <button id="btnAiSend" class="btn-pill-cta" type="button">
-                <span>Gửi</span>
-                <span class="btn-icon-circle">↗</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ==========================================================================
        MODAL 5: CANVAS CREATIVE STUDIO & PORTFOLIO
@@ -684,7 +636,7 @@
           <ul>
             <li><a href="models.html">Phòng 3D Di Sản WebGL</a></li>
             <li><a href="phieu-3-2-1.html">Phiếu tư duy 3–2–1</a></li>
-            <li><a href="javascript:openModal('ai5aStudioModal')">Quy trình AI 5A Studio</a></li>
+            <li><a href="tro-ly-ai.html">Trợ Lý Ai — Quy trình 5A</a></li>
             <li><a href="javascript:openModal('creativeStudioModal')">Xưởng vẽ & Portfolio</a></li>
             <li><a href="javascript:openModal('dashboardModal')">Thực nghiệm Pre/Post</a></li>
           </ul>

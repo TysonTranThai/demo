@@ -13,7 +13,7 @@
   <!-- Three.js r128 (vendored) — used by models.html, not needed here -->
 
   <!-- Custom Core Design System -->
-  <link rel="stylesheet" href="css/smart-art-heritage.css?v=2">
+  <link rel="stylesheet" href="css/smart-art-heritage.css?v=3">
 </head>
 <body>
 
@@ -30,7 +30,7 @@
 
         <!-- Navigation Links -->
         <ul class="nav-links">
-          <li><a href="#selectedWork" class="nav-link">Di sản <span class="badge-count">(5)</span></a></li>
+          <li><a href="di-san.html" class="nav-link">Di sản <span class="badge-count">(5)</span></a></li>
           <li><button type="button" class="nav-link" onclick="location.href='models.html'">Mô hình 3D</button></li>
           <li><button type="button" class="nav-link" onclick="location.href='phieu-3-2-1.html'">Phiếu 3–2–1</button></li>
           <li><a href="tro-ly-ai.html" class="nav-link">Trợ Lý Ai</a></li>
@@ -147,221 +147,107 @@
       </div>
     </section>
 
-    <!-- ANALYTICAL 3 TRỤ CỘT CÔNG NGHỆ -->
-    <section class="analytical-section">
+    <!-- ================= JOURNEY SECTION (REDESIGNED) ================= -->
+    <section class="hp-journey">
       <div class="container">
-        <div class="section-head-minimal">
-          <span class="section-head-title">KIẾN TRÚC DI SẢN & PHƯƠNG PHÁP SƯ PHẠM</span>
-          <span class="text-eyebrow">3 TRỤ CỘT CÔNG NGHỆ</span>
-        </div>
-
-        <div class="diagram-cards-grid">
-          <!-- Diagram 1: Mô hình 3D Keo -->
-          <div class="diagram-card" onclick="location.href='models.html'">
-            <div class="diagram-preview-box">
-              <img class="diagram-img" src="assets/heritage/diagram_3d_keo.svg" alt="Mô hình 3D Gác Chuông Chùa Keo" />
-            </div>
-            <div class="diagram-tag-row">
-              <span class="diagram-bullet"></span>
-              <span class="diagram-category">MÔ HÌNH 3D • GIẢI PHẪU KẾT CẤU</span>
-            </div>
-            <h3 class="diagram-title">Mô hình 3D tương tác xoay 360° bóc tách vì kèo gỗ lim</h3>
-            <p class="diagram-desc">Khám phá kết cấu đấu củng 3 tầng 12 mái cong Chùa Keo trực quan, không dùng đinh sắt qua công nghệ WebGL Three.js.</p>
-            <span class="diagram-link">
-              Trải nghiệm mô hình 3D
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </span>
-          </div>
-
-          <!-- Diagram 2: Hotspot & Phiếu 3-2-1 -->
-          <div class="diagram-card" onclick="location.href='phieu-3-2-1.html'">
-            <div class="diagram-preview-box">
-              <img class="diagram-img" src="assets/heritage/diagram_hotspot_321.svg" alt="75 Điểm chạm Hotspot và Phiếu 3-2-1" />
-            </div>
-            <div class="diagram-tag-row">
-              <span class="diagram-bullet"></span>
-              <span class="diagram-category">QUAN SÁT THỰC ĐỊA • PHIẾU 3–2–1</span>
-            </div>
-            <h3 class="diagram-title">75 Điểm chạm Hotspot liên kết tiến trình phản tư 3–2–1</h3>
-            <p class="diagram-desc">Rèn luyện năng lực quan sát thẩm mĩ, phát hiện giá trị hoa văn rồng phượng và không gian kiến trúc trước khi sáng tạo.</p>
-            <span class="diagram-link">
-              Làm Phiếu 3–2–1
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </span>
-          </div>
-
-          <!-- Diagram 3: AI 5A Studio -->
-          <div class="diagram-card" onclick="location.href='tro-ly-ai.html'">
-            <div class="diagram-preview-box">
-              <img class="diagram-img" src="assets/heritage/diagram_ai_5a.svg" alt="Quy trình AI 5A Studio" />
-            </div>
-            <div class="diagram-tag-row">
-              <span class="diagram-bullet"></span>
-              <span class="diagram-category">TRỢ LÍ AI 5A • ĐỒNG HÀNH SÁNG TẠO</span>
-            </div>
-            <h3 class="diagram-title">Quy trình AI 5A gợi mở tư duy, không vẽ thay học sinh</h3>
-            <p class="diagram-desc">Hệ thống 5 bước (Ask–Analyze–Advise–Adapt–Art) bảo vệ cảm xúc độc bản và hỗ trợ học sinh THCS phát triển tác phẩm nghệ thuật.</p>
-            <span class="diagram-link">
-              Khởi động Trợ Lý Ai
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SELECTED WORK / 5 HERITAGE SITES SHOWCASE -->
-    <section id="selectedWork" class="selected-work-section">
-      <div class="container">
-        <div class="selected-work-header">
-          <span class="text-eyebrow" style="display:block; margin-bottom:12px;">SELECTED WORK</span>
-          <h2 id="selectedWorkHeadline" class="selected-work-headline">
-            5 Quần thể di sản và làng nghề tiêu biểu của đất Hưng Yên - Phố Hiến
-          </h2>
-          <p id="selectedWorkSubline" class="selected-work-subline">
-            Mỗi di sản mở ra một kho tàng kiến trúc gỗ lim, chạm khắc tinh xảo và nguồn cảm hứng sáng tác mĩ thuật sống động.
+        <div class="hp-journey-head">
+          <span class="hp-eyebrow">HÀNH TRÌNH SÁNG TẠO</span>
+          <h2 class="hp-journey-title">Từ quan sát di sản đến tác phẩm độc bản</h2>
+          <p class="hp-journey-sub">
+            Một tiến trình liền mạch bốn chặng — học sinh không bao giờ bắt đầu từ trang trắng.
           </p>
         </div>
 
-        <!-- 6 Project Cards Grid -->
-        <div id="projectsGridContainer" class="projects-grid">
-          <!-- Card 1: Phố Hiến -->
-          <div class="project-card" onclick="handleProjectCardClick('phohien')">
-            <div class="project-meta-row">
-              <span class="project-code-title">01 — PHỐ HIẾN</span>
-              <span class="project-year">THẾ KỶ XVII</span>
+        <ol class="hp-steps">
+          <li class="hp-step" onclick="location.href='di-san.html'">
+            <span class="hp-step-num">01</span>
+            <div class="hp-step-body">
+              <h3 class="hp-step-title">Khám phá di sản</h3>
+              <p class="hp-step-desc">5 quần thể Hưng Yên qua 75 điểm chạm Hotspot — kiến trúc, hoa văn, không gian từng được “mở lớp” kỹ lưỡng.</p>
+              <span class="hp-step-link">Mở Di Sản &amp; Câu Hỏi <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
             </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/cover_phohien.jpeg" alt="Phố Hiến" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">THƯƠNG CẢNG CỔ</span>
-                <span class="tag-mini">ĐỀN MẪU</span>
-                <span class="tag-mini">HỒ BÁN NGUYỆT</span>
-              </div>
-            </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Quần thể di tích thương cảng cổ kính sầm uất với đền Mẫu và chùa Chuông.</span>
-              <button class="project-explore-btn" type="button">
-                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
-            </div>
-          </div>
+          </li>
 
-          <!-- Card 2: Chùa Keo -->
-          <div class="project-card" onclick="handleProjectCardClick('chuakeo')">
-            <div class="project-meta-row">
-              <span class="project-code-title">02 — CHÙA KEO</span>
-              <span class="project-year">KIẾN TRÚC GỖ</span>
+          <li class="hp-step" onclick="location.href='phieu-3-2-1.html'">
+            <span class="hp-step-num">02</span>
+            <div class="hp-step-body">
+              <h3 class="hp-step-title">Ghi lại cảm nhận 3–2–1</h3>
+              <p class="hp-step-desc">3 điều ấn tượng, 2 câu hỏi tò mò, 1 ý tưởng cá nhân — tự động lưu, là “hộ chiếu” vào mọi công đoạn sau.</p>
+              <span class="hp-step-link">Làm Phiếu 3–2–1 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
             </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/cover_chuakeo.jpeg" alt="Chùa Keo" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">GÁC CHUÔNG 3 TẦNG</span>
-                <span class="tag-mini">12 MÁI CONG</span>
-                <span class="tag-mini">GỖ LIM</span>
-              </div>
-            </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Gác chuông ba tầng 12 mái cong kiệt tác đấu củng gỗ không dùng đinh sắt.</span>
-              <button class="project-explore-btn" type="button">
-                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
-            </div>
-          </div>
+          </li>
 
-          <!-- Card 3: Đền Trần -->
-          <div class="project-card" onclick="handleProjectCardClick('dentran')">
-            <div class="project-meta-row">
-              <span class="project-code-title">03 — ĐỀN TRẦN HƯNG HÀ</span>
-              <span class="project-year">HÀO KHÍ ĐÔNG A</span>
+          <li class="hp-step" onclick="location.href='tro-ly-ai.html'">
+            <span class="hp-step-num">03</span>
+            <div class="hp-step-body">
+              <h3 class="hp-step-title">Đồng hành cùng Trợ Lý Ai</h3>
+              <p class="hp-step-desc">Quy trình 5A (Ask–Analyze–Advise–Adapt–Art) gợi mở tư duy — AI không bao giờ vẽ thay học sinh.</p>
+              <span class="hp-step-link">Gặp Trợ Lý Ai <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
             </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/cover_dentran.jpeg" alt="Đền Trần" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">LĂNG MỘ VUA TRẦN</span>
-                <span class="tag-mini">RỒNG ĐÁ</span>
-                <span class="tag-mini">TRỤC THẦN ĐẠO</span>
-              </div>
-            </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Vùng đất phát tích vương triều Trần với không gian tưởng niệm và lễ hội trang nghiêm.</span>
-              <button class="project-explore-btn" type="button">
-                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
-            </div>
-          </div>
+          </li>
 
-          <!-- Card 4: Lê Quý Đôn -->
-          <div class="project-card" onclick="handleProjectCardClick('lequydon')">
-            <div class="project-meta-row">
-              <span class="project-code-title">04 — KHU LƯU NIỆM LÊ QUÝ ĐÔN</span>
-              <span class="project-year">DANH NHÂN VĂN HÓA</span>
+          <li class="hp-step" onclick="location.href='trien-lam.html'">
+            <span class="hp-step-num">04</span>
+            <div class="hp-step-body">
+              <h3 class="hp-step-title">Trưng bày &amp; phản hồi</h3>
+              <p class="hp-step-desc">Tải tác phẩm lên Triển Lãm chung của lớp — nơi giáo viên chấm rubric và cả lớp cùng chiêm ngưỡng.</p>
+              <span class="hp-step-link">Vào Triển Lãm <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
             </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/cover_lequydon.jpeg" alt="Lê Quý Đôn" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">NHÀ BÁC HỌC</span>
-                <span class="tag-mini">TƯỢNG ĐỒNG</span>
-                <span class="tag-mini">THƯ TỊCH CỔ</span>
-              </div>
-            </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Không gian tưởng niệm Nhà bác học Lê Quý Đôn kết nối học liệu mĩ thuật số.</span>
-              <button class="project-explore-btn" type="button">
-                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
-            </div>
-          </div>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-          <!-- Card 5: Đồng Xâm -->
-          <div class="project-card" onclick="handleProjectCardClick('dongxam')">
-            <div class="project-meta-row">
-              <span class="project-code-title">05 — LÀNG NGHỀ CHẠM BẠC ĐỒNG XÂM</span>
-              <span class="project-year">LÀNG NGHỀ 500 NĂM</span>
-            </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/cover_dongxam.jpeg" alt="Đồng Xâm" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">CHẠM BẠC KIM HOÀN</span>
-                <span class="tag-mini">HOA VĂN TINH XẢO</span>
-                <span class="tag-mini">NGHỆ NHÂN</span>
-              </div>
-            </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Nghệ thuật chạm khắc kim hoàn thủ công truyền thống tinh hoa đất Bắc.</span>
-              <button class="project-explore-btn" type="button">
-                Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
-            </div>
+    <!-- ================= HERITAGE STRIP (REDESIGNED, COMPACT) ================= -->
+    <section class="hp-heritage">
+      <div class="container">
+        <div class="hp-heritage-head">
+          <div>
+            <span class="hp-eyebrow">5 QUẦN THỂ DI SẢN</span>
+            <h2 class="hp-heritage-title">Đất Hưng Yên — Phố Hiến</h2>
           </div>
+          <a class="hp-heritage-all" href="di-san.html">
+            Xem tất cả
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+        </div>
 
-          <!-- Card 6: Studio & AR Gallery -->
-          <div class="project-card" onclick="handleProjectCardClick('studio')">
-            <div class="project-meta-row">
-              <span class="project-code-title">06 — XƯỞNG SÁNG TẠO & AR GALLERY</span>
-              <span class="project-year">TRIỂN LÃM MĨ THUẬT</span>
+        <div class="hp-hgrid">
+          <a class="hp-hcard" href="di-san.html#phohien">
+            <img src="assets/extracted/cover_phohien.jpeg" alt="Phố Hiến" loading="lazy" />
+            <div class="hp-hcard-body">
+              <span class="hp-hcard-name">Phố Hiến</span>
+              <span class="hp-hcard-sub">Thương cảng cổ thế kỷ XVII</span>
             </div>
-            <div class="project-photo-wrapper">
-              <img class="project-photo" src="assets/extracted/002_Cong_di_tich_kien_truc_co.jpeg" alt="Xưởng sáng tạo & AR" loading="lazy" />
-              <div class="project-hover-curtain"></div>
-              <div class="project-floating-tags">
-                <span class="tag-mini">CANVAS DRAWING</span>
-                <span class="tag-mini">AI 5A ASSISTANT</span>
-                <span class="tag-mini">VIRTUAL AR</span>
-              </div>
+          </a>
+          <a class="hp-hcard" href="di-san.html#chuakeo">
+            <img src="assets/extracted/cover_chuakeo.jpeg" alt="Chùa Keo" loading="lazy" />
+            <div class="hp-hcard-body">
+              <span class="hp-hcard-name">Chùa Keo</span>
+              <span class="hp-hcard-sub">Gác chuông 3 tầng 12 mái cong</span>
             </div>
-            <div class="project-card-footer">
-              <span class="project-subtitle-text">Không gian phác thảo, hoàn thiện tác phẩm mĩ thuật và triển lãm AR trên di động.</span>
-              <button class="project-explore-btn" type="button">
-                Vào xưởng sáng tạo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-              </button>
+          </a>
+          <a class="hp-hcard" href="di-san.html#dentran">
+            <img src="assets/extracted/cover_dentran.jpeg" alt="Đền Trần" loading="lazy" />
+            <div class="hp-hcard-body">
+              <span class="hp-hcard-name">Đền Trần</span>
+              <span class="hp-hcard-sub">Hào khí Đông A</span>
             </div>
-          </div>
+          </a>
+          <a class="hp-hcard" href="di-san.html#lequydon">
+            <img src="assets/extracted/cover_lequydon.jpeg" alt="Lê Quý Đôn" loading="lazy" />
+            <div class="hp-hcard-body">
+              <span class="hp-hcard-name">Lê Quý Đôn</span>
+              <span class="hp-hcard-sub">Danh nhân văn hóa</span>
+            </div>
+          </a>
+          <a class="hp-hcard" href="di-san.html#dongxam">
+            <img src="assets/extracted/cover_dongxam.jpeg" alt="Đồng Xâm" loading="lazy" />
+            <div class="hp-hcard-body">
+              <span class="hp-hcard-name">Đồng Xâm</span>
+              <span class="hp-hcard-sub">Chạm bạc 500 năm</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>

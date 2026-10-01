@@ -1774,3 +1774,214 @@ h1, h2, h3, h4, .display-font {
     gap: 32px;
   }
 }
+
+/* ==========================================================================
+   HOMEPAGE REDESIGN — Journey steps + Heritage strip
+   ========================================================================== */
+.hp-eyebrow {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent-terra);
+  margin-bottom: 14px;
+}
+
+/* ---------- Journey ---------- */
+.hp-journey {
+  padding: 96px 0 72px;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  position: relative;
+  overflow: hidden;
+}
+.hp-journey::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 420px at 85% -10%, rgba(196, 98, 56, 0.14), transparent 60%),
+    radial-gradient(700px 380px at 0% 110%, rgba(200, 149, 71, 0.1), transparent 60%);
+  pointer-events: none;
+}
+.hp-journey .container { position: relative; }
+.hp-journey-head { max-width: 640px; margin-bottom: 52px; }
+.hp-journey .hp-eyebrow { color: var(--accent-gold); }
+.hp-journey-title {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  color: var(--text-light);
+}
+.hp-journey-sub {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-light-muted);
+}
+
+.hp-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.hp-step {
+  position: relative;
+  border: 1px solid var(--border-dark);
+  border-radius: 20px;
+  background: var(--bg-dark-card);
+  padding: 26px 24px 24px;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hp-step:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 149, 71, 0.55);
+  background: var(--bg-dark-subtle);
+}
+.hp-step-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent-gold);
+}
+.hp-step-num::after {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 2px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, var(--accent-terra), transparent);
+}
+.hp-step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-light);
+}
+.hp-step-desc {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-light-muted);
+  flex: 1;
+}
+.hp-step-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+.hp-step:hover .hp-step-link { color: #e6b96a; }
+
+/* ---------- Heritage strip ---------- */
+.hp-heritage { padding: 84px 0 96px; background: var(--bg-sand); }
+.hp-heritage-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.hp-heritage-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--text-primary);
+}
+.hp-heritage-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-decoration: none;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 11px 20px;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.hp-heritage-all:hover {
+  border-color: var(--accent-terra);
+  color: var(--accent-terra);
+  background: rgba(196, 98, 56, 0.05);
+}
+.hp-hgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.hp-hcard {
+  position: relative;
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--bg-card-alt);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hp-hcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.hp-hcard img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.hp-hcard:hover img { transform: scale(1.06); }
+.hp-hcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(20, 20, 19, 0.82) 100%);
+}
+.hp-hcard-body {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  padding: 16px 16px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hp-hcard-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.hp-hcard-sub {
+  font-size: 0.7rem;
+  color: rgba(246, 244, 238, 0.75);
+}
+
+@media (max-width: 1024px) {
+  .hp-steps { grid-template-columns: repeat(2, 1fr); }
+  .hp-hgrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .hp-journey { padding: 68px 0 52px; }
+  .hp-steps { grid-template-columns: 1fr; }
+  .hp-hgrid { grid-template-columns: repeat(2, 1fr); }
+  .hp-heritage { padding: 60px 0 72px; }
+}

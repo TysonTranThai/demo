@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Trang Quản Trị Giáo Viên — Smart Art Heritage</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0e1116">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #f2eee6;
+      --ink-dim: rgba(242, 238, 230, 0.62);
+      --ink-faint: rgba(242, 238, 230, 0.34);
+      --glass: rgba(14, 17, 22, 0.55);
+      --glass-strong: rgba(14, 17, 22, 0.82);
+      --gold: #f1d084;
+      --terra: #c46238;
+      --hair: rgba(242, 238, 230, 0.14);
+      --field: rgba(242, 238, 230, 0.06);
+      --ok: #7fbf8e;
+      --warn: #e0b45c;
+      --bad: #ff9d8a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; padding: 0; background: #0e1116; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+    body.locked { overflow: hidden; }
+    body.locked .gv-console { display: none; }
+
+    /* ---------- top bar ---------- */
+    .gv-top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      background: rgba(14, 17, 22, 0.86);
+      border-bottom: 1px solid var(--hair);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .gv-brand { display: flex; align-items: center; gap: 10px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; }
+    .gv-brand .lock-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(127, 191, 142, 0.15); }
+    .gv-top-actions { display: flex; gap: 10px; }
+
+    .gv-pill {
+      font-family: inherit;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-dim);
+      text-decoration: none;
+      padding: 9px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .gv-pill:hover { color: var(--ink); background: var(--glass-strong); }
+    .gv-pill.gold { color: #17130b; background: var(--gold); border-color: var(--gold); }
+    .gv-pill.gold:hover { filter: brightness(1.06); color: #17130b; }
+
+    /* ---------- login gate ---------- */
+    .gv-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(1100px 480px at 80% -10%, rgba(241, 208, 132, 0.09), transparent 60%),
+        radial-gradient(900px 420px at 10% 110%, rgba(196, 98, 56, 0.08), transparent 60%),
+        #0e1116;
+      padding: 24px;
+    }
+    .gv-gate[hidden] { display: none; }
+    .gv-gate-card {
+      width: min(420px, 100%);
+      border-radius: 22px;
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      padding: 34px 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    }
+    .gv-gate-eyebrow {
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.32em;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .gv-gate-title { font-size: 1.55rem; font-weight: 800; margin: 0 0 6px; }
+    .gv-gate-sub { margin: 0 0 24px; font-size: 0.84rem; line-height: 1.6; color: var(--ink-dim); }
+    .gv-gate label {
+      display: block;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink-faint);
+      margin: 14px 0 6px;
+    }
+    .gv-gate input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--field);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      padding: 12px 15px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .gv-gate input:focus { border-color: rgba(241, 208, 132, 0.55); }
+    .gv-gate-err {
+      display: none;
+      margin: 12px 0 0;
+      font-size: 0.8rem;
+      color: var(--bad);
+    }
+    .gv-gate-err.show { display: block; }
+    .gv-gate-btn {
+      width: 100%;
+      margin-top: 20px;
+      font-family: inherit;
+      font-size: 0.82rem; font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #17130b;
+      background: var(--gold);
+      border: none;
+      border-radius: 999px;
+      padding: 14px;
+      cursor: pointer;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+    .gv-gate-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+    .gv-gate-hint {
+      margin: 16px 0 0;
+      font-size: 0.72rem;
+      line-height: 1.6;
+      color: var(--ink-faint);
+    }
+    .gv-gate-hint code { color: var(--ink-dim); background: var(--field); padding: 1px 6px; border-radius: 6px; }
+
+    /* ---------- console ---------- */
+    .gv-wrap { max-width: 1180px; margin: 0 auto; padding: 34px 28px 0; }
+    .gv-hero { padding: 10px 0 22px; }
+    .gv-eyebrow { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.36em; color: var(--gold); margin-bottom: 12px; }
+    .gv-title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-weight: 800; margin: 0; line-height: 1.1; }
+    .gv-sub { margin: 10px 0 0; font-size: 0.9rem; color: var(--ink-dim); max-width: 760px; line-height: 1.6; }
+
+    .gv-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 22px; }
+    .gv-tab {
+      font-family: inherit;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-dim);
+      background: transparent;
+      border: 1px solid var(--hair);
+      border-radius: 999px;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .gv-tab:hover { color: var(--ink); background: rgba(242, 238, 230, 0.06); }
+    .gv-tab.active { color: #17130b; background: var(--gold); border-color: var(--gold); }
+
+    .gv-panel[hidden] { display: none; }
+
+    .gv-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+    .gv-kpi { border-radius: 18px; border: 1px solid var(--hair); background: var(--glass); padding: 18px 20px; }
+    .gv-kpi-v { font-size: 1.9rem; font-weight: 800; }
+    .gv-kpi-l { margin-top: 4px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+
+    .gv-card { border-radius: 18px; border: 1px solid var(--hair); background: var(--glass); padding: 20px 22px; margin-bottom: 18px; }
+    .gv-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+    .gv-card-title { font-size: 1rem; font-weight: 800; margin: 0; }
+    .gv-card-note { font-size: 0.72rem; color: var(--ink-faint); }
+    .gv-card-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.3em; color: var(--ink-faint); margin-bottom: 14px; }
+
+    .gv-table-wrap { overflow-x: auto; }
+    table.gv-t { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    table.gv-t th {
+      text-align: left;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--hair);
+      white-space: nowrap;
+    }
+    table.gv-t td { padding: 10px; border-bottom: 1px solid rgba(242, 238, 230, 0.07); vertical-align: middle; }
+    table.gv-t tr:last-child td { border-bottom: none; }
+    .gv-badge {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      color: var(--ink-dim);
+      white-space: nowrap;
+    }
+    .gv-badge.ok { color: var(--ok); border-color: rgba(127, 191, 142, 0.4); }
+    .gv-badge.warn { color: var(--warn); border-color: rgba(224, 180, 92, 0.4); }
+    .gv-badge.bad { color: var(--bad); border-color: rgba(255, 157, 138, 0.4); }
+
+    .gv-mini {
+      font-family: inherit;
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1px solid var(--hair);
+      background: transparent;
+      color: var(--ink-dim);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .gv-mini:hover { color: var(--gold); border-color: rgba(241, 208, 132, 0.5); }
+    .gv-mini.danger:hover { color: var(--bad); border-color: rgba(255, 157, 138, 0.5); }
+
+    .gv-actions-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .gv-empty { padding: 30px 10px; text-align: center; color: var(--ink-faint); font-size: 0.85rem; line-height: 1.6; }
+
+    /* progress bars (rubric) */
+    .gv-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .gv-bar-label { width: 210px; font-size: 0.78rem; font-weight: 600; color: var(--ink-dim); flex-shrink: 0; }
+    .gv-bar-track { flex: 1; height: 8px; border-radius: 999px; background: rgba(242, 238, 230, 0.08); overflow: hidden; }
+    .gv-bar-fill { height: 100%; border-radius: 999px; background: var(--gold); transition: width 0.4s ease; }
+    .gv-bar-fill.dim { background: rgba(242, 238, 230, 0.35); }
+    .gv-bar-v { width: 92px; text-align: right; font-size: 0.74rem; font-weight: 700; color: var(--ink); flex-shrink: 0; }
+
+    /* login activity list */
+    .gv-log { display: flex; flex-direction: column; gap: 8px; }
+    .gv-log-row {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.78rem;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(242, 238, 230, 0.07);
+      background: var(--field);
+    }
+    .gv-log-time { font-variant-numeric: tabular-nums; color: var(--ink-faint); font-size: 0.7rem; flex-shrink: 0; }
+
+    .gv-warnbox {
+      border: 1px solid rgba(255, 157, 138, 0.35);
+      background: rgba(255, 157, 138, 0.06);
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--ink-dim);
+    }
+    .gv-warnbox b { color: var(--bad); }
+
+    @media (max-width: 900px) {
+      .gv-kpis { grid-template-columns: repeat(2, 1fr); }
+      .gv-bar-label { width: 140px; }
+    }
+    @media (max-width: 560px) {
+      .gv-top { padding: 12px 14px; }
+      .gv-wrap { padding-left: 16px; padding-right: 16px; }
+      .gv-kpis { grid-template-columns: 1fr; }
+      .gv-top-actions .gv-pill.hide-sm { display: none; }
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <!-- ============ LOGIN GATE ============ -->
+  <div id="gvGate" class="gv-gate">
+    <div class="gv-gate-card">
+      <div class="gv-gate-eyebrow">SMART ART HERITAGE — KHU VỰC QUẢN TRỊ</div>
+      <h1 class="gv-gate-title">Đăng nhập Giáo viên</h1>
+      <p class="gv-gate-sub">Chỉ dành cho giáo viên quản lý. Toàn bộ dữ liệu học sinh trên máy này nằm sau cánh cổng này.</p>
+
+      <form id="gvLoginForm" autocomplete="off">
+        <label for="gvUser">Tên đăng nhập</label>
+        <input id="gvUser" type="text" autocomplete="username" spellcheck="false" placeholder="teacher">
+
+        <label for="gvPass">Mật khẩu</label>
+        <input id="gvPass" type="password" autocomplete="current-password" placeholder="••••••••">
+
+        <p id="gvGateErr" class="gv-gate-err">Sai tên đăng nhập hoặc mật khẩu.</p>
+
+        <button class="gv-gate-btn" type="submit">Vào trang quản trị →</button>
+      </form>
+
+      <p class="gv-gate-hint">
+        Đăng nhập lần đầu? Dùng tài khoản mặc định <code>giaovien / sahogiuday</code> rồi đổi mật khẩu ngay trong tab <b>Cài đặt</b>.
+        Thông tin chỉ lưu trên máy này.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN CONSOLE ============ -->
+  <div class="gv-console">
+
+    <div class="gv-top">
+      <span class="gv-brand"><span class="lock-dot"></span> QUẢN TRỊ GIÁO VIÊN</span>
+      <div class="gv-top-actions">
+        <a class="gv-pill hide-sm" href="trien-lam.html">Triển Lãm</a>
+        <a class="gv-pill hide-sm" href="index.html">Trang Chủ</a>
+        <button id="gvLogout" class="gv-pill gold" type="button">Đăng xuất</button>
+      </div>
+    </div>
+
+    <main class="gv-wrap">
+      <header class="gv-hero">
+        <div class="gv-eyebrow">SMART ART HERITAGE — TOÀN QUYỀN ĐIỀU HÀNH</div>
+        <h2 class="gv-title">Bảng điều khiển Giáo viên</h2>
+        <p class="gv-sub">
+          Theo dõi tiến độ 3–2–1, tác phẩm trên Triển Lãm, hoạt động AI 5A và quản trị dữ liệu
+          toàn bộ nền tảng — mọi thứ học sinh làm trên máy này đều hiện ở đây.
+        </p>
+      </header>
+
+      <nav class="gv-tabs">
+        <button class="gv-tab active" data-tab="overview" type="button">Tổng quan</button>
+        <button class="gv-tab" data-tab="students" type="button">Học sinh</button>
+        <button class="gv-tab" data-tab="works" type="button">Tác phẩm</button>
+        <button class="gv-tab" data-tab="worksheets" type="button">Phiếu 3–2–1</button>
+        <button class="gv-tab" data-tab="settings" type="button">Cài đặt</button>
+        <button class="gv-tab" data-tab="security" type="button">Bảo mật</button>
+      </nav>
+
+      <!-- ============ OVERVIEW ============ -->
+      <section id="tab-overview" class="gv-panel">
+        <div class="gv-kpis">
+          <div class="gv-kpi"><div class="gv-kpi-v" id="kpiStudents">0</div><div class="gv-kpi-l">Học sinh hoạt động</div></div>
+          <div class="gv-kpi"><div class="gv-kpi-v" id="kpiWorksheets">0</div><div class="gv-kpi-l">Phiếu 3–2–1 đã làm</div></div>
+          <div class="gv-kpi"><div class="gv-kpi-v" id="kpiWorks">0</div><div class="gv-kpi-l">Tác phẩm đã tải lên</div></div>
+          <div class="gv-kpi"><div class="gv-kpi-v" id="kpiStorage">0 KB</div><div class="gv-kpi-l">Dung lượng đã dùng</div></div>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Tiến độ theo lớp</h3>
+            <span class="gv-card-note">Gộp theo lớp khai báo trong Phiếu 3–2–1 & Triển Lãm</span>
+          </div>
+          <div id="classProgress"></div>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Phổ di sản được chọn</h3>
+            <span class="gv-card-note">Từ phiếu 3–2–1 và tác phẩm đã tải lên</span>
+          </div>
+          <div id="heritageBars"></div>
+        </div>
+      </section>
+
+      <!-- ============ STUDENTS ============ -->
+      <section id="tab-students" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Danh sách học sinh</h3>
+            <span class="gv-card-note">Tổng hợp từ Phiếu 3–2–1, Triển Lãm & hoạt động AI 5A</span>
+          </div>
+          <div class="gv-actions-bar" style="margin-bottom:14px;">
+            <button id="btnExportCsv" class="gv-mini" type="button">⬇ Xuất CSV</button>
+          </div>
+          <div class="gv-table-wrap" id="studentsTableWrap"></div>
+        </div>
+      </section>
+
+      <!-- ============ WORKS ============ -->
+      <section id="tab-works" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Tác phẩm trên Triển Lãm</h3>
+            <span class="gv-card-note">Quản lý toàn bộ tệp học sinh đã tải lên</span>
+          </div>
+          <div class="gv-table-wrap" id="worksTableWrap"></div>
+        </div>
+      </section>
+
+      <!-- ============ WORKSHEETS ============ -->
+      <section id="tab-worksheets" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Phiếu 3–2–1 gần nhất</h3>
+            <span class="gv-card-note">Nội dung nháp mới nhất của từng học sinh</span>
+          </div>
+          <div class="gv-table-wrap" id="worksheetsTableWrap"></div>
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS ============ -->
+      <section id="tab-settings" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-label">XUẤT / NHẬP DỮ LIỆU</div>
+          <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
+            Sao lưu toàn bộ dữ liệu nền tảng (phiếu, tác phẩm, phản hồi) ra một tệp JSON —
+            hoặc khôi phục lại trên máy khác.
+          </p>
+          <div class="gv-actions-bar">
+            <button id="btnBackup" class="gv-mini" type="button">⬇ Tải bản sao lưu JSON</button>
+            <label class="gv-mini" for="restoreInput" style="cursor:pointer;">⬆ Khôi phục từ tệp JSON…</label>
+            <input id="restoreInput" type="file" accept="application/json,.json" hidden>
+          </div>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-label">MỞ TRANG NHANH</div>
+          <div class="gv-actions-bar">
+            <a class="gv-mini" href="index.html" target="_blank">Trang chủ ↗</a>
+            <a class="gv-mini" href="models.html" target="_blank">Phòng 3D ↗</a>
+            <a class="gv-mini" href="di-san.html" target="_blank">Di Sản & Câu Hỏi ↗</a>
+            <a class="gv-mini" href="phieu-3-2-1.html" target="_blank">Phiếu 3–2–1 ↗</a>
+            <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Trợ Lý Ai ↗</a>
+            <a class="gv-mini" href="trien-lam.html" target="_blank">Triển Lãm ↗</a>
+          </div>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-label">KHU VỰC NGUY HIỂM</div>
+          <div class="gv-warnbox">
+            <b>Cảnh báo:</b> các hành động dưới đây xoá dữ liệu thật của học sinh và không thể hoàn tác.
+            Hãy tải bản sao lưu JSON trước khi thực hiện.
+          </div>
+          <div class="gv-actions-bar" style="margin-top:14px;">
+            <button id="btnWipeWorksheets" class="gv-mini danger" type="button">Xoá toàn bộ Phiếu 3–2–1</button>
+            <button id="btnWipeWorks" class="gv-mini danger" type="button">Xoá toàn bộ Tác phẩm</button>
+            <button id="btnWipeAll" class="gv-mini danger" type="button">Xoá MỌI dữ liệu nền tảng</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SECURITY ============ -->
+      <section id="tab-security" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-label">ĐỔI MẬT KHẨU</div>
+          <form id="gvPassForm">
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:720px;">
+              <div>
+                <label for="gvOldPass" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MẬT KHẨU CŨ</label>
+                <input id="gvOldPass" type="password" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+              </div>
+              <div>
+                <label for="gvNewPass" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MẬT KHẨU MỚI</label>
+                <input id="gvNewPass" type="password" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+              </div>
+              <div>
+                <label for="gvNewPass2" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">NHẬP LẠI</label>
+                <input id="gvNewPass2" type="password" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+              </div>
+            </div>
+            <p id="gvPassMsg" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
+            <button class="gv-gate-btn" type="submit" style="width:auto; padding:12px 26px; margin-top:8px;">Đổi mật khẩu</button>
+          </form>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Nhật ký đăng nhập</h3>
+            <button id="btnClearLog" class="gv-mini danger" type="button">Xoá nhật ký</button>
+          </div>
+          <div id="loginLog" class="gv-log"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ================= account & session ================= */
+    var CREDS_KEY = 'sah_teacher_creds';
+    var SESSION_KEY = 'sah_teacher_session';
+    var LOG_KEY = 'sah_teacher_log';
+
+    // Default account: giaovien / sahogiuday (SHA-256 of password, hex). User is prompted to change it.
+    var DEFAULT_CREDS = {
+      user: 'giaovien',
+      hash: 'afc447379606f9e08de42bc54e31f12b5aec3fac732cf57d507fffcab14a287f',
+      mustChange: true
+    };
+
+    var session = null;
+
+    function getCreds() {
+      try { return JSON.parse(localStorage.getItem(CREDS_KEY) || 'null') || DEFAULT_CREDS; }
+      catch (e) { return DEFAULT_CREDS; }
+    }
+
+    function sha256Hex(str) {
+      // Hash password so plaintext never sits in localStorage.
+      return sha256(str); // pure-JS implementation appended below
+    }
+
+    function loadSession() {
+      try {
+        var s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
+        if (s && s.user && Date.now() - s.ts < 8 * 3600 * 1000) return s;
+      } catch (e) {}
+      return null;
+    }
+
+    function saveSession(u) {
+      session = { user: u, ts: Date.now() };
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    }
+
+    function addLog(type, detail) {
+      var log = [];
+      try { log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]'); } catch (e) {}
+      log.unshift({ type: type, detail: detail || '', at: new Date().toLocaleString('vi-VN') });
+      log = log.slice(0, 50);
+      localStorage.setItem(LOG_KEY, JSON.stringify(log));
+    }
+
+    /* ================= auth UI ================= */
+    var gate = document.getElementById('gvGate');
+    var loginForm = document.getElementById('gvLoginForm');
+    var gateErr = document.getElementById('gvGateErr');
+
+    function enterConsole() {
+      gate.hidden = true;
+      document.body.classList.remove('locked');
+      refreshAll();
+    }
+
+    function requireLogin() {
+      var s = loadSession();
+      if (s) { session = s; enterConsole(); }
+      else { gate.hidden = false; document.body.classList.add('locked'); }
+    }
+
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var u = document.getElementById('gvUser').value.trim();
+      var p = document.getElementById('gvPass').value;
+      var creds = getCreds();
+      if (u === creds.user && sha256Hex(p) === creds.hash) {
+        gateErr.classList.remove('show');
+        saveSession(u);
+        addLog('login', 'Đăng nhập thành công');
+        if (creds.mustChange) {
+          // Jump straight to password change on first login
+          enterConsole();
+          switchTab('security');
+          setPassMsg('Bạn đang dùng mật khẩu mặc định — hãy đổi ngay để bảo vệ dữ liệu học sinh.', true);
+        }
+        else {
+          enterConsole();
+        }
+      } else {
+        gateErr.classList.add('show');
+        addLog('fail', 'Đăng nhập thất bại (tên: ' + (u || 'trống') + ')');
+      }
+    });
+
+    document.getElementById('gvLogout').addEventListener('click', function () {
+      addLog('logout', 'Đăng xuất');
+      sessionStorage.removeItem(SESSION_KEY);
+      session = null;
+      document.body.classList.add('locked');
+      gate.hidden = false;
+      document.getElementById('gvPass').value = '';
+    });
+
+    /* ================= password change ================= */
+    function setPassMsg(msg, isWarn) {
+      var el = document.getElementById('gvPassMsg');
+      el.textContent = msg;
+      el.style.color = isWarn ? 'var(--warn)' : 'var(--ok)';
+    }
+
+    document.getElementById('gvPassForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var creds = getCreds();
+      var oldP = document.getElementById('gvOldPass').value;
+      var newP = document.getElementById('gvNewPass').value;
+      var newP2 = document.getElementById('gvNewPass2').value;
+
+      if (sha256Hex(oldP) !== creds.hash) return setPassMsg('Mật khẩu cũ không đúng.', true);
+      if (newP.length < 8) return setPassMsg('Mật khẩu mới cần ít nhất 8 ký tự.', true);
+      if (newP !== newP2) return setPassMsg('Mật khẩu nhập lại không khớp.', true);
+
+      localStorage.setItem(CREDS_KEY, JSON.stringify({
+        user: creds.user,
+        hash: sha256Hex(newP),
+        mustChange: false
+      }));
+      addLog('password', 'Đổi mật khẩu quản trị');
+      document.getElementById('gvOldPass').value = '';
+      document.getElementById('gvNewPass').value = '';
+      document.getElementById('gvNewPass2').value = '';
+      setPassMsg('✓ Đã đổi mật khẩu. Từ giờ dùng mật khẩu mới để đăng nhập.');
+    });
+
+    /* ================= tabs ================= */
+    function switchTab(name) {
+      document.querySelectorAll('.gv-tab').forEach(function (t) {
+        t.classList.toggle('active', t.dataset.tab === name);
+      });
+      document.querySelectorAll('.gv-panel').forEach(function (p) {
+        p.hidden = p.id !== 'tab-' + name;
+      });
+    }
+    document.querySelectorAll('.gv-tab').forEach(function (t) {
+      t.addEventListener('click', function () { switchTab(t.dataset.tab); });
+    });
+
+    /* ================= data sources ================= */
+    var HERITAGE_NAMES = {
+      phohien: 'Phố Hiến', chuakeo: 'Chùa Keo', dentran: 'Đền Trần',
+      lequydon: 'Lê Quý Đôn', dongxam: 'Đồng Xâm'
+    };
+
+    function readJSON(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key) || 'null') || fallback; }
+      catch (e) { return fallback; }
+    }
+
+    function getDraft() { return readJSON('sah_321_draft', null); }
+    function getWorks() {
+      var w = readJSON('sah_student_works', []);
+      return Array.isArray(w) ? w : [];
+    }
+    function getLog() { return readJSON(LOG_KEY, []); }
+    function fmtSize(b) {
+      if (!b) return '—';
+      if (b > 1024 * 1024) return (b / (1024 * 1024)).toFixed(1) + ' MB';
+      return Math.round(b / 1024) + ' KB';
+    }
+
+    /* ================= overview ================= */
+    function renderOverview() {
+      var works = getWorks();
+      var draft = getDraft();
+
+      var studentIds = {};
+      works.forEach(function (w) { if (w.studentId) studentIds[w.studentId] = true; });
+      if (draft && draft.studentId) studentIds[draft.studentId] = true;
+      var students = Object.keys(studentIds);
+
+      document.getElementById('kpiStudents').textContent = students.length;
+      document.getElementById('kpiWorksheets').textContent = (draft && draft.q3) ? 1 : 0;
+      document.getElementById('kpiWorks').textContent = works.length;
+
+      var bytes = works.reduce(function (s, w) { return s + (w.bytes || 0); }, 0);
+      document.getElementById('kpiStorage').textContent = fmtSize(bytes);
+
+      // Class progress
+      var byClass = {};
+      if (draft && draft.studentClass) {
+        byClass[draft.studentClass] = byClass[draft.studentClass] || { students: {}, sheets: 0, works: 0 };
+        if (draft.studentId) byClass[draft.studentClass].students[draft.studentId] = true;
+        if (draft.q3) byClass[draft.studentClass].sheets++;
+      }
+      works.forEach(function (w) {
+        var cls = w.studentClass || (draft && draft.studentClass) || '—';
+        byClass[cls] = byClass[cls] || { students: {}, sheets: 0, works: 0 };
+        if (w.studentId) byClass[cls].students[w.studentId] = true;
+        byClass[cls].works++;
+      });
+      var classKeys = Object.keys(byClass);
+      document.getElementById('classProgress').innerHTML = classKeys.length
+        ? classKeys.map(function (cls) {
+            var c = byClass[cls];
+            var n = Object.keys(c.students).length;
+            var pct = Math.min(100, (c.sheets > 0 ? 50 : 0) + Math.min(50, c.works * 10));
+            return '<div class="gv-bar">' +
+              '<span class="gv-bar-label">Lớp ' + esc(cls) + ' · ' + n + ' HS</span>' +
+              '<div class="gv-bar-track"><div class="gv-bar-fill" style="width:' + pct + '%"></div></div>' +
+              '<span class="gv-bar-v">' + c.sheets + ' phiếu · ' + c.works + ' TP</span>' +
+            '</div>';
+          }).join('')
+        : '<div class="gv-empty">Chưa có dữ liệu lớp nào.</div>';
+
+      // Heritage distribution
+      var byHeritage = {};
+      if (draft && draft.project) byHeritage[draft.project] = (byHeritage[draft.project] || 0) + 1;
+      works.forEach(function (w) { if (w.heritage) byHeritage[w.heritage] = (byHeritage[w.heritage] || 0) + 1; });
+      var maxCount = Math.max(1, Object.keys(byHeritage).reduce(function (m, k) { return Math.max(m, byHeritage[k]); }, 0));
+      var hKeys = Object.keys(byHeritage);
+      document.getElementById('heritageBars').innerHTML = hKeys.length
+        ? hKeys.map(function (k) {
+            var pct = Math.round(byHeritage[k] / maxCount * 100);
+            return '<div class="gv-bar">' +
+              '<span class="gv-bar-label">' + esc(HERITAGE_NAMES[k] || k) + '</span>' +
+              '<div class="gv-bar-track"><div class="gv-bar-fill dim" style="width:' + pct + '%"></div></div>' +
+              '<span class="gv-bar-v">' + byHeritage[k] + ' lựa chọn</span>' +
+            '</div>';
+          }).join('')
+        : '<div class="gv-empty">Chưa có lựa chọn di sản nào.</div>';
+    }
+
+    /* ================= students ================= */
+    function renderStudents() {
+      var works = getWorks();
+      var draft = getDraft();
+      var map = {};
+
+      function row(id) {
+        if (!map[id]) map[id] = { id: id, cls: '', heritage: '', sheet: false, workCount: 0, ai: false, last: '' };
+        return map[id];
+      }
+      if (draft && draft.studentId) {
+        var r = row(draft.studentId);
+        r.cls = draft.studentClass || '';
+        r.heritage = draft.project || '';
+        r.sheet = !!draft.q3;
+        r.last = draft.updatedAt || '';
+      }
+      works.forEach(function (w) {
+        if (!w.studentId) return;
+        var r = row(w.studentId);
+        r.cls = r.cls || w.studentClass || '';
+        r.heritage = r.heritage || w.heritage || '';
+        r.workCount++;
+        if (w.createdAt) r.last = w.createdAt;
+      });
+      // AI activity marker: worksheets that reached AI page (from session log is per-tab; use draft presence as proxy)
+      var ids = Object.keys(map).sort();
+      document.getElementById('studentsTableWrap').innerHTML = ids.length
+        ? '<table class="gv-t"><thead><tr>' +
+          '<th>Mã HS</th><th>Lớp</th><th>Di sản</th><th>Phiếu 3–2–1</th><th>Tác phẩm</th><th>Hoạt động gần nhất</th></tr></thead><tbody>' +
+          ids.map(function (id) {
+            var r = map[id];
+            return '<tr>' +
+              '<td><b>' + esc(id) + '</b></td>' +
+              '<td>' + esc(r.cls || '—') + '</td>' +
+              '<td>' + esc(r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '—') + '</td>' +
+              '<td>' + (r.sheet ? '<span class="gv-badge ok">Đã làm</span>' : '<span class="gv-badge bad">Chưa</span>') + '</td>' +
+              '<td>' + (r.workCount ? '<span class="gv-badge ok">' + r.workCount + ' TP</span>' : '<span class="gv-badge bad">0</span>') + '</td>' +
+              '<td>' + esc(r.last || '—') + '</td>' +
+            '</tr>';
+          }).join('') + '</tbody></table>'
+        : '<div class="gv-empty">Chưa có học sinh nào hoạt động trên máy này.</div>';
+    }
+
+    /* ================= works admin ================= */
+    function renderWorks() {
+      var works = getWorks();
+      document.getElementById('worksTableWrap').innerHTML = works.length
+        ? '<table class="gv-t"><thead><tr>' +
+          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Dung lượng</th><th>Ngày</th><th></th></tr></thead><tbody>' +
+          works.map(function (w) {
+            return '<tr>' +
+              '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
+              '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
+              '<td>' + esc(w.studentClass || '—') + '</td>' +
+              '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
+              '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
+              '<td>' + fmtSize(w.bytes) + '</td>' +
+              '<td>' + esc(w.createdAt) + '</td>' +
+              '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
+            '</tr>';
+          }).join('') + '</tbody></table>'
+        : '<div class="gv-empty">Triển Lãm chưa có tác phẩm nào.</div>';
+    }
+
+    document.getElementById('worksTableWrap').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-del]');
+      if (!btn) return;
+      var id = btn.dataset.del;
+      var works = getWorks();
+      var target = works.find(function (w) { return w.id === id; });
+      if (!target) return;
+      if (!confirm('Xoá tác phẩm "' + target.title + '" của học sinh ' + (target.studentId || 'ẩn danh') + '?')) return;
+      works = works.filter(function (w) { return w.id !== id; });
+      localStorage.setItem('sah_student_works', JSON.stringify(works));
+      addLog('delete-work', 'Xoá tác phẩm: ' + target.title);
+      renderWorks();
+      renderOverview();
+    });
+
+    /* ================= worksheets ================= */
+    function renderWorksheets() {
+      var d = getDraft();
+      var wrap = document.getElementById('worksheetsTableWrap');
+      if (!d || (!d.q3 && !d.q2 && !d.q1)) {
+        wrap.innerHTML = '<div class="gv-empty">Chưa có phiếu 3–2–1 nào được lưu trên máy này.</div>';
+        return;
+      }
+      wrap.innerHTML = '<table class="gv-t"><thead><tr>' +
+        '<th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>3 quan sát</th><th>2 câu hỏi</th><th>1 ý tưởng</th><th>Cập nhật</th></tr></thead><tbody>' +
+        '<tr>' +
+          '<td><b>' + esc(d.studentId || 'Ẩn danh') + '</b></td>' +
+          '<td>' + esc(d.studentClass || '—') + '</td>' +
+          '<td>' + esc(d.project ? (HERITAGE_NAMES[d.project] || d.project) : '—') + '</td>' +
+          '<td style="max-width:260px;">' + esc(d.q3 || '—') + '</td>' +
+          '<td style="max-width:220px;">' + esc(d.q2 || '—') + '</td>' +
+          '<td style="max-width:220px;">' + esc(d.q1 || '—') + '</td>' +
+          '<td>' + esc(d.updatedAt ? new Date(d.updatedAt).toLocaleString('vi-VN') : '—') + '</td>' +
+        '</tr></tbody></table>';
+    }
+
+    /* ================= settings: backup / restore / wipe ================= */
+    function downloadFile(name, content, mime) {
+      var blob = new Blob([content], { type: mime || 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+    }
+
+    document.getElementById('btnBackup').addEventListener('click', function () {
+      var backup = {
+        exportedAt: new Date().toISOString(),
+        version: 1,
+        data: {}
+      };
+      ['sah_321_draft', 'sah_student_works', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
+        var v = localStorage.getItem(k);
+        if (v !== null) backup.data[k] = v;
+      });
+      downloadFile('smart-art-heritage-backup-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(backup, null, 2));
+      addLog('backup', 'Tải bản sao lưu JSON');
+    });
+
+    document.getElementById('restoreInput').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var backup = JSON.parse(reader.result);
+          if (!backup || !backup.data) throw new Error('bad');
+          Object.keys(backup.data).forEach(function (k) {
+            localStorage.setItem(k, backup.data[k]);
+          });
+          addLog('restore', 'Khôi phục dữ liệu từ bản sao lưu');
+          refreshAll();
+          alert('✓ Đã khôi phục dữ liệu từ bản sao lưu.');
+        } catch (err) {
+          alert('Tệp sao lưu không hợp lệ.');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    function wipeKey(key, label) {
+      localStorage.removeItem(key);
+      addLog('wipe', label);
+    }
+
+    document.getElementById('btnWipeWorksheets').addEventListener('click', function () {
+      if (confirm('Xoá toàn bộ Phiếu 3–2–1 trên máy này? Hành động này không thể hoàn tác.')) {
+        wipeKey('sah_321_draft', 'Xoá phiếu 3–2–1');
+        refreshAll();
+      }
+    });
+    document.getElementById('btnWipeWorks').addEventListener('click', function () {
+      if (confirm('Xoá toàn bộ Tác phẩm trên Triển Lãm? Hành động này không thể hoàn tác.')) {
+        wipeKey('sah_student_works', 'Xoá toàn bộ tác phẩm');
+        refreshAll();
+      }
+    });
+    document.getElementById('btnWipeAll').addEventListener('click', function () {
+      if (confirm('Xoá MỌI dữ liệu nền tảng (phiếu, tác phẩm, nhật ký)? Hành động này không thể hoàn tác.') &&
+          confirm('Xác nhận lần cuối: toàn bộ dữ liệu học sinh sẽ bị xoá vĩnh viễn.')) {
+        ['sah_321_draft', 'sah_student_works', 'sah_teacher_log'].forEach(function (k) { localStorage.removeItem(k); });
+        addLog('wipe', 'Xoá MỌI dữ liệu nền tảng');
+        refreshAll();
+      }
+    });
+
+    /* ================= security: login log ================= */
+    function renderLog() {
+      var log = getLog();
+      document.getElementById('loginLog').innerHTML = log.length
+        ? log.map(function (l) {
+            var color = l.type === 'fail' ? 'var(--bad)' : l.type === 'login' ? 'var(--ok)' : 'var(--ink-dim)';
+            var label = {
+              login: 'Đăng nhập', fail: 'Thất bại', logout: 'Đăng xuất',
+              password: 'Đổi mật khẩu', backup: 'Sao lưu', restore: 'Khôi phục',
+              wipe: 'Xoá dữ liệu', 'delete-work': 'Xoá tác phẩm'
+            }[l.type] || l.type;
+            return '<div class="gv-log-row">' +
+              '<span class="gv-log-time">' + esc(l.at) + '</span>' +
+              '<span style="color:' + color + '; font-weight:700;">' + label + '</span>' +
+              (l.detail ? '<span style="color:var(--ink-faint);">' + esc(l.detail) + '</span>' : '') +
+            '</div>';
+          }).join('')
+        : '<div class="gv-empty">Chưa có hoạt động nào được ghi nhận.</div>';
+    }
+
+    document.getElementById('btnClearLog').addEventListener('click', function () {
+      if (confirm('Xoá toàn bộ nhật ký hoạt động?')) {
+        localStorage.setItem(LOG_KEY, '[]');
+        renderLog();
+      }
+    });
+
+    /* ================= utils ================= */
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function refreshAll() {
+      renderOverview();
+      renderStudents();
+      renderWorks();
+      renderWorksheets();
+      renderLog();
+    }
+
+    /* ================= boot ================= */
+    requireLogin();  })();
+  </script>
+
+  <script>
+  /* Pure-JS SHA-256 (public-domain style implementation, no dependencies).
+     Used so password hashes never leave this machine and the page works offline. */
+  function sha256(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var result = '';
+
+    var words = [], asciiBitLength = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k.length;
+
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i = 0; i < 313; i += candidate) {
+          isComposite[i] = candidate;
+        }
+        hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii.length; i++) {
+      var j = ascii.charCodeAt(i);
+      if (j >> 8) return; // ASCII check
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((asciiBitLength / maxWord) | 0);
+    words[words.length] = (asciiBitLength);
+
+    for (j = 0; j < words.length;) {
+      var w = words.slice(j, j += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+
+      for (i = 0; i < 64; i++) {
+        var w15 = w[i - 15], w2 = w[i - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i]
+          + (w[i] = (i < 16) ? w[i] : (
+              w[i - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+
+      for (i = 0; i < 8; i++) {
+        hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+    }
+
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j + 1; j--) {
+        var b = (hash[i] >> (j * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+  </script>
+</body>
+</html>

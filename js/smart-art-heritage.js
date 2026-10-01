@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeritageModals();
   init3DViewer();
   initForm321();
-  initTeacherDashboard();
   loadSavedData();
   checkAi5aHandoff();
   setupSmoothScroll();
@@ -621,30 +620,6 @@ function debounce(fn, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
-}
-
-/* ==========================================================================
-   TEACHER DASHBOARD & EVALUATION ANALYTICS
-   ========================================================================== */
-function initTeacherDashboard() {
-  // Export CSV
-  document.getElementById('btnExportDashboardCsv')?.addEventListener('click', () => {
-    const csvContent = "data:text/csv;charset=utf-8," 
-      + "Mã Học Sinh,Lớp,Di Sản,Quan Sát,Phiếu 321,AI 5A,Tác Phẩm,Điểm Rubric\n"
-      + "HS-6A1-001,6A1,Chùa Keo,Hoàn thành,Hoàn thành,Hoàn thành,Đã nộp,9.5\n"
-      + "HS-6A1-002,6A1,Phố Hiến,Hoàn thành,Hoàn thành,Đang làm,Chưa nộp,8.0\n"
-      + "HS-6A1-003,6A1,Đền Trần,Hoàn thành,Hoàn thành,Hoàn thành,Đã nộp,9.0\n"
-      + "HS-6A1-004,6A1,Lê Quý Đôn,Hoàn thành,Đang làm,Chưa làm,Chưa nộp,7.5\n"
-      + "HS-6A1-005,6A1,Đồng Xâm,Hoàn thành,Hoàn thành,Hoàn thành,Đã nộp,8.5\n";
-    
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "SMART_ART_HERITAGE_DASHBOARD_DATA.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
 }
 
 /* ==========================================================================

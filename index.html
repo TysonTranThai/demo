@@ -35,7 +35,7 @@
           <li><button type="button" class="nav-link" onclick="location.href='phieu-3-2-1.html'">Phiếu 3–2–1</button></li>
           <li><a href="tro-ly-ai.html" class="nav-link">Trợ Lý Ai</a></li>
           <li><a href="trien-lam.html" class="nav-link">Triển Lãm</a></li>
-          <li><button type="button" class="nav-link" onclick="openModal('dashboardModal')">Giáo viên</button></li>
+          <li><a href="giao-vien.html" class="nav-link">Giáo Viên</a></li>
         </ul>
 
         <!-- Right Action Button -->
@@ -366,177 +366,6 @@
       </div>
     </section>
   </main>
-       MODAL 6: TEACHER DASHBOARD & EVALUATION ANALYTICS
-       ========================================================================== -->
-  <div id="dashboardModal" class="modal-backdrop">
-    <div class="modal-sheet" style="max-width:1120px;">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <h3 class="modal-title">Dashboard Giáo Viên Mĩ Thuật</h3>
-          <span class="modal-subtitle">Dữ liệu thực nghiệm Pre-test / Post-test & Tiến độ học tập ẩn danh</span>
-        </div>
-        <button class="modal-close-btn" type="button" onclick="closeModal('dashboardModal')">✕</button>
-      </div>
-      <div class="modal-body">
-        <!-- KPI Cards -->
-        <div class="dashboard-kpi-row">
-          <div class="kpi-card">
-            <div class="kpi-value">128</div>
-            <div class="kpi-title">Học sinh tham gia</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value">86%</div>
-            <div class="kpi-title">Tỉ lệ hoàn thành</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value">245</div>
-            <div class="kpi-title">Tác phẩm phác thảo</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-value">8.9/10</div>
-            <div class="kpi-title">Điểm Rubric trung bình</div>
-          </div>
-        </div>
-
-        <!-- Pre-test vs Post-test Chart -->
-        <div class="chart-comparison-box">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h4 style="font-size:1.0625rem; font-weight:700;">Kết quả thực nghiệm sư phạm: Pre-Test vs Post-Test</h4>
-            <div style="display:flex; gap:14px; font-size:0.75rem; font-weight:600;">
-              <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#a8a49a; border-radius:2px;"></span> Trước trải nghiệm (Pre)</span>
-              <span style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#435c4b; border-radius:2px;"></span> Sau trải nghiệm (Post)</span>
-            </div>
-          </div>
-
-          <div class="chart-bars-group">
-            <div class="chart-bar-row">
-              <span style="font-size:0.8125rem; font-weight:600;">Nhận thức di sản</span>
-              <div class="bar-track">
-                <div class="bar-pre" style="width:42%;"></div>
-                <div class="bar-post" style="width:47%;"></div>
-              </div>
-              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">8.9/10</span>
-            </div>
-
-            <div class="chart-bar-row">
-              <span style="font-size:0.8125rem; font-weight:600;">Kĩ năng quan sát</span>
-              <div class="bar-track">
-                <div class="bar-pre" style="width:51%;"></div>
-                <div class="bar-post" style="width:41%;"></div>
-              </div>
-              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.2/10</span>
-            </div>
-
-            <div class="chart-bar-row">
-              <span style="font-size:0.8125rem; font-weight:600;">Sáng tạo mĩ thuật</span>
-              <div class="bar-track">
-                <div class="bar-pre" style="width:48%;"></div>
-                <div class="bar-post" style="width:39%;"></div>
-              </div>
-              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">8.7/10</span>
-            </div>
-
-            <div class="chart-bar-row">
-              <span style="font-size:0.8125rem; font-weight:600;">Ứng dụng công nghệ 3D/AI</span>
-              <div class="bar-track">
-                <div class="bar-pre" style="width:39%;"></div>
-                <div class="bar-post" style="width:51%;"></div>
-              </div>
-              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.0/10</span>
-            </div>
-
-            <div class="chart-bar-row">
-              <span style="font-size:0.8125rem; font-weight:600;">Hứng thú học tập</span>
-              <div class="bar-track">
-                <div class="bar-pre" style="width:62%;"></div>
-                <div class="bar-post" style="width:33%;"></div>
-              </div>
-              <span style="font-size:0.8125rem; font-weight:700; color:#435c4b;">9.5/10</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Student Progress Table -->
-        <div style="background:#ffffff; border:1px solid var(--border-subtle); border-radius:14px; padding:20px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <h4 style="font-size:0.9375rem; font-weight:700;">Danh sách học sinh thực hiện (Mã ẩn danh)</h4>
-            <button id="btnExportDashboardCsv" class="btn-outline-pill" style="font-size:0.75rem; padding:6px 14px;" type="button">
-              Xuất dữ liệu CSV ↗
-            </button>
-          </div>
-
-          <table class="student-data-table">
-            <thead>
-              <tr>
-                <th>Mã Học Sinh</th>
-                <th>Lớp</th>
-                <th>Di Sản Đang Chọn</th>
-                <th>Quan Sát Hotspot</th>
-                <th>Phiếu 3–2–1</th>
-                <th>AI 5A</th>
-                <th>Tác Phẩm</th>
-                <th>Điểm Rubric</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>HS-6A1-001</b></td>
-                <td>6A1</td>
-                <td>Chùa Keo</td>
-                <td><span class="badge-status done">15/15 ảnh</span></td>
-                <td><span class="badge-status done">Đã hoàn thành</span></td>
-                <td><span class="badge-status done">5/5 bước</span></td>
-                <td><span class="badge-status done">Đã nộp</span></td>
-                <td><b>9.5</b></td>
-              </tr>
-              <tr>
-                <td><b>HS-6A1-002</b></td>
-                <td>6A1</td>
-                <td>Phố Hiến</td>
-                <td><span class="badge-status done">15/15 ảnh</span></td>
-                <td><span class="badge-status done">Đã hoàn thành</span></td>
-                <td><span class="badge-status pending">Bước A3</span></td>
-                <td><span class="badge-status pending">Đang vẽ</span></td>
-                <td><b>8.0</b></td>
-              </tr>
-              <tr>
-                <td><b>HS-6A1-003</b></td>
-                <td>6A1</td>
-                <td>Đền Trần</td>
-                <td><span class="badge-status done">15/15 ảnh</span></td>
-                <td><span class="badge-status done">Đã hoàn thành</span></td>
-                <td><span class="badge-status done">5/5 bước</span></td>
-                <td><span class="badge-status done">Đã nộp</span></td>
-                <td><b>9.0</b></td>
-              </tr>
-              <tr>
-                <td><b>HS-6A1-004</b></td>
-                <td>6A1</td>
-                <td>Khu lưu niệm Lê Quý Đôn</td>
-                <td><span class="badge-status done">12/15 ảnh</span></td>
-                <td><span class="badge-status pending">Đang viết</span></td>
-                <td><span class="badge-status pending">Chưa làm</span></td>
-                <td><span class="badge-status pending">Chưa nộp</span></td>
-                <td><b>7.5</b></td>
-              </tr>
-              <tr>
-                <td><b>HS-6A1-005</b></td>
-                <td>6A1</td>
-                <td>Chạm bạc Đồng Xâm</td>
-                <td><span class="badge-status done">15/15 ảnh</span></td>
-                <td><span class="badge-status done">Đã hoàn thành</span></td>
-                <td><span class="badge-status done">5/5 bước</span></td>
-                <td><span class="badge-status done">Đã nộp</span></td>
-                <td><b>8.5</b></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -565,7 +394,7 @@
             <li><a href="phieu-3-2-1.html">Phiếu tư duy 3–2–1</a></li>
             <li><a href="tro-ly-ai.html">Trợ Lý Ai — Quy trình 5A</a></li>
             <li><a href="trien-lam.html">Triển Lãm Tác Phẩm Học Sinh</a></li>
-            <li><a href="javascript:openModal('dashboardModal')">Thực nghiệm Pre/Post</a></li>
+            <li><a href="giao-vien.html">Trang Quản Trị Giáo Viên</a></li>
           </ul>
         </div>
 

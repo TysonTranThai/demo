@@ -54,19 +54,26 @@
     }
 
     .ds-home {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 9px;
+      padding: 9px 16px 9px 13px;
+      border-radius: 999px;
       flex-shrink: 0;
+      text-decoration: none;
       background: var(--glass-strong);
       border: 1px solid var(--hair);
       color: var(--ink-dim);
       transition: color 0.2s ease, background 0.2s ease;
     }
-    .ds-home svg { width: 20px; height: 20px; }
+    .ds-home svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .ds-home-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
     .ds-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
 
     .ds-tabs {
@@ -354,7 +361,7 @@
     /* ---------- responsive top bar ---------- */
     @media (max-width: 768px) {
       .ds-home-text { display: none; }
-      .ds-home { width: 38px; height: 38px; }
+      .ds-home { padding: 8px 13px 8px 11px; }
       .ds-tabs { max-width: none; }
       .ds-hero-inner { padding: 36px 18px 24px; }
       .ds-main { padding: 24px 18px 70px; }
@@ -372,6 +379,7 @@
         <path d="M5 9.5V21h14V9.5"/>
         <path d="M10 21v-6h4v6"/>
       </svg>
+      <span class="ds-home-label">Trang Chủ</span>
     </a>
     <nav class="ds-tabs" id="dsTabs" aria-label="Chọn di sản"></nav>
   </div>

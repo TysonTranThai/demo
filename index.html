@@ -32,7 +32,7 @@
         <ul class="nav-links">
           <li><a href="#selectedWork" class="nav-link">Di sản <span class="badge-count">(5)</span></a></li>
           <li><button type="button" class="nav-link" onclick="location.href='models.html'">Mô hình 3D</button></li>
-          <li><button type="button" class="nav-link" onclick="openModal('modal321')">Phiếu 3–2–1</button></li>
+          <li><button type="button" class="nav-link" onclick="location.href='phieu-3-2-1.html'">Phiếu 3–2–1</button></li>
           <li><button type="button" class="nav-link" onclick="openModal('ai5aStudioModal')">Trợ lí AI 5A</button></li>
           <li><button type="button" class="nav-link" onclick="openModal('creativeStudioModal')">Xưởng vẽ</button></li>
           <li><button type="button" class="nav-link" onclick="openModal('dashboardModal')">Giáo viên</button></li>
@@ -101,7 +101,7 @@
                 <button type="button" class="btn-outline-pill" onclick="location.href='models.html'">
                   <span>Trải nghiệm 3D Gác Chuông ↗</span>
                 </button>
-                <button type="button" class="btn-pill-cta" onclick="openModal('modal321')">
+                <button type="button" class="btn-pill-cta" onclick="location.href='phieu-3-2-1.html'">
                   <span>Mở Phiếu 3–2–1</span>
                   <span class="btn-icon-circle">✎</span>
                 </button>
@@ -174,7 +174,7 @@
           </div>
 
           <!-- Diagram 2: Hotspot & Phiếu 3-2-1 -->
-          <div class="diagram-card" onclick="openModal('modal321')">
+          <div class="diagram-card" onclick="location.href='phieu-3-2-1.html'">
             <div class="diagram-preview-box">
               <img class="diagram-img" src="assets/heritage/diagram_hotspot_321.svg" alt="75 Điểm chạm Hotspot và Phiếu 3-2-1" />
             </div>
@@ -366,109 +366,6 @@
       </div>
     </section>
   </main>
-
-  <!-- ==========================================================================
-       MODAL 3: 3–2–1 INTERACTIVE REFLECTION FORM
-       ========================================================================== -->
-  <div id="modal321" class="modal-backdrop">
-    <div class="modal-sheet" style="max-width:1040px;">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <h3 class="modal-title">Phiếu Tư Duy & Phản Tư 3–2–1</h3>
-          <span class="modal-subtitle">Nguyên tắc: NO OBSERVATION → NO AI • Tự động lưu trữ tiến độ</span>
-        </div>
-        <button class="modal-close-btn" type="button" onclick="closeModal('modal321')">✕</button>
-      </div>
-      <div class="modal-body">
-        <form id="worksheetForm321" onsubmit="return false;">
-          <div class="form-321-grid">
-            <!-- Left Info Panel -->
-            <div class="student-card-panel">
-              <h4 style="font-size:0.875rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted);">
-                THÔNG TIN HỌC SINH
-              </h4>
-
-              <div class="form-group">
-                <label class="form-label" for="form321StudentId">Mã Học Sinh</label>
-                <input class="form-input" id="form321StudentId" type="text" value="HS-6A1-024" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="form321Class">Lớp</label>
-                <input class="form-input" id="form321Class" type="text" value="6A1" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="form321Project">Di Sản Lựa Chọn</label>
-                <select class="form-select" id="form321Project">
-                  <option value="chuakeo">Chùa Keo — Kiến trúc gỗ</option>
-                  <option value="phohien">Phố Hiến — Đô thị cổ</option>
-                  <option value="dentran">Đền Trần — Hào khí Đông A</option>
-                  <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
-                  <option value="dongxam">Chạm bạc Đồng Xâm</option>
-                </select>
-              </div>
-
-              <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--border-subtle);">
-                <span id="save321Status" class="autosave-pill">✓ Đã sẵn sàng</span>
-              </div>
-            </div>
-
-            <!-- Right Steps Panel -->
-            <div class="steps-321-container">
-              <!-- Step 3 -->
-              <div class="step-card-321">
-                <div class="step-header-321">
-                  <span class="step-badge-number">3</span>
-                  <div class="step-header-text">
-                    <h3>3 Điều quan sát ấn tượng nhất</h3>
-                    <p>Ghi lại 3 chi tiết về đường nét, hình khối, hoa văn, hoặc màu sắc khiến em xúc động.</p>
-                  </div>
-                </div>
-                <textarea id="field321_3" class="form-textarea" placeholder="1. Nhịp điệu 12 đầu đao mái cong thanh thoát...&#10;2. Kết cấu con sơn vì kèo tầng 2 bằng gỗ lim khít khao...&#10;3. Sự tương phản giữa màu đỏ ngói và màu xanh mặt hồ..."></textarea>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="step-card-321">
-                <div class="step-header-321">
-                  <span class="step-badge-number">2</span>
-                  <div class="step-header-text">
-                    <h3>2 Câu hỏi tò mò / thắc mắc</h3>
-                    <p>Đặt 2 câu hỏi mà em muốn tìm hiểu sâu về kỹ thuật dựng hoặc ý nghĩa văn hóa.</p>
-                  </div>
-                </div>
-                <textarea id="field321_2" class="form-textarea" placeholder="1. Làm thế nào người xưa đưa quả chuông đồng nặng hàng tấn lên đỉnh tầng 3?&#10;2. Tại sao kiến trúc không dùng đinh sắt mà vẫn vững chãi qua bão gió?"></textarea>
-              </div>
-
-              <!-- Step 1 -->
-              <div class="step-card-321">
-                <div class="step-header-321">
-                  <span class="step-badge-number">1</span>
-                  <div class="step-header-text">
-                    <h3>1 Ý tưởng nghệ thuật cá nhân</h3>
-                    <p>Đề xuất 1 ý tưởng tác phẩm mĩ thuật số mà em muốn tự tay thực hiện.</p>
-                  </div>
-                </div>
-                <textarea id="field321_1" class="form-textarea" placeholder="Em muốn sáng tác một bức tranh màu nước góc nhìn ngước lên từ chân gác chuông, nhấn mạnh ánh hoàng hôn xuyên qua các khe vì kèo gỗ..."></textarea>
-              </div>
-
-              <!-- Actions -->
-              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:8px;">
-                <button id="btnExport321" type="button" class="btn-outline-pill">
-                  <span>In / Xuất PDF</span>
-                </button>
-
-                <button id="btnSendToAI5A" type="button" class="btn-pill-cta">
-                  <span>Chuyển dữ liệu sang Trợ lí AI 5A</span>
-                  <span class="btn-icon-circle">↗</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
   <!-- ==========================================================================
        MODAL 4: AI 5A ART ASSISTANT STUDIO
@@ -786,7 +683,7 @@
           <h5>CÔNG NGHỆ & SƯ PHẠM</h5>
           <ul>
             <li><a href="models.html">Phòng 3D Di Sản WebGL</a></li>
-            <li><a href="javascript:openModal('modal321')">Phiếu tư duy 3–2–1</a></li>
+            <li><a href="phieu-3-2-1.html">Phiếu tư duy 3–2–1</a></li>
             <li><a href="javascript:openModal('ai5aStudioModal')">Quy trình AI 5A Studio</a></li>
             <li><a href="javascript:openModal('creativeStudioModal')">Xưởng vẽ & Portfolio</a></li>
             <li><a href="javascript:openModal('dashboardModal')">Thực nghiệm Pre/Post</a></li>

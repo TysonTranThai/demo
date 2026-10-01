@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initARPreview();
   initTeacherDashboard();
   loadSavedData();
+  checkAi5aHandoff();
   setupSmoothScroll();
 });
 
@@ -958,6 +959,26 @@ function loadSavedData() {
     if (draft321.q1) document.getElementById('field321_1').value = draft321.q1;
     if (draft321.project) document.getElementById('form321Project').value = draft321.project;
   } catch(e) {}
+}
+
+/* ==========================================================================
+   AI 5A HANDOFF — receive worksheet context from phieu-3-2-1.html
+   ========================================================================== */
+function checkAi5aHandoff() {
+  let payload = null;
+  try {
+    payload = JSON.parse(sessionStorage.getItem('sah_321_to_ai5a') || 'null');
+  } catch (e) {}
+  if (!payload) return;
+
+  sessionStorage.removeItem('sah_321_to_ai5a');
+
+  // Stale handoffs (> 1h) are ignored
+  if (!payload.ts || Date.now() - payload.ts > 3600000) return;
+
+  openModal('ai5aStudioModal');
+  triggerAiWith321Context(payload.project, payload.q3, payload.q1);
+  if (location.hash === '#ai5a') history.replaceState(null, '', location.pathname);
 }
 
 /* ==========================================================================

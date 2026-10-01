@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Phiếu Tư Duy 3–2–1 — Smart Art Heritage</title>
+  <meta name="description" content="Phiếu tư duy & phản tư 3–2–1: 3 điều quan sát ấn tượng nhất, 2 câu hỏi tò mò, 1 ý tưởng nghệ thuật cá nhân. Tự động lưu tiến độ.">
+  <meta name="theme-color" content="#0e1116">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #f2eee6;
+      --ink-dim: rgba(242, 238, 230, 0.62);
+      --ink-faint: rgba(242, 238, 230, 0.34);
+      --glass: rgba(14, 17, 22, 0.55);
+      --glass-strong: rgba(14, 17, 22, 0.82);
+      --gold: #f1d084;
+      --terra: #c46238;
+      --hair: rgba(242, 238, 230, 0.14);
+      --field: rgba(242, 238, 230, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; padding: 0; background: #0e1116; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* ---------- top bar ---------- */
+    .p321-top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      background: rgba(14, 17, 22, 0.86);
+      border-bottom: 1px solid var(--hair);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .p321-home {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 16px 9px 13px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      text-decoration: none;
+      background: var(--glass-strong);
+      border: 1px solid var(--hair);
+      color: var(--ink-dim);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .p321-home svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .p321-home span {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .p321-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
+
+    .p321-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .p321-link {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-dim);
+      text-decoration: none;
+      padding: 9px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .p321-link:hover { color: var(--ink); background: var(--glass-strong); }
+
+    /* ---------- hero ---------- */
+    .p321-hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 46px 28px 8px;
+    }
+    .p321-eyebrow {
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.36em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .p321-title {
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      margin: 0;
+      line-height: 1.06;
+    }
+    .p321-sub {
+      margin: 16px 0 0;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: var(--ink-dim);
+      max-width: 780px;
+    }
+    .p321-sub b { color: var(--gold); font-weight: 700; }
+    .p321-rule { width: 72px; height: 1px; background: var(--gold); margin-top: 26px; opacity: 0.9; }
+
+    /* ---------- layout ---------- */
+    .p321-main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 28px 0;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* ---------- student panel ---------- */
+    .p321-side {
+      position: sticky;
+      top: 86px;
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .p321-side-title {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-faint);
+      margin: 0 0 18px;
+    }
+    .p321-field { margin-bottom: 16px; }
+    .p321-label {
+      display: block;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 8px;
+    }
+    .p321-input, .p321-select, .p321-textarea {
+      width: 100%;
+      background: var(--field);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .p321-input:focus, .p321-select:focus, .p321-textarea:focus {
+      border-color: rgba(241, 208, 132, 0.5);
+      background: rgba(242, 238, 230, 0.09);
+    }
+    .p321-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23f2eee6' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+    .p321-select option { background: #171a20; color: var(--ink); }
+
+    .p321-savebox {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--hair);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 22px;
+    }
+    .p321-save {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #9fd8a8;
+    }
+    .p321-save-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #9fd8a8;
+      flex-shrink: 0;
+    }
+
+    /* ---------- steps ---------- */
+    .p321-steps { display: flex; flex-direction: column; gap: 18px; }
+
+    .p321-step {
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.25s ease;
+    }
+    .p321-step:focus-within { border-color: rgba(241, 208, 132, 0.4); }
+
+    .p321-step-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .p321-badge {
+      width: 46px; height: 46px;
+      border-radius: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #17171
+6;
+      background: var(--gold);
+    }
+    .p321-step:nth-of-type(2) .p321-badge { background: #e8b98a; }
+    .p321-step:nth-of-type(3) .p321-badge { background: #d9a08e; }
+
+    .p321-step-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin: 2px 0 6px;
+    }
+    .p321-step-desc {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--ink-dim);
+      margin: 0;
+    }
+
+    .p321-textarea { min-height: 118px; resize: vertical; line-height: 1.6; }
+
+    /* ---------- actions ---------- */
+    .p321-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .p321-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .p321-btn:active { transform: scale(0.98); }
+    .p321-btn-ghost {
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      color: var(--ink-dim);
+    }
+    .p321-btn-ghost:hover { background: var(--glass-strong); color: var(--ink); }
+    .p321-btn-primary {
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: #171716;
+    }
+    .p321-btn-primary:hover { background: #f7dfa8; }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 900px) {
+      .p321-main { grid-template-columns: 1fr; }
+      .p321-side { position: static; }
+      .p321-hero { padding: 34px 18px 4px; }
+      .p321-main { padding: 26px 18px 0; }
+      .p321-home span { display: none; }
+      .p321-home { padding: 10px; }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      .p321-top, .p321-actions, .p321-savebox { display: none; }
+      .p321-step, .p321-side { background: #fff; border-color: #ccc; color: #111; }
+      .p321-textarea { border: 1px solid #999; color: #111; min-height: 90px; }
+      .p321-title { color: #111; }
+      .p321-badge { background: #f1d084; color: #111; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="p321-top">
+    <a class="p321-home" href="index.html" title="Về trang chủ" aria-label="Về trang chủ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+        <path d="M10 21v-6h4v6"/>
+      </svg>
+      <span>Trang Chủ</span>
+    </a>
+    <nav class="p321-links">
+      <a class="p321-link" href="di-san.html">Di sản &amp; Câu hỏi</a>
+      <a class="p321-link" href="models.html">Phòng 3D</a>
+    </nav>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="p321-hero">
+    <div class="p321-eyebrow">SMART ART HERITAGE — PHẢN TƯ TRƯỚC KHI SÁNG TẠO</div>
+    <h1 class="p321-title">Phiếu Tư Duy &amp; Phản Tư 3–2–1</h1>
+    <p class="p321-sub">
+      Trước khi cầm bút hay mở AI, em quan sát thật kỹ — rồi ghi lại điều khiến em xúc động.
+      Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, phiếu này là bước đầu tiên của mọi tác phẩm.
+      Tiến độ được <b>tự động lưu</b> trên máy của em.
+    </p>
+    <div class="p321-rule"></div>
+  </header>
+
+  <!-- ============ FORM ============ -->
+  <main class="p321-main">
+    <aside class="p321-side">
+      <h2 class="p321-side-title">Thông tin học sinh</h2>
+
+      <div class="p321-field">
+        <label class="p321-label" for="form321StudentId">Mã Học Sinh</label>
+        <input class="p321-input" id="form321StudentId" type="text" value="HS-6A1-024">
+      </div>
+
+      <div class="p321-field">
+        <label class="p321-label" for="form321Class">Lớp</label>
+        <input class="p321-input" id="form321Class" type="text" value="6A1">
+      </div>
+
+      <div class="p321-field">
+        <label class="p321-label" for="form321Project">Di Sản Lựa Chọn</label>
+        <select class="p321-select" id="form321Project">
+          <option value="chuakeo">Chùa Keo — Kiến trúc gỗ</option>
+          <option value="phohien">Phố Hiến — Đô thị cổ</option>
+          <option value="dentran">Đền Trần — Hào khí Đông A</option>
+          <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
+          <option value="dongxam">Chạm bạc Đồng Xâm</option>
+        </select>
+      </div>
+
+      <div class="p321-savebox">
+        <span class="p321-save-dot"></span>
+        <span class="p321-save" id="save321Status">✓ Đã sẵn sàng</span>
+      </div>
+    </aside>
+
+    <section class="p321-steps">
+      <form id="worksheetForm321" onsubmit="return false;">
+        <div style="display:flex; flex-direction:column; gap:18px;">
+
+          <div class="p321-step">
+            <div class="p321-step-head">
+              <span class="p321-badge">3</span>
+              <div>
+                <h3 class="p321-step-title">3 Điều quan sát ấn tượng nhất</h3>
+                <p class="p321-step-desc">Ghi lại 3 chi tiết về đường nét, hình khối, hoa văn, hoặc màu sắc khiến em xúc động.</p>
+              </div>
+            </div>
+            <textarea id="field321_3" class="p321-textarea" placeholder="1. Nhịp điệu 12 đầu đao mái cong thanh thoát...&#10;2. Kết cấu con sơn vì kèo tầng 2 bằng gỗ lim khít khao...&#10;3. Sự tương phản giữa màu đỏ ngói và màu xanh mặt hồ..."></textarea>
+          </div>
+
+          <div class="p321-step">
+            <div class="p321-step-head">
+              <span class="p321-badge">2</span>
+              <div>
+                <h3 class="p321-step-title">2 Câu hỏi tò mò / thắc mắc</h3>
+                <p class="p321-step-desc">Đặt 2 câu hỏi mà em muốn tìm hiểu sâu về kỹ thuật dựng hoặc ý nghĩa văn hóa.</p>
+              </div>
+            </div>
+            <textarea id="field321_2" class="p321-textarea" placeholder="1. Làm thế nào người xưa đưa quả chuông đồng nặng hàng tấn lên đỉnh tầng 3?&#10;2. Tại sao kiến trúc không dùng đinh sắt mà vẫn vững chãi qua bão gió?"></textarea>
+          </div>
+
+          <div class="p321-step">
+            <div class="p321-step-head">
+              <span class="p321-badge">1</span>
+              <div>
+                <h3 class="p321-step-title">1 Ý tưởng nghệ thuật cá nhân</h3>
+                <p class="p321-step-desc">Đề xuất 1 ý tưởng tác phẩm mĩ thuật số mà em muốn tự tay thực hiện.</p>
+              </div>
+            </div>
+            <textarea id="field321_1" class="p321-textarea" placeholder="Em muốn sáng tác một bức tranh màu nước góc nhìn ngước lên từ chân gác chuông, nhấn mạnh ánh hoàng hôn xuyên qua các khe vì kèo gỗ..."></textarea>
+          </div>
+
+        </div>
+      </form>
+
+      <div class="p321-actions">
+        <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
+          <span>In / Xuất PDF</span>
+        </button>
+        <a id="btnSendToAI5A" class="p321-btn p321-btn-primary" href="index.html#ai5a">
+          <span>Chuyển dữ liệu sang Trợ lí AI 5A</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var FIELDS = ['field321_3', 'field321_2', 'field321_1'];
+    var saveStatus = document.getElementById('save321Status');
+    var saveTimer = null;
+
+    function debounce(fn, delay) {
+      return function () {
+        var args = arguments, ctx = this;
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(function () { fn.apply(ctx, args); }, delay);
+      };
+    }
+
+    function autoSave() {
+      var data = {
+        project: document.getElementById('form321Project').value || 'chuakeo',
+        studentId: document.getElementById('form321StudentId').value || '',
+        studentClass: document.getElementById('form321Class').value || '',
+        q3: document.getElementById('field321_3').value || '',
+        q2: document.getElementById('field321_2').value || '',
+        q1: document.getElementById('field321_1').value || '',
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem('sah_321_draft', JSON.stringify(data));
+      if (saveStatus) {
+        saveStatus.textContent = '✓ Đã tự động lưu nháp';
+        clearTimeout(saveStatus._t);
+        saveStatus._t = setTimeout(function () {
+          saveStatus.textContent = '✓ Đã sẵn sàng';
+        }, 2500);
+      }
+    }
+    var debouncedSave = debounce(autoSave, 500);
+
+    // Restore saved draft
+    try {
+      var draft = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
+      if (draft.q3) document.getElementById('field321_3').value = draft.q3;
+      if (draft.q2) document.getElementById('field321_2').value = draft.q2;
+      if (draft.q1) document.getElementById('field321_1').value = draft.q1;
+      if (draft.project) document.getElementById('form321Project').value = draft.project;
+      if (draft.studentId) document.getElementById('form321StudentId').value = draft.studentId;
+      if (draft.studentClass) document.getElementById('form321Class').value = draft.studentClass;
+    } catch (e) {}
+
+    FIELDS.forEach(function (id) {
+      document.getElementById(id).addEventListener('input', debouncedSave);
+    });
+    ['form321Project', 'form321StudentId', 'form321Class'].forEach(function (id) {
+      document.getElementById(id).addEventListener('change', debouncedSave);
+    });
+
+    // Print / export
+    document.getElementById('btnExport321').addEventListener('click', function () {
+      window.print();
+    });
+
+    // Hand off to AI 5A on the homepage: stash the context, navigate.
+    document.getElementById('btnSendToAI5A').addEventListener('click', function () {
+      autoSave();
+      var data = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
+      try {
+        sessionStorage.setItem('sah_321_to_ai5a', JSON.stringify({
+          project: data.project || 'chuakeo',
+          q3: data.q3 || '',
+          q1: data.q1 || '',
+          ts: Date.now()
+        }));
+      } catch (e) {}
+      location.href = this.getAttribute('href');
+    });
+  })();
+  </script>
+</body>
+</html>

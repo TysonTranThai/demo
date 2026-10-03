@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <!-- Free embedded AI (no key, no redirect): puter.js "User Pays" model -->
+  <script src="https://js.puter.com/v2/"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Trợ Lý Ai — Smart Art Heritage</title>
@@ -689,18 +691,19 @@
   })();
 
   /* ========================================================================
-     CHATGPT MODES — configured by the TEACHER in giao-vien.html ("Trợ Lý AI"
-     tab) and stored in localStorage (sah_chatgpt_cfg). Students cannot
-     change the connection here.
-     1) Account mode (free): teacher links a Custom GPT; students open
-        chatgpt.com with the school's ChatGPT account — the 3-2-1 worksheet
-        context is copied to the clipboard for pasting. No API key involved.
-     2) API mode (advanced): messages go to the OpenAI Chat Completions API
-        with a teacher-crafted system prompt.
-     The scripted 5A flow stays as the offline fallback.
+     LIVE AI ENGINE — configured by the TEACHER in giao-vien.html
+     ("Trợ Lý AI" tab), stored in localStorage (sah_chatgpt_cfg).
+     Providers, tried in order:
+       1. Official OpenAI API (teacher's key, advanced) — full quality.
+       2. Free embedded AI via puter.js (no key, no redirect, User-Pays
+          model) — the default path; works for every class instantly.
+       3. Offline 5A script — last-resort fallback.
+     Everything happens INSIDE this page: no chatgpt.com redirect.
      ======================================================================== */
   (function () {
     'use strict';
+
+    if (window.puter) { try { window.puter.quiet = true; } catch (e) {} }
 
     var CFG_KEY = 'sah_chatgpt_cfg';
 
@@ -759,30 +762,70 @@
       return out.slice(-16);
     }
 
-    async function callOpenAI(userText) {
-      var c = cfg();
-      var res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + c.key
-        },
-        body: JSON.stringify({
-          model: model(),
-          messages: [
-            { role: 'system', content: buildSystemPrompt() }
-          ].concat(buildHistory())
+    /* Ask the live providers. Order: teacher's key (OpenAI or Groq free tier),
+       then the free embedded AI (puter.js, with a hard timeout so a blocked
+       sign-in popup can never hang the chat). Throws when all fail. */
+    function chatEndpoint(provider) {
+      return provider === 'groq'
+        ? 'https://api.groq.com/openai/v1/chat/completions'
+        : 'https://api.openai.com/v1/chat/completions';
+    }
+    function puterOk() {
+      return !!(window.puter && window.puter.ai && typeof window.puter.ai.chat === 'function');
+    }
+    function freeEnabled() {
+      return !cfg().free_disabled;
+    }
+    function liveConnected() {
+      return connected() || (puterOk() && freeEnabled());
+    }
+    function withTimeout(p, ms, label) {
+      return Promise.race([
+        p,
+        new Promise(function (_, rej) {
+          setTimeout(function () { rej(new Error(label + ' không phản hồi sau ' + Math.round(ms / 1000) + 's')); }, ms);
         })
-      });
-      if (!res.ok) {
-        var err = {};
-        try { err = await res.json(); } catch (e) {}
-        throw new Error(err.error && err.error.message ? err.error.message : ('HTTP ' + res.status));
+      ]);
+    }
+    async function callLiveAi() {
+      var messages = [{ role: 'system', content: buildSystemPrompt() }].concat(buildHistory());
+
+      // Provider 1 — teacher's key (OpenAI paid, or Groq free tier)
+      if (connected()) {
+        var c = cfg();
+        try {
+          var res = await fetch(chatEndpoint(c.provider), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + c.key
+            },
+            body: JSON.stringify({ model: model(), messages: messages })
+          });
+          if (res.ok) {
+            var data = await res.json();
+            var msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+            if (msg) return { text: msg.trim(), provider: model() };
+          }
+        } catch (e) { /* fall through to the free provider */ }
       }
-      var data = await res.json();
-      var msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-      if (!msg) throw new Error('Phản hồi trống từ OpenAI');
-      return msg.trim();
+
+      // Provider 2 — free embedded AI via puter.js (no key; hard timeout
+      // because a blocked first-use sign-in popup would otherwise hang forever)
+      if (puterOk() && freeEnabled()) {
+        var FREE_TIMEOUT_MS = (window.AI_FREE_TIMEOUT_MS || 30000);
+        var resp = await withTimeout(window.puter.ai.chat(messages), FREE_TIMEOUT_MS, 'AI miễn phí');
+        var txt = resp && resp.message && resp.message.content;
+        if (txt && typeof txt === 'string') return { text: txt.trim(), provider: 'AI miễn phí' };
+        if (txt && typeof txt === 'object' && Array.isArray(txt)) {
+          var joined = txt.map(function (p) { return p && p.text; }).filter(Boolean).join('');
+          if (joined) return { text: joined.trim(), provider: 'AI miễn phí' };
+        }
+        if (typeof resp === 'string') return { text: resp.trim(), provider: 'AI miễn phí' };
+        throw new Error('Phản hồi trống từ AI miễn phí');
+      }
+
+      throw new Error('Không có nhà cung cấp AI nào khả dụng (mất mạng?)');
     }
 
     /* ---------- chat UI integration ---------- */
@@ -806,14 +849,18 @@
     async function liveReply() {
       showTyping();
       try {
-        var reply = await callOpenAI();
+        var out = await callLiveAi();
         hideTyping();
-        origAppend('ai', reply.replace(/\n/g, '<br>'));
+        origAppend('ai', out.text.replace(/\n/g, '<br>'));
       } catch (e) {
         hideTyping();
         origAppend('ai',
-          '<b>⚠ Không gọi được ChatGPT:</b> ' + String(e.message || e).replace(/</g, '&lt;') +
-          '<br><br>Hãy báo cô/thầy kiểm tra kết nối ChatGPT trong trang Quản lý giáo viên. Trong lúc đó em vẫn chat với bản kịch bản nhé.');
+          '<b>⚠ Tạm chưa gọi được AI</b> <span style="opacity:.7">(' + String(e.message || e).replace(/</g, '&lt;') + ')</span>' +
+          '<br>Không sao — mình tiếp tục với bản kịch bản 5A nhé:');
+        // keep the conversation going with the offline 5A script
+        if (typeof window.generateAiResponse === 'function') {
+          setTimeout(function () { window.generateAiResponse(); }, 400);
+        }
       }
     }
 
@@ -827,56 +874,22 @@
 
       var HERITAGE_LABELS = { phohien: 'Phố Hiến', chuakeo: 'Chùa Keo', dentran: 'Đền Trần', lequydon: 'Lê Quý Đôn', dongxam: 'Đồng Xâm' };
 
-      function aiQuick() {
-        var c = cfg();
-        return !!c.quick;
-      }
-
-      function gptUrl() {
-        var c = cfg();
-        return (c.gptUrl && /^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(c.gptUrl)) ? c.gptUrl : '';
-      }
-
-      function buildGptStarter() {
-        var draft = null;
-        try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
-        var lines = ['Chào thầy/cô! Em là học sinh THCS trong dự án SMART ART HERITAGE.'];
-        if (draft && draft.project) lines.push('Di sản em chọn: ' + (HERITAGE_LABELS[draft.project] || draft.project) + '.');
-        if (draft && draft.q3) lines.push('3 điều em quan sát được: ' + draft.q3 + '.');
-        if (draft && draft.q1) lines.push('Ý tưởng tác phẩm của em: ' + draft.q1 + '.');
-        lines.push('Thầy/cô đồng hành cùng em theo quy trình 5A nhé (nhớ: không vẽ thay em)!');
-        return lines.join('\n');
-      }
-
-      /* One-click deep link: chatgpt.com opens with the 5A lesson already
-         typed into the composer — no manual pasting needed. */
-      function gptDeepLink() {
-        var t = encodeURIComponent(buildGptStarter());
-        var gu = gptUrl();
-        if (gu) return gu + (gu.indexOf('?') === -1 ? '?' : '&') + 'q=' + t;
-        return 'https://chatgpt.com/?q=' + t;
-      }
-
       function esc(s) {
         return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
       }
 
       function refreshBadge() {
-        if (gptUrl()) {
-          badge.textContent = '● ChatGPT: tài khoản trường';
-          badge.title = 'Chat với GPT của trường trên chatgpt.com (đăng nhập tài khoản ChatGPT)';
-          badge.classList.add('connected');
-        } else if (aiQuick()) {
-          badge.textContent = '● ChatGPT: đã bật';
-          badge.title = 'Bấm để mở ChatGPT (đăng nhập tài khoản ChatGPT của trường)';
-          badge.classList.add('connected');
-        } else if (connected()) {
+        if (connected()) {
           badge.textContent = '● ' + model();
           badge.title = 'ChatGPT trực tuyến (' + model() + ') — do giáo viên cấu hình';
           badge.classList.add('connected');
+        } else if (puterOk() && freeEnabled()) {
+          badge.textContent = '● AI: đang hoạt động';
+          badge.title = 'AI trả lời thật ngay trong trang này (miễn phí, không cần key)';
+          badge.classList.add('connected');
         } else {
-          badge.textContent = '○ ChatGPT: chưa cấu hình';
-          badge.title = 'ChatGPT do giáo viên cấu hình trong trang Quản lý giáo viên';
+          badge.textContent = '○ AI: offline';
+          badge.title = 'Mất kết nối — chat đang dùng kịch bản 5A offline';
           badge.classList.remove('connected');
         }
       }
@@ -884,28 +897,15 @@
       function openModal() {
         refreshBadge();
         statusEl.className = 'tlai-cfg-status';
-        var gu = gptUrl();
-        if (gu) {
-          statusEl.innerHTML = '✓ GPT của trường đã sẵn sàng — một nút bấm là ChatGPT tự bắt đầu buổi học 5A với nội dung Phiếu 3–2–1 của em.';
-          actionsEl.innerHTML =
-            '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
-            '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Chỉ cần bấm <b>Mở ChatGPT</b>. Lần đầu tiên ChatGPT hỏi đăng nhập: dùng tài khoản ChatGPT của trường — máy sẽ ghi nhớ cho các lần sau. Câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste gì thêm.';
-        } else if (aiQuick()) {
-          statusEl.innerHTML = '✓ ChatGPT đã được thầy/cô bật cho lớp — một nút bấm là bắt đầu buổi học 5A với nội dung Phiếu 3–2–1 của em.';
-          actionsEl.innerHTML =
-            '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
-            '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Lần đầu: ChatGPT mở ra và hỏi đăng nhập — em đăng nhập tài khoản ChatGPT của trường <b>một lần</b>, máy sẽ ghi nhớ. Từ lần sau: chỉ cần bấm <b>Mở ChatGPT</b> — câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b>, không cần copy/paste. Nếu chưa có ai đăng nhập trên máy này, hãy báo cô/thầy bấm nút "🔐 Đăng nhập ChatGPT" trong trang Quản lý.';
-        } else if (connected()) {
-          statusEl.innerHTML = '✓ Đang kết nối với mô hình <b>' + model() + '</b> — chat đang dùng ChatGPT thật (giáo viên đã cấu hình).';
-          actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Chat ngay trong trang này nhé — ChatGPT trả lời thật qua kết nối do giáo viên cấu hình.';
+        if (connected()) {
+          statusEl.innerHTML = '✓ ChatGPT thật (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua khóa do giáo viên cấu hình.';
+        } else if (puterOk() && freeEnabled()) {
+          statusEl.innerHTML = '✓ AI trả lời thật <b>ngay trong trang này</b> (miễn phí, không cần key, không chuyển trang). Đôi lúc AI miễn phí có thể chậm hoặc lỗi — khi đó chat tự quay về kịch bản 5A.';
         } else {
-          statusEl.innerHTML = 'Chưa cấu hình — chat đang dùng kịch bản 5A offline. Giáo viên bật ChatGPT trong trang Quản lý (chỉ 1 nút).';
-          actionsEl.innerHTML = '<a class="tlai-send" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở trang giáo viên</span><span>↗</span></a>';
-          noteEl.innerHTML = 'Giáo viên: đăng nhập trang Quản lý → thẻ <b>Trợ Lý AI</b> → bấm <b>⚡ Bật ChatGPT</b> (5 giây) hoặc tạo GPT riêng ở phần mở rộng.';
+          statusEl.innerHTML = 'AI miễn phí đang được tắt — chat dùng kịch bản 5A offline. Cô/thầy có thể bật lại trong trang Quản lý.';
         }
+        actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
+        noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể nâng cấpChatGPT chính thức bằng API key trong trang Quản lý (mục Nâng cao).';
         modal.classList.add('open');
       }
       function closeModal() { modal.classList.remove('open'); }
@@ -927,7 +927,7 @@
 
     /* expose for the scripted IIFE to call when live mode is on */
     window.__tlaiLive = {
-      connected: connected,
+      connected: liveConnected,
       reply: liveReply
     };
 

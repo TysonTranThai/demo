@@ -558,69 +558,52 @@
       <!-- ============ AI / CHATGPT (teacher-only) ============ -->
       <section id="tab-ai" class="gv-panel" hidden>
         <div class="gv-card">
-          <div class="gv-card-label">KẾT NỐI CHATGPT CHO TRỢ LÝ AI</div>
+          <div class="gv-card-label">TRỢ LÝ AI — KẾT NỐI AI CHO HỌC SINH</div>
           <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
-            Hai cách kết nối — chỉ giáo viên đăng nhập trang này mới cấu hình được:
-            <b>(1) Tài khoản ChatGPT</b> (miễn phí, khuyên dùng): học sinh bấm "Mở ChatGPT" và chat với GPT của trường bằng tài khoản ChatGPT trên chatgpt.com — không cần API key;
-            <b>(2) API key</b> (nâng cao): nhúng ChatGPT thật vào khung chat ngay trên trang.
+            Trợ Lý Ai cố gắng trả lời thật <b>ngay trong khung chat</b> theo thứ tự ưu tiên:
+            <b>1) key của giáo viên</b> (Groq miễn phí hoặc OpenAI — mục nâng cao),
+            <b>2) AI miễn phí</b> tích hợp sẵn (lần đầu có thể hiện cửa sổ đăng nhập Puter miễn phí — nếu bị chặn, chat tự dùng kịch bản 5A).
           </p>
           <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
 
           <div style="border:1px solid rgba(200,149,71,0.4); border-radius:14px; padding:16px 18px; margin-bottom:14px; background:rgba(200,149,71,0.05);">
-            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">⚡ CHẾ ĐỘ NHANH — CHỈ CẦN BẬT, KHÔNG CẦN CẤU HÌNH GÌ THÊM</div>
+            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">⚡ AI MIỄN PHÍ — ĐANG HOẠT ĐỘNG, KHÔNG CẦN CẤU HÌNH</div>
             <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
-              Học sinh bấm <b>"Mở ChatGPT"</b> → ChatGPT mở ra và <b>tự bắt đầu buổi học 5A</b> kèm sẵn nội dung Phiếu 3–2–1 của em.
-              Không tạo GPT, không API key — <b>tài khoản ChatGPT miễn phí cũng dùng được</b> (học sinh đăng nhập tài khoản ChatGPT của trường trên chatgpt.com).
+              Học sinh chat → AI miễn phí tích hợp cố gắng trả lời <b>ngay trong khung chat</b> (không cần key).
+              Lần đầu trên mỗi máy có thể hiện một cửa sổ đăng nhập Puter (miễn phí) — nếu bị chặn hoặc chậm quá 30 giây, chat <b>tự quay về kịch bản 5A</b>, không bao giờ treo.
+              Muốn trả lời mạnh và ổn định hơn: tạo <b>key Groq miễn phí</b> ở mục nâng cao bên dưới (2 phút, không tốn tiền).
             </p>
             <div class="gv-actions-bar">
-              <button id="quickToggle" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Bật ChatGPT cho học sinh</button>
-              <a class="gv-mini" href="https://chatgpt.com" target="_blank" rel="noopener" style="border-color:rgba(200,149,71,0.5); color:var(--gold);">🔐 Đăng nhập ChatGPT trên máy này</a>
-              <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Xem trang học sinh ↗</a>
+              <button id="freeToggle" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Tắt AI miễn phí</button>
+              <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
             </div>
-            <p style="font-size:0.78rem; color:var(--ink-dim); line-height:1.6; margin:12px 0 0;">
-              <b>Đăng nhập thế nào?</b> Bấm <b>🔐 Đăng nhập</b> → ChatGPT mở ra → đăng nhập tài khoản ChatGPT của trường <b>một lần duy nhất trên máy tính lớp</b> (trang của OpenAI — website này không bao giờ hỏi mật khẩu).
-              Trình duyệt sẽ ghi nhớ phiên đăng nhập: từ đó học sinh chỉ cần bấm "Mở ChatGPT" là chat được ngay, không ai phải đăng nhập lại mỗi ngày.
-            </p>
           </div>
 
-          <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px; margin-bottom:14px;">
-            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">CÁCH CHUYÊN SÂU HƠN — TẠO GPT RIÊNG CỦA TRƯỜNG (TÙY CHỌN, 3 BƯỚC)</summary>
-            <div style="margin-top:14px;">
-            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
-              GPT riêng theo đúng phương pháp 5A và không bao giờ vẽ thay học sinh. Cần tài khoản ChatGPT Plus/Pro/Team để <i>tạo</i>.
-              ① Bấm <b>Copy instructions</b> → ② bấm <b>Mở trình tạo GPT</b>, dán vào ô Instructions (tắt DALL·E) → ③ Publish chọn "Only people with a link", dán liên kết vào ô dưới.
-            </p>
-            <div class="gv-actions-bar" style="margin-bottom:14px;">
-              <button id="gptCopyInstr" class="gv-mini" type="button">⬇ Copy instructions</button>
-              <a class="gv-mini" href="https://chatgpt.com/g" target="_blank" rel="noopener">↗ Mở trình tạo GPT</a>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr auto auto; gap:12px; max-width:860px;">
-              <input id="gptUrl" type="url" placeholder="https://chatgpt.com/g/g-..." spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
-              <button id="gptSave" class="gv-gate-btn" type="button" style="width:auto; padding:12px 22px;">Lưu liên kết</button>
-              <button id="gptRemove" class="gv-mini danger" type="button" hidden>Gỡ liên kết</button>
-            </div>
-            <p id="gptStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
-            </div>
-          </details>
-
           <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px;">
-            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">NÂNG CAO — NHÚNG CHATGPT VÀO TRANG BẰNG API KEY (TÙY CHỌN)</summary>
-          <div style="display:grid; grid-template-columns:1fr 320px; gap:14px; max-width:860px; margin-top:14px;">
+            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">NÂNG CAO — DÙNG KEY CỦA GIÁO VIÊN (GROQ MIỄN PHÍ HOẶC OPENAI)</summary>
+          <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:14px 0 0;">
+            <b>Groq (khuyên dùng — miễn phí):</b> tạo key tại <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--gold);">console.groq.com/keys</a> (đăng nhập → Create API Key → copy, bắt đầu bằng gsk_...).
+            <b>OpenAI (trả phí):</b> key sk-... từ platform.openai.com.
+            Key chỉ lưu trên máy này và chỉ gửi thẳng tới nhà cung cấp khi chat.
+          </p>
+          <div style="display:grid; grid-template-columns:220px 1fr 320px; gap:14px; max-width:860px; margin-top:14px;">
             <div>
-              <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">OPENAI API KEY</label>
+              <label for="aiProvider" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">NHÀ CUNG CẤP</label>
+              <select id="aiProvider" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+                <option value="groq">Groq — miễn phí (khuyên dùng)</option>
+                <option value="openai">OpenAI — trả phí</option>
+              </select>
+            </div>
+            <div>
+              <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">API KEY</label>
               <div style="position:relative;">
-                <input id="aiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 44px 11px 14px; outline:none;">
+                <input id="aiKey" type="password" placeholder="gsk_... hoặc sk-..." autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 44px 11px 14px; outline:none;">
                 <button id="aiKeyEye" type="button" title="Hiện / ẩn" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:1rem;">👁</button>
               </div>
             </div>
             <div>
               <label for="aiModel" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MÔ HÌNH ƯU TIÊN</label>
-              <select id="aiModel" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
-                <option value="gpt-4o-mini">gpt-4o-mini — nhanh, tiết kiệm (khuyên dùng)</option>
-                <option value="gpt-4o">gpt-4o — sáng tạo hơn</option>
-                <option value="gpt-4.1-mini">gpt-4.1-mini</option>
-                <option value="gpt-4.1">gpt-4.1 — mạnh nhất</option>
-              </select>
+              <select id="aiModel" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;"></select>
             </div>
           </div>
 
@@ -637,9 +620,9 @@
         <div class="gv-card">
           <div class="gv-card-label">LƯU Ý</div>
           <div class="gv-warnbox">
-            <b>Cách 1 (tài khoản ChatGPT):</b> không tốn phí API — dùng theo gói ChatGPT của trường; chat diễn ra trên chatgpt.com.
-            <b>Cách 2 (API):</b> key chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng tới OpenAI khi chat; mỗi lượt chat tính phí theo tài khoản OpenAI của trường — gpt-4o-mini rẻ nhất cho lớp học.
-            Khi chưa cấu hình, Trợ Lý Ai tự dùng kịch bản 5A offline.
+            <b>AI miễn phí:</b> không tốn gì, nhưng phụ thuộc dịch vụ bên ngoài — đôi khi chậm/lỗi, khi đó chat tự quay về kịch bản 5A.
+            <b>Key (Groq/OpenAI):</b> lưu trên máy này (localStorage), gửi thẳng tới nhà cung cấp khi chat; Groq miễn phí theo hạn mức, OpenAI tính phí theo lượt.
+            Nếu cả hai không khả dụng (mất mạng), học sinh vẫn chat với kịch bản 5A offline.
           </div>
         </div>
       </section>
@@ -811,17 +794,52 @@
       setPassMsg('✓ Đã đổi mật khẩu. Từ giờ dùng mật khẩu mới để đăng nhập.');
     });
 
-    /* ================= AI (ChatGPT) config — teacher only ================= */
+    /* ================= AI — cấu hình Trợ Lý Ai (chỉ giáo viên) ================= */
     var AI_CFG_KEY = 'sah_chatgpt_cfg';
-    var AI_MODELS_FALLBACK = ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'];
+    var AI_MODELS = {
+      groq: [
+        { id: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B — mạnh, miễn phí (khuyên dùng)' },
+        { id: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B — siêu nhanh' }
+      ],
+      openai: [
+        { id: 'gpt-4o-mini', label: 'gpt-4o-mini — nhanh, tiết kiệm' },
+        { id: 'gpt-4o', label: 'gpt-4o — sáng tạo hơn' },
+        { id: 'gpt-4.1-mini', label: 'gpt-4.1-mini' },
+        { id: 'gpt-4.1', label: 'gpt-4.1 — mạnh nhất' }
+      ]
+    };
+    function modelsEndpoint(provider) {
+      return provider === 'groq'
+        ? 'https://api.groq.com/openai/v1/models'
+        : 'https://api.openai.com/v1/models';
+    }
+    function providerLabel(provider) {
+      return provider === 'groq' ? 'Groq (Llama — miễn phí)' : 'ChatGPT (OpenAI)';
+    }
+    function syncModelOptions() {
+      var provider = document.getElementById('aiProvider').value;
+      var sel = document.getElementById('aiModel');
+      var current = sel.value;
+      sel.innerHTML = AI_MODELS[provider].map(function (m) {
+        return '<option value="' + m.id + '">' + m.label + '</option>';
+      }).join('');
+      var ids = AI_MODELS[provider].map(function (m) { return m.id; });
+      if (ids.indexOf(current) !== -1) sel.value = current;
+    }
+    document.getElementById('aiProvider').addEventListener('change', function () {
+      syncModelOptions();
+      document.getElementById('aiKey').placeholder = this.value === 'groq' ? 'gsk_...' : 'sk-...';
+    });
+    syncModelOptions();
 
     function readAiCfg() {
       try { return JSON.parse(localStorage.getItem(AI_CFG_KEY) || '{}'); }
       catch (e) { return {}; }
     }
-    function aiConnected() {
-      var c = readAiCfg();
-      return !!(c.key && c.validated);
+    function saveAiCfg(cfg) { localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg)); }
+    function aiKeyConnected(cfg) {
+      cfg = cfg || readAiCfg();
+      return !!(cfg.key && cfg.validated);
     }
     function setAiMsg(msg, isErr) {
       var el = document.getElementById('aiStatus');
@@ -831,149 +849,49 @@
     function renderAiConfig() {
       var c = readAiCfg();
       var state = document.getElementById('aiState');
+      var free = document.getElementById('freeToggle');
       var disc = document.getElementById('aiDisconnect');
-      if (aiConnected()) {
-        state.textContent = '● Đang kết nối — mô hình ' + (c.model || 'gpt-4o-mini') +
-          (c.savedAt ? ' · thiết lập ' + c.savedAt : '') +
-          '. Học sinh trên máy này chat với ChatGPT thật.';
-        state.style.color = 'var(--ok)';
+      var providers = [];
+      if (c.free_disabled) {
+        free.textContent = '⚡ Bật lại AI miễn phí';
+        free.style.background = '';
+        free.style.color = '';
+        free.style.border = '';
+      } else {
+        free.textContent = '⏻ Tắt AI miễn phí';
+        free.style.background = 'transparent';
+        free.style.color = 'var(--ink-dim)';
+        free.style.border = '1px solid var(--hair)';
+        providers.push('AI miễn phí (không cần key)');
+      }
+      if (aiKeyConnected(c)) {
+        providers.push(providerLabel(c.provider) + ' — ' + (c.model || (c.provider === 'groq' ? 'llama-3.3-70b-versatile' : 'gpt-4o-mini')));
         disc.hidden = false;
       } else {
-        state.textContent = '○ Chưa kết nối — Trợ Lý Ai đang dùng kịch bản 5A offline.';
-        state.style.color = 'var(--warn)';
         disc.hidden = true;
       }
+      state.textContent = providers.length
+        ? '● ' + providers.join(' + ') + ' — trả lời thật ngay trong trang Trợ Lý Ai.'
+        : '○ Đã tắt — học sinh chat với kịch bản 5A offline.';
+      state.style.color = providers.length ? 'var(--ok)' : 'var(--warn)';
     }
 
-    function aiQuick() {
-      var c = readAiCfg();
-      return !!c.quick;
-    }
-
-    function syncQuickBtn() {
-      var btn = document.getElementById('quickToggle');
-      if (aiQuick()) {
-        btn.textContent = '⏻ Tắt ChatGPT nhanh';
-        btn.style.background = 'transparent';
-        btn.style.color = 'var(--ink-dim)';
-        btn.style.border = '1px solid var(--hair)';
-      } else {
-        btn.textContent = 'Bật ChatGPT cho học sinh';
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.style.border = '';
-      }
-    }
-
-    document.getElementById('quickToggle').addEventListener('click', function () {
+    document.getElementById('freeToggle').addEventListener('click', function () {
       var cfg = readAiCfg();
-      if (cfg.quick) {
-        delete cfg.quick; delete cfg.quickAt; delete cfg.quickBy;
-        if (Object.keys(cfg).length) localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
-        else localStorage.removeItem(AI_CFG_KEY);
-        addLog('ai-config', 'Tắt chế độ nhanh ChatGPT');
-        toast('Đã tắt — Trợ Lý Ai quay về kịch bản 5A offline.');
+      if (cfg.free_disabled) {
+        delete cfg.free_disabled; delete cfg.freeToggledAt; delete cfg.freeToggledBy;
+        addLog('ai-config', 'Bật lại AI miễn phí');
+        toast('⚡ Đã bật lại — học sinh được chat với AI thật.');
       } else {
-        cfg.quick = true;
-        cfg.quickAt = new Date().toLocaleString('vi-VN');
-        cfg.quickBy = session ? session.user : 'giaovien';
-        localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
-        addLog('ai-config', 'Bật chế độ nhanh ChatGPT');
-        toast('⚡ Đã bật! Học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai là chat được ngay.');
+        cfg.free_disabled = true;
+        cfg.freeToggledAt = new Date().toLocaleString('vi-VN');
+        cfg.freeToggledBy = session ? session.user : 'giaovien';
+        addLog('ai-config', 'Tắt AI miễn phí (dùng kịch bản 5A)');
+        toast('Đã tắt — Trợ Lý Ai dùng kịch bản 5A offline.');
       }
-      syncQuickBtn();
+      saveAiCfg(cfg);
       renderAiConfig();
       renderLog();
-    });
-
-    document.getElementById('gptCopyInstr').addEventListener('click', function () {
-      var btn = this;
-      fetch('assets/tro-ly-ai-gpt-instructions.md')
-        .then(function (r) { return r.text(); })
-        .then(function (t) {
-          var m = t.match(/```text\n([\s\S]*?)```/);
-          var text = m ? m[1] : t;
-          return (navigator.clipboard && navigator.clipboard.writeText)
-            ? navigator.clipboard.writeText(text)
-            : Promise.reject();
-        })
-        .then(function () { toast('✓ Đã copy instructions — dán vào ô Instructions của GPT.'); })
-        .catch(function () { toast('Không copy được — hãy mở tệp assets/tro-ly-ai-gpt-instructions.md và copy thủ công.'); });
-    });
-
-    function gptLinked() {
-      var c = readAiCfg();
-      return !!(c.gptUrl && /^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(c.gptUrl));
-    }
-    function renderAiConfig() {
-      var c = readAiCfg();
-      var state = document.getElementById('aiState');
-      var disc = document.getElementById('aiDisconnect');
-      var grem = document.getElementById('gptRemove');
-      var inp = document.getElementById('gptUrl');
-      var gs = document.getElementById('gptStatus');
-      if (inp && !inp.value && c.gptUrl) inp.value = c.gptUrl;
-      var gpt = gptLinked();
-      var api = aiConnected();
-      var quick = aiQuick();
-      grem.hidden = !gpt;
-      disc.hidden = !api;
-      if (gpt && api) {
-        state.textContent = '● Đã kết nối cả hai: GPT trường (học sinh mở chatgpt.com) và ChatGPT nhúng (API — ' + (c.model || 'gpt-4o-mini') + ').';
-        state.style.color = 'var(--ok)';
-      } else if (gpt) {
-        state.textContent = '● GPT của trường đã liên kết — học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai.';
-        state.style.color = 'var(--ok)';
-      } else if (api) {
-        state.textContent = '● Đang nhúng ChatGPT (API) — mô hình ' + (c.model || 'gpt-4o-mini') + (c.savedAt ? ' · thiết lập ' + c.savedAt : '') + '.';
-        state.style.color = 'var(--ok)';
-      } else if (quick) {
-        state.textContent = '⚡ Chế độ nhanh đang bật — học sinh bấm "Mở ChatGPT" là chat được ngay (tài khoản ChatGPT miễn phí cũng được).';
-        state.style.color = 'var(--ok)';
-      } else {
-        state.textContent = '○ Chưa kết nối — Trợ Lý Ai đang dùng kịch bản 5A offline.';
-        state.style.color = 'var(--warn)';
-      }
-      gs.textContent = gpt ? ('✓ Đã liên kết' + (c.gptSavedAt ? ' · ' + c.gptSavedAt : '') + (c.gptBy ? ' · bởi ' + c.gptBy : '')) : '';
-      gs.style.color = gpt ? 'var(--ok)' : 'var(--ink-dim)';
-      syncQuickBtn();
-    }
-
-    function setGptMsg(msg, isErr) {
-      var el = document.getElementById('gptStatus');
-      el.textContent = msg;
-      el.style.color = isErr ? 'var(--bad)' : 'var(--ink-dim)';
-    }
-
-    document.getElementById('gptSave').addEventListener('click', function () {
-      var raw = document.getElementById('gptUrl').value.trim();
-      if (!raw) return setGptMsg('Hãy dán liên kết chia sẻ của GPT (dạng https://chatgpt.com/g/g-...).', true);
-      if (!/^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(raw)) {
-        return setGptMsg('Liên kết không hợp lệ — phải là liên kết trên chatgpt.com (ví dụ https://chatgpt.com/g/g-...).', true);
-      }
-      var cfg = readAiCfg();
-      cfg.gptUrl = raw;
-      cfg.gptSavedAt = new Date().toLocaleString('vi-VN');
-      cfg.gptBy = session ? session.user : 'giaovien';
-      localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
-      addLog('ai-config', 'Liên kết GPT ChatGPT (tài khoản)');
-      renderAiConfig();
-      renderLog();
-      toast('✓ Đã lưu liên kết ChatGPT — học sinh có thể mở GPT của trường.');
-      setGptMsg('✓ Đã lưu. Mở trang Trợ Lý Ai để kiểm tra nút "Mở ChatGPT".', false);
-    });
-
-    document.getElementById('gptRemove').addEventListener('click', function () {
-      if (!confirm('Gỡ liên kết GPT ChatGPT? Học sinh sẽ không thấy nút "Mở ChatGPT" nữa.')) return;
-      var cfg = readAiCfg();
-      delete cfg.gptUrl; delete cfg.gptSavedAt; delete cfg.gptBy;
-      if (Object.keys(cfg).length) localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
-      else localStorage.removeItem(AI_CFG_KEY);
-      document.getElementById('gptUrl').value = '';
-      addLog('ai-config', 'Gỡ liên kết GPT ChatGPT');
-      renderAiConfig();
-      renderLog();
-      toast('Đã gỡ liên kết GPT.');
     });
 
     document.getElementById('aiKeyEye').addEventListener('click', function () {
@@ -988,7 +906,8 @@
       setAiMsg('Đang kiểm tra key với OpenAI…', false);
       btn.disabled = true;
       try {
-        var res = await fetch('https://api.openai.com/v1/models', {
+        var provider = document.getElementById('aiProvider').value;
+        var res = await fetch(modelsEndpoint(provider), {
           headers: { 'Authorization': 'Bearer ' + key }
         });
         if (!res.ok) {
@@ -999,23 +918,24 @@
         var data = await res.json();
         var available = (data.data || []).map(function (m) { return m.id; });
         var picked = document.getElementById('aiModel').value;
-        var options = AI_MODELS_FALLBACK.filter(function (m) { return available.indexOf(m) !== -1; });
-        if (options.length && options.indexOf(picked) === -1) {
-          picked = options[0];
+        var known = AI_MODELS[provider].map(function (m) { return m.id; });
+        if (known.indexOf(picked) === -1 || (available.length && available.indexOf(picked) === -1)) {
+          picked = known[0];
           document.getElementById('aiModel').value = picked;
         }
-        localStorage.setItem(AI_CFG_KEY, JSON.stringify({
-          key: key,
-          model: picked,
-          validated: true,
-          savedAt: new Date().toLocaleString('vi-VN'),
-          by: session ? session.user : 'giaovien'
-        }));
+        var cfg = readAiCfg();
+        cfg.provider = provider;
+        cfg.key = key;
+        cfg.model = picked;
+        cfg.validated = true;
+        cfg.savedAt = new Date().toLocaleString('vi-VN');
+        cfg.by = session ? session.user : 'giaovien';
+        saveAiCfg(cfg);
         addLog('ai-config', 'Kết nối ChatGPT (' + picked + ')');
         renderAiConfig();
         renderLog();
-        toast('✓ Đã kết nối ChatGPT — mô hình ' + picked);
-        setAiMsg('✓ Kết nối thành công! Học sinh chat với ' + picked + '. Chi phí tính theo tài khoản OpenAI của trường.', false);
+        toast('✓ Đã kết nối — ' + providerLabel(provider) + ' · ' + picked);
+        setAiMsg('✓ Kết nối thành công! ' + providerLabel(provider) + ' sẽ ưu tiên trả lời trong trang Trợ Lý Ai.', false);
       } catch (e) {
         setAiMsg('✗ ' + String(e.message || e) + ' — kiểm tra lại key hoặc mạng.', true);
       }
@@ -1023,13 +943,15 @@
     });
 
     document.getElementById('aiDisconnect').addEventListener('click', function () {
-      if (!confirm('Ngắt kết nối ChatGPT? Trợ Lý Ai sẽ quay về kịch bản 5A offline.')) return;
-      localStorage.removeItem(AI_CFG_KEY);
+      if (!confirm('Ngắt kết nối ChatGPT chính thức? AI miễn phí vẫn hoạt động.')) return;
+      var cfg = readAiCfg();
+      delete cfg.key; delete cfg.model; delete cfg.validated; delete cfg.savedAt; delete cfg.by; delete cfg.provider;
+      if (Object.keys(cfg).length) saveAiCfg(cfg); else localStorage.removeItem(AI_CFG_KEY);
       document.getElementById('aiKey').value = '';
-      addLog('ai-config', 'Ngắt kết nối ChatGPT');
+      addLog('ai-config', 'Ngắt ChatGPT chính thức (về AI miễn phí)');
       renderAiConfig();
       renderLog();
-      toast('Đã ngắt kết nối — Trợ Lý Ai dùng kịch bản offline.');
+      toast('Đã ngắt — dùng AI miễn phí.');
     });
 
     /* ================= tabs ================= */

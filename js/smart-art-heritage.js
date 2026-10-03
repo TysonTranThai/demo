@@ -78,7 +78,6 @@ const BUILTIN_HERITAGES = {
 
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
-  renderHeritageProjectsGrid();
   initHeritageModals();
   init3DViewer();
   initForm321();
@@ -86,52 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAi5aHandoff();
   setupSmoothScroll();
 });
-
-function renderHeritageProjectsGrid() {
-  const grid = document.getElementById('projectsGridContainer');
-  if (!grid) return;
-
-  const cards = [
-    { key: "phohien", no: "01", name: "PHỐ HIẾN", year: "THẾ KỶ XVII", tags: ["THƯƠNG CẢNG CỔ", "ĐỀN MẪU", "HỒ BÁN NGUYỆT"], desc: "Quần thể di tích thương cảng cổ kính sầm uất với đền Mẫu và chùa Chuông.", photo: "assets/extracted/cover_phohien.jpeg" },
-    { key: "chuakeo", no: "02", name: "CHÙA KEO", year: "KIẾN TRÚC GỖ", tags: ["GÁC CHUÔNG 3 TẦNG", "12 MÁI CONG", "GỖ LIM"], desc: "Gác chuông ba tầng 12 mái cong kiệt tác đấu củng gỗ không dùng đinh sắt.", photo: "assets/extracted/cover_chuakeo.jpeg" },
-    { key: "dentran", no: "03", name: "ĐỀN TRẦN HƯNG HÀ", year: "HÀO KHÍ ĐÔNG A", tags: ["LĂNG MỘ VUA TRẦN", "RỒNG ĐÁ", "TRỤC THẦN ĐẠO"], desc: "Vùng đất phát tích vương triều Trần với không gian tưởng niệm và lễ hội trang nghiêm.", photo: "assets/extracted/cover_dentran.jpeg" },
-    { key: "lequydon", no: "04", name: "KHU LƯU NIỆM LÊ QUÝ ĐÔN", year: "DANH NHÂN VĂN HÓA", tags: ["NHÀ BÁC HỌC", "TƯỢNG ĐỒNG", "THƯ TỊCH CỔ"], desc: "Không gian tưởng niệm Nhà bác học Lê Quý Đôn kết nối học liệu mĩ thuật số.", photo: "assets/extracted/cover_lequydon.jpeg" },
-    { key: "dongxam", no: "05", name: "LÀNG NGHỀ CHẠM BẠC ĐỒNG XÂM", year: "LÀNG NGHỀ 500 NĂM", tags: ["CHẠM BẠC KIM HOÀN", "HOA VĂN TINH XẢO", "NGHỆ NHÂN"], desc: "Nghệ thuật chạm khắc kim hoàn thủ công truyền thống tinh hoa đất Bắc.", photo: "assets/extracted/cover_dongxam.jpeg" },
-    { key: "studio", no: "06", name: "XƯỞNG SÁNG TẠO & AR GALLERY", year: "TRIỂN LÃM MĨ THUẬT", tags: ["CANVAS DRAWING", "AI 5A ASSISTANT", "VIRTUAL AR"], desc: "Không gian phác thảo, hoàn thiện tác phẩm mĩ thuật và triển lãm AR trên di động.", photo: "assets/extracted/002_Cong_di_tich_kien_truc_co.jpeg" }
-  ];
-
-  grid.innerHTML = cards.map(c => `
-    <div class="project-card" onclick="handleProjectCardClick('${c.key}')">
-      <div class="project-meta-row">
-        <span class="project-code-title">${c.no} — ${c.name}</span>
-        <span class="project-year">${c.year}</span>
-      </div>
-      <div class="project-photo-wrapper">
-        <img class="project-photo" src="${c.photo}" alt="${c.name}" loading="lazy" />
-        <div class="project-hover-curtain"></div>
-        <div class="project-floating-tags">
-          ${c.tags.map(t => `<span class="tag-mini">${t}</span>`).join('')}
-        </div>
-      </div>
-      <div class="project-card-footer">
-        <span class="project-subtitle-text">${c.desc}</span>
-        <button class="project-explore-btn" type="button">
-          Khám phá chi tiết <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function handleProjectCardClick(key) {
-  if (key === 'studio') {
-    // Creative studio now lives on its own page (student work portfolio)
-    location.href = 'trien-lam.html';
-  } else {
-    // Heritage explorer now lives on its own immersive page
-    location.href = 'di-san.html#' + key;
-  }
-}
 
 /* ==========================================================================
    MODAL CONTROLLER

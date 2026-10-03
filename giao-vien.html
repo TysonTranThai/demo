@@ -566,21 +566,37 @@
           </p>
           <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
 
-          <div style="border:1px solid var(--hair); border-radius:14px; padding:16px 18px; margin-bottom:14px;">
-            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">CÁCH 1 — TÀI KHOẢN CHATGPT (MIỄN PHÍ, KHUYÊN DÙNG)</div>
+          <div style="border:1px solid rgba(200,149,71,0.4); border-radius:14px; padding:16px 18px; margin-bottom:14px; background:rgba(200,149,71,0.05);">
+            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">⚡ CHẾ ĐỘ NHANH — CHỈ CẦN BẬT, KHÔNG CẦN CẤU HÌNH GÌ THÊM</div>
             <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
-              Tạo GPT riêng "Trợ Lý Ai 5A" cho trường rồi dán liên kết vào đây:
-              ① Mở <a href="https://chatgpt.com/g" target="_blank" rel="noopener" style="color:var(--gold);">chatgpt.com/g</a> → <b>Create</b> (tạo GPT cần tài khoản ChatGPT Plus/Pro/Team),
-              ② dán toàn bộ nội dung tệp <b>assets/tro-ly-ai-gpt-instructions.md</b> vào ô Instructions (nhớ tắt DALL·E),
-              ③ Publish → chọn "Only people with a link" → copy liên kết và dán vào ô dưới đây.
+              Học sinh bấm <b>"Mở ChatGPT"</b> → ChatGPT mở ra và <b>tự bắt đầu buổi học 5A</b> kèm sẵn nội dung Phiếu 3–2–1 của em.
+              Không tạo GPT, không API key — <b>tài khoản ChatGPT miễn phí cũng dùng được</b> (học sinh đăng nhập tài khoản ChatGPT của trường trên chatgpt.com).
             </p>
+            <div class="gv-actions-bar">
+              <button id="quickToggle" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Bật ChatGPT cho học sinh</button>
+              <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Xem trang học sinh ↗</a>
+            </div>
+          </div>
+
+          <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px; margin-bottom:14px;">
+            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">CÁCH CHUYÊN SÂU HƠN — TẠO GPT RIÊNG CỦA TRƯỜNG (TÙY CHỌN, 3 BƯỚC)</summary>
+            <div style="margin-top:14px;">
+            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
+              GPT riêng theo đúng phương pháp 5A và không bao giờ vẽ thay học sinh. Cần tài khoản ChatGPT Plus/Pro/Team để <i>tạo</i>.
+              ① Bấm <b>Copy instructions</b> → ② bấm <b>Mở trình tạo GPT</b>, dán vào ô Instructions (tắt DALL·E) → ③ Publish chọn "Only people with a link", dán liên kết vào ô dưới.
+            </p>
+            <div class="gv-actions-bar" style="margin-bottom:14px;">
+              <button id="gptCopyInstr" class="gv-mini" type="button">⬇ Copy instructions</button>
+              <a class="gv-mini" href="https://chatgpt.com/g" target="_blank" rel="noopener">↗ Mở trình tạo GPT</a>
+            </div>
             <div style="display:grid; grid-template-columns:1fr auto auto; gap:12px; max-width:860px;">
               <input id="gptUrl" type="url" placeholder="https://chatgpt.com/g/g-..." spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
               <button id="gptSave" class="gv-gate-btn" type="button" style="width:auto; padding:12px 22px;">Lưu liên kết</button>
               <button id="gptRemove" class="gv-mini danger" type="button" hidden>Gỡ liên kết</button>
             </div>
             <p id="gptStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
-          </div>
+            </div>
+          </details>
 
           <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px;">
             <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">NÂNG CAO — NHÚNG CHATGPT VÀO TRANG BẰNG API KEY (TÙY CHỌN)</summary>
@@ -824,6 +840,62 @@
       }
     }
 
+    function aiQuick() {
+      var c = readAiCfg();
+      return !!c.quick;
+    }
+
+    function syncQuickBtn() {
+      var btn = document.getElementById('quickToggle');
+      if (aiQuick()) {
+        btn.textContent = '⏻ Tắt ChatGPT nhanh';
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--ink-dim)';
+        btn.style.border = '1px solid var(--hair)';
+      } else {
+        btn.textContent = 'Bật ChatGPT cho học sinh';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.border = '';
+      }
+    }
+
+    document.getElementById('quickToggle').addEventListener('click', function () {
+      var cfg = readAiCfg();
+      if (cfg.quick) {
+        delete cfg.quick; delete cfg.quickAt; delete cfg.quickBy;
+        if (Object.keys(cfg).length) localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
+        else localStorage.removeItem(AI_CFG_KEY);
+        addLog('ai-config', 'Tắt chế độ nhanh ChatGPT');
+        toast('Đã tắt — Trợ Lý Ai quay về kịch bản 5A offline.');
+      } else {
+        cfg.quick = true;
+        cfg.quickAt = new Date().toLocaleString('vi-VN');
+        cfg.quickBy = session ? session.user : 'giaovien';
+        localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
+        addLog('ai-config', 'Bật chế độ nhanh ChatGPT');
+        toast('⚡ Đã bật! Học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai là chat được ngay.');
+      }
+      syncQuickBtn();
+      renderAiConfig();
+      renderLog();
+    });
+
+    document.getElementById('gptCopyInstr').addEventListener('click', function () {
+      var btn = this;
+      fetch('assets/tro-ly-ai-gpt-instructions.md')
+        .then(function (r) { return r.text(); })
+        .then(function (t) {
+          var m = t.match(/```text\n([\s\S]*?)```/);
+          var text = m ? m[1] : t;
+          return (navigator.clipboard && navigator.clipboard.writeText)
+            ? navigator.clipboard.writeText(text)
+            : Promise.reject();
+        })
+        .then(function () { toast('✓ Đã copy instructions — dán vào ô Instructions của GPT.'); })
+        .catch(function () { toast('Không copy được — hãy mở tệp assets/tro-ly-ai-gpt-instructions.md và copy thủ công.'); });
+    });
+
     function gptLinked() {
       var c = readAiCfg();
       return !!(c.gptUrl && /^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(c.gptUrl));
@@ -838,16 +910,20 @@
       if (inp && !inp.value && c.gptUrl) inp.value = c.gptUrl;
       var gpt = gptLinked();
       var api = aiConnected();
+      var quick = aiQuick();
       grem.hidden = !gpt;
       disc.hidden = !api;
       if (gpt && api) {
-        state.textContent = '● Đã kết nối cả hai: GPT tài khoản (học sinh mở chatgpt.com) và ChatGPT nhúng (API — ' + (c.model || 'gpt-4o-mini') + ').';
+        state.textContent = '● Đã kết nối cả hai: GPT trường (học sinh mở chatgpt.com) và ChatGPT nhúng (API — ' + (c.model || 'gpt-4o-mini') + ').';
         state.style.color = 'var(--ok)';
       } else if (gpt) {
-        state.textContent = '● ChatGPT (tài khoản trường): học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai — không cần API key.';
+        state.textContent = '● GPT của trường đã liên kết — học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai.';
         state.style.color = 'var(--ok)';
       } else if (api) {
         state.textContent = '● Đang nhúng ChatGPT (API) — mô hình ' + (c.model || 'gpt-4o-mini') + (c.savedAt ? ' · thiết lập ' + c.savedAt : '') + '.';
+        state.style.color = 'var(--ok)';
+      } else if (quick) {
+        state.textContent = '⚡ Chế độ nhanh đang bật — học sinh bấm "Mở ChatGPT" là chat được ngay (tài khoản ChatGPT miễn phí cũng được).';
         state.style.color = 'var(--ok)';
       } else {
         state.textContent = '○ Chưa kết nối — Trợ Lý Ai đang dùng kịch bản 5A offline.';
@@ -855,6 +931,7 @@
       }
       gs.textContent = gpt ? ('✓ Đã liên kết' + (c.gptSavedAt ? ' · ' + c.gptSavedAt : '') + (c.gptBy ? ' · bởi ' + c.gptBy : '')) : '';
       gs.style.color = gpt ? 'var(--ok)' : 'var(--ink-dim)';
+      syncQuickBtn();
     }
 
     function setGptMsg(msg, isErr) {

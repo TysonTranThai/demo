@@ -827,6 +827,11 @@
 
       var HERITAGE_LABELS = { phohien: 'Phố Hiến', chuakeo: 'Chùa Keo', dentran: 'Đền Trần', lequydon: 'Lê Quý Đôn', dongxam: 'Đồng Xâm' };
 
+      function aiQuick() {
+        var c = cfg();
+        return !!c.quick;
+      }
+
       function gptUrl() {
         var c = cfg();
         return (c.gptUrl && /^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(c.gptUrl)) ? c.gptUrl : '';
@@ -843,19 +848,13 @@
         return lines.join('\n');
       }
 
-      function copyFallback(t) {
-        var ta = document.createElement('textarea');
-        ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
-        document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
-      }
-      function copyText(t) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          return navigator.clipboard.writeText(t).catch(function () { copyFallback(t); });
-        }
-        copyFallback(t);
-        return Promise.resolve();
+      /* One-click deep link: chatgpt.com opens with the 5A lesson already
+         typed into the composer — no manual pasting needed. */
+      function gptDeepLink() {
+        var t = encodeURIComponent(buildGptStarter());
+        var gu = gptUrl();
+        if (gu) return gu + (gu.indexOf('?') === -1 ? '?' : '&') + 'q=' + t;
+        return 'https://chatgpt.com/?q=' + t;
       }
 
       function esc(s) {
@@ -866,6 +865,10 @@
         if (gptUrl()) {
           badge.textContent = '● ChatGPT: tài khoản trường';
           badge.title = 'Chat với GPT của trường trên chatgpt.com (đăng nhập tài khoản ChatGPT)';
+          badge.classList.add('connected');
+        } else if (aiQuick()) {
+          badge.textContent = '● ChatGPT: đã bật';
+          badge.title = 'Bấm để mở ChatGPT (đăng nhập tài khoản ChatGPT của trường)';
           badge.classList.add('connected');
         } else if (connected()) {
           badge.textContent = '● ' + model();
@@ -879,26 +882,29 @@
       }
 
       function openModal() {
+        refreshBadge();
         statusEl.className = 'tlai-cfg-status';
         var gu = gptUrl();
         if (gu) {
-          statusEl.innerHTML = '✓ ChatGPT của trường đã sẵn sàng — chat bằng <b>tài khoản ChatGPT</b> trên chatgpt.com (không cần API key).';
+          statusEl.innerHTML = '✓ GPT của trường đã sẵn sàng — một nút bấm là ChatGPT tự bắt đầu buổi học 5A với nội dung Phiếu 3–2–1 của em.';
           actionsEl.innerHTML =
-            '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gu) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
+            '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
             '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Bấm <b>Mở ChatGPT</b> → đăng nhập tài khoản ChatGPT của trường → nội dung Phiếu 3–2–1 của em đã được chép sẵn, dán vào khung chat (<b>Ctrl+V</b>) là bắt đầu (nút này tự chép giúp em).';
-          document.getElementById('tlaiOpenGpt').addEventListener('click', function () {
-            copyText(buildGptStarter());
-            statusEl.innerHTML = '✓ Đã chép thông tin Phiếu 3–2–1 — dán vào khung chat của ChatGPT (<b>Ctrl+V</b>).';
-          });
+          noteEl.innerHTML = 'Chỉ cần bấm <b>Mở ChatGPT</b> → đăng nhập tài khoản ChatGPT của trường (lần đầu) → câu chào và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste gì thêm.';
+        } else if (aiQuick()) {
+          statusEl.innerHTML = '✓ ChatGPT đã được thầy/cô bật cho lớp — một nút bấm là bắt đầu buổi học 5A với nội dung Phiếu 3–2–1 của em.';
+          actionsEl.innerHTML =
+            '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
+            '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
+          noteEl.innerHTML = 'Bấm <b>Mở ChatGPT</b> → đăng nhập tài khoản ChatGPT của trường (lần đầu) → câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste.';
         } else if (connected()) {
           statusEl.innerHTML = '✓ Đang kết nối với mô hình <b>' + model() + '</b> — chat đang dùng ChatGPT thật (giáo viên đã cấu hình).';
           actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
           noteEl.innerHTML = 'Chat ngay trong trang này nhé — ChatGPT trả lời thật qua kết nối do giáo viên cấu hình.';
         } else {
-          statusEl.innerHTML = 'Chưa cấu hình — chat đang dùng kịch bản 5A offline. Giáo viên kết nối ChatGPT trong trang Quản lý.';
+          statusEl.innerHTML = 'Chưa cấu hình — chat đang dùng kịch bản 5A offline. Giáo viên bật ChatGPT trong trang Quản lý (chỉ 1 nút).';
           actionsEl.innerHTML = '<a class="tlai-send" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở trang giáo viên</span><span>↗</span></a>';
-          noteEl.innerHTML = 'Giáo viên: đăng nhập trang Quản lý → thẻ <b>Trợ Lý AI</b> → Cách 1 (miễn phí): dán liên kết GPT ChatGPT của trường; Cách 2 (nâng cao): API key.';
+          noteEl.innerHTML = 'Giáo viên: đăng nhập trang Quản lý → thẻ <b>Trợ Lý AI</b> → bấm <b>⚡ Bật ChatGPT</b> (5 giây) hoặc tạo GPT riêng ở phần mở rộng.';
         }
         modal.classList.add('open');
       }

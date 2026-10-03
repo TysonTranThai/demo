@@ -419,6 +419,7 @@
         <button class="gv-tab" data-tab="students" type="button">Học sinh</button>
         <button class="gv-tab" data-tab="works" type="button">Tác phẩm</button>
         <button class="gv-tab" data-tab="worksheets" type="button">Phiếu 3–2–1</button>
+        <button class="gv-tab" data-tab="ai" type="button">Trợ Lý AI</button>
         <button class="gv-tab" data-tab="settings" type="button">Cài đặt</button>
         <button class="gv-tab" data-tab="security" type="button">Bảo mật</button>
       </nav>
@@ -550,6 +551,54 @@
             <button id="btnWipeWorksheets" class="gv-mini danger" type="button">Xoá toàn bộ Phiếu 3–2–1</button>
             <button id="btnWipeWorks" class="gv-mini danger" type="button">Xoá toàn bộ Tác phẩm</button>
             <button id="btnWipeAll" class="gv-mini danger" type="button">Xoá MỌI dữ liệu nền tảng</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ AI / CHATGPT (teacher-only) ============ -->
+      <section id="tab-ai" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-label">KẾT NỐI CHATGPT CHO TRỢ LÝ AI</div>
+          <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
+            Cắm tài khoản OpenAI (API key) để Trợ Lý Ai trò chuyện thật với học sinh thay vì kịch bản có sẵn.
+            Chỉ giáo viên đăng nhập trang này mới cấu hình được — học sinh không thể tự nhập key.
+          </p>
+          <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
+
+          <div style="display:grid; grid-template-columns:1fr 320px; gap:14px; max-width:860px;">
+            <div>
+              <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">OPENAI API KEY</label>
+              <div style="position:relative;">
+                <input id="aiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 44px 11px 14px; outline:none;">
+                <button id="aiKeyEye" type="button" title="Hiện / ẩn" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:1rem;">👁</button>
+              </div>
+            </div>
+            <div>
+              <label for="aiModel" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MÔ HÌNH ƯU TIÊN</label>
+              <select id="aiModel" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+                <option value="gpt-4o-mini">gpt-4o-mini — nhanh, tiết kiệm (khuyên dùng)</option>
+                <option value="gpt-4o">gpt-4o — sáng tạo hơn</option>
+                <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+                <option value="gpt-4.1">gpt-4.1 — mạnh nhất</option>
+              </select>
+            </div>
+          </div>
+
+          <p id="aiStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
+
+          <div class="gv-actions-bar" style="margin-top:14px;">
+            <button id="aiConnect" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Kết nối &amp; kiểm tra</button>
+            <button id="aiDisconnect" class="gv-mini danger" type="button" hidden>Ngắt kết nối</button>
+            <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
+          </div>
+        </div>
+
+        <div class="gv-card">
+          <div class="gv-card-label">LƯU Ý</div>
+          <div class="gv-warnbox">
+            <b>Riêng tư:</b> key chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng tới OpenAI khi chat.
+            <b>Chi phí:</b> mỗi lượt chat tính phí theo tài khoản OpenAI của trường — gpt-4o-mini rẻ nhất cho lớp học.
+            Khi ngắt kết nối hoặc chưa cấu hình, Trợ Lý Ai tự dùng kịch bản 5A offline.
           </div>
         </div>
       </section>
@@ -719,6 +768,96 @@
       document.getElementById('gvNewPass').value = '';
       document.getElementById('gvNewPass2').value = '';
       setPassMsg('✓ Đã đổi mật khẩu. Từ giờ dùng mật khẩu mới để đăng nhập.');
+    });
+
+    /* ================= AI (ChatGPT) config — teacher only ================= */
+    var AI_CFG_KEY = 'sah_chatgpt_cfg';
+    var AI_MODELS_FALLBACK = ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'];
+
+    function readAiCfg() {
+      try { return JSON.parse(localStorage.getItem(AI_CFG_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function aiConnected() {
+      var c = readAiCfg();
+      return !!(c.key && c.validated);
+    }
+    function setAiMsg(msg, isErr) {
+      var el = document.getElementById('aiStatus');
+      el.textContent = msg;
+      el.style.color = isErr ? 'var(--bad)' : 'var(--ink-dim)';
+    }
+    function renderAiConfig() {
+      var c = readAiCfg();
+      var state = document.getElementById('aiState');
+      var disc = document.getElementById('aiDisconnect');
+      if (aiConnected()) {
+        state.textContent = '● Đang kết nối — mô hình ' + (c.model || 'gpt-4o-mini') +
+          (c.savedAt ? ' · thiết lập ' + c.savedAt : '') +
+          '. Học sinh trên máy này chat với ChatGPT thật.';
+        state.style.color = 'var(--ok)';
+        disc.hidden = false;
+      } else {
+        state.textContent = '○ Chưa kết nối — Trợ Lý Ai đang dùng kịch bản 5A offline.';
+        state.style.color = 'var(--warn)';
+        disc.hidden = true;
+      }
+    }
+
+    document.getElementById('aiKeyEye').addEventListener('click', function () {
+      var inp = document.getElementById('aiKey');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+
+    document.getElementById('aiConnect').addEventListener('click', async function () {
+      var btn = this;
+      var key = document.getElementById('aiKey').value.trim();
+      if (!key) return setAiMsg('Hãy dán API key (bắt đầu bằng sk-...).', true);
+      setAiMsg('Đang kiểm tra key với OpenAI…', false);
+      btn.disabled = true;
+      try {
+        var res = await fetch('https://api.openai.com/v1/models', {
+          headers: { 'Authorization': 'Bearer ' + key }
+        });
+        if (!res.ok) {
+          var err = {};
+          try { err = await res.json(); } catch (e) {}
+          throw new Error(err.error && err.error.message ? err.error.message : ('HTTP ' + res.status));
+        }
+        var data = await res.json();
+        var available = (data.data || []).map(function (m) { return m.id; });
+        var picked = document.getElementById('aiModel').value;
+        var options = AI_MODELS_FALLBACK.filter(function (m) { return available.indexOf(m) !== -1; });
+        if (options.length && options.indexOf(picked) === -1) {
+          picked = options[0];
+          document.getElementById('aiModel').value = picked;
+        }
+        localStorage.setItem(AI_CFG_KEY, JSON.stringify({
+          key: key,
+          model: picked,
+          validated: true,
+          savedAt: new Date().toLocaleString('vi-VN'),
+          by: session ? session.user : 'giaovien'
+        }));
+        addLog('ai-config', 'Kết nối ChatGPT (' + picked + ')');
+        renderAiConfig();
+        renderLog();
+        toast('✓ Đã kết nối ChatGPT — mô hình ' + picked);
+        setAiMsg('✓ Kết nối thành công! Học sinh chat với ' + picked + '. Chi phí tính theo tài khoản OpenAI của trường.', false);
+      } catch (e) {
+        setAiMsg('✗ ' + String(e.message || e) + ' — kiểm tra lại key hoặc mạng.', true);
+      }
+      btn.disabled = false;
+    });
+
+    document.getElementById('aiDisconnect').addEventListener('click', function () {
+      if (!confirm('Ngắt kết nối ChatGPT? Trợ Lý Ai sẽ quay về kịch bản 5A offline.')) return;
+      localStorage.removeItem(AI_CFG_KEY);
+      document.getElementById('aiKey').value = '';
+      addLog('ai-config', 'Ngắt kết nối ChatGPT');
+      renderAiConfig();
+      renderLog();
+      toast('Đã ngắt kết nối — Trợ Lý Ai dùng kịch bản offline.');
     });
 
     /* ================= tabs ================= */
@@ -1169,7 +1308,7 @@
         version: 1,
         data: {}
       };
-      ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
+      ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_chatgpt_cfg', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
         var v = localStorage.getItem(k);
         if (v !== null) backup.data[k] = v;
       });
@@ -1217,9 +1356,9 @@
       }
     });
     document.getElementById('btnWipeAll').addEventListener('click', function () {
-      if (confirm('Xoá MỌI dữ liệu nền tảng (phiếu, tác phẩm, nhật ký)? Hành động này không thể hoàn tác.') &&
+      if (confirm('Xoá MỌI dữ liệu nền tảng (phiếu, tác phẩm, nhật ký, cấu hình AI)? Hành động này không thể hoàn tác.') &&
           confirm('Xác nhận lần cuối: toàn bộ dữ liệu học sinh sẽ bị xoá vĩnh viễn.')) {
-        ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_teacher_log'].forEach(function (k) { localStorage.removeItem(k); });
+        ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_chatgpt_cfg', 'sah_teacher_log'].forEach(function (k) { localStorage.removeItem(k); });
         addLog('wipe', 'Xoá MỌI dữ liệu nền tảng');
         refreshAll();
       }
@@ -1234,7 +1373,7 @@
             var label = {
               login: 'Đăng nhập', fail: 'Thất bại', logout: 'Đăng xuất',
               password: 'Đổi mật khẩu', backup: 'Sao lưu', restore: 'Khôi phục',
-              wipe: 'Xoá dữ liệu', 'delete-work': 'Xoá tác phẩm',
+              wipe: 'Xoá dữ liệu', 'ai-config': 'Cấu hình AI', 'delete-work': 'Xoá tác phẩm',
               grade: 'Chấm điểm', feedback: 'Phản hồi phiếu', export: 'Xuất CSV'
             }[l.type] || l.type;
             return '<div class="gv-log-row">' +
@@ -1265,6 +1404,7 @@
       renderStudents();
       renderWorks();
       renderWorksheets();
+      renderAiConfig();
       renderLog();
     }
 

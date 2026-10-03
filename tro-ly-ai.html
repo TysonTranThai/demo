@@ -456,7 +456,7 @@
         <span class="tlai-chat-dot"></span>
         <span class="tlai-chat-title">AI Art Assistant — Quy trình 5A</span>
         <span class="tlai-chat-note">Không vẽ thay học sinh</span>
-        <button id="tlaiConnBadge" class="tlai-conn" type="button" title="Kết nối ChatGPT để chat thật">⚙ Kết nối ChatGPT</button>
+        <button id="tlaiConnBadge" class="tlai-conn" type="button" title="ChatGPT do giáo viên cấu hình trong trang Quản lý">○ ChatGPT: chưa cấu hình</button>
       </div>
 
       <div id="aiChatHistory" class="tlai-history">
@@ -483,41 +483,26 @@
 
   </main>
 
-  <!-- ChatGPT connection settings -->
+  <!-- ChatGPT is configured by the teacher in giao-vien.html (tab: Trợ Lý AI) -->
   <div id="tlaiSettings" class="tlai-modal" role="dialog" aria-modal="true">
     <div class="tlai-modal-card">
       <div class="tlai-modal-head">
         <div>
-          <h3>Kết nối ChatGPT</h3>
-          <p>Dùng API key OpenAI của bạn để Trợ Lý Ai trả lời thật thay vì kịch bản có sẵn.</p>
+          <h3>ChatGPT do giáo viên cấu hình</h3>
+          <p>Chỉ giáo viên mới kết nối được tài khoản ChatGPT cho Trợ Lý Ai.</p>
         </div>
         <button id="tlaiSettingsClose" class="tlai-modal-x" type="button">✕</button>
       </div>
 
-      <label for="cfgKey">OpenAI API Key</label>
-      <div class="tlai-key-row">
-        <input id="cfgKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false">
-        <button id="cfgEye" class="tlai-eye" type="button" title="Hiện / ẩn">👁</button>
-      </div>
-
-      <label for="cfgModel">Mô hình</label>
-      <select id="cfgModel">
-        <option value="gpt-4o-mini">gpt-4o-mini — nhanh, tiết kiệm (khuyên dùng)</option>
-        <option value="gpt-4o">gpt-4o — sáng tạo hơn</option>
-        <option value="gpt-4.1-mini">gpt-4.1-mini</option>
-        <option value="gpt-4.1">gpt-4.1 — mạnh nhất</option>
-      </select>
-
       <p id="cfgStatus" class="tlai-cfg-status"></p>
 
       <div class="tlai-modal-actions">
-        <button id="cfgConnect" class="tlai-send" type="button"><span>Kết nối &amp; kiểm tra</span><span>↗</span></button>
-        <button id="cfgDisconnect" class="tlai-chip" type="button" hidden>Ngắt kết nối</button>
+        <a class="tlai-send" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở trang giáo viên</span><span>↗</span></a>
       </div>
 
       <p class="tlai-modal-note">
-        <b>Riêng tư:</b> khoá API chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng đến OpenAI khi chat.
-        <b>Chi phí:</b> mỗi lượt chat tính phí theo tài khoản OpenAI của bạn — gpt-4o-mini rẻ nhất cho lớp học.
+        Giáo viên: đăng nhập trang Quản lý → thẻ <b>Trợ Lý AI</b> → dán API key OpenAI → bấm
+        <b>Kết nối &amp; kiểm tra</b>. Khi chưa kết nối, em vẫn chat với kịch bản 5A offline nhé.
       </p>
     </div>
   </div>
@@ -742,16 +727,17 @@
   })();
 
   /* ========================================================================
-     CHATGPT LIVE MODE — plug in an OpenAI API key for real conversations.
-     When connected, user messages go to the OpenAI Chat Completions API
+     CHATGPT LIVE MODE — the OpenAI account is plugged in by the TEACHER
+     from the admin page (giao-vien.html → tab "Trợ Lý AI") and stored in
+     localStorage (sah_chatgpt_cfg). Students cannot enter a key here.
+     When configured, user messages go to the OpenAI Chat Completions API
      with a teacher-crafted system prompt; the scripted 5A flow stays as
-     the offline fallback. Key is stored locally only.
+     the offline fallback.
      ======================================================================== */
   (function () {
     'use strict';
 
     var CFG_KEY = 'sah_chatgpt_cfg';
-    var MODELS_FALLBACK = ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'];
 
     var HERITAGE_FACTS = {
       chuakeo: 'Chùa Keo (Thái Bình, dựng 1632): gác chuông 11,04m, 3 tầng 12 mái cong đầu đao, kết cấu gỗ lim toàn đấu củng KHÔNG dùng đinh sắt, 16 chữ Hán trong bia.',
@@ -765,7 +751,6 @@
       try { return JSON.parse(localStorage.getItem(CFG_KEY) || '{}'); }
       catch (e) { return {}; }
     }
-    function saveCfg(c) { localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
 
     function connected() {
       var c = cfg();
@@ -863,40 +848,33 @@
         hideTyping();
         origAppend('ai',
           '<b>⚠ Không gọi được ChatGPT:</b> ' + String(e.message || e).replace(/</g, '&lt;') +
-          '<br><br>Kiểm tra kết nối mạng / API key trong phần ⚙ Kết nối ChatGPT. Trong lúc đó em vẫn chat với bản kịch bản nhé.');
+          '<br><br>Hãy báo cô/thầy kiểm tra kết nối ChatGPT trong trang Quản lý giáo viên. Trong lúc đó em vẫn chat với bản kịch bản nhé.');
       }
     }
 
     function initChatGptBridge() {
       var badge = document.getElementById('tlaiConnBadge');
       var modal = document.getElementById('tlaiSettings');
-      var keyInput = document.getElementById('cfgKey');
-      var modelSel = document.getElementById('cfgModel');
-      var eyeBtn = document.getElementById('cfgEye');
-      var connectBtn = document.getElementById('cfgConnect');
-      var disconnectBtn = document.getElementById('cfgDisconnect');
       var statusEl = document.getElementById('cfgStatus');
       var closeBtn = document.getElementById('tlaiSettingsClose');
 
       function refreshBadge() {
         if (connected()) {
           badge.textContent = '● ' + model();
+          badge.title = 'ChatGPT trực tuyến (' + model() + ') — do giáo viên cấu hình';
           badge.classList.add('connected');
         } else {
-          badge.textContent = '⚙ Kết nối ChatGPT';
+          badge.textContent = '○ ChatGPT: chưa cấu hình';
+          badge.title = 'ChatGPT do giáo viên cấu hình trong trang Quản lý giáo viên';
           badge.classList.remove('connected');
         }
       }
 
       function openModal() {
-        var c = cfg();
-        if (c.model) modelSel.value = c.model;
-        if (c.key) { keyInput.value = c.key; }
         statusEl.className = 'tlai-cfg-status';
-        statusEl.textContent = connected()
-          ? '✓ Đang kết nối với mô hình ' + model() + '. Chat hiện dùng ChatGPT thật.'
-          : 'Chưa kết nối — chat đang dùng kịch bản 5A có sẵn (hoạt động offline).';
-        disconnectBtn.hidden = !connected();
+        statusEl.innerHTML = connected()
+          ? '✓ Đang kết nối với mô hình <b>' + model() + '</b> — chat đang dùng ChatGPT thật (giáo viên đã cấu hình).'
+          : 'Chưa cấu hình — chat đang dùng kịch bản 5A offline. Giáo viên kết nối ChatGPT trong trang Quản lý.';
         modal.classList.add('open');
       }
       function closeModal() { modal.classList.remove('open'); }
@@ -908,55 +886,9 @@
         if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
       });
 
-      eyeBtn.addEventListener('click', function () {
-        keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
-      });
-
-      connectBtn.addEventListener('click', async function () {
-        var key = keyInput.value.trim();
-        if (!key) {
-          statusEl.className = 'tlai-cfg-status err';
-          statusEl.textContent = 'Hãy dán API key (bắt đầu bằng sk-...).';
-          return;
-        }
-        statusEl.className = 'tlai-cfg-status';
-        statusEl.textContent = 'Đang kiểm tra...';
-        connectBtn.disabled = true;
-        try {
-          var res = await fetch('https://api.openai.com/v1/models', {
-            headers: { 'Authorization': 'Bearer ' + key }
-          });
-          if (!res.ok) {
-            var err = {};
-            try { err = await res.json(); } catch (e) {}
-            throw new Error(err.error && err.error.message ? err.error.message : ('HTTP ' + res.status));
-          }
-          var data = await res.json();
-          var available = (data.data || []).map(function (m) { return m.id; });
-          var picked = modelSel.value;
-          var options = MODELS_FALLBACK.filter(function (m) { return available.indexOf(m) !== -1; });
-          if (options.length && options.indexOf(picked) === -1) {
-            picked = options[0];
-            modelSel.value = picked;
-          }
-          saveCfg({ key: key, model: picked, validated: true });
-          statusEl.className = 'tlai-cfg-status ok';
-          statusEl.textContent = '✓ Kết nối thành công! Từ giờ chat sẽ dùng ' + picked + '. Chi phí tính theo tài khoản OpenAI của bạn.';
-          disconnectBtn.hidden = false;
-          refreshBadge();
-        } catch (e) {
-          statusEl.className = 'tlai-cfg-status err';
-          statusEl.textContent = '✗ ' + String(e.message || e) + ' — kiểm tra lại key hoặc mạng.';
-        }
-        connectBtn.disabled = false;
-      });
-
-      disconnectBtn.addEventListener('click', function () {
-        localStorage.removeItem(CFG_KEY);
-        statusEl.className = 'tlai-cfg-status';
-        statusEl.textContent = 'Đã ngắt kết nối — quay lại kịch bản 5A offline.';
-        disconnectBtn.hidden = true;
-        refreshBadge();
+      // Teacher edits the config in another tab (giao-vien.html) → update live
+      window.addEventListener('storage', function (e) {
+        if (e.key === CFG_KEY || e.key === null) refreshBadge();
       });
 
       refreshBadge();

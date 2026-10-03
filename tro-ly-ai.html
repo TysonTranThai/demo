@@ -890,13 +890,13 @@
           actionsEl.innerHTML =
             '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
             '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Chỉ cần bấm <b>Mở ChatGPT</b> → đăng nhập tài khoản ChatGPT của trường (lần đầu) → câu chào và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste gì thêm.';
+          noteEl.innerHTML = 'Chỉ cần bấm <b>Mở ChatGPT</b>. Lần đầu tiên ChatGPT hỏi đăng nhập: dùng tài khoản ChatGPT của trường — máy sẽ ghi nhớ cho các lần sau. Câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste gì thêm.';
         } else if (aiQuick()) {
           statusEl.innerHTML = '✓ ChatGPT đã được thầy/cô bật cho lớp — một nút bấm là bắt đầu buổi học 5A với nội dung Phiếu 3–2–1 của em.';
           actionsEl.innerHTML =
             '<a class="tlai-send" id="tlaiOpenGpt" href="' + esc(gptDeepLink()) + '" target="_blank" rel="noopener" style="text-decoration:none;"><span>Mở ChatGPT</span><span>↗</span></a>' +
             '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-          noteEl.innerHTML = 'Bấm <b>Mở ChatGPT</b> → đăng nhập tài khoản ChatGPT của trường (lần đầu) → câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b> — không cần copy/paste.';
+          noteEl.innerHTML = 'Lần đầu: ChatGPT mở ra và hỏi đăng nhập — em đăng nhập tài khoản ChatGPT của trường <b>một lần</b>, máy sẽ ghi nhớ. Từ lần sau: chỉ cần bấm <b>Mở ChatGPT</b> — câu chào 5A và Phiếu 3–2–1 của em <b>tự điền sẵn</b>, không cần copy/paste. Nếu chưa có ai đăng nhập trên máy này, hãy báo cô/thầy bấm nút "🔐 Đăng nhập ChatGPT" trong trang Quản lý.';
         } else if (connected()) {
           statusEl.innerHTML = '✓ Đang kết nối với mô hình <b>' + model() + '</b> — chat đang dùng ChatGPT thật (giáo viên đã cấu hình).';
           actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';

@@ -455,7 +455,7 @@
         <span class="tlai-chat-dot"></span>
         <span class="tlai-chat-title">AI Art Assistant — Quy trình 5A</span>
         <span class="tlai-chat-note">Không vẽ thay học sinh</span>
-        <button id="tlaiConnBadge" class="tlai-conn" type="button" title="ChatGPT do giáo viên cấu hình trong trang Quản lý">○ ChatGPT: chưa cấu hình</button>
+        <button id="tlaiConnBadge" class="tlai-conn" type="button" title="AI do giáo viên kết nối qua API trong trang Quản lý">○ AI: chưa cấu hình</button>
       </div>
 
       <div id="aiChatHistory" class="tlai-history">
@@ -482,13 +482,13 @@
 
   </main>
 
-  <!-- ChatGPT is configured by the teacher in giao-vien.html (tab: Trợ Lý AI) -->
+  <!-- AI API is configured by the teacher in giao-vien.html (tab: Trợ Lý AI) -->
   <div id="tlaiSettings" class="tlai-modal" role="dialog" aria-modal="true">
     <div class="tlai-modal-card">
       <div class="tlai-modal-head">
         <div>
-          <h3>ChatGPT do giáo viên cấu hình</h3>
-          <p>Chỉ giáo viên mới kết nối được tài khoản ChatGPT cho Trợ Lý Ai.</p>
+          <h3>AI do giáo viên kết nối qua API</h3>
+          <p>Chỉ giáo viên mới kết nối được API cho Trợ Lý Ai (trang Quản lý — thẻ API CONNECTOR).</p>
         </div>
         <button id="tlaiSettingsClose" class="tlai-modal-x" type="button">✕</button>
       </div>
@@ -694,7 +694,8 @@
      LIVE AI ENGINE — configured by the TEACHER in giao-vien.html
      ("Trợ Lý AI" tab), stored in localStorage (sah_chatgpt_cfg).
      Providers, tried in order:
-       1. Official OpenAI API (teacher's key, advanced) — full quality.
+       1. Teacher's API connector (any OpenAI-compatible endpoint:
+          OpenAI, Groq, OpenRouter, local servers…) — full quality.
        2. Free embedded AI via puter.js (no key, no redirect, User-Pays
           model) — the default path; works for every class instantly.
        3. Offline 5A script — last-resort fallback.
@@ -762,13 +763,21 @@
       return out.slice(-16);
     }
 
-    /* Ask the live providers. Order: teacher's key (OpenAI or Groq free tier),
-       then the free embedded AI (puter.js, with a hard timeout so a blocked
-       sign-in popup can never hang the chat). Throws when all fail. */
-    function chatEndpoint(provider) {
-      return provider === 'groq'
-        ? 'https://api.groq.com/openai/v1/chat/completions'
-        : 'https://api.openai.com/v1/chat/completions';
+    /* Ask the live providers. Order: teacher's API connector (any
+       OpenAI-compatible endpoint), then the free embedded AI (puter.js,
+       with a hard timeout so a blocked sign-in popup can never hang the
+       chat). Throws when all fail. */
+    function apiBase() {
+      var c = cfg();
+      var base = String(c.baseUrl || '').replace(/\/+$/, '');
+      if (base) return base;
+      // backward compatible with cfg saved before the API connector
+      return c.provider === 'groq'
+        ? 'https://api.groq.com/openai/v1'
+        : 'https://api.openai.com/v1';
+    }
+    function chatEndpoint() {
+      return apiBase() + '/chat/completions';
     }
     function puterOk() {
       return !!(window.puter && window.puter.ai && typeof window.puter.ai.chat === 'function');
@@ -790,11 +799,11 @@
     async function callLiveAi() {
       var messages = [{ role: 'system', content: buildSystemPrompt() }].concat(buildHistory());
 
-      // Provider 1 — teacher's key (OpenAI paid, or Groq free tier)
+      // Provider 1 — teacher's API connector (any OpenAI-compatible endpoint)
       if (connected()) {
         var c = cfg();
         try {
-          var res = await fetch(chatEndpoint(c.provider), {
+          var res = await fetch(chatEndpoint(), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -881,7 +890,7 @@
       function refreshBadge() {
         if (connected()) {
           badge.textContent = '● ' + model();
-          badge.title = 'ChatGPT trực tuyến (' + model() + ') — do giáo viên cấu hình';
+          badge.title = 'AI trực tuyến qua API (' + model() + ') — do giáo viên kết nối';
           badge.classList.add('connected');
         } else if (puterOk() && freeEnabled()) {
           badge.textContent = '● AI: đang hoạt động';
@@ -898,14 +907,14 @@
         refreshBadge();
         statusEl.className = 'tlai-cfg-status';
         if (connected()) {
-          statusEl.innerHTML = '✓ ChatGPT thật (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua khóa do giáo viên cấu hình.';
+          statusEl.innerHTML = '✓ AI qua API (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua API do giáo viên kết nối.';
         } else if (puterOk() && freeEnabled()) {
           statusEl.innerHTML = '✓ AI trả lời thật <b>ngay trong trang này</b> (miễn phí, không cần key, không chuyển trang). Đôi lúc AI miễn phí có thể chậm hoặc lỗi — khi đó chat tự quay về kịch bản 5A.';
         } else {
           statusEl.innerHTML = 'AI miễn phí đang được tắt — chat dùng kịch bản 5A offline. Cô/thầy có thể bật lại trong trang Quản lý.';
         }
         actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
-        noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể nâng cấpChatGPT chính thức bằng API key trong trang Quản lý (mục Nâng cao).';
+        noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể kết nối mọi API tương thích OpenAI (OpenAI, Groq miễn phí, OpenRouter…) trong trang Quản lý (thẻ API CONNECTOR).';
         modal.classList.add('open');
       }
       function closeModal() { modal.classList.remove('open'); }

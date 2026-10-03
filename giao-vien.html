@@ -561,67 +561,77 @@
           <div class="gv-card-label">TRỢ LÝ AI — KẾT NỐI AI CHO HỌC SINH</div>
           <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
             Trợ Lý Ai cố gắng trả lời thật <b>ngay trong khung chat</b> theo thứ tự ưu tiên:
-            <b>1) key của giáo viên</b> (Groq miễn phí hoặc OpenAI — mục nâng cao),
-            <b>2) AI miễn phí</b> tích hợp sẵn (lần đầu có thể hiện cửa sổ đăng nhập Puter miễn phí — nếu bị chặn, chat tự dùng kịch bản 5A).
+            <b>1) API do giáo viên kết nối</b> (thẻ API CONNECTOR bên dưới),
+            <b>2) AI miễn phí</b> tích hợp sẵn — nếu cả hai không được, chat tự dùng kịch bản 5A.
           </p>
           <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
 
-          <div style="border:1px solid rgba(200,149,71,0.4); border-radius:14px; padding:16px 18px; margin-bottom:14px; background:rgba(200,149,71,0.05);">
-            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">⚡ AI MIỄN PHÍ — ĐANG HOẠT ĐỘNG, KHÔNG CẦN CẤU HÌNH</div>
+          <div style="border:1px solid rgba(200,149,71,0.55); border-radius:14px; padding:18px 20px; margin-bottom:14px; background:rgba(200,149,71,0.07);">
+            <div style="font-size:0.72rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">🔌 API CONNECTOR — KẾT NỐI AI QUA API</div>
             <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
-              Học sinh chat → AI miễn phí tích hợp cố gắng trả lời <b>ngay trong khung chat</b> (không cần key).
-              Lần đầu trên mỗi máy có thể hiện một cửa sổ đăng nhập Puter (miễn phí) — nếu bị chặn hoặc chậm quá 30 giây, chat <b>tự quay về kịch bản 5A</b>, không bao giờ treo.
-              Muốn trả lời mạnh và ổn định hơn: tạo <b>key Groq miễn phí</b> ở mục nâng cao bên dưới (2 phút, không tốn tiền).
+              Dán <b>địa chỉ API</b> (mọi dịch vụ tương thích OpenAI), <b>API key</b> và <b>tên mô hình</b> — Trợ Lý Ai sẽ trả lời thật bằng API đó.
+              Hỗ trợ: OpenAI, Groq (miễn phí), OpenRouter, Together, hay máy chủ nội bộ (LM Studio, Ollama…).
+              Key chỉ lưu trên máy này và chỉ gửi thẳng tới API khi chat.
+            </p>
+            <div class="gv-actions-bar" style="margin:0 0 12px;">
+              <span style="font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint);">CHỌN NHANH:</span>
+              <button type="button" class="gv-mini" data-ai-base="https://api.openai.com/v1">OpenAI</button>
+              <button type="button" class="gv-mini" data-ai-base="https://api.groq.com/openai/v1">Groq (miễn phí)</button>
+              <button type="button" class="gv-mini" data-ai-base="https://openrouter.ai/api/v1">OpenRouter</button>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:860px;">
+              <div>
+                <label for="aiBaseUrl" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">ĐỊA CHỈ API (BASE URL)</label>
+                <input id="aiBaseUrl" type="text" placeholder="https://api.openai.com/v1" autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+              </div>
+              <div>
+                <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">API KEY</label>
+                <div style="position:relative;">
+                  <input id="aiKey" type="password" placeholder="sk-... / gsk_... / key của dịch vụ" autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 44px 11px 14px; outline:none;">
+                  <button id="aiKeyEye" type="button" title="Hiện / ẩn" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:1rem;">👁</button>
+                </div>
+              </div>
+              <div style="grid-column:1 / -1;">
+                <label for="aiModel" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MÔ HÌNH (TÊN CHÍNH XÁC CỦA DỊCH VỤ)</label>
+                <input id="aiModel" type="text" list="aiModelList" placeholder="gpt-4o-mini" autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+                <datalist id="aiModelList">
+                  <option value="gpt-4o-mini"></option>
+                  <option value="gpt-4o"></option>
+                  <option value="gpt-4.1-mini"></option>
+                  <option value="gpt-4.1"></option>
+                  <option value="llama-3.3-70b-versatile"></option>
+                  <option value="llama-3.1-8b-instant"></option>
+                  <option value="openai/gpt-4o-mini"></option>
+                </datalist>
+              </div>
+            </div>
+            <p id="aiStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
+            <div class="gv-actions-bar" style="margin-top:10px;">
+              <button id="aiConnect" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Kết nối &amp; kiểm tra</button>
+              <button id="aiDisconnect" class="gv-mini danger" type="button" hidden>Ngắt kết nối</button>
+              <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--hair); border-radius:14px; padding:16px 18px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint); margin-bottom:8px;">⚡ HOẶC: AI MIỄN PHÍ — KHÔNG CẦN API, KHÔNG TỐN TIỀN</div>
+            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
+              Nếu chưa kết nối API, học sinh vẫn được AI trả lời qua dịch vụ miễn phí tích hợp (lần đầu có thể hiện cửa sổ đăng nhập Puter).
+              Nếu bị chặn hoặc chậm quá 30 giây, chat <b>tự quay về kịch bản 5A</b>, không bao giờ treo.
+              Khi đã kết nối API ở trên, AI của API sẽ được ưu tiên trước AI miễn phí.
             </p>
             <div class="gv-actions-bar">
               <button id="freeToggle" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Tắt AI miễn phí</button>
               <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
             </div>
           </div>
-
-          <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px;">
-            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">NÂNG CAO — DÙNG KEY CỦA GIÁO VIÊN (GROQ MIỄN PHÍ HOẶC OPENAI)</summary>
-          <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:14px 0 0;">
-            <b>Groq (khuyên dùng — miễn phí):</b> tạo key tại <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--gold);">console.groq.com/keys</a> (đăng nhập → Create API Key → copy, bắt đầu bằng gsk_...).
-            <b>OpenAI (trả phí):</b> key sk-... từ platform.openai.com.
-            Key chỉ lưu trên máy này và chỉ gửi thẳng tới nhà cung cấp khi chat.
-          </p>
-          <div style="display:grid; grid-template-columns:220px 1fr 320px; gap:14px; max-width:860px; margin-top:14px;">
-            <div>
-              <label for="aiProvider" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">NHÀ CUNG CẤP</label>
-              <select id="aiProvider" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
-                <option value="groq">Groq — miễn phí (khuyên dùng)</option>
-                <option value="openai">OpenAI — trả phí</option>
-              </select>
-            </div>
-            <div>
-              <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">API KEY</label>
-              <div style="position:relative;">
-                <input id="aiKey" type="password" placeholder="gsk_... hoặc sk-..." autocomplete="off" spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 44px 11px 14px; outline:none;">
-                <button id="aiKeyEye" type="button" title="Hiện / ẩn" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:1rem;">👁</button>
-              </div>
-            </div>
-            <div>
-              <label for="aiModel" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">MÔ HÌNH ƯU TIÊN</label>
-              <select id="aiModel" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;"></select>
-            </div>
-          </div>
-
-          <p id="aiStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
-
-          <div class="gv-actions-bar" style="margin-top:14px;">
-            <button id="aiConnect" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Kết nối &amp; kiểm tra</button>
-            <button id="aiDisconnect" class="gv-mini danger" type="button" hidden>Ngắt kết nối</button>
-            <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
-          </div>
-          </details>
         </div>
 
         <div class="gv-card">
           <div class="gv-card-label">LƯU Ý</div>
           <div class="gv-warnbox">
+            <b>API CONNECTOR:</b> trả lời bằng API của giáo viên — base URL, key và tên mô hình chỉ lưu trên máy này (localStorage) và gửi thẳng tới API khi chat; chi phí tuỳ dịch vụ (OpenAI tính theo lượt, Groq miễn phí…).
             <b>AI miễn phí:</b> không tốn gì, nhưng phụ thuộc dịch vụ bên ngoài — đôi khi chậm/lỗi, khi đó chat tự quay về kịch bản 5A.
-            <b>Key (Groq/OpenAI):</b> lưu trên máy này (localStorage), gửi thẳng tới nhà cung cấp khi chat; Groq miễn phí theo hạn mức, OpenAI tính phí theo lượt.
             Nếu cả hai không khả dụng (mất mạng), học sinh vẫn chat với kịch bản 5A offline.
           </div>
         </div>
@@ -796,41 +806,15 @@
 
     /* ================= AI — cấu hình Trợ Lý Ai (chỉ giáo viên) ================= */
     var AI_CFG_KEY = 'sah_chatgpt_cfg';
-    var AI_MODELS = {
-      groq: [
-        { id: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B — mạnh, miễn phí (khuyên dùng)' },
-        { id: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B — siêu nhanh' }
-      ],
-      openai: [
-        { id: 'gpt-4o-mini', label: 'gpt-4o-mini — nhanh, tiết kiệm' },
-        { id: 'gpt-4o', label: 'gpt-4o — sáng tạo hơn' },
-        { id: 'gpt-4.1-mini', label: 'gpt-4.1-mini' },
-        { id: 'gpt-4.1', label: 'gpt-4.1 — mạnh nhất' }
-      ]
-    };
-    function modelsEndpoint(provider) {
-      return provider === 'groq'
-        ? 'https://api.groq.com/openai/v1/models'
-        : 'https://api.openai.com/v1/models';
+    function baseOf(c) {
+      var base = String(c.baseUrl || '').replace(/\/+$/, '');
+      if (base) return base;
+      // backward compatible with cfg saved before the API connector
+      return c.provider === 'groq' ? 'https://api.groq.com/openai/v1' : 'https://api.openai.com/v1';
     }
-    function providerLabel(provider) {
-      return provider === 'groq' ? 'Groq (Llama — miễn phí)' : 'ChatGPT (OpenAI)';
+    function hostOf(u) {
+      try { return new URL(u).host; } catch (e) { return u; }
     }
-    function syncModelOptions() {
-      var provider = document.getElementById('aiProvider').value;
-      var sel = document.getElementById('aiModel');
-      var current = sel.value;
-      sel.innerHTML = AI_MODELS[provider].map(function (m) {
-        return '<option value="' + m.id + '">' + m.label + '</option>';
-      }).join('');
-      var ids = AI_MODELS[provider].map(function (m) { return m.id; });
-      if (ids.indexOf(current) !== -1) sel.value = current;
-    }
-    document.getElementById('aiProvider').addEventListener('change', function () {
-      syncModelOptions();
-      document.getElementById('aiKey').placeholder = this.value === 'groq' ? 'gsk_...' : 'sk-...';
-    });
-    syncModelOptions();
 
     function readAiCfg() {
       try { return JSON.parse(localStorage.getItem(AI_CFG_KEY) || '{}'); }
@@ -841,8 +825,7 @@
       cfg = cfg || readAiCfg();
       return !!(cfg.key && cfg.validated);
     }
-    function setAiMsg(msg, isErr) {
-      var el = document.getElementById('aiStatus');
+    function setAiMsg(el, msg, isErr) {
       el.textContent = msg;
       el.style.color = isErr ? 'var(--bad)' : 'var(--ink-dim)';
     }
@@ -852,6 +835,12 @@
       var free = document.getElementById('freeToggle');
       var disc = document.getElementById('aiDisconnect');
       var providers = [];
+      if (aiKeyConnected(c)) {
+        providers.push('API: ' + hostOf(baseOf(c)) + ' — ' + (c.model || 'gpt-4o-mini'));
+        disc.hidden = false;
+      } else {
+        disc.hidden = true;
+      }
       if (c.free_disabled) {
         free.textContent = '⚡ Bật lại AI miễn phí';
         free.style.background = '';
@@ -863,12 +852,6 @@
         free.style.color = 'var(--ink-dim)';
         free.style.border = '1px solid var(--hair)';
         providers.push('AI miễn phí (không cần key)');
-      }
-      if (aiKeyConnected(c)) {
-        providers.push(providerLabel(c.provider) + ' — ' + (c.model || (c.provider === 'groq' ? 'llama-3.3-70b-versatile' : 'gpt-4o-mini')));
-        disc.hidden = false;
-      } else {
-        disc.hidden = true;
       }
       state.textContent = providers.length
         ? '● ' + providers.join(' + ') + ' — trả lời thật ngay trong trang Trợ Lý Ai.'
@@ -899,15 +882,27 @@
       inp.type = inp.type === 'password' ? 'text' : 'password';
     });
 
+    document.querySelectorAll('[data-ai-base]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.getElementById('aiBaseUrl').value = b.dataset.aiBase;
+        document.getElementById('aiStatus').textContent = '';
+      });
+    });
+
     document.getElementById('aiConnect').addEventListener('click', async function () {
       var btn = this;
+      var msgEl = document.getElementById('aiStatus');
+      var base = document.getElementById('aiBaseUrl').value.trim().replace(/\/+$/, '');
       var key = document.getElementById('aiKey').value.trim();
-      if (!key) return setAiMsg('Hãy dán API key (bắt đầu bằng sk-...).', true);
-      setAiMsg('Đang kiểm tra key với OpenAI…', false);
+      var model = document.getElementById('aiModel').value.trim();
+      if (!base) return setAiMsg(msgEl, 'Nhập địa chỉ API (base URL), ví dụ https://api.openai.com/v1 — hoặc bấm nút chọn nhanh.', true);
+      if (!/^https?:\/\//i.test(base)) return setAiMsg(msgEl, 'Địa chỉ API phải bắt đầu bằng https://', true);
+      if (!key) return setAiMsg(msgEl, 'Hãy dán API key của dịch vụ.', true);
+      if (!model) return setAiMsg(msgEl, 'Nhập tên mô hình (ví dụ gpt-4o-mini).', true);
+      setAiMsg(msgEl, 'Đang kiểm tra kết nối tới ' + hostOf(base) + '…', false);
       btn.disabled = true;
       try {
-        var provider = document.getElementById('aiProvider').value;
-        var res = await fetch(modelsEndpoint(provider), {
+        var res = await fetch(base + '/models', {
           headers: { 'Authorization': 'Bearer ' + key }
         });
         if (!res.ok) {
@@ -917,38 +912,35 @@
         }
         var data = await res.json();
         var available = (data.data || []).map(function (m) { return m.id; });
-        var picked = document.getElementById('aiModel').value;
-        var known = AI_MODELS[provider].map(function (m) { return m.id; });
-        if (known.indexOf(picked) === -1 || (available.length && available.indexOf(picked) === -1)) {
-          picked = known[0];
-          document.getElementById('aiModel').value = picked;
-        }
+        var inList = !available.length || available.indexOf(model) !== -1;
         var cfg = readAiCfg();
-        cfg.provider = provider;
+        cfg.baseUrl = base;
         cfg.key = key;
-        cfg.model = picked;
+        cfg.model = model;
         cfg.validated = true;
         cfg.savedAt = new Date().toLocaleString('vi-VN');
         cfg.by = session ? session.user : 'giaovien';
         saveAiCfg(cfg);
-        addLog('ai-config', 'Kết nối ChatGPT (' + picked + ')');
+        addLog('ai-config', 'Kết nối API ' + hostOf(base) + ' (' + model + ')');
         renderAiConfig();
         renderLog();
-        toast('✓ Đã kết nối — ' + providerLabel(provider) + ' · ' + picked);
-        setAiMsg('✓ Kết nối thành công! ' + providerLabel(provider) + ' sẽ ưu tiên trả lời trong trang Trợ Lý Ai.', false);
+        toast('✓ Đã kết nối — ' + hostOf(base) + ' · ' + model);
+        setAiMsg(msgEl, '✓ Kết nối thành công! ' + hostOf(base) + ' (' + model + ') sẽ ưu tiên trả lời trong trang Trợ Lý Ai.' + (inList ? '' : ' Lưu ý: mô hình "' + model + '" không có trong danh sách models của API — kiểm tra lại tên nếu chat báo lỗi.'), false);
       } catch (e) {
-        setAiMsg('✗ ' + String(e.message || e) + ' — kiểm tra lại key hoặc mạng.', true);
+        setAiMsg(msgEl, '✗ ' + String(e.message || e) + ' — kiểm tra lại base URL, key, mô hình hoặc mạng.', true);
       }
       btn.disabled = false;
     });
 
     document.getElementById('aiDisconnect').addEventListener('click', function () {
-      if (!confirm('Ngắt kết nối ChatGPT chính thức? AI miễn phí vẫn hoạt động.')) return;
+      if (!confirm('Ngắt kết nối API? AI miễn phí vẫn hoạt động.')) return;
       var cfg = readAiCfg();
-      delete cfg.key; delete cfg.model; delete cfg.validated; delete cfg.savedAt; delete cfg.by; delete cfg.provider;
+      delete cfg.key; delete cfg.model; delete cfg.validated; delete cfg.savedAt; delete cfg.by; delete cfg.provider; delete cfg.baseUrl;
       if (Object.keys(cfg).length) saveAiCfg(cfg); else localStorage.removeItem(AI_CFG_KEY);
       document.getElementById('aiKey').value = '';
-      addLog('ai-config', 'Ngắt ChatGPT chính thức (về AI miễn phí)');
+      document.getElementById('aiBaseUrl').value = '';
+      document.getElementById('aiModel').value = '';
+      addLog('ai-config', 'Ngắt API (về AI miễn phí)');
       renderAiConfig();
       renderLog();
       toast('Đã ngắt — dùng AI miễn phí.');

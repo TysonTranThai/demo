@@ -437,6 +437,7 @@
         <button class="gv-tab active" data-tab="overview" type="button">Tổng quan</button>
         <button class="gv-tab" data-tab="students" type="button">Học sinh</button>
         <button class="gv-tab" data-tab="works" type="button">Tác phẩm</button>
+        <button class="gv-tab" data-tab="grading" type="button">Chấm điểm</button>
         <button class="gv-tab" data-tab="worksheets" type="button">Phiếu 3–2–1</button>
         <button class="gv-tab" data-tab="ai" type="button">Trợ Lý AI</button>
         <button class="gv-tab" data-tab="settings" type="button">Cài đặt</button>
@@ -482,14 +483,12 @@
           <div class="gv-table-wrap" id="studentsTableWrap"></div>
         </div>
         <div id="studentProfile" class="gv-card" hidden></div>
-      </section>
-
-      <!-- ============ WORKS ============ -->
-      <section id="tab-works" class="gv-panel" hidden>
+      </section>      <!-- ============ GRADING (dedicated tab) ============ -->
+      <section id="tab-grading" class="gv-panel" hidden>
         <div class="gv-card">
           <div class="gv-card-head">
-            <h3 class="gv-card-title">Tác phẩm trên Triển Lãm</h3>
-            <span class="gv-card-note">Bấm vào một tác phẩm để chấm điểm rubric &amp; nhận xét</span>
+            <h3 class="gv-card-title">Chấm điểm tác phẩm</h3>
+            <span class="gv-card-note">Bấm một tác phẩm trong hàng chờ để mở bảng chấm rubric &amp; nhận xét</span>
           </div>
           <div class="gv-grade-stats" id="gradeStats"></div>
           <div class="gv-grade-filters">
@@ -500,7 +499,7 @@
             </select>
             <input id="gradeFilterText" type="text" placeholder="Tìm học sinh, lớp, tác phẩm…" style="flex:1; min-width:180px; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:10px; padding:9px 14px; outline:none;">
           </div>
-          <div class="gv-table-wrap" id="worksTableWrap"></div>
+          <div class="gv-table-wrap" id="gradingTableWrap"></div>
         </div>
 
         <div id="gradePanel" class="gv-card" hidden>
@@ -520,6 +519,17 @@
             <button id="gpSave" class="gv-gate-btn" type="button">Lưu đánh giá</button>
             <button id="gpClose" class="gv-mini" type="button" style="align-self:center;">Đóng</button>
           </div>
+        </div>
+      </section>
+
+      <!-- ============ WORKS ============ -->
+      <section id="tab-works" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-head">
+            <h3 class="gv-card-title">Tác phẩm trên Triển Lãm</h3>
+            <span class="gv-card-note">Quản lý file — muốn chấm điểm, mở tab “Chấm điểm” hoặc bấm vào một tác phẩm</span>
+          </div>
+          <div class="gv-table-wrap" id="worksTableWrap"></div>
         </div>
       </section>
 
@@ -933,6 +943,7 @@
         p.hidden = p.id !== 'tab-' + name;
       });
       if (name === 'works') renderWorks();
+      if (name === 'grading') renderGradingQueue();
       if (name === 'overview') renderOverview();
     }
     document.querySelectorAll('.gv-tab').forEach(function (t) {
@@ -1147,11 +1158,36 @@
     var workFilterStatus = 'all';
     var workFilterText = '';
 
-    function renderWorks() {
+    function filteredWorks() {
+      var works = getWorks();
+      var grades = getGrades();
+      return works.filter(function (w) {
+        var g = grades[w.id];
+        if (workFilterStatus === 'graded' && !g) return false;
+        if (workFilterStatus === 'ungraded' && g) return false;
+        if (workFilterText) {
+          var q = workFilterText.toLowerCase();
+          var hay = [w.title, w.studentId, w.studentClass, w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '', w.note]
+            .join(' ').toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+    }
+
+    function scoreBadge(g) {
+      if (!g) return '<span class="gv-badge warn">Chưa chấm</span>';
+      var crits = g.scores ? RUBRIC.map(function (c) {
+        return c.name.split(' ')[0] + ' ' + (typeof g.scores[c.key] === 'number' ? g.scores[c.key] : '—');
+      }).join(' · ') : '';
+      return '<span class="gv-badge ok" title="' + esc(crits) + '">' + g.total.toFixed(1) + '/10</span>';
+    }
+
+    /* ---- GRADING TAB: stats + grade queue + rubric panel ---- */
+    function renderGradingQueue() {
       var works = getWorks();
       var grades = getGrades();
 
-      /* ---- grading stats ---- */
       var gradedIds = works.filter(function (w) { return grades[w.id]; });
       var totalScore = 0;
       var topWork = null, lowWork = null;
@@ -1168,53 +1204,57 @@
           '<div class="gv-grade-stat"><b>' + (lowWork ? grades[lowWork].total.toFixed(1) : '—') + '</b><span>Thấp nhất — ' + (lowWork ? esc(works.find(function (w) { return w.id === lowWork; }).title) : '') + '</span></div>'
         : '';
 
-      /* ---- filters ---- */
-      var filtered = works.filter(function (w) {
-        var g = grades[w.id];
-        if (workFilterStatus === 'graded' && !g) return false;
-        if (workFilterStatus === 'ungraded' && g) return false;
-        if (workFilterText) {
-          var q = workFilterText.toLowerCase();
-          var hay = [w.title, w.studentId, w.studentClass, w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '', w.note]
-            .join(' ').toLowerCase();
-          if (hay.indexOf(q) === -1) return false;
-        }
-        return true;
-      });
-
-      document.getElementById('worksTableWrap').innerHTML = works.length
+      var filtered = filteredWorks();
+      document.getElementById('gradingTableWrap').innerHTML = works.length
         ? (filtered.length
           ? '<table class="gv-t"><thead><tr>' +
-            '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
+            '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Ngày</th><th>Điểm</th><th>Trạng thái</th></tr></thead><tbody>' +
             filtered.map(function (w) {
               var g = grades[w.id];
-              var crits = g && g.scores ? RUBRIC.map(function (c) {
-                return c.name.split(' ')[0] + ' ' + (typeof g.scores[c.key] === 'number' ? g.scores[c.key] : '—');
-              }).join(' · ') : '';
               return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
                 '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
                 '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
                 '<td>' + esc(w.studentClass || '—') + '</td>' +
                 '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
-                '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
                 '<td>' + esc(w.createdAt) + '</td>' +
-                '<td>' + (g
-                  ? '<span class="gv-badge ok" title="' + esc(crits) + '">' + g.total.toFixed(1) + '/10</span>'
-                  : '<span class="gv-badge warn">Chưa chấm</span>') + '</td>' +
-                '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
+                '<td>' + scoreBadge(g) + '</td>' +
+                '<td>' + (g ? '✓ Đã chấm' : '⏳ Chờ chấm') + '</td>' +
               '</tr>';
             }).join('') + '</tbody></table>'
           : '<div class="gv-empty">Không có tác phẩm nào khớp bộ lọc.</div>')
+        : '<div class="gv-empty">Triển Lãm chưa có tác phẩm nào — học sinh tải lên qua trang Triển Lãm.</div>';
+    }
+
+    /* ---- WORKS TAB: pure file management ---- */
+    function renderWorks() {
+      var works = getWorks();
+      var grades = getGrades();
+      document.getElementById('worksTableWrap').innerHTML = works.length
+        ? '<table class="gv-t"><thead><tr>' +
+          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
+          works.map(function (w) {
+            var g = grades[w.id];
+            return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
+              '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
+              '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
+              '<td>' + esc(w.studentClass || '—') + '</td>' +
+              '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
+              '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
+              '<td>' + esc(w.createdAt) + '</td>' +
+              '<td>' + scoreBadge(g) + '</td>' +
+              '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
+            '</tr>';
+          }).join('') + '</tbody></table>'
         : '<div class="gv-empty">Triển Lãm chưa có tác phẩm nào.</div>';
     }
 
     document.getElementById('gradeFilterStatus').addEventListener('change', function () {
       workFilterStatus = this.value;
-      renderWorks();
+      renderGradingQueue();
     });
     document.getElementById('gradeFilterText').addEventListener('input', function () {
       workFilterText = this.value.trim();
-      renderWorks();
+      renderGradingQueue();
     });
 
     document.getElementById('worksTableWrap').addEventListener('click', function (e) {
@@ -1229,10 +1269,20 @@
         localStorage.setItem('sah_student_works', JSON.stringify(works));
         addLog('delete-work', 'Xoá tác phẩm: ' + target.title);
         renderWorks();
+        renderGradingQueue();
         renderOverview();
         return;
       }
 
+      /* Management table row click → jump to the dedicated grading tab */
+      var row = e.target.closest('tr[data-work]');
+      if (row) {
+        switchTab('grading');
+        openGradePanel(row.dataset.work);
+      }
+    });
+
+    document.getElementById('gradingTableWrap').addEventListener('click', function (e) {
       var row = e.target.closest('tr[data-work]');
       if (row) openGradePanel(row.dataset.work);
     });
@@ -1338,6 +1388,7 @@
       addLog('grade', 'Chấm tác phẩm (điểm ' + total.toFixed(1) + ')');
 
       renderWorks();
+      renderGradingQueue();
       toast('✓ Đã lưu đánh giá ' + total.toFixed(1) + '/10');
     });
 
@@ -1565,6 +1616,7 @@
       renderOverview();
       renderStudents();
       renderWorks();
+      renderGradingQueue();
       renderWorksheets();
       renderAiConfig();
       renderLog();

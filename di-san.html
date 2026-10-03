@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Chùa Keo — Di sản &amp; Câu hỏi — Smart Art Heritage</title>
   <meta name="description" content="Hồ sơ khám phá di sản: 15 điểm chạm quan sát với hình ảnh chất lượng cao và bộ câu hỏi ① Nhìn ảnh – trả lời ② Em có biết? ③ Thử làm nhé.">
-  <meta name="theme-color" content="#0e1116">
+  <meta name="theme-color" content="#f4efe6">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,21 +13,21 @@
 
   <style>
     :root {
-      --ink: #f2eee6;
-      --ink-dim: rgba(242, 238, 230, 0.62);
-      --ink-faint: rgba(242, 238, 230, 0.34);
-      --glass: rgba(14, 17, 22, 0.55);
-      --glass-strong: rgba(14, 17, 22, 0.82);
-      --gold: #f1d084;
+      --ink: #2b2620;
+      --ink-dim: rgba(43, 38, 32, 0.72);
+      --ink-faint: rgba(43, 38, 32, 0.55);
+      --glass: rgba(255, 255, 255, 0.78);
+      --glass-strong: rgba(255, 255, 255, 0.92);
+      --gold: #c89547;
       --terra: #c46238;
-      --hair: rgba(242, 238, 230, 0.14);
+      --hair: rgba(43, 38, 32, 0.14);
     }
 
     * { box-sizing: border-box; }
 
     html, body {
       margin: 0; padding: 0;
-      background: #0e1116;
+      background: #f4efe6;
     }
 
     body {
@@ -47,7 +47,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 14px 24px;
-      background: rgba(14, 17, 22, 0.86);
+      background: rgba(255, 255, 255, 0.94);
       border-bottom: 1px solid var(--hair);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -74,7 +74,7 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .ds-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
+    .ds-home:hover { color: var(--gold); background: rgba(43, 38, 32, 0.12); }
 
     .ds-tabs {
       display: flex;
@@ -99,10 +99,10 @@
       white-space: nowrap;
       transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
-    .ds-tab:hover { background: rgba(242, 238, 230, 0.08); color: var(--ink); }
+    .ds-tab:hover { background: rgba(43, 38, 32, 0.08); color: var(--ink); }
     .ds-tab.is-active {
-      background: rgba(241, 208, 132, 0.14);
-      border-color: rgba(241, 208, 132, 0.35);
+      background: rgba(200, 149, 71, 0.14);
+      border-color: rgba(200, 149, 71, 0.35);
       color: var(--gold);
     }
     .ds-tab-dot {
@@ -129,7 +129,7 @@
     .ds-hero-scrim {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(14,17,22,0.42) 0%, rgba(14,17,22,0.12) 40%, rgba(14,17,22,0.96) 100%);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.97) 100%);
     }
     .ds-hero-inner {
       position: relative;
@@ -227,11 +227,11 @@
       -webkit-backdrop-filter: blur(10px);
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .hs-card:hover { border-color: rgba(241, 208, 132, 0.4); }
+    .hs-card:hover { border-color: rgba(200, 149, 71, 0.4); }
 
     .hs-photo-wrap {
       position: relative;
-      background: #20242b;
+      background: #f0eae1;
     }
     .hs-photo {
       display: block;
@@ -285,7 +285,7 @@
       color: var(--gold);
       flex-shrink: 0;
     }
-    .hs-q[open] .hs-q-mark { background: rgba(241, 208, 132, 0.14); border-color: rgba(241, 208, 132, 0.35); }
+    .hs-q[open] .hs-q-mark { background: rgba(200, 149, 71, 0.14); border-color: rgba(200, 149, 71, 0.35); }
     .hs-q-chev {
       margin-left: auto;
       font-size: 0.7rem;

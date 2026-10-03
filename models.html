@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Chùa Keo — Bộ Sưu Tập 3D Di Sản</title>
   <meta name="description" content="Hành trình 3D qua 5 di sản: Chùa Keo, Đền Mẫu, Đền Trần, Lê Quý Đôn, Đồng Xâm — mô hình Blender tương tác xoay 360°.">
-  <meta name="theme-color" content="#0e1116">
+  <meta name="theme-color" content="#f4efe6">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,13 +14,13 @@
   <style>
     /* ============ ARTIFACT JOURNEY — self-contained immersive styles ============ */
     :root {
-      --jr-ink: #f2eee6;
-      --jr-ink-dim: rgba(242, 238, 230, 0.62);
-      --jr-ink-faint: rgba(242, 238, 230, 0.34);
-      --jr-glass: rgba(14, 17, 22, 0.55);
-      --jr-glass-strong: rgba(14, 17, 22, 0.82);
-      --jr-gold: #f1d084;
-      --jr-hair: rgba(242, 238, 230, 0.14);
+      --jr-ink: #2b2620;
+      --jr-ink-dim: rgba(43, 38, 32, 0.72);
+      --jr-ink-faint: rgba(43, 38, 32, 0.55);
+      --jr-glass: rgba(255, 255, 255, 0.78);
+      --jr-glass-strong: rgba(255, 255, 255, 0.92);
+      --jr-gold: #c89547;
+      --jr-hair: rgba(43, 38, 32, 0.14);
     }
 
     * { box-sizing: border-box; }
@@ -29,7 +29,7 @@
       margin: 0; padding: 0;
       height: 100%;
       overflow: hidden;
-      background: #0e1116;
+      background: #f4efe6;
     }
 
     body.jr-body {
@@ -58,7 +58,7 @@
       position: absolute;
       left: 0; right: 0;
       height: 0;
-      background: #0a0c10;
+      background: #ece5d8;
       z-index: 30;
       transition: height 1.1s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
@@ -79,7 +79,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      background: radial-gradient(ellipse at center, rgba(10, 12, 16, 0.25) 0%, rgba(10, 12, 16, 0.78) 100%);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.78) 100%);
       transition: opacity 1.2s ease, backdrop-filter 1.2s ease;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -295,9 +295,9 @@
       white-space: nowrap;
       transition: background 0.2s ease, color 0.2s ease;
     }
-    .jr-stop:hover { background: rgba(242, 238, 230, 0.08); color: var(--jr-ink); }
+    .jr-stop:hover { background: rgba(43, 38, 32, 0.08); color: var(--jr-ink); }
     .jr-stop.is-active {
-      background: rgba(241, 208, 132, 0.16);
+      background: rgba(200, 149, 71, 0.16);
       color: var(--jr-gold);
     }
     .jr-stop.is-visited .jr-stop-num { color: var(--jr-ink-dim); }
@@ -331,7 +331,7 @@
       transition: background 0.2s ease, color 0.2s ease;
       font-family: inherit;
     }
-    .jr-dock-arrow:hover { background: rgba(242, 238, 230, 0.1); color: var(--jr-ink); }
+    .jr-dock-arrow:hover { background: rgba(43, 38, 32, 0.1); color: var(--jr-ink); }
 
     /* ---------- corner chrome ---------- */
     .jr-home {
@@ -360,7 +360,7 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .jr-home:hover { color: var(--jr-gold); background: rgba(242, 238, 230, 0.12); }
+    .jr-home:hover { color: var(--jr-gold); background: rgba(43, 38, 32, 0.12); }
 
     .jr-zen-btn {
       position: absolute;

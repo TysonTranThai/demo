@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Triển Lãm Tác Phẩm Học Sinh — Smart Art Heritage</title>
   <meta name="description" content="Triển Lãm Tác Phẩm Học Sinh — nơi học sinh tải lên bản vẽ, sản phẩm và nghiên cứu của mình; trưng bày toàn bộ tác phẩm của lớp.">
-  <meta name="theme-color" content="#0e1116">
+  <meta name="theme-color" content="#f4efe6">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,20 +13,20 @@
 
   <style>
     :root {
-      --ink: #f2eee6;
-      --ink-dim: rgba(242, 238, 230, 0.62);
-      --ink-faint: rgba(242, 238, 230, 0.34);
-      --glass: rgba(14, 17, 22, 0.55);
-      --glass-strong: rgba(14, 17, 22, 0.82);
-      --gold: #f1d084;
+      --ink: #2b2620;
+      --ink-dim: rgba(43, 38, 32, 0.72);
+      --ink-faint: rgba(43, 38, 32, 0.55);
+      --glass: rgba(255, 255, 255, 0.78);
+      --glass-strong: rgba(255, 255, 255, 0.92);
+      --gold: #c89547;
       --terra: #c46238;
-      --hair: rgba(242, 238, 230, 0.14);
-      --field: rgba(242, 238, 230, 0.06);
+      --hair: rgba(43, 38, 32, 0.14);
+      --field: rgba(43, 38, 32, 0.06);
     }
 
     * { box-sizing: border-box; }
 
-    html, body { margin: 0; padding: 0; background: #0e1116; }
+    html, body { margin: 0; padding: 0; background: #f4efe6; }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -46,7 +46,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 14px 24px;
-      background: rgba(14, 17, 22, 0.86);
+      background: rgba(255, 255, 255, 0.94);
       border-bottom: 1px solid var(--hair);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -69,7 +69,7 @@
       font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
     }
-    .xv-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
+    .xv-home:hover { color: var(--gold); background: rgba(43, 38, 32, 0.12); }
 
     .xv-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .xv-link {
@@ -162,12 +162,12 @@
       outline: none;
       transition: border-color 0.2s ease;
     }
-    .xv-field input:focus, .xv-field select:focus { border-color: rgba(241, 208, 132, 0.55); }
-    .xv-field select option { background: #171b22; color: var(--ink); }
+    .xv-field input:focus, .xv-field select:focus { border-color: rgba(200, 149, 71, 0.55); }
+    .xv-field select option { background: #e9e1d1; color: var(--ink); }
 
     /* ---------- dropzone ---------- */
     .xv-drop {
-      border: 1.5px dashed rgba(241, 208, 132, 0.4);
+      border: 1.5px dashed rgba(200, 149, 71, 0.4);
       border-radius: 16px;
       padding: 38px 24px;
       text-align: center;
@@ -175,8 +175,8 @@
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .xv-drop:hover, .xv-drop.dragover {
-      background: rgba(241, 208, 132, 0.06);
-      border-color: rgba(241, 208, 132, 0.75);
+      background: rgba(200, 149, 71, 0.06);
+      border-color: rgba(200, 149, 71, 0.75);
     }
     .xv-drop-icon { font-size: 1.9rem; line-height: 1; }
     .xv-drop-title { margin: 12px 0 6px; font-size: 1rem; font-weight: 700; }
@@ -195,7 +195,7 @@
       padding: 11px 14px;
       outline: none;
     }
-    .xv-note-row input:focus { border-color: rgba(241, 208, 132, 0.55); }
+    .xv-note-row input:focus { border-color: rgba(200, 149, 71, 0.55); }
 
     .xv-status {
       margin: 14px 0 0;
@@ -236,9 +236,9 @@
       cursor: pointer;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
-    .xv-chip:hover { color: var(--ink); background: rgba(242, 238, 230, 0.08); }
+    .xv-chip:hover { color: var(--ink); background: rgba(43, 38, 32, 0.08); }
     .xv-chip.active {
-      color: #17130b;
+      color: #e9e1d1;
       background: var(--gold);
       border-color: var(--gold);
     }
@@ -252,7 +252,7 @@
       padding: 8px 14px;
       outline: none;
     }
-    .xv-filter-bar select option { background: #171b22; color: var(--ink); }
+    .xv-filter-bar select option { background: #e9e1d1; color: var(--ink); }
     .xv-filter-bar input::placeholder { color: var(--ink-faint); }
 
     .xv-grid {
@@ -269,11 +269,11 @@
       flex-direction: column;
       transition: transform 0.2s ease, border-color 0.2s ease;
     }
-    .xv-work:hover { transform: translateY(-3px); border-color: rgba(241, 208, 132, 0.4); }
+    .xv-work:hover { transform: translateY(-3px); border-color: rgba(200, 149, 71, 0.4); }
     .xv-work-thumb {
       position: relative;
       aspect-ratio: 4 / 3;
-      background: rgba(242, 238, 230, 0.05);
+      background: rgba(43, 38, 32, 0.05);
       cursor: zoom-in;
       display: flex;
       align-items: center;
@@ -299,7 +299,7 @@
       letter-spacing: 0.14em;
       padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(14, 17, 22, 0.78);
+      background: rgba(255, 255, 255, 0.78);
       border: 1px solid var(--hair);
       color: var(--gold);
       backdrop-filter: blur(6px);
@@ -313,7 +313,7 @@
       gap: 6px;
       font-size: 0.66rem; font-weight: 800;
       letter-spacing: 0.08em;
-      color: #17130b;
+      color: #e9e1d1;
       background: var(--gold);
       border-radius: 999px;
       padding: 4px 11px;
@@ -322,8 +322,8 @@
       font-size: 0.74rem;
       line-height: 1.55;
       color: var(--gold);
-      background: rgba(241, 208, 132, 0.07);
-      border: 1px solid rgba(241, 208, 132, 0.3);
+      background: rgba(200, 149, 71, 0.07);
+      border: 1px solid rgba(200, 149, 71, 0.3);
       border-radius: 12px;
       padding: 9px 12px;
     }
@@ -359,8 +359,8 @@
       text-align: center;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
-    .xv-mini:hover { color: var(--gold); border-color: rgba(241, 208, 132, 0.5); }
-    .xv-mini.danger:hover { color: #ff9d8a; border-color: rgba(255, 157, 138, 0.5); }
+    .xv-mini:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); }
+    .xv-mini.danger:hover { color: #c0492f; border-color: rgba(196, 73, 47, 0.5); }
 
     .xv-empty {
       border: 1.5px dashed var(--hair);
@@ -380,7 +380,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(5, 7, 10, 0.88);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 30px;
@@ -399,7 +399,7 @@
       border-radius: 14px;
       border: 1px solid var(--hair);
       overflow: hidden;
-      background: #0b0e13;
+      background: #ece5d8;
       display: flex;
       align-items: center;
       justify-content: center;

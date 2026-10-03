@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Trợ Lý Ai — Smart Art Heritage</title>
   <meta name="description" content="Trợ Lý Ai — Quy trình 5 bước Ask • Analyze • Advise • Adapt • Art. AI đồng hành gợi mở, không vẽ thay học sinh.">
-  <meta name="theme-color" content="#0e1116">
+  <meta name="theme-color" content="#f4efe6">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,20 +15,20 @@
 
   <style>
     :root {
-      --ink: #f2eee6;
-      --ink-dim: rgba(242, 238, 230, 0.62);
-      --ink-faint: rgba(242, 238, 230, 0.34);
-      --glass: rgba(14, 17, 22, 0.55);
-      --glass-strong: rgba(14, 17, 22, 0.82);
-      --gold: #f1d084;
+      --ink: #2b2620;
+      --ink-dim: rgba(43, 38, 32, 0.72);
+      --ink-faint: rgba(43, 38, 32, 0.55);
+      --glass: rgba(255, 255, 255, 0.78);
+      --glass-strong: rgba(255, 255, 255, 0.92);
+      --gold: #c89547;
       --terra: #c46238;
-      --hair: rgba(242, 238, 230, 0.14);
-      --field: rgba(242, 238, 230, 0.06);
+      --hair: rgba(43, 38, 32, 0.14);
+      --field: rgba(43, 38, 32, 0.06);
     }
 
     * { box-sizing: border-box; }
 
-    html, body { margin: 0; padding: 0; background: #0e1116; }
+    html, body { margin: 0; padding: 0; background: #f4efe6; }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -48,7 +48,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 14px 24px;
-      background: rgba(14, 17, 22, 0.86);
+      background: rgba(255, 255, 255, 0.94);
       border-bottom: 1px solid var(--hair);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -71,7 +71,7 @@
       font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
     }
-    .tlai-home:hover { color: var(--gold); background: rgba(242, 238, 230, 0.12); }
+    .tlai-home:hover { color: var(--gold); background: rgba(43, 38, 32, 0.12); }
 
     .tlai-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .tlai-link {
@@ -149,9 +149,9 @@
       background: var(--glass);
     }
     .tlai-step.active {
-      border-color: rgba(241, 208, 132, 0.55);
-      background: rgba(241, 208, 132, 0.09);
-      box-shadow: inset 0 0 0 1px rgba(241, 208, 132, 0.22);
+      border-color: rgba(200, 149, 71, 0.55);
+      background: rgba(200, 149, 71, 0.09);
+      box-shadow: inset 0 0 0 1px rgba(200, 149, 71, 0.22);
     }
     .tlai-step-code {
       font-size: 0.64rem; font-weight: 800;
@@ -186,7 +186,7 @@
       width: 9px; height: 9px;
       border-radius: 50%;
       background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(241, 208, 132, 0.18);
+      box-shadow: 0 0 0 4px rgba(200, 149, 71, 0.18);
       flex-shrink: 0;
     }
     .tlai-chat-title { font-size: 0.92rem; font-weight: 700; }
@@ -210,15 +210,15 @@
     }
     .tlai-bubble.ai {
       align-self: flex-start;
-      background: rgba(242, 238, 230, 0.07);
+      background: rgba(43, 38, 32, 0.07);
       border: 1px solid var(--hair);
       border-bottom-left-radius: 6px;
     }
     .tlai-bubble.ai b { color: var(--gold); }
     .tlai-bubble.user {
       align-self: flex-end;
-      background: rgba(241, 208, 132, 0.14);
-      border: 1px solid rgba(241, 208, 132, 0.38);
+      background: rgba(200, 149, 71, 0.14);
+      border: 1px solid rgba(200, 149, 71, 0.38);
       border-bottom-right-radius: 6px;
     }
     .tlai-bubble i { color: var(--ink); opacity: 0.92; }
@@ -236,7 +236,7 @@
       cursor: pointer;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
-    .tlai-chip:hover { color: var(--gold); border-color: rgba(241, 208, 132, 0.5); background: rgba(241, 208, 132, 0.07); }
+    .tlai-chip:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); background: rgba(200, 149, 71, 0.07); }
 
     .tlai-input-bar {
       display: flex;
@@ -258,7 +258,7 @@
       transition: border-color 0.2s ease;
     }
     .tlai-input::placeholder { color: var(--ink-faint); }
-    .tlai-input:focus { border-color: rgba(241, 208, 132, 0.55); }
+    .tlai-input:focus { border-color: rgba(200, 149, 71, 0.55); }
     .tlai-send {
       font-family: inherit;
       display: flex;
@@ -267,7 +267,7 @@
       font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 0.06em;
-      color: #17130b;
+      color: #e9e1d1;
       background: var(--gold);
       border: none;
       border-radius: 999px;
@@ -291,8 +291,8 @@
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
       flex-shrink: 0;
     }
-    .tlai-conn:hover { color: var(--gold); border-color: rgba(241, 208, 132, 0.5); }
-    .tlai-conn.connected { color: var(--gold); border-color: rgba(241, 208, 132, 0.55); background: rgba(241, 208, 132, 0.08); }
+    .tlai-conn:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); }
+    .tlai-conn.connected { color: var(--gold); border-color: rgba(200, 149, 71, 0.55); background: rgba(200, 149, 71, 0.08); }
 
     /* ---------- typing indicator ---------- */
     .tlai-typing { display: flex; gap: 5px; align-items: center; padding: 18px 22px; }
@@ -316,7 +316,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(5, 7, 10, 0.8);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       padding: 24px;
@@ -367,8 +367,8 @@
       outline: none;
       transition: border-color 0.2s ease;
     }
-    .tlai-modal input:focus, .tlai-modal select:focus { border-color: rgba(241, 208, 132, 0.55); }
-    .tlai-modal select option { background: #171b22; }
+    .tlai-modal input:focus, .tlai-modal select:focus { border-color: rgba(200, 149, 71, 0.55); }
+    .tlai-modal select option { background: #e9e1d1; }
     .tlai-eye {
       font-family: inherit;
       font-size: 0.9rem;
@@ -382,7 +382,7 @@
     }
     .tlai-cfg-status { margin: 12px 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--ink-dim); min-height: 1.2em; }
     .tlai-cfg-status.ok { color: var(--gold); }
-    .tlai-cfg-status.err { color: #ff9d8a; }
+    .tlai-cfg-status.err { color: #c0492f; }
     .tlai-modal-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
     .tlai-modal-actions .tlai-send { flex: 1; justify-content: center; }
     .tlai-modal-actions .tlai-chip { align-self: center; }
@@ -645,7 +645,7 @@
           'Hoàn thiện ý tưởng (<b>A5 — ART</b>):<br>' +
           '🎨 <b>Bảng màu đề xuất:</b> #7C4C28 (Nâu gỗ lim), #C46238 (Đỏ chu sa ngói cổ), #C89547 (Vàng son ánh kim), #2D3D33 (Xanh rêu cổ kính).<br>' +
           '📐 <b>Bố cục:</b> Tỉ lệ 1/3, đặt gác chuông hơi lệch phải để tạo khoảng thở mặt trời lặn bên trái.<br><br>' +
-          '👉 Bây giờ em hãy mở <b><a href="trien-lam.html" style="color:#f1d084;">Triển Lãm Tác Phẩm</a></b> để tải lên bản vẽ, sản phẩm & nghiên cứu của em nhé!',
+          '👉 Bây giờ em hãy mở <b><a href="trien-lam.html" style="color:#c89547;">Triển Lãm Tác Phẩm</a></b> để tải lên bản vẽ, sản phẩm & nghiên cứu của em nhé!',
           ["Em đã tải tác phẩm lên Triển Lãm", "Em cần thêm gợi ý màu sắc"]
         );
       }

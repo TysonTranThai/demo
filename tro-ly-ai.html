@@ -782,8 +782,9 @@
     function puterOk() {
       return !!(window.puter && window.puter.ai && typeof window.puter.ai.chat === 'function');
     }
+    // Free AI is always enabled as the no-key fallback (teacher request).
     function freeEnabled() {
-      return !cfg().free_disabled;
+      return true;
     }
     function liveConnected() {
       return connected() || (puterOk() && freeEnabled());
@@ -908,10 +909,8 @@
         statusEl.className = 'tlai-cfg-status';
         if (connected()) {
           statusEl.innerHTML = '✓ AI qua API (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua API do giáo viên kết nối.';
-        } else if (puterOk() && freeEnabled()) {
-          statusEl.innerHTML = '✓ AI trả lời thật <b>ngay trong trang này</b> (miễn phí, không cần key, không chuyển trang). Đôi lúc AI miễn phí có thể chậm hoặc lỗi — khi đó chat tự quay về kịch bản 5A.';
         } else {
-          statusEl.innerHTML = 'AI miễn phí đang được tắt — chat dùng kịch bản 5A offline. Cô/thầy có thể bật lại trong trang Quản lý.';
+          statusEl.innerHTML = '✓ AI trả lời thật <b>ngay trong trang này</b> (miễn phí, không cần key, không chuyển trang). Đôi lúc AI miễn phí có thể chậm hoặc lỗi — khi đó chat tự quay về kịch bản 5A.';
         }
         actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
         noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể kết nối mọi API tương thích OpenAI (OpenAI, Groq miễn phí, OpenRouter…) trong trang Quản lý (thẻ API CONNECTOR).';

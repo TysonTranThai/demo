@@ -301,6 +301,25 @@
     }
     .gp-total b { color: var(--gold); font-size: 1.3rem; margin-left: 6px; }
     .gp-feedback-block { margin-top: 14px; max-width: 760px; }
+    .gp-suggest { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .gp-suggest button {
+      font-family: inherit; font-size: 0.7rem; font-weight: 700;
+      color: var(--gold); background: rgba(200,149,71,0.1);
+      border: 1px solid rgba(200,149,71,0.4); border-radius: 999px;
+      padding: 4px 12px; cursor: pointer; transition: background 0.15s ease;
+    }
+    .gp-suggest button:hover { background: rgba(200,149,71,0.22); }
+    .gv-grade-stats {
+      display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px;
+    }
+    .gv-grade-stat {
+      flex: 1; min-width: 130px;
+      border: 1px solid var(--hair); border-radius: 12px;
+      padding: 12px 16px; background: var(--field);
+    }
+    .gv-grade-stat b { display: block; font-size: 1.35rem; color: var(--gold); }
+    .gv-grade-stat span { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+    .gv-grade-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
     .gp-feedback-block label, .gv-field-label {
       display: block;
       font-size: 0.62rem; font-weight: 800;
@@ -472,6 +491,15 @@
             <h3 class="gv-card-title">Tác phẩm trên Triển Lãm</h3>
             <span class="gv-card-note">Bấm vào một tác phẩm để chấm điểm rubric &amp; nhận xét</span>
           </div>
+          <div class="gv-grade-stats" id="gradeStats"></div>
+          <div class="gv-grade-filters">
+            <select id="gradeFilterStatus" style="width:auto; font-family:inherit; font-size:0.8rem; font-weight:700; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none;">
+              <option value="all">Tất cả trạng thái</option>
+              <option value="ungraded">Chưa chấm</option>
+              <option value="graded">Đã chấm</option>
+            </select>
+            <input id="gradeFilterText" type="text" placeholder="Tìm học sinh, lớp, tác phẩm…" style="flex:1; min-width:180px; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:10px; padding:9px 14px; outline:none;">
+          </div>
           <div class="gv-table-wrap" id="worksTableWrap"></div>
         </div>
 
@@ -485,6 +513,7 @@
           <div class="gp-total">TỔNG ĐIỂM TRUNG BÌNH <b id="gpTotal">—</b> / 10</div>
           <div class="gp-feedback-block">
             <label for="gpFeedback">Nhận xét gửi học sinh (hiện trên Triển Lãm của em)</label>
+            <div class="gp-suggest" id="gpSuggest"></div>
             <textarea id="gpFeedback" rows="3" placeholder="Khen điều em làm tốt, gợi ý điều em có thể thử tiếp..."></textarea>
           </div>
           <div class="gp-actions">
@@ -573,12 +602,6 @@
               Hỗ trợ: OpenAI, Groq (miễn phí), OpenRouter, Together, hay máy chủ nội bộ (LM Studio, Ollama…).
               Key chỉ lưu trên máy này và chỉ gửi thẳng tới API khi chat.
             </p>
-            <div class="gv-actions-bar" style="margin:0 0 12px;">
-              <span style="font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint);">CHỌN NHANH:</span>
-              <button type="button" class="gv-mini" data-ai-base="https://api.openai.com/v1">OpenAI</button>
-              <button type="button" class="gv-mini" data-ai-base="https://api.groq.com/openai/v1">Groq (miễn phí)</button>
-              <button type="button" class="gv-mini" data-ai-base="https://openrouter.ai/api/v1">OpenRouter</button>
-            </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:860px;">
               <div>
                 <label for="aiBaseUrl" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">ĐỊA CHỈ API (BASE URL)</label>
@@ -614,16 +637,10 @@
           </div>
 
           <div style="border:1px solid var(--hair); border-radius:14px; padding:16px 18px; margin-bottom:14px;">
-            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint); margin-bottom:8px;">⚡ HOẶC: AI MIỄN PHÍ — KHÔNG CẦN API, KHÔNG TỐN TIỀN</div>
-            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
-              Nếu chưa kết nối API, học sinh vẫn được AI trả lời qua dịch vụ miễn phí tích hợp (lần đầu có thể hiện cửa sổ đăng nhập Puter).
-              Nếu bị chặn hoặc chậm quá 30 giây, chat <b>tự quay về kịch bản 5A</b>, không bao giờ treo.
-              Khi đã kết nối API ở trên, AI của API sẽ được ưu tiên trước AI miễn phí.
+            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint); margin-bottom:8px;">⚡ AI MIỄN PHÍ — LUÔN BẬT LÀM DỰ PHÒNG</div>
+            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0;">
+              Khi chưa kết nối API (hoặc API lỗi), học sinh vẫn được AI miễn phí tích hợp trả lời — lần đầu có thể hiện cửa sổ đăng nhập Puter; nếu bị chặn hoặc chậm quá 30 giây, chat <b>tự quay về kịch bản 5A</b>, không bao giờ treo. Khi đã kết nối API ở trên, AI của API sẽ được ưu tiên trước.
             </p>
-            <div class="gv-actions-bar">
-              <button id="freeToggle" class="gv-gate-btn" type="button" style="width:auto; padding:12px 26px;">Tắt AI miễn phí</button>
-              <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
-            </div>
           </div>
         </div>
 
@@ -631,7 +648,7 @@
           <div class="gv-card-label">LƯU Ý</div>
           <div class="gv-warnbox">
             <b>API CONNECTOR:</b> trả lời bằng API của giáo viên — base URL, key và tên mô hình chỉ lưu trên máy này (localStorage) và gửi thẳng tới API khi chat; chi phí tuỳ dịch vụ (OpenAI tính theo lượt, Groq miễn phí…).
-            <b>AI miễn phí:</b> không tốn gì, nhưng phụ thuộc dịch vụ bên ngoài — đôi khi chậm/lỗi, khi đó chat tự quay về kịch bản 5A.
+            <b>AI miễn phí:</b> luôn bật làm dự phòng — đôi khi chậm/lỗi, khi đó chat tự quay về kịch bản 5A.
             Nếu cả hai không khả dụng (mất mạng), học sinh vẫn chat với kịch bản 5A offline.
           </div>
         </div>
@@ -832,7 +849,6 @@
     function renderAiConfig() {
       var c = readAiCfg();
       var state = document.getElementById('aiState');
-      var free = document.getElementById('freeToggle');
       var disc = document.getElementById('aiDisconnect');
       var providers = [];
       if (aiKeyConnected(c)) {
@@ -841,52 +857,14 @@
       } else {
         disc.hidden = true;
       }
-      if (c.free_disabled) {
-        free.textContent = '⚡ Bật lại AI miễn phí';
-        free.style.background = '';
-        free.style.color = '';
-        free.style.border = '';
-      } else {
-        free.textContent = '⏻ Tắt AI miễn phí';
-        free.style.background = 'transparent';
-        free.style.color = 'var(--ink-dim)';
-        free.style.border = '1px solid var(--hair)';
-        providers.push('AI miễn phí (không cần key)');
-      }
-      state.textContent = providers.length
-        ? '● ' + providers.join(' + ') + ' — trả lời thật ngay trong trang Trợ Lý Ai.'
-        : '○ Đã tắt — học sinh chat với kịch bản 5A offline.';
-      state.style.color = providers.length ? 'var(--ok)' : 'var(--warn)';
+      providers.push('AI miễn phí (luôn bật làm dự phòng)');
+      state.textContent = '● ' + providers.join(' + ') + ' — trả lời thật ngay trong trang Trợ Lý Ai.';
+      state.style.color = 'var(--ok)';
     }
-
-    document.getElementById('freeToggle').addEventListener('click', function () {
-      var cfg = readAiCfg();
-      if (cfg.free_disabled) {
-        delete cfg.free_disabled; delete cfg.freeToggledAt; delete cfg.freeToggledBy;
-        addLog('ai-config', 'Bật lại AI miễn phí');
-        toast('⚡ Đã bật lại — học sinh được chat với AI thật.');
-      } else {
-        cfg.free_disabled = true;
-        cfg.freeToggledAt = new Date().toLocaleString('vi-VN');
-        cfg.freeToggledBy = session ? session.user : 'giaovien';
-        addLog('ai-config', 'Tắt AI miễn phí (dùng kịch bản 5A)');
-        toast('Đã tắt — Trợ Lý Ai dùng kịch bản 5A offline.');
-      }
-      saveAiCfg(cfg);
-      renderAiConfig();
-      renderLog();
-    });
 
     document.getElementById('aiKeyEye').addEventListener('click', function () {
       var inp = document.getElementById('aiKey');
       inp.type = inp.type === 'password' ? 'text' : 'password';
-    });
-
-    document.querySelectorAll('[data-ai-base]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        document.getElementById('aiBaseUrl').value = b.dataset.aiBase;
-        document.getElementById('aiStatus').textContent = '';
-      });
     });
 
     document.getElementById('aiConnect').addEventListener('click', async function () {
@@ -954,6 +932,7 @@
       document.querySelectorAll('.gv-panel').forEach(function (p) {
         p.hidden = p.id !== 'tab-' + name;
       });
+      if (name === 'works') renderWorks();
     }
     document.querySelectorAll('.gv-tab').forEach(function (t) {
       t.addEventListener('click', function () { switchTab(t.dataset.tab); });
@@ -1164,28 +1143,78 @@
     ];
     var gradingId = null;
 
+    var workFilterStatus = 'all';
+    var workFilterText = '';
+
     function renderWorks() {
       var works = getWorks();
       var grades = getGrades();
+
+      /* ---- grading stats ---- */
+      var gradedIds = works.filter(function (w) { return grades[w.id]; });
+      var totalScore = 0;
+      var topWork = null, lowWork = null;
+      gradedIds.forEach(function (w) {
+        totalScore += grades[w.id].total;
+        if (!topWork || grades[w.id].total > grades[topWork].total) topWork = w.id;
+        if (!lowWork || grades[w.id].total < grades[lowWork].total) lowWork = w.id;
+      });
+      var avg = gradedIds.length ? totalScore / gradedIds.length : null;
+      document.getElementById('gradeStats').innerHTML = works.length
+        ? '<div class="gv-grade-stat"><b>' + gradedIds.length + '/' + works.length + '</b><span>Đã chấm</span></div>' +
+          '<div class="gv-grade-stat"><b>' + (avg === null ? '—' : avg.toFixed(1)) + '</b><span>Điểm TB lớp</span></div>' +
+          '<div class="gv-grade-stat"><b>' + (topWork ? grades[topWork].total.toFixed(1) : '—') + '</b><span>Cao nhất — ' + (topWork ? esc(works.find(function (w) { return w.id === topWork; }).title) : '') + '</span></div>' +
+          '<div class="gv-grade-stat"><b>' + (lowWork ? grades[lowWork].total.toFixed(1) : '—') + '</b><span>Thấp nhất — ' + (lowWork ? esc(works.find(function (w) { return w.id === lowWork; }).title) : '') + '</span></div>'
+        : '';
+
+      /* ---- filters ---- */
+      var filtered = works.filter(function (w) {
+        var g = grades[w.id];
+        if (workFilterStatus === 'graded' && !g) return false;
+        if (workFilterStatus === 'ungraded' && g) return false;
+        if (workFilterText) {
+          var q = workFilterText.toLowerCase();
+          var hay = [w.title, w.studentId, w.studentClass, w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '', w.note]
+            .join(' ').toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
       document.getElementById('worksTableWrap').innerHTML = works.length
-        ? '<table class="gv-t"><thead><tr>' +
-          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Dung lượng</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
-          works.map(function (w) {
-            var g = grades[w.id];
-            return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
-              '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
-              '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
-              '<td>' + esc(w.studentClass || '—') + '</td>' +
-              '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
-              '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
-              '<td>' + fmtSize(w.bytes) + '</td>' +
-              '<td>' + esc(w.createdAt) + '</td>' +
-              '<td>' + (g ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>' : '<span class="gv-badge warn">Chưa chấm</span>') + '</td>' +
-              '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
-            '</tr>';
-          }).join('') + '</tbody></table>'
+        ? (filtered.length
+          ? '<table class="gv-t"><thead><tr>' +
+            '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
+            filtered.map(function (w) {
+              var g = grades[w.id];
+              var crits = g && g.scores ? RUBRIC.map(function (c) {
+                return c.name.split(' ')[0] + ' ' + (typeof g.scores[c.key] === 'number' ? g.scores[c.key] : '—');
+              }).join(' · ') : '';
+              return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
+                '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
+                '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
+                '<td>' + esc(w.studentClass || '—') + '</td>' +
+                '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
+                '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
+                '<td>' + esc(w.createdAt) + '</td>' +
+                '<td>' + (g
+                  ? '<span class="gv-badge ok" title="' + esc(crits) + '">' + g.total.toFixed(1) + '/10</span>'
+                  : '<span class="gv-badge warn">Chưa chấm</span>') + '</td>' +
+                '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
+              '</tr>';
+            }).join('') + '</tbody></table>'
+          : '<div class="gv-empty">Không có tác phẩm nào khớp bộ lọc.</div>')
         : '<div class="gv-empty">Triển Lãm chưa có tác phẩm nào.</div>';
     }
+
+    document.getElementById('gradeFilterStatus').addEventListener('change', function () {
+      workFilterStatus = this.value;
+      renderWorks();
+    });
+    document.getElementById('gradeFilterText').addEventListener('input', function () {
+      workFilterText = this.value.trim();
+      renderWorks();
+    });
 
     document.getElementById('worksTableWrap').addEventListener('click', function (e) {
       var delBtn = e.target.closest('[data-del]');
@@ -1235,11 +1264,47 @@
       }).join('');
 
       document.getElementById('gpFeedback').value = g.feedback || '';
+      renderSuggestChips(w);
       updateTotal();
 
       document.getElementById('gradePanel').hidden = false;
       document.getElementById('gradePanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+
+    /* Feedback starter phrases — click to append into the comment box */
+    var FB_SUGGESTIONS = [
+      { min: 8.5, text: 'Em làm rất xuất sắc — bố cục chặt chẽ, màu sắc giàu cảm xúc! Em thử mở rộng ý này thành một bức lớn hơn nhé.' },
+      { min: 7, text: 'Em quan sát rất kỹ, tác phẩm thể hiện rõ đặc trưng của di sản. Thử thêm chi tiết tiền cảnh – hậu cảnh để bức vẽ sâu hơn nhé.' },
+      { min: 5, text: 'Em có ý tưởng hay! Bước tiếp theo: nhìn lại bố cục và làm đậm chủ điểm chính để bức vẽ nổi bật hơn.' },
+      { min: 0, text: 'Em đã bắt đầu tốt lắm! Hãy quan sát lại di sản trên Di Sản & Câu Hỏi, chọn 1 chi tiết em thích nhất và vẽ to nó lên nhé.' }
+    ];
+
+    function renderSuggestChips(w) {
+      var grades = getGrades();
+      var g = grades[w.id];
+      var total = g ? g.total : (function () {
+        var sum = 0, n = 0;
+        document.querySelectorAll('#gpCriteria input[type="range"]').forEach(function (i) { sum += parseFloat(i.value); n++; });
+        return n ? sum / n : 0;
+      })();
+      var pick = FB_SUGGESTIONS.find(function (s) { return total >= s.min; }) || FB_SUGGESTIONS[FB_SUGGESTIONS.length - 1];
+      var chips = [pick.text];
+      RUBRIC.forEach(function (c) {
+        var v = g && g.scores && typeof g.scores[c.key] === 'number' ? g.scores[c.key] : null;
+        if (v !== null && v <= 4) chips.push('Nên luyện thêm: ' + c.name.toLowerCase() + ' — xem lại phần quan sát di sản nhé.');
+      });
+      document.getElementById('gpSuggest').innerHTML = chips.map(function (t) {
+        return '<button type="button" data-suggest="' + esc(t) + '">' + esc(t.length > 46 ? t.slice(0, 44) + '…' : t) + '</button>';
+      }).join('');
+    }
+
+    document.getElementById('gpSuggest').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-suggest]');
+      if (!b) return;
+      var ta = document.getElementById('gpFeedback');
+      ta.value = (ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '') + b.dataset.suggest;
+      ta.focus();
+    });
 
     function updateTotal() {
       var inputs = document.querySelectorAll('#gpCriteria input[type="range"]');
@@ -1356,12 +1421,22 @@
       var ids = Object.keys(map).sort();
       if (!ids.length) { toast('Chưa có học sinh nào để xuất.'); return; }
 
-      var csv = '\uFEFFMã Học Sinh,Lớp,Di Sản,Phiếu 3-2-1,Số Tác Phẩm,Điểm Rubric TB,Phản Hồi Của Giáo Viên\n';
+      var critHeader = RUBRIC.map(function (c) { return c.name; }).join(',');
+      var csv = '\uFEFFMã Học Sinh,Lớp,Di Sản,Phiếu 3-2-1,Số Tác Phẩm,' + critHeader + ',Điểm Rubric TB,Phản Hồi Của Giáo Viên\n';
       ids.forEach(function (id) {
         var r = map[id];
         var avg = gradeN ? (gradeSum / gradeN).toFixed(1) : '';
+        var critAvg = RUBRIC.map(function (c) {
+          var sum = 0, n = 0;
+          works.forEach(function (w) {
+            if (w.studentId !== id) return;
+            var g = grades[w.id];
+            if (g && g.scores && typeof g.scores[c.key] === 'number') { sum += g.scores[c.key]; n++; }
+          });
+          return n ? (sum / n).toFixed(1) : '';
+        });
         csv += [id, r.cls, r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '',
-                r.sheet ? 'Đã làm' : 'Chưa', r.works, avg, r.fb]
+                r.sheet ? 'Đã làm' : 'Chưa', r.works].concat(critAvg, [avg, r.fb])
           .map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',') + '\n';
       });
 

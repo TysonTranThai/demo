@@ -62,8 +62,11 @@
               <img class="hero-image-bg" src="assets/heritage/hero_heritage_keo.jpg" alt="Gác Chuông Chùa Keo — Kiệt tác kiến trúc gỗ 3 tầng 12 mái cong" />
               <div class="hero-overlay-gradient"></div>
 
-              <!-- Floating Spotlight Card (Middle Right of Hero) -->
-              <div class="floating-spotlight-card" onclick="location.href='models.html'">
+              <!-- Ghost editorial watermark -->
+              <span class="hero-ghost-word" aria-hidden="true">HERITAGE</span>
+
+              <!-- Floating Spotlight Card (Top Right of Hero) -->
+              <div class="floating-spotlight-card" onclick="location.href='models.html'" data-reveal>
                 <img class="spotlight-thumb" src="assets/heritage/thumb_dragon_carving.jpg" alt="Gác Chuông Chùa Keo" />
                 <div class="spotlight-info">
                   <h4 class="spotlight-title">Gác Chuông Chùa Keo</h4>
@@ -74,73 +77,44 @@
                 </div>
               </div>
 
-              <!-- Giant Overlapping Headline -->
-              <div class="hero-typography-container">
-                <h1 id="heroGrandTitle" class="hero-grand-title">HERITAGE</h1>
+              <!-- Hero Content (Bottom Left) -->
+              <div class="hero-content">
+                <span class="hero-eyebrow" data-reveal>MĨ THUẬT SỐ • DI SẢN HƯNG YÊN</span>
+                <h1 class="hero-headline" data-reveal style="transition-delay:90ms;">Chạm vào di sản ngàn năm,<br>vẽ nên tác phẩm của em</h1>
+                <p class="hero-sub" data-reveal style="transition-delay:180ms;">Quan sát thật từng điểm chạm — tư duy qua phiếu 3–2–1 — sáng tạo độc bản cùng Trợ Lý Ai. AI không bao giờ vẽ thay em.</p>
+                <div class="hero-ctas" data-reveal style="transition-delay:270ms;">
+                  <button type="button" class="hero-cta hero-cta-gold" onclick="location.href='models.html'">
+                    <span>Trải nghiệm 3D Gác Chuông</span>
+                    <span class="hero-cta-icon">↗</span>
+                  </button>
+                  <button type="button" class="hero-cta hero-cta-ghost" onclick="location.href='phieu-3-2-1.html'">
+                    <span>Mở Phiếu 3–2–1</span>
+                    <span class="hero-cta-icon">✎</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Hero Substrip: Stats & Quick Actions -->
+            <!-- Hero Substrip: Stats & Golden Rule -->
             <div class="hero-substrip">
               <div class="hero-substrip-meta">
                 <div class="meta-counter">
-                  <span class="counter-num">120+</span>
-                  <span class="counter-label">PROJECTS & TÁC PHẨM</span>
+                  <span class="counter-num" data-count="120" data-suffix="+">120+</span>
+                  <span class="counter-label">Projects &amp; tác phẩm</span>
                 </div>
                 <div class="meta-counter">
-                  <span class="counter-num">05</span>
-                  <span class="counter-label">QUẦN THỂ DI SẢN</span>
+                  <span class="counter-num" data-count="5" data-pad="2">05</span>
+                  <span class="counter-label">Quần thể di sản</span>
                 </div>
                 <div class="meta-counter">
-                  <span class="counter-num">75</span>
-                  <span class="counter-label">ẢNH & HOTSPOT 3D</span>
+                  <span class="counter-num" data-count="75">75</span>
+                  <span class="counter-label">Ảnh &amp; hotspot 3D</span>
                 </div>
               </div>
-
-              <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                <button type="button" class="btn-outline-pill" onclick="location.href='models.html'">
-                  <span>Trải nghiệm 3D Gác Chuông ↗</span>
-                </button>
-                <button type="button" class="btn-pill-cta" onclick="location.href='phieu-3-2-1.html'">
-                  <span>Mở Phiếu 3–2–1</span>
-                  <span class="btn-icon-circle">✎</span>
-                </button>
+              <div class="hero-principle">
+                <span class="hero-principle-badge">NO OBSERVATION → NO AI</span>
+                <span class="hero-principle-note">Quy tắc vàng của lớp mĩ thuật số</span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHILOSOPHY & EDITORIAL INTRO SECTION -->
-    <section class="editorial-intro-section">
-      <div class="container">
-        <div class="editorial-intro-grid">
-          <!-- Sidebar Meta -->
-          <div class="intro-sidebar">
-            <span class="intro-metric">120+ PROJECTS</span>
-            <span class="intro-metric">HƯNG YÊN • VIỆT NAM</span>
-            <span class="text-eyebrow" style="margin-top:12px;">MĨ THUẬT SỐ THCS</span>
-          </div>
-
-          <!-- Main Content -->
-          <div class="intro-main-content">
-            <div class="intro-avatars-row">
-              <div class="avatar-pair">
-                <img class="avatar-squircle green-accent" src="assets/heritage/edu_avatar.svg" alt="Đội ngũ Sư phạm Mĩ thuật" />
-              </div>
-              <span style="font-size:0.875rem; font-weight:600; color:var(--text-muted);">Đội ngũ Sư phạm Mĩ thuật & Kiến trúc di sản</span>
-            </div>
-
-            <h2 id="manifestoQuote" class="manifesto-quote">
-              Chúng tôi kiến tạo không gian mĩ thuật số kết nối di sản ngàn năm — tĩnh tại, chuẩn xác và đánh thức tư duy sáng tạo độc bản của học sinh.
-            </h2>
-
-            <div class="approach-row">
-              <span class="approach-label">OUR APPROACH</span>
-              <p id="approachText" class="approach-text">
-                <span class="approach-highlight">NGUYÊN TẮC CỐT LÕI: NO OBSERVATION → NO AI.</span> Học sinh phải trực tiếp quan sát thực địa, tương tác các điểm chạm Hotspot kiến trúc, hoàn thiện phiếu tư duy 3–2–1 trước khi kích hoạt Trợ Lý Ai hỗ trợ phát triển tác phẩm nghệ thuật cá nhân.
-              </p>
             </div>
           </div>
         </div>

@@ -624,3 +624,64 @@ function setupSmoothScroll() {
     });
   });
 }
+
+/* ==========================================================================
+   HOMEPAGE EXPERIENCE — scroll reveal + animated stat counters
+   Progressive enhancement: without JS, everything stays fully visible.
+   ========================================================================== */
+(function setupHomepageExperience() {
+  const revealTargets = document.querySelectorAll('[data-reveal], .hp-journey-head, .hp-heritage-head, .hp-step, .hp-hcard');
+  if (!revealTargets.length) return;
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('has-reveal');
+
+  // Auto-tag journey/heritage elements and stagger siblings.
+  revealTargets.forEach(el => {
+    if (!el.hasAttribute('data-reveal')) {
+      el.setAttribute('data-reveal', '');
+      const siblings = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.transitionDelay = (siblings % 6) * 70 + 'ms';
+    }
+  });
+
+  // Count-up animation for hero stats.
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    if (isNaN(target)) return;
+    const suffix = el.dataset.suffix || '';
+    const pad = parseInt(el.dataset.pad, 10) || 0;
+    const duration = 1200;
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      let value = String(Math.round(target * eased));
+      while (value.length < pad) value = '0' + value;
+      el.textContent = value + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function revealAll() {
+    revealTargets.forEach(el => el.classList.add('revealed'));
+  }
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealAll();
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('revealed');
+      entry.target.querySelectorAll('.counter-num[data-count]').forEach(animateCounter);
+      if (entry.target.matches('.counter-num[data-count]')) animateCounter(entry.target);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealTargets.forEach(el => io.observe(el));
+})();

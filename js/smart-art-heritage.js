@@ -630,7 +630,7 @@ function setupSmoothScroll() {
    Progressive enhancement: without JS, everything stays fully visible.
    ========================================================================== */
 (function setupHomepageExperience() {
-  const revealTargets = document.querySelectorAll('[data-reveal], .hp-journey-head, .hp-heritage-head, .hp-step, .hp-hcard');
+  const revealTargets = document.querySelectorAll('[data-reveal], .hero-substrip, .hp-journey-head, .hp-heritage-head, .hp-step, .hp-hcard');
   if (!revealTargets.length) return;
 
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

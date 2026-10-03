@@ -933,6 +933,7 @@
         p.hidden = p.id !== 'tab-' + name;
       });
       if (name === 'works') renderWorks();
+      if (name === 'overview') renderOverview();
     }
     document.querySelectorAll('.gv-tab').forEach(function (t) {
       t.addEventListener('click', function () { switchTab(t.dataset.tab); });

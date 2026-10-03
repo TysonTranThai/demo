@@ -560,12 +560,31 @@
         <div class="gv-card">
           <div class="gv-card-label">KẾT NỐI CHATGPT CHO TRỢ LÝ AI</div>
           <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
-            Cắm tài khoản OpenAI (API key) để Trợ Lý Ai trò chuyện thật với học sinh thay vì kịch bản có sẵn.
-            Chỉ giáo viên đăng nhập trang này mới cấu hình được — học sinh không thể tự nhập key.
+            Hai cách kết nối — chỉ giáo viên đăng nhập trang này mới cấu hình được:
+            <b>(1) Tài khoản ChatGPT</b> (miễn phí, khuyên dùng): học sinh bấm "Mở ChatGPT" và chat với GPT của trường bằng tài khoản ChatGPT trên chatgpt.com — không cần API key;
+            <b>(2) API key</b> (nâng cao): nhúng ChatGPT thật vào khung chat ngay trên trang.
           </p>
           <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
 
-          <div style="display:grid; grid-template-columns:1fr 320px; gap:14px; max-width:860px;">
+          <div style="border:1px solid var(--hair); border-radius:14px; padding:16px 18px; margin-bottom:14px;">
+            <div style="font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--gold); margin-bottom:8px;">CÁCH 1 — TÀI KHOẢN CHATGPT (MIỄN PHÍ, KHUYÊN DÙNG)</div>
+            <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 12px;">
+              Tạo GPT riêng "Trợ Lý Ai 5A" cho trường rồi dán liên kết vào đây:
+              ① Mở <a href="https://chatgpt.com/g" target="_blank" rel="noopener" style="color:var(--gold);">chatgpt.com/g</a> → <b>Create</b> (tạo GPT cần tài khoản ChatGPT Plus/Pro/Team),
+              ② dán toàn bộ nội dung tệp <b>assets/tro-ly-ai-gpt-instructions.md</b> vào ô Instructions (nhớ tắt DALL·E),
+              ③ Publish → chọn "Only people with a link" → copy liên kết và dán vào ô dưới đây.
+            </p>
+            <div style="display:grid; grid-template-columns:1fr auto auto; gap:12px; max-width:860px;">
+              <input id="gptUrl" type="url" placeholder="https://chatgpt.com/g/g-..." spellcheck="false" style="width:100%; font-family:inherit; color:var(--ink); background:var(--field); border:1px solid var(--hair); border-radius:12px; padding:11px 14px; outline:none;">
+              <button id="gptSave" class="gv-gate-btn" type="button" style="width:auto; padding:12px 22px;">Lưu liên kết</button>
+              <button id="gptRemove" class="gv-mini danger" type="button" hidden>Gỡ liên kết</button>
+            </div>
+            <p id="gptStatus" style="font-size:0.8rem; color:var(--ink-dim); min-height:1.2em; margin:12px 0 0;"></p>
+          </div>
+
+          <details style="border:1px solid var(--hair); border-radius:14px; padding:14px 18px;">
+            <summary style="cursor:pointer; font-size:0.7rem; font-weight:800; letter-spacing:0.14em; color:var(--ink-faint);">NÂNG CAO — NHÚNG CHATGPT VÀO TRANG BẰNG API KEY (TÙY CHỌN)</summary>
+          <div style="display:grid; grid-template-columns:1fr 320px; gap:14px; max-width:860px; margin-top:14px;">
             <div>
               <label for="aiKey" style="display:block; font-size:0.62rem; font-weight:800; letter-spacing:0.16em; color:var(--ink-faint); margin-bottom:6px;">OPENAI API KEY</label>
               <div style="position:relative;">
@@ -591,14 +610,15 @@
             <button id="aiDisconnect" class="gv-mini danger" type="button" hidden>Ngắt kết nối</button>
             <a class="gv-mini" href="tro-ly-ai.html" target="_blank">Mở Trợ Lý Ai ↗</a>
           </div>
+          </details>
         </div>
 
         <div class="gv-card">
           <div class="gv-card-label">LƯU Ý</div>
           <div class="gv-warnbox">
-            <b>Riêng tư:</b> key chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng tới OpenAI khi chat.
-            <b>Chi phí:</b> mỗi lượt chat tính phí theo tài khoản OpenAI của trường — gpt-4o-mini rẻ nhất cho lớp học.
-            Khi ngắt kết nối hoặc chưa cấu hình, Trợ Lý Ai tự dùng kịch bản 5A offline.
+            <b>Cách 1 (tài khoản ChatGPT):</b> không tốn phí API — dùng theo gói ChatGPT của trường; chat diễn ra trên chatgpt.com.
+            <b>Cách 2 (API):</b> key chỉ lưu trên máy này (localStorage) và chỉ gửi thẳng tới OpenAI khi chat; mỗi lượt chat tính phí theo tài khoản OpenAI của trường — gpt-4o-mini rẻ nhất cho lớp học.
+            Khi chưa cấu hình, Trợ Lý Ai tự dùng kịch bản 5A offline.
           </div>
         </div>
       </section>
@@ -803,6 +823,76 @@
         disc.hidden = true;
       }
     }
+
+    function gptLinked() {
+      var c = readAiCfg();
+      return !!(c.gptUrl && /^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(c.gptUrl));
+    }
+    function renderAiConfig() {
+      var c = readAiCfg();
+      var state = document.getElementById('aiState');
+      var disc = document.getElementById('aiDisconnect');
+      var grem = document.getElementById('gptRemove');
+      var inp = document.getElementById('gptUrl');
+      var gs = document.getElementById('gptStatus');
+      if (inp && !inp.value && c.gptUrl) inp.value = c.gptUrl;
+      var gpt = gptLinked();
+      var api = aiConnected();
+      grem.hidden = !gpt;
+      disc.hidden = !api;
+      if (gpt && api) {
+        state.textContent = '● Đã kết nối cả hai: GPT tài khoản (học sinh mở chatgpt.com) và ChatGPT nhúng (API — ' + (c.model || 'gpt-4o-mini') + ').';
+        state.style.color = 'var(--ok)';
+      } else if (gpt) {
+        state.textContent = '● ChatGPT (tài khoản trường): học sinh bấm "Mở ChatGPT" trên trang Trợ Lý Ai — không cần API key.';
+        state.style.color = 'var(--ok)';
+      } else if (api) {
+        state.textContent = '● Đang nhúng ChatGPT (API) — mô hình ' + (c.model || 'gpt-4o-mini') + (c.savedAt ? ' · thiết lập ' + c.savedAt : '') + '.';
+        state.style.color = 'var(--ok)';
+      } else {
+        state.textContent = '○ Chưa kết nối — Trợ Lý Ai đang dùng kịch bản 5A offline.';
+        state.style.color = 'var(--warn)';
+      }
+      gs.textContent = gpt ? ('✓ Đã liên kết' + (c.gptSavedAt ? ' · ' + c.gptSavedAt : '') + (c.gptBy ? ' · bởi ' + c.gptBy : '')) : '';
+      gs.style.color = gpt ? 'var(--ok)' : 'var(--ink-dim)';
+    }
+
+    function setGptMsg(msg, isErr) {
+      var el = document.getElementById('gptStatus');
+      el.textContent = msg;
+      el.style.color = isErr ? 'var(--bad)' : 'var(--ink-dim)';
+    }
+
+    document.getElementById('gptSave').addEventListener('click', function () {
+      var raw = document.getElementById('gptUrl').value.trim();
+      if (!raw) return setGptMsg('Hãy dán liên kết chia sẻ của GPT (dạng https://chatgpt.com/g/g-...).', true);
+      if (!/^https:\/\/(chatgpt\.com|chat\.openai\.com)\//i.test(raw)) {
+        return setGptMsg('Liên kết không hợp lệ — phải là liên kết trên chatgpt.com (ví dụ https://chatgpt.com/g/g-...).', true);
+      }
+      var cfg = readAiCfg();
+      cfg.gptUrl = raw;
+      cfg.gptSavedAt = new Date().toLocaleString('vi-VN');
+      cfg.gptBy = session ? session.user : 'giaovien';
+      localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
+      addLog('ai-config', 'Liên kết GPT ChatGPT (tài khoản)');
+      renderAiConfig();
+      renderLog();
+      toast('✓ Đã lưu liên kết ChatGPT — học sinh có thể mở GPT của trường.');
+      setGptMsg('✓ Đã lưu. Mở trang Trợ Lý Ai để kiểm tra nút "Mở ChatGPT".', false);
+    });
+
+    document.getElementById('gptRemove').addEventListener('click', function () {
+      if (!confirm('Gỡ liên kết GPT ChatGPT? Học sinh sẽ không thấy nút "Mở ChatGPT" nữa.')) return;
+      var cfg = readAiCfg();
+      delete cfg.gptUrl; delete cfg.gptSavedAt; delete cfg.gptBy;
+      if (Object.keys(cfg).length) localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
+      else localStorage.removeItem(AI_CFG_KEY);
+      document.getElementById('gptUrl').value = '';
+      addLog('ai-config', 'Gỡ liên kết GPT ChatGPT');
+      renderAiConfig();
+      renderLog();
+      toast('Đã gỡ liên kết GPT.');
+    });
 
     document.getElementById('aiKeyEye').addEventListener('click', function () {
       var inp = document.getElementById('aiKey');

@@ -145,10 +145,7 @@
       border-radius: 16px;
       border: 1px solid var(--hair);
       background: var(--glass);
-      cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
-    .tlai-step:hover { background: rgba(242, 238, 230, 0.08); transform: translateY(-1px); }
     .tlai-step.active {
       border-color: rgba(241, 208, 132, 0.55);
       background: rgba(241, 208, 132, 0.09);
@@ -532,33 +529,15 @@
     function renderAiStepList() {
       var container = document.getElementById('aiStepsSidebar');
       if (!container) return;
+      // Passive progress tracker: highlights the current 5A step as the
+      // conversation advances. Clicking a step does nothing (by design).
       container.innerHTML = AI_5A_STEPS.map(function (s, idx) {
-        return '<div class="tlai-step ' + (idx === SAH_STATE.currentAiStep ? 'active' : '') + '" onclick="selectAiStep(' + idx + ')">' +
+        return '<div class="tlai-step ' + (idx === SAH_STATE.currentAiStep ? 'active' : '') + '">' +
           '<span class="tlai-step-code">' + s.code + '</span>' +
           '<h5 class="tlai-step-name">' + s.name + '</h5>' +
           '<p class="tlai-step-desc">' + s.desc + '</p>' +
         '</div>';
       }).join('');
-    }
-
-    function selectAiStep(idx) {
-      SAH_STATE.currentAiStep = idx;
-      renderAiStepList();
-
-      if (window.__tlaiLive && window.__tlaiLive.connected()) {
-        var ask = [
-          'Chuyển sang bước A1 — ASK: thầy/cô muốn em kể điều em ấn tượng nhất về di sản em đã quan sát.',
-          'Chuyển sang bước A2 — ANALYZE: em hãy mô tả đường nét, màu sắc và không gian của di sản theo cảm nhận của em.',
-          'Chuyển sang bước A3 — ADVISE: em muốn thử chất liệu tạo hình nào (màu nước, đồ họa, xé dán...)?',
-          'Chuyển sang bước A4 — ADAPT: điều gì ở phong cách của riêng em em muốn nhấn mạnh trong tác phẩm?',
-          'Chuyển sang bước A5 — ART: thầy/cô sẽ cùng em tổng hợp bảng màu, bố cục và bước vẽ đầu tiên.'
-        ];
-        appendChatMessage('user', ask[idx]);
-        window.__tlaiLive.reply();
-        return;
-      }
-
-      respondAiForStep(idx);
     }
 
     function handleUserSendMessage() {
@@ -675,17 +654,6 @@
       }
     }
 
-    function respondAiForStep(idx) {
-      var steps = [
-        "Bước A1 (ASK): Em muốn truyền tải thông điệp gì nhất qua tác phẩm di sản này?",
-        "Bước A2 (ANALYZE): Quan sát tương quan tỉ lệ giữa con người và công trình kiến trúc.",
-        "Bước A3 (ADVISE): Đề xuất sử dụng màu nước hoặc tranh đồ họa in nổi.",
-        "Bước A4 (ADAPT): Thử nghiệm đảo ngược màu nền để tạo ấn tượng thị giác mới lạ.",
-        "Bước A5 (ART): Lập dàn ý phác thảo và tiến hành vẽ nét phác đầu tiên."
-      ];
-      appendChatMessage('ai', steps[idx]);
-    }
-
     /* ---------- handoff: receive worksheet context from phieu-3-2-1.html ---------- */    function checkAi5aHandoff() {
       var payload = null;
       try {
@@ -704,7 +672,6 @@
 
     // Inline onclick handlers in the markup need these as globals
     window.triggerAiWith321Context = triggerAiWith321Context;
-    window.selectAiStep = selectAiStep;
     window.handleUserSendMessage = handleUserSendMessage;
     window.generateAiResponse = generateAiResponse;
     window.SAH_STATE = SAH_STATE;

@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="css/smart-art-heritage.css?v=4">
 
   <style>
+    /* Author `display` rules outrank the UA sheet for [hidden], which left
+       JS-toggled elements (role cards, step buttons) visible when hidden. */
+    [hidden] { display: none !important; }
     :root {
       --ink: #2b2620;
       --ink-dim: rgba(43, 38, 32, 0.72);
@@ -232,7 +235,7 @@
     .p321-instruction b { color: var(--ink); }
 
     .p321-meta {
-      display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;
       background: var(--glass); border: 1px solid var(--hair); border-radius: 18px; padding: 18px 20px; margin-bottom: 18px;
     }
     .p321-field { margin-bottom: 0; flex: 1 1 170px; }
@@ -251,8 +254,16 @@
       background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232b2620' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 14px center;
     }
+    .p321-locked {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--field); border: 1px dashed var(--hair); border-radius: 12px;
+      color: var(--ink-faint); font-family: inherit; font-size: 0.9rem; padding: 11px 14px;
+    }
+    .p321-locked b { color: var(--ink); font-weight: 700; }
+    .p321-locked .p321-lock-sep { color: var(--ink-faint); }
+    .p321-lockhint { display: block; font-size: 0.68rem; color: var(--ink-faint); margin-top: 7px; line-height: 1.5; }
     .p321-select option { background: #e9e1d1; color: var(--ink); }
-    .p321-savebox { display: flex; align-items: center; gap: 9px; min-height: 22px; }
+    .p321-savebox { display: flex; align-items: center; gap: 9px; min-height: 22px; align-self: flex-end; margin-left: auto; }
     .p321-save { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; color: #3e7d50; }
     .p321-save-dot { width: 7px; height: 7px; border-radius: 50%; background: #3e7d50; flex-shrink: 0; }
 
@@ -769,11 +780,11 @@
     <div class="rg-card">
       <div class="rg-eyebrow">SMART ART HERITAGE • HÀNH TRÌNH 1 → 5</div>
       <h2>Trước tiên: em là ai?</h2>
-      <p class="rg-sub">Chọn vai trò để bắt đầu. Học sinh nhập họ tên + lớp rồi làm và nộp từng bước 1 → 5 cho từng hồ sơ; khách có thể xem mọi bước nhưng không nộp bài.</p>
+      <p class="rg-sub">Chọn vai trò để bắt đầu. Học sinh khai báo họ tên + mã học sinh + lớp một lần duy nhất, rồi làm và nộp từng bước 1 → 5 cho từng hồ sơ; khách có thể xem mọi bước nhưng không nộp bài.</p>
       <div class="rg-choices" id="rgChoices">
         <button type="button" class="rg-choice" data-role="student">
           <span class="rg-ico">🎓</span><b>Học sinh</b>
-          <span>Nhập họ tên + lớp, làm và nộp từng bước</span>
+          <span>Nhập họ tên, mã học sinh, lớp rồi làm và nộp từng bước</span>
         </button>
         <button type="button" class="rg-choice" data-role="teacher">
           <span class="rg-ico">👩‍🏫</span><b>Giáo viên</b>
@@ -787,6 +798,8 @@
       <div class="rg-form" id="rgStudentForm" hidden>
         <label for="rgName">Họ tên đầy đủ của em</label>
         <input id="rgName" type="text" placeholder="VD: Nguyễn Minh An" autocomplete="name">
+        <label for="rgStudentId">Mã học sinh</label>
+        <input id="rgStudentId" type="text" placeholder="VD: HS-6A1-024" autocomplete="off">
         <label for="rgClass">Lớp</label>
         <input id="rgClass" type="text" placeholder="VD: 6A1" autocomplete="off">
         <div class="rg-err" id="rgErr"></div>
@@ -990,12 +1003,9 @@
           </select>
         </div>
         <div class="p321-field">
-          <label class="p321-label" for="form321StudentId">Mã Học Sinh</label>
-          <input class="p321-input" id="form321StudentId" type="text" value="HS-6A1-024">
-        </div>
-        <div class="p321-field">
-          <label class="p321-label" for="form321Class">Lớp</label>
-          <input class="p321-input" id="form321Class" type="text" value="6A1">
+          <span class="p321-label">Mã Học Sinh · Lớp</span>
+          <div class="p321-locked" id="p321Identity">—</div>
+          <span class="p321-lockhint">🔒 Em đã khai báo ở màn hình bắt đầu. Muốn sửa, bấm “Đổi” trên thanh trên cùng.</span>
         </div>
         <div class="p321-savebox">
           <span class="p321-save-dot"></span>
@@ -1790,6 +1800,30 @@
     /* ================= STEP 3 — 3-2-1 engine ================= */
     var saveTimer = null;
 
+    // Identity is declared once on the start screen and follows the student
+    // everywhere: the locked display here, the saved draft, and the teacher view.
+    function studentIdentity() {
+      var prof = {};
+      try { prof = loadProgress()._profile || {}; } catch (e) {}
+      return { id: prof.id || '', cls: prof.cls || '', name: prof.name || '' };
+    }
+
+    function renderIdentity() {
+      var box = $('p321Identity');
+      if (!box) return;
+      var ident = studentIdentity();
+      if (ident.id || ident.cls) {
+        box.innerHTML = '<b>' + esc(ident.id || '—') + '</b><span class="p321-lock-sep">·</span><b>' +
+          esc(ident.cls || '—') + '</b>';
+      } else {
+        box.innerHTML = '<span>Chưa khai báo — hãy bấm “Đổi” trên thanh trên cùng.</span>';
+      }
+      // the exhibit step must never lose the identity, even before a draft exists
+      var xvId = $('xvStudentId'), xvCls = $('xvClass');
+      if (xvId && !xvId.value && ident.id) xvId.value = ident.id;
+      if (xvCls && !xvCls.value && ident.cls) xvCls.value = ident.cls;
+    }
+
     function applyPrompts() {
       var pack = QUESTION_PACKS[$('form321Project').value] || QUESTION_PACKS[DEFAULT_KEY];
       [['3', pack.q3, pack.h3], ['2', pack.q2, pack.h2], ['1', pack.q1, pack.h1]].forEach(function (row) {
@@ -1800,10 +1834,11 @@
     }
 
     function autoSave321() {
+      var ident = studentIdentity();
       var data = {
         project: $('form321Project').value || DEFAULT_KEY,
-        studentId: $('form321StudentId').value || '',
-        studentClass: $('form321Class').value || '',
+        studentId: ident.id,
+        studentClass: ident.cls,
         q3: $('field321_3').value || '',
         q2: $('field321_2').value || '',
         q1: $('field321_1').value || '',
@@ -1826,6 +1861,7 @@
 
     function init321() {
       applyPrompts();
+      renderIdentity();
 
       try {
         var fbMap = JSON.parse(localStorage.getItem('sah_321_feedback') || '{}');
@@ -1841,8 +1877,6 @@
         if (draft.q3) $('field321_3').value = draft.q3;
         if (draft.q2) $('field321_2').value = draft.q2;
         if (draft.q1) $('field321_1').value = draft.q1;
-        if (draft.studentId) $('form321StudentId').value = draft.studentId;
-        if (draft.studentClass) $('form321Class').value = draft.studentClass;
         // Only a draft the student actually filled in may pick the heritage;
         // an empty/missing draft must not drag the page away from Hồ sơ 01.
         var filled = !!(draft.q3 || draft.q2 || draft.q1);
@@ -1856,15 +1890,11 @@
       ['field321_3', 'field321_2', 'field321_1'].forEach(function (id) {
         $(id).addEventListener('input', debouncedSave);
       });
-      ['form321Project', 'form321StudentId', 'form321Class'].forEach(function (id) {
-        $(id).addEventListener('change', function () {
-          if (id === 'form321Project') {
-            applyPrompts();
-            // switching heritage in the 3-2-1 drives the WHOLE journey
-            selectHeritage($('form321Project').value);
-          }
-          autoSave321();
-        });
+      $('form321Project').addEventListener('change', function () {
+        applyPrompts();
+        // switching heritage in the 3-2-1 drives the WHOLE journey
+        selectHeritage($('form321Project').value);
+        autoSave321();
       });
 
       $('btnExport321').addEventListener('click', function () { window.print(); });
@@ -2093,9 +2123,13 @@
     function restoreExhibitMeta() {
       var draft = null;
       try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
+      // identity declared on the start screen wins over a stale draft
+      var ident = studentIdentity();
+      var sid = (draft && draft.studentId) || ident.id;
+      var scls = (draft && draft.studentClass) || ident.cls;
+      if (sid) $('xvStudentId').value = sid;
+      if (scls) $('xvClass').value = scls;
       if (draft) {
-        if (draft.studentId) $('xvStudentId').value = draft.studentId;
-        if (draft.studentClass) $('xvClass').value = draft.studentClass;
         if (draft.project && ORDER.indexOf(draft.project) >= 0) $('xvHeritage').value = draft.project;
       }
       ['xvStudentId', 'xvClass'].forEach(function (id) {
@@ -2556,6 +2590,7 @@
     function refreshGates() {
       var key = state.key || DEFAULT_KEY;
       var role = currentRole();
+      renderIdentity();
       var n = unlockedThrough(key);
 
       // role chip in the top bar
@@ -2625,8 +2660,19 @@
         $('rgErr').textContent = '';
         try {
           var prof = loadProgress()._profile;
-          if (prof) { $('rgName').value = prof.name; $('rgClass').value = prof.cls; }
+          if (prof) {
+            $('rgName').value = prof.name || '';
+            $('rgClass').value = prof.cls || '';
+            // profiles saved before Mã học sinh existed fall back to the draft
+            $('rgStudentId').value = prof.id || '';
+          }
         } catch (e) {}
+        if (!$('rgStudentId').value) {
+          try {
+            var d = JSON.parse(localStorage.getItem('sah_321_draft') || 'null');
+            if (d && d.studentId) $('rgStudentId').value = d.studentId;
+          } catch (e) {}
+        }
       }
 
       function chooseRole(role) {
@@ -2654,18 +2700,24 @@
       });
       $('rgStudentStart').addEventListener('click', function () {
         var name = $('rgName').value.trim();
+        var sid = $('rgStudentId').value.trim();
         var cls = $('rgClass').value.trim();
-        if (!name || !cls) { $('rgErr').textContent = 'Hãy điền đủ họ tên và lớp nhé!'; return; }
+        if (!name || !sid || !cls) {
+          $('rgErr').textContent = 'Hãy điền đủ họ tên, mã học sinh và lớp nhé!';
+          return;
+        }
         var p = loadProgress();
-        p._profile = { name: name, cls: cls };
+        p._profile = { name: name, id: sid, cls: cls };
         saveProgress(p);
         try { localStorage.setItem(ROLE_KEY, 'student'); } catch (e) {}
         try { sessionStorage.removeItem('sah_teacher_session'); } catch (e) {}
         hideGate();
+        renderIdentity();
         refreshGates();
       });
-      $('rgName').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('rgStudentStart').click(); });
-      $('rgClass').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('rgStudentStart').click(); });
+      ['rgName', 'rgStudentId', 'rgClass'].forEach(function (id) {
+        $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') $('rgStudentStart').click(); });
+      });
 
       $('jnRoleSwitch').addEventListener('click', showGate);
 

@@ -600,8 +600,8 @@
           <div class="gv-card-label">TRỢ LÝ AI — KẾT NỐI AI CHO HỌC SINH</div>
           <p style="font-size:0.8rem; color:var(--ink-dim); line-height:1.6; margin:0 0 14px;">
             Trợ Lý Ai cố gắng trả lời thật <b>ngay trong khung chat</b> theo thứ tự ưu tiên:
-            <b>1) API do giáo viên kết nối</b> (thẻ API CONNECTOR bên dưới),
-            <b>2) AI miễn phí</b> tích hợp sẵn — nếu cả hai không được, chat tự dùng kịch bản 5A.
+            <b>1) API do giáo viên kết nối</b> (thẻ API CONNECTOR bên dưới) —
+            nếu chưa kết nối hoặc API lỗi, chat tự dùng <b>kịch bản 5A offline</b>, không bao giờ treo.
           </p>
           <p id="aiState" style="font-size:0.85rem; font-weight:700; min-height:1.3em; margin:0 0 16px;"></p>
 
@@ -859,16 +859,15 @@
       var c = readAiCfg();
       var state = document.getElementById('aiState');
       var disc = document.getElementById('aiDisconnect');
-      var providers = [];
       if (aiKeyConnected(c)) {
-        providers.push('API: ' + hostOf(baseOf(c)) + ' — ' + (c.model || 'gpt-4o-mini'));
+        state.textContent = '● API: ' + hostOf(baseOf(c)) + ' — ' + (c.model || 'gpt-4o-mini') + ' — trả lời thật ngay trong trang Trợ Lý Ai.';
+        state.style.color = 'var(--ok)';
         disc.hidden = false;
       } else {
+        state.textContent = '○ Chưa kết nối API — chat đang dùng kịch bản 5A offline. Kết nối API để học sinh được AI thật trả lời.';
+        state.style.color = 'var(--warn, #c89547)';
         disc.hidden = true;
       }
-      providers.push('AI miễn phí (luôn bật làm dự phòng)');
-      state.textContent = '● ' + providers.join(' + ') + ' — trả lời thật ngay trong trang Trợ Lý Ai.';
-      state.style.color = 'var(--ok)';
     }
 
     document.getElementById('aiKeyEye').addEventListener('click', function () {
@@ -920,17 +919,17 @@
     });
 
     document.getElementById('aiDisconnect').addEventListener('click', function () {
-      if (!confirm('Ngắt kết nối API? AI miễn phí vẫn hoạt động.')) return;
+      if (!confirm('Ngắt kết nối API? Chat sẽ quay về kịch bản 5A offline.')) return;
       var cfg = readAiCfg();
       delete cfg.key; delete cfg.model; delete cfg.validated; delete cfg.savedAt; delete cfg.by; delete cfg.provider; delete cfg.baseUrl;
       if (Object.keys(cfg).length) saveAiCfg(cfg); else localStorage.removeItem(AI_CFG_KEY);
       document.getElementById('aiKey').value = '';
       document.getElementById('aiBaseUrl').value = '';
       document.getElementById('aiModel').value = '';
-      addLog('ai-config', 'Ngắt API (về AI miễn phí)');
+      addLog('ai-config', 'Ngắt API (chat về kịch bản 5A offline)');
       renderAiConfig();
       renderLog();
-      toast('Đã ngắt — dùng AI miễn phí.');
+      toast('Đã ngắt — chat dùng kịch bản 5A offline.');
     });
 
     /* ================= tabs ================= */

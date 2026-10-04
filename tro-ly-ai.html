@@ -228,7 +228,7 @@
 
     /* ---------- hero ---------- */
     .tlai-hero {
-      max-width: 1180px;
+      max-width: 1050px;
       margin: 0 auto;
       padding: 46px 28px 8px;
     }
@@ -258,7 +258,7 @@
 
     /* ---------- layout ---------- */
     .tlai-main {
-      max-width: 980px;
+      max-width: 1050px;
       margin: 0 auto;
       padding: 30px 28px 0;
       display: block;
@@ -1312,12 +1312,17 @@
       document.getElementById('passportHeritage').value = d.name;
     }
 
+    var HERITAGE_LABELS = {
+      phohien: 'Phố Hiến', chuakeo: 'Chùa Keo', dentran: 'Đền Trần',
+      lequydon: 'Khu lưu niệm Lê Quý Đôn', dongxam: 'Chạm bạc Đồng Xâm'
+    };
+
     function seedFrom321() {
       try {
         var draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null');
         if (!draft) { return 'Chưa có phiếu 3–2–1 nào được lưu trên máy này.'; }
         var lines = [];
-        if (draft.project) lines.push('Di sản: ' + (draft.project));
+        if (draft.project) lines.push('Di sản: ' + (HERITAGE_LABELS[draft.project] || draft.project));
         if (draft.q3) lines.push('3 – Khám phá: ' + draft.q3);
         if (draft.q2) lines.push('2 – Lựa chọn: ' + draft.q2);
         if (draft.q1) lines.push('1 – Ý tưởng: ' + draft.q1);

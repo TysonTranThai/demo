@@ -625,7 +625,10 @@
       if (draft.q3) document.getElementById('field321_3').value = draft.q3;
       if (draft.q2) document.getElementById('field321_2').value = draft.q2;
       if (draft.q1) document.getElementById('field321_1').value = draft.q1;
-      if (draft.project) document.getElementById('form321Project').value = draft.project;
+      if (draft.project) {
+        document.getElementById('form321Project').value = draft.project;
+        applyPrompts(); // keep questions in sync with the restored project
+      }
       if (draft.studentId) document.getElementById('form321StudentId').value = draft.studentId;
       if (draft.studentClass) document.getElementById('form321Class').value = draft.studentClass;
     } catch (e) {}

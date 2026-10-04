@@ -62,10 +62,11 @@
     @media (max-width: 560px)  { .hm-tabs { grid-template-columns: 1fr; } }
     .hm-tab {
       display: block;
+      overflow: hidden;
       background: var(--glass-strong);
       border: 1px solid var(--hair);
       border-radius: 16px;
-      padding: 16px;
+      padding: 0;
       text-decoration: none;
       color: var(--ink);
       transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
@@ -75,6 +76,15 @@
       background: #fff;
       transform: translateY(-2px);
     }
+    .hm-tab img {
+      display: block;
+      width: 100%;
+      height: 118px;
+      object-fit: cover;
+      filter: saturate(0.95);
+      border-bottom: 1px solid var(--hair);
+    }
+    .hm-tab-body { padding: 13px 15px 15px; }
     .hm-tab small {
       display: block;
       color: var(--terra);
@@ -180,29 +190,44 @@
       <!-- 5 profile tab-cards -->
       <div class="hm-tabs">
         <a class="hm-tab" href="di-san.html#phohien">
-          <small>HỒ SƠ 01</small>
-          <strong>Phố Hiến</strong>
-          <span>Không gian đô thị cổ và quần thể di tích tiêu biểu của Phố Hiến.</span>
+          <img src="assets/extracted/cover_phohien.jpeg" alt="Phố Hiến" loading="lazy">
+          <div class="hm-tab-body">
+            <small>HỒ SƠ 01</small>
+            <strong>Phố Hiến</strong>
+            <span>Không gian đô thị cổ và quần thể di tích tiêu biểu của Phố Hiến.</span>
+          </div>
         </a>
         <a class="hm-tab" href="di-san.html#chuakeo">
-          <small>HỒ SƠ 02</small>
-          <strong>Chùa Keo</strong>
-          <span>Kiến trúc gỗ, gác chuông, chạm khắc và không gian cảnh quan Chùa Keo.</span>
+          <img src="assets/extracted/cover_chuakeo.jpeg" alt="Chùa Keo" loading="lazy">
+          <div class="hm-tab-body">
+            <small>HỒ SƠ 02</small>
+            <strong>Chùa Keo</strong>
+            <span>Kiến trúc gỗ, gác chuông, chạm khắc và không gian cảnh quan Chùa Keo.</span>
+          </div>
         </a>
         <a class="hm-tab" href="di-san.html#dentran">
-          <small>HỒ SƠ 03</small>
-          <strong>Đền Trần Hưng Hà</strong>
-          <span>Quần thể đền thờ, nghi lễ, lễ hội và khu lăng mộ các vua Trần.</span>
+          <img src="assets/extracted/cover_dentran.jpeg" alt="Đền Trần Hưng Hà" loading="lazy">
+          <div class="hm-tab-body">
+            <small>HỒ SƠ 03</small>
+            <strong>Đền Trần Hưng Hà</strong>
+            <span>Quần thể đền thờ, nghi lễ, lễ hội và khu lăng mộ các vua Trần.</span>
+          </div>
         </a>
         <a class="hm-tab" href="di-san.html#lequydon">
-          <small>HỒ SƠ 04</small>
-          <strong>Khu lưu niệm Lê Quý Đôn</strong>
-          <span>Không gian tưởng niệm, trưng bày và giáo dục về Nhà bác học Lê Quý Đôn.</span>
+          <img src="assets/extracted/cover_lequydon.jpeg" alt="Khu lưu niệm Lê Quý Đôn" loading="lazy">
+          <div class="hm-tab-body">
+            <small>HỒ SƠ 04</small>
+            <strong>Khu lưu niệm Lê Quý Đôn</strong>
+            <span>Không gian tưởng niệm, trưng bày và giáo dục về Nhà bác học Lê Quý Đôn.</span>
+          </div>
         </a>
         <a class="hm-tab" href="di-san.html#dongxam">
-          <small>HỒ SƠ 05</small>
-          <strong>Làng nghề chạm bạc Đồng Xâm</strong>
-          <span>Nghệ nhân, kỹ thuật chạm bạc, hoa văn và sản phẩm thủ công truyền thống.</span>
+          <img src="assets/extracted/cover_dongxam.jpeg" alt="Làng nghề chạm bạc Đồng Xâm" loading="lazy">
+          <div class="hm-tab-body">
+            <small>HỒ SƠ 05</small>
+            <strong>Làng nghề chạm bạc Đồng Xâm</strong>
+            <span>Nghệ nhân, kỹ thuật chạm bạc, hoa văn và sản phẩm thủ công truyền thống.</span>
+          </div>
         </a>
       </div>
 

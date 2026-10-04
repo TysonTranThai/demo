@@ -90,6 +90,142 @@
       border-color: var(--gold);
     }
 
+    /* ---------- AI 5A studio arrangement (demo sah-ai5a-studio) ---------- */
+    .tlai-ownership { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .tlai-ownership span {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
+      padding: 7px 13px; border-radius: 999px; border: 1px solid var(--hair);
+      background: var(--glass); color: var(--ink-dim);
+    }
+    .tlai-ownership .own-student { color: #3e7d50; border-color: rgba(62,125,80,.4); background: rgba(62,125,80,.08); }
+    .tlai-ownership .own-ai { color: #3d5a80; border-color: rgba(61,90,128,.4); background: rgba(61,90,128,.08); }
+    .tlai-progress5 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+    .tlai-progress5 .p5 {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; color: var(--ink-dim);
+      padding: 8px 14px; border-radius: 999px; border: 1px solid var(--hair); background: var(--glass);
+    }
+    .tlai-progress5 .p5.on { background: rgba(200,149,71,.14); border-color: rgba(200,149,71,.4); color: var(--gold); }
+    .tlai-progress5 .p5-arrow { color: var(--ink-faint); }
+    .tlai-studio-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-top: 18px; }
+    .tlai-field label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 6px;
+    }
+    .tlai-field select, .tlai-field input, .tlai-field textarea {
+      width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; outline: none; transition: border-color .2s ease;
+    }
+    .tlai-field select:focus, .tlai-field input:focus, .tlai-field textarea:focus { border-color: rgba(200,149,71,.55); }
+    .tlai-field select option { background: #e9e1d1; color: var(--ink); }
+    .tlai-field textarea { resize: vertical; }
+    .tlai-seed { margin-top: 16px; background: var(--glass); border: 1px solid var(--hair); border-radius: 16px; padding: 16px 18px; }
+    .tlai-seed-head { font-size: 0.8rem; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+    .tlai-seed-sub { font-size: 0.76rem; color: var(--ink-dim); margin-bottom: 10px; }
+    .tlai-studio-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 22px; }
+    .tlai-step5 {
+      position: relative;
+      background: var(--glass); border: 1px solid var(--hair);
+      border-radius: 20px; padding: 22px 24px 22px 80px;
+    }
+    .tlai-stepbadge {
+      position: absolute; left: 20px; top: 22px;
+      width: 42px; height: 42px; border-radius: 14px;
+      background: var(--gold); color: #171716;
+      font-weight: 800; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tlai-step5 h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 800; }
+    .tlai-step5 .sub { margin: 0 0 14px; font-size: 0.82rem; color: var(--ink-dim); line-height: 1.55; }
+    .tlai-nat { border-top: 1px solid var(--hair); }
+    .tlai-nat summary {
+      list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+      padding: 12px 2px; font-weight: 700; font-size: 0.86rem; color: var(--ink-dim);
+    }
+    .tlai-nat summary::-webkit-details-marker { display: none; }
+    .tlai-nat[open] summary { color: var(--ink); }
+    .tlai-nat-body { padding: 2px 2px 14px; }
+    .tlai-nat-body p { margin: 0 0 8px; font-size: 0.86rem; font-weight: 600; color: var(--ink); line-height: 1.55; }
+    .tlai-nat-body textarea {
+      width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; min-height: 74px; resize: vertical; outline: none;
+    }
+    .tlai-nat-body textarea:focus { border-color: rgba(200,149,71,.55); }
+    .tlai-asklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .tlai-askq {
+      text-align: left; font-family: inherit; font-size: 0.84rem; font-weight: 600;
+      color: var(--ink-dim); background: var(--glass-strong); border: 1px solid var(--hair);
+      border-radius: 12px; padding: 10px 14px; cursor: pointer;
+      transition: border-color .2s ease, color .2s ease;
+    }
+    .tlai-askq:hover { border-color: rgba(200,149,71,.5); color: var(--ink); }
+    .tlai-pathgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .tlai-path {
+      text-align: left; background: var(--glass-strong); border: 1px solid var(--hair);
+      border-radius: 14px; padding: 14px 16px; cursor: pointer; font-family: inherit;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .tlai-path b { display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--ink); }
+    .tlai-path span { font-size: 0.78rem; color: var(--ink-dim); line-height: 1.5; }
+    .tlai-path:hover { border-color: rgba(200,149,71,.5); }
+    .tlai-path.sel { border-color: var(--gold); background: rgba(200,149,71,.1); }
+    .tlai-decision { display: block; margin-top: 14px; font-size: 0.8rem; font-weight: 700; color: var(--ink-dim); }
+    .tlai-decision textarea {
+      width: 100%; margin-top: 7px; min-height: 74px; font-family: inherit; font-size: 0.88rem;
+      color: var(--ink); background: rgba(43,38,32,.05); border: 1px solid var(--hair);
+      border-radius: 12px; padding: 11px 14px; outline: none; resize: vertical;
+    }
+    .tlai-designboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .tlai-designboard fieldset { border: 1px solid var(--hair); border-radius: 14px; padding: 12px 14px; margin: 0; }
+    .tlai-designboard legend {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-faint); padding: 0 6px;
+    }
+    .tlai-designboard label {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 0.8rem; color: var(--ink-dim); padding: 4px 0; cursor: pointer;
+    }
+    .tlai-designboard input { accent-color: #c89547; }
+    .tlai-passport { background: #fff; border: 1.5px solid rgba(200,149,71,.5); border-radius: 18px; overflow: hidden; }
+    .tlai-passport-title {
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      background: rgba(200,149,71,.12); padding: 12px 18px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; color: var(--ink);
+    }
+    .tlai-passport-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px 18px; }
+    .tlai-passport-grid label {
+      display: block; font-size: 0.62rem; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint);
+    }
+    .tlai-passport-grid input {
+      width: 100%; margin-top: 5px; font-family: inherit; font-size: 0.85rem;
+      color: var(--ink); background: rgba(43,38,32,.05); border: 1px solid var(--hair);
+      border-radius: 10px; padding: 9px 12px; outline: none;
+    }
+    .tlai-passport-grid .wide { grid-column: 1 / -1; }
+    .tlai-confirm {
+      display: flex; align-items: flex-start; gap: 10px; margin-top: 16px;
+      font-size: 0.86rem; font-weight: 700; color: var(--ink-dim); cursor: pointer;
+    }
+    .tlai-confirm input { width: 17px; height: 17px; accent-color: #c89547; margin-top: 2px; }
+    .tlai-studio-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .tlai-savebtn {
+      font-family: inherit; font-size: 0.8rem; font-weight: 800;
+      padding: 11px 20px; border-radius: 999px; cursor: pointer;
+      background: var(--gold); border: 1px solid var(--gold); color: #171716;
+      transition: background .2s ease;
+    }
+    .tlai-savebtn:hover { background: #f7dfa8; }
+    @media (max-width: 860px) {
+      .tlai-pathgrid { grid-template-columns: 1fr; }
+      .tlai-designboard { grid-template-columns: 1fr; }
+      .tlai-passport-grid { grid-template-columns: 1fr; }
+      .tlai-step5 { padding: 20px 18px 20px 70px; }
+    }
+
     /* ---------- hero ---------- */
     .tlai-hero {
       max-width: 1180px;
@@ -122,13 +258,10 @@
 
     /* ---------- layout ---------- */
     .tlai-main {
-      max-width: 1180px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 34px 28px 0;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 22px;
-      align-items: start;
+      padding: 30px 28px 0;
+      display: block;
     }
 
     /* ---------- 5A stepper sidebar ---------- */
@@ -177,6 +310,7 @@
       max-height: 760px;
       min-height: 560px;
     }
+    .tlai-step5 .tlai-chat { height: 540px; min-height: 480px; max-height: 640px; }
     .tlai-chat-head {
       display: flex;
       align-items: center;
@@ -434,28 +568,91 @@
   </div>
 
   <header class="tlai-hero">
-    <div class="tlai-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 4/5 · ĐỒNG HÀNH SÁNG TẠO</div>
-    <h1 class="tlai-title">Trợ Lý <span class="ai-mark">Ai</span></h1>
+    <div class="tlai-eyebrow">SMART ART HERITAGE — BƯỚC 4 • XƯỞNG ĐỐI THOẠI SÁNG TẠO</div>
+    <h1 class="tlai-title">AI 5A • Từ quan sát đến <span class="ai-mark">dấu ấn cá nhân</span></h1>
     <p class="tlai-sub">
-      Quy trình 5 bước <b>Ask • Analyze • Advise • Adapt • Art</b>. Theo nguyên tắc
-      <b>NO OBSERVATION → NO AI</b>, Trợ Lý Ai không vẽ thay em — chỉ cùng em nâng tầm
-      ý tưởng từ Phiếu 3–2–1 thành một tác phẩm mĩ thuật độc bản.
+      AI không đưa “đáp án đẹp nhất”. AI đặt câu hỏi, mở hướng và giúp em tự quyết định —
+      theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, AI không bao giờ vẽ thay em.
     </p>
+    <div class="tlai-ownership">
+      <span class="own-student">🟢 Học sinh: Chủ thể sáng tạo</span>
+      <span class="own-ai">🔵 AI: Trợ lý gợi mở</span>
+    </div>
+    <div class="tlai-progress5">
+      <span class="p5 on">🔎 <span>Phân tích</span></span><span class="p5-arrow">→</span>
+      <span class="p5">💬 <span>Đối thoại</span></span><span class="p5-arrow">→</span>
+      <span class="p5">💡 <span>Lựa chọn</span></span><span class="p5-arrow">→</span>
+      <span class="p5">🎨 <span>Cá nhân hóa</span></span><span class="p5-arrow">→</span>
+      <span class="p5">⭐ <span>Làm chủ</span></span>
+    </div>
+    <div class="tlai-studio-meta">
+      <div class="tlai-field">
+        <label for="studioProject">Dự án di sản</label>
+        <select id="studioProject">
+          <option value="phohien">Phố Hiến</option>
+          <option value="chuakeo" selected>Chùa Keo</option>
+          <option value="dentran">Đền Trần</option>
+          <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
+          <option value="dongxam">Làng nghề chạm bạc Đồng Xâm</option>
+        </select>
+      </div>
+    </div>
+    <div class="tlai-seed">
+      <div class="tlai-seed-head">🌱 Hạt giống ý tưởng từ Phiếu 3–2–1</div>
+      <div class="tlai-seed-sub">Ý tưởng của em được mang sang đây, không phải làm lại từ đầu.</div>
+      <div class="tlai-field">
+        <textarea id="studioSeed" rows="3" placeholder="Ý tưởng từ phiếu 3–2–1 sẽ hiện ở đây..."></textarea>
+      </div>
+      <button id="studioLoad" type="button" class="tlai-askq" style="margin-top:10px;">↻ Lấy ý tưởng đã lưu</button>
+    </div>
     <div class="tlai-rule"></div>
   </header>
 
   <main class="tlai-main">
+    <section class="tlai-studio-steps">
 
-    <!-- 5 Steps Stepper -->
-    <aside class="tlai-steps">
-      <span class="tlai-steps-label">QUY TRÌNH 5A</span>
-      <div id="aiStepsSidebar" style="display:flex; flex-direction:column; gap:12px;">
-        <!-- Dynamically rendered -->
-      </div>
-    </aside>
+      <article class="tlai-step5" id="studioA1">
+        <div class="tlai-stepbadge">A1</div>
+        <div>
+          <h3>🔎 ANALYZE • AI soi ý tưởng</h3>
+          <p class="sub" id="a1Prompt"></p>
+          <details class="tlai-nat" open>
+            <summary>🖼️ Hình ảnh chính</summary>
+            <div class="tlai-nat-body">
+              <p>Hình ảnh nào là trung tâm trong ý tưởng của em?</p>
+              <textarea id="a1n1" rows="3" placeholder="Em viết tại đây..."></textarea>
+            </div>
+          </details>
+          <details class="tlai-nat">
+            <summary>🏛️ Nét di sản em giữ lại</summary>
+            <div class="tlai-nat-body">
+              <p>Chi tiết di sản nào em muốn giữ nguyên hồn?</p>
+              <textarea id="a1n2" rows="3" placeholder="Em viết tại đây..."></textarea>
+            </div>
+          </details>
+          <details class="tlai-nat">
+            <summary>❤️ Cảm xúc / thông điệp</summary>
+            <div class="tlai-nat-body">
+              <p>Em muốn người xem nhận được cảm xúc hay thông điệp gì?</p>
+              <textarea id="a1n3" rows="3" placeholder="Em viết tại đây..."></textarea>
+            </div>
+          </details>
+          <p class="sub" style="margin-top:14px; margin-bottom:8px;">✨ BẢN PHÂN TÍCH Ý TƯỞNG A1 — hệ thống tự tổng hợp từ phần em viết.</p>
+          <div class="tlai-field">
+            <textarea id="a1Combined" rows="3" readonly placeholder="Em chưa nhập nội dung A1."></textarea>
+          </div>
+        </div>
+      </article>
 
-    <!-- Chat Stage -->
-    <section class="tlai-chat">
+      <article class="tlai-step5" id="studioA2">
+        <div class="tlai-stepbadge">A2</div>
+        <div>
+          <h3>💬 ASK • Đối thoại cùng AI</h3>
+          <p class="sub">Ba câu hỏi thay đổi theo từng di sản — chạm vào một câu hỏi để trả lời trong khung chat bên dưới.</p>
+          <div class="tlai-asklist" id="askCards"></div>
+
+          <!-- Chat Stage -->
+          <section class="tlai-chat">
       <div class="tlai-chat-head">
         <span class="tlai-chat-dot"></span>
         <span class="tlai-chat-title">AI Art Assistant — Quy trình 5A</span>
@@ -476,15 +673,112 @@
         </div>
       </div>
 
-      <div class="tlai-input-bar">
-        <input id="aiChatInput" class="tlai-input" type="text" placeholder="Nhập câu trả lời hoặc suy nghĩ của em để AI gợi ý tiếp..." />
-        <button id="btnAiSend" class="tlai-send" type="button">
-          <span>Gửi</span>
-          <span>↗</span>
-        </button>
-      </div>
-    </section>
+          <div class="tlai-input-bar">
+            <input id="aiChatInput" class="tlai-input" type="text" placeholder="Nhập câu trả lời hoặc suy nghĩ của em để AI gợi ý tiếp..." />
+            <button id="btnAiSend" class="tlai-send" type="button">
+              <span>Gửi</span>
+              <span>↗</span>
+            </button>
+          </div>
+          </section>
+        </div>
+      </article>
 
+      <article class="tlai-step5" id="studioA3">
+        <div class="tlai-stepbadge">A3</div>
+        <div>
+          <h3>💡 ADVISE • Ba con đường sáng tạo</h3>
+          <p class="sub">Chọn một hướng, kết hợp nhiều hướng, hoặc tự mở hướng thứ tư.</p>
+          <div class="tlai-pathgrid" id="pathCards"></div>
+          <button id="ownPathBtn" class="tlai-askq" type="button" style="margin-top:12px;">✨ Tôi muốn tự tạo hướng thứ 4</button>
+          <div id="ownPathWrap" style="display:none; margin-top:12px;">
+            <div class="tlai-field"><label for="ownPathTitle">Tên hướng của em</label><input id="ownPathTitle" type="text" placeholder="VD: Chùa Keo dưới mắt em"></div>
+            <div class="tlai-field" style="margin-top:10px;"><label for="ownPathText">Mô tả hướng đi</label><textarea id="ownPathText" rows="2"></textarea></div>
+          </div>
+          <label class="tlai-decision">Điều em quyết định chọn / không chọn từ gợi ý của AI
+            <textarea id="a3Decision" placeholder="Tôi giữ..., nhưng tôi không theo... vì..."></textarea>
+          </label>
+          <details class="tlai-nat">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <div class="tlai-nat-body"><p>Chỉ lấy điều giúp ý tưởng rõ hơn. Không cần nghe theo AI nếu gợi ý không đúng với điều em muốn thể hiện.</p></div>
+          </details>
+        </div>
+      </article>
+
+      <article class="tlai-step5" id="studioA4">
+        <div class="tlai-stepbadge">A4</div>
+        <div>
+          <h3>🎨 ADAPT • Bàn thiết kế của em</h3>
+          <p class="sub">Chọn nhanh rồi sửa lại để thành phương án riêng.</p>
+          <div class="tlai-designboard">
+            <fieldset><legend>Hình ảnh chính</legend>
+              <label><input type="radio" name="mainimg" value="Kiến trúc"> Kiến trúc</label>
+              <label><input type="radio" name="mainimg" value="Hoa văn"> Hoa văn</label>
+              <label><input type="radio" name="mainimg" value="Nhân vật"> Nhân vật</label>
+              <label><input type="radio" name="mainimg" value="Hiện vật"> Hiện vật</label>
+              <label><input type="radio" name="mainimg" value="Khác"> Khác</label>
+            </fieldset>
+            <fieldset><legend>Bố cục</legend>
+              <label><input type="radio" name="layout" value="Trung tâm"> Trung tâm</label>
+              <label><input type="radio" name="layout" value="Đối xứng"> Đối xứng</label>
+              <label><input type="radio" name="layout" value="Tự do"> Tự do</label>
+              <label><input type="radio" name="layout" value="Nhịp điệu"> Nhịp điệu</label>
+            </fieldset>
+            <fieldset><legend>Màu sắc</legend>
+              <label><input type="radio" name="color" value="Theo màu di sản"> Theo màu di sản</label>
+              <label><input type="radio" name="color" value="Tương phản"> Tương phản</label>
+              <label><input type="radio" name="color" value="Đơn sắc"> Đơn sắc</label>
+              <label><input type="radio" name="color" value="Tự chọn"> Tự chọn</label>
+            </fieldset>
+            <fieldset><legend>Kỹ thuật</legend>
+              <label><input type="radio" name="tech" value="Vẽ"> Vẽ</label>
+              <label><input type="radio" name="tech" value="Cắt dán"> Cắt dán</label>
+              <label><input type="radio" name="tech" value="In"> In</label>
+              <label><input type="radio" name="tech" value="Thiết kế số"> Thiết kế số</label>
+              <label><input type="radio" name="tech" value="Kết hợp"> Kết hợp</label>
+            </fieldset>
+          </div>
+          <label class="tlai-decision">Điều tôi thay đổi so với gợi ý của AI
+            <textarea id="a4Decision" placeholder="Tôi giữ..., nhưng tôi thay đổi... vì..."></textarea>
+          </label>
+          <details class="tlai-nat">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <div class="tlai-nat-body"><p>Ít nhất hãy thay đổi <b>một lựa chọn</b> theo suy nghĩ của em. Đây là bước biến gợi ý thành phương án cá nhân.</p></div>
+          </details>
+        </div>
+      </article>
+
+      <article class="tlai-step5" id="studioA5">
+        <div class="tlai-stepbadge">A5</div>
+        <div>
+          <h3>⭐ AUTHOR • Dấu ấn của tôi</h3>
+          <p class="sub">Hoàn thiện “Hộ chiếu sáng tạo” để xác nhận phương án trước khi phác thảo.</p>
+          <div class="tlai-passport">
+            <div class="tlai-passport-title"><span>SMART ART HERITAGE</span><b>HỘ CHIẾU SÁNG TẠO • CREATIVE PASSPORT</b></div>
+            <div class="tlai-passport-grid">
+              <label>Di sản<input id="passportHeritage" readonly></label>
+              <label>Tên tác phẩm<input data-pass="title" placeholder="Tên em đặt cho tác phẩm"></label>
+              <label>Nguồn cảm hứng<input data-pass="source"></label>
+              <label>Chi tiết di sản tôi giữ<input data-pass="keep"></label>
+              <label>Điều tôi biến đổi<input data-pass="change"></label>
+              <label>Bố cục<input data-pass="layout"></label>
+              <label>Màu sắc<input data-pass="color"></label>
+              <label>Chất liệu / kỹ thuật<input data-pass="material"></label>
+              <label class="wide">Thông điệp<input data-pass="message"></label>
+              <label class="wide">Dấu ấn riêng của tôi<input data-pass="signature"></label>
+              <label class="wide">AI đã giúp tôi<input data-pass="aihelp" placeholder="AI giúp tôi nhìn thêm... / đặt câu hỏi... / gợi ý..."></label>
+              <label class="wide">Quyết định sáng tạo của tôi<input data-pass="decision" placeholder="Tôi quyết định..."></label>
+            </div>
+          </div>
+          <label class="tlai-confirm"><input type="checkbox" id="authorConfirm"><span><b>Tôi xác nhận đây là phương án do tôi lựa chọn và phát triển.</b></span></label>
+          <div class="tlai-studio-actions">
+            <button type="button" id="studioSave" class="tlai-savebtn">💾 Lưu Hộ chiếu sáng tạo</button>
+            <span id="studioMsg" class="xv-status" style="min-height:0;"></span>
+          </div>
+        </div>
+      </article>
+
+    </section>
   </main>
 
   <!-- AI API is configured by the teacher in giao-vien.html (tab: Trợ Lý AI) -->
@@ -913,6 +1207,184 @@
     } else {
       initChatGptBridge();
     }
+  })();
+  </script>
+
+  <script>
+  /* ============================================================
+     AI 5A STUDIO — demo sah-ai5a-studio arrangement
+     A1 analyze → A2 dialogue (chat) → A3 paths → A4 board → A5 passport
+     ============================================================ */
+  (function () {
+    'use strict';
+
+    var STUDIO_DATA = {
+      phohien: {
+        name: 'Phố Hiến',
+        analyze: 'Hãy nhìn lại ý tưởng 3–2–1 và chọn: 1 hình ảnh chính của phố xưa, 1 nét riêng của Phố Hiến và 1 cảm xúc/thông điệp em muốn giữ.',
+        asks: [
+          'Nếu chỉ được giữ lại một chi tiết để người xem nhận ra Phố Hiến, em sẽ chọn chi tiết nào? Vì sao?',
+          'Em muốn người xem cảm nhận Phố Hiến là cổ kính, bình yên, sầm uất xưa hay theo một cảm xúc khác?',
+          'Em sẽ thay đổi góc nhìn, màu sắc hoặc cách sắp xếp thế nào để sản phẩm có dấu ấn của riêng em?'
+        ],
+        paths: [
+          ['Giữ hồn phố xưa', 'Giữ mái nhà, cổng, đường phố hoặc dấu tích kiến trúc làm trung tâm; nhấn không khí cổ kính.'],
+          ['Phố Hiến qua mắt em', 'Chọn một góc/chi tiết em thích, phóng đại hoặc cách điệu để kể cảm nhận cá nhân.'],
+          ['Phố xưa bước vào hôm nay', 'Biến hình ảnh Phố Hiến thành poster, bưu thiếp, logo, bìa sổ hoặc thiết kế số.']
+        ]
+      },
+      chuakeo: {
+        name: 'Chùa Keo',
+        analyze: 'Từ ý tưởng 3–2–1, hãy xác định: hình ảnh kiến trúc chính, đặc điểm tạo hình em muốn giữ và cảm xúc em muốn người xem nhận được.',
+        asks: [
+          'Nếu chỉ giữ một nét để người xem nhận ra Chùa Keo, em chọn nhịp mái, kết cấu gỗ, hoa văn hay đặc điểm nào khác?',
+          'Em muốn nhấn mạnh vẻ cân đối, thanh thoát, cổ kính hay nhịp điệu của kiến trúc?',
+          'Em sẽ biến đổi chi tiết đã chọn thế nào để tác phẩm không chỉ là chép lại ảnh?'
+        ],
+        paths: [
+          ['Giữ hồn kiến trúc', 'Lấy nhịp mái, kết cấu gỗ và sự cân đối làm ngôn ngữ tạo hình chính.'],
+          ['Một góc Chùa Keo qua mắt em', 'Chọn một góc kiến trúc, phóng đại/cách điệu đường nét và nhịp điệu em ấn tượng.'],
+          ['Chùa Keo trong thiết kế mới', 'Chuyển mái, hoa văn hoặc nhịp kiến trúc thành họa tiết, poster, mô hình hay sản phẩm ứng dụng.']
+        ]
+      },
+      dentran: {
+        name: 'Đền Trần',
+        analyze: 'Từ kết quả quan sát, hãy chọn một hình ảnh trung tâm, một dấu ấn lịch sử và một thông điệp em muốn kể bằng Mĩ thuật.',
+        asks: [
+          'Hình ảnh nào giúp em thể hiện rõ nhất không khí trang nghiêm và dấu ấn nhà Trần?',
+          'Nếu kể một câu chuyện bằng hình ảnh, em muốn người xem nhớ điều gì sau khi xem?',
+          'Em sẽ làm gì để sản phẩm vừa tôn trọng di sản vừa có cách thể hiện của riêng em?'
+        ],
+        paths: [
+          ['Dấu ấn lịch sử', 'Dùng cổng, đền, lăng hoặc biểu tượng lịch sử làm điểm nhấn trong bố cục trang trọng.'],
+          ['Kể chuyện bằng hình ảnh', 'Chọn hai chi tiết liên quan để tạo một câu chuyện ngắn, rõ và có cảm xúc.'],
+          ['Di sản với thế hệ trẻ', 'Thiết kế poster, bìa sách, biểu trưng hoặc sản phẩm số giúp người trẻ tiếp cận Đền Trần.']
+        ]
+      },
+      lequydon: {
+        name: 'Khu lưu niệm Lê Quý Đôn',
+        analyze: 'Hãy chọn một hình ảnh gợi tri thức, một phẩm chất em muốn nhấn mạnh và một thông điệp học tập dành cho học sinh hôm nay.',
+        asks: [
+          'Trong các hình ảnh em quan sát, hình ảnh nào thể hiện tinh thần học tập và nghiên cứu rõ nhất?',
+          'Nếu không viết tên “Lê Quý Đôn”, em sẽ dùng hình ảnh nào để người xem vẫn hiểu chủ đề?',
+          'Em muốn sản phẩm truyền cho học sinh hôm nay thông điệp gì về học tập và khám phá tri thức?'
+        ],
+        paths: [
+          ['Chân dung tri thức', 'Kết hợp chân dung/hình ảnh nhà bác học với sách, bút hoặc biểu tượng nghiên cứu.'],
+          ['Kể chuyện về ham học', 'Dùng chuỗi hình ảnh đơn giản để kể tinh thần học hỏi, suy nghĩ và khám phá.'],
+          ['Tri thức truyền cảm hứng', 'Thiết kế poster, bookmark, bìa sổ hoặc sản phẩm số dành cho học sinh hôm nay.']
+        ]
+      },
+      dongxam: {
+        name: 'Làng nghề chạm bạc Đồng Xâm',
+        analyze: 'Hãy xác định một hoa văn/đường chạm chính, một đặc điểm bề mặt và một điều em muốn đổi mới từ nghề truyền thống.',
+        asks: [
+          'Nếu chỉ giữ một đặc điểm của chạm bạc Đồng Xâm, em sẽ giữ hoa văn, nhịp chạm, nổi–chìm hay đặc điểm nào?',
+          'Em muốn sản phẩm mới nhìn ra Đồng Xâm ngay lập tức hay chỉ gợi nhớ một cách tinh tế?',
+          'Em sẽ thay đổi hình, nhịp, bố cục hoặc công năng thế nào để sản phẩm có dấu ấn của em?'
+        ],
+        paths: [
+          ['Giữ nhịp hoa văn', 'Giữ cấu trúc hoa văn và nhịp chạm đặc trưng, tinh giản để dễ nhận biết.'],
+          ['Cách điệu theo mắt em', 'Phóng to, lược bớt hoặc tổ hợp lại hoa văn để tạo mẫu trang trí cá nhân.'],
+          ['Đồng Xâm trong đời sống mới', 'Đưa họa tiết vào hộp, túi, bìa sổ, huy hiệu, trang sức mô phỏng hoặc sản phẩm số.']
+        ]
+      }
+    };
+
+    var PKEY = 'sah_passport';
+
+    function projectKey() {
+      return document.getElementById('studioProject').value || 'chuakeo';
+    }
+
+    function renderProject() {
+      var key = projectKey();
+      var d = STUDIO_DATA[key];
+      document.getElementById('a1Prompt').textContent = d.analyze;
+      var asks = document.getElementById('askCards');
+      asks.innerHTML = d.asks.map(function (q) {
+        return '<button type="button" class="tlai-askq">💬 ' + q + '</button>';
+      }).join('');
+      var paths = document.getElementById('pathCards');
+      paths.innerHTML = d.paths.map(function (p, i) {
+        return '<button type="button" class="tlai-path" data-i="' + i + '"><b>' + (i + 1) + '. ' + p[0] + '</b><span>' + p[1] + '</span></button>';
+      }).join('');
+      document.getElementById('passportHeritage').value = d.name;
+    }
+
+    function seedFrom321() {
+      try {
+        var draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null');
+        if (!draft) { return 'Chưa có phiếu 3–2–1 nào được lưu trên máy này.'; }
+        var lines = [];
+        if (draft.project) lines.push('Di sản: ' + (draft.project));
+        if (draft.q3) lines.push('3 – Khám phá: ' + draft.q3);
+        if (draft.q2) lines.push('2 – Lựa chọn: ' + draft.q2);
+        if (draft.q1) lines.push('1 – Ý tưởng: ' + draft.q1);
+        return lines.join('\n') || 'Phiếu 3–2–1 chưa có nội dung.';
+      } catch (e) { return 'Chưa có phiếu 3–2–1 nào được lưu trên máy này.'; }
+    }
+
+    function savePassport() {
+      var data = { heritage: document.getElementById('passportHeritage').value };
+      document.querySelectorAll('[data-pass]').forEach(function (el) {
+        data[el.dataset.pass] = el.value.trim();
+      });
+      data.confirmed = document.getElementById('authorConfirm').checked;
+      try { localStorage.setItem(PKEY, JSON.stringify(data)); return true; }
+      catch (e) { return false; }
+    }
+
+    document.getElementById('studioProject').addEventListener('change', renderProject);
+    document.getElementById('studioLoad').addEventListener('click', function () {
+      document.getElementById('studioSeed').value = seedFrom321();
+    });
+
+    // A2: clicking an ask drops it into the chat input
+    document.getElementById('askCards').addEventListener('click', function (e) {
+      var btn = e.target.closest('.tlai-askq');
+      if (!btn) return;
+      var input = document.getElementById('aiChatInput');
+      input.value = btn.textContent.replace(/^💬\s*/, '');
+      input.focus();
+    });
+
+    // A3: selecting a path
+    document.getElementById('pathCards').addEventListener('click', function (e) {
+      var btn = e.target.closest('.tlai-path');
+      if (!btn) return;
+      document.querySelectorAll('.tlai-path').forEach(function (p) { p.classList.remove('sel'); });
+      btn.classList.add('sel');
+    });
+    document.getElementById('ownPathBtn').addEventListener('click', function () {
+      var w = document.getElementById('ownPathWrap');
+      w.style.display = w.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // A1: auto-combine the three reflections
+    function combineA1() {
+      var parts = ['a1n1', 'a1n2', 'a1n3']
+        .map(function (id) { return document.getElementById(id).value.trim(); })
+        .filter(Boolean);
+      var out = document.getElementById('a1Combined');
+      out.value = parts.length ? parts.join('\n') : '';
+      out.placeholder = parts.length ? '' : 'Em chưa nhập nội dung A1.';
+    }
+    ['a1n1', 'a1n2', 'a1n3'].forEach(function (id) {
+      document.getElementById(id).addEventListener('input', combineA1);
+    });
+
+    // A5: passport
+    document.getElementById('studioSave').addEventListener('click', function () {
+      var ok = savePassport();
+      var msg = document.getElementById('studioMsg');
+      msg.textContent = ok ? '✓ Đã lưu Hộ chiếu sáng tạo trên máy của em.' : 'Không lưu được — bộ nhớ máy đầy.';
+      msg.style.color = ok ? '#3e7d50' : '#a33c2f';
+    });
+
+    // init: seed + render
+    document.getElementById('studioSeed').value = seedFrom321();
+    renderProject();
   })();
   </script>
 </body>

@@ -141,6 +141,102 @@
       margin-bottom: 16px;
     }
 
+    /* ---------- 5-step exhibit arrangement (demo exhibitV38) ---------- */
+    .xv-steps { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+    .xv-step-title {
+      font-size: 1.06rem;
+      font-weight: 800;
+      margin: 0 0 16px;
+    }
+    .xv-step .xv-meta-row { margin-bottom: 14px; }
+    .xv-art-meta { grid-template-columns: repeat(2, 1fr); }
+    .xv-field textarea, .xv-grid3 textarea, .xv-grid2 textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: var(--field);
+      border: 1px solid var(--hair);
+      border-radius: 12px;
+      padding: 11px 14px;
+      min-height: 84px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .xv-field textarea:focus, .xv-grid3 textarea:focus, .xv-grid2 textarea:focus { border-color: rgba(200, 149, 71, 0.55); }
+    .xv-grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .xv-grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .xv-grid3 label, .xv-grid2 label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ink-dim);
+      line-height: 1.5;
+    }
+    .xv-grid3 label textarea, .xv-grid2 label textarea { margin-top: 7px; }
+    @media (max-width: 860px) {
+      .xv-grid3, .xv-grid2 { grid-template-columns: 1fr; }
+    }
+    .xv-help { margin-top: 14px; font-size: 0.8rem; color: var(--ink-dim); }
+    .xv-help summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--gold);
+      list-style: none;
+    }
+    .xv-help summary::-webkit-details-marker { display: none; }
+    .xv-help p { margin: 8px 0 0; line-height: 1.6; }
+    .xv-confirm {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-dim);
+      line-height: 1.55;
+      cursor: pointer;
+    }
+    .xv-confirm input { width: 17px; height: 17px; accent-color: #c89547; margin-top: 2px; }
+    .xv-finish-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .xv-btn-save, .xv-btn-finish {
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 11px 20px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .xv-btn-save {
+      background: var(--glass-strong);
+      border: 1px solid var(--hair);
+      color: var(--ink-dim);
+    }
+    .xv-btn-save:hover { background: #fff; color: var(--ink); }
+    .xv-btn-finish {
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: #171716;
+    }
+    .xv-btn-finish:hover { background: #f7dfa8; }
+    .xv-msg-field textarea { min-height: 64px; }
+
     /* ---------- student meta row ---------- */
     .xv-meta-row {
       display: grid;
@@ -474,11 +570,13 @@
 
   <main class="xv-main">
 
-    <!-- Upload panel -->
-    <section class="xv-card">
-      <div class="xv-card-label">TẢI TÁC PHẨM LÊN</div>
+    <!-- ===== EXHIBIT — 5 numbered cards (demo exhibitV38 arrangement) ===== -->
+    <div class="xv-steps">
 
-      <div class="xv-meta-row">
+      <section class="xv-card xv-step">
+        <h3 class="xv-step-title">1. Đưa tác phẩm vào không gian trưng bày</h3>
+
+        <div class="xv-meta-row">
         <div class="xv-field">
           <label for="xvStudentId">Mã học sinh</label>
           <input id="xvStudentId" type="text" placeholder="VD: HS-6A1-024">
@@ -500,19 +598,91 @@
         </div>
       </div>
 
-      <div id="xvDrop" class="xv-drop" role="button" tabindex="0" aria-label="Chọn hoặc kéo tệp vào đây">
-        <div class="xv-drop-icon">🖼️</div>
-        <p class="xv-drop-title">Kéo tệp vào đây, hoặc bấm để chọn</p>
-        <p class="xv-drop-hint">Ảnh (JPG, PNG, WebP) hoặc PDF — có thể chọn nhiều tệp cùng lúc. Ảnh sẽ được <b>nén tự động</b> để lưu trữ.</p>
-        <input id="xvFileInput" type="file" accept="image/*,.pdf" multiple hidden>
-      </div>
+        <div class="xv-meta-row xv-art-meta">
+          <div class="xv-field">
+            <label for="xvArtTitle">Tên tác phẩm</label>
+            <input id="xvArtTitle" type="text" placeholder="VD: Hoàng hôn trên gác chuông">
+          </div>
+          <div class="xv-field">
+            <label for="xvArtMaterial">Hình thức / chất liệu</label>
+            <input id="xvArtMaterial" type="text" placeholder="VD: Màu nước trên giấy">
+          </div>
+        </div>
 
-      <div class="xv-note-row">
-        <input id="xvNote" type="text" placeholder="Ghi chú chung cho các tệp này (không bắt buộc) — VD: 'Bước phác thảo 1, chụp tại hiện trường'">
-      </div>
+        <div class="xv-field xv-msg-field">
+          <label for="xvArtMessage">Thông điệp ngắn</label>
+          <textarea id="xvArtMessage" rows="2" placeholder="1–2 câu — em muốn người xem nhận được điều gì?"></textarea>
+        </div>
 
-      <p id="xvStatus" class="xv-status"></p>
-    </section>
+        <div id="xvDrop" class="xv-drop" role="button" tabindex="0" aria-label="Chọn hoặc kéo tệp vào đây">
+          <div class="xv-drop-icon">🖼️</div>
+          <p class="xv-drop-title">Kéo tệp vào đây, hoặc bấm để chọn</p>
+          <p class="xv-drop-hint">Ảnh (JPG, PNG, WebP) hoặc PDF — có thể chọn nhiều tệp cùng lúc. Ảnh sẽ được <b>nén tự động</b> để lưu trữ.</p>
+          <input id="xvFileInput" type="file" accept="image/*,.pdf" multiple hidden>
+        </div>
+
+        <div class="xv-note-row">
+          <input id="xvNote" type="text" placeholder="Ghi chú chung cho các tệp này (không bắt buộc) — VD: 'Bước phác thảo 1, chụp tại hiện trường'">
+        </div>
+
+        <details class="xv-help">
+          <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+          <p>Tên tác phẩm nên gợi được ý tưởng. Thông điệp chỉ cần 1–2 câu, không kể lại toàn bộ quá trình.</p>
+        </details>
+
+        <p id="xvStatus" class="xv-status"></p>
+      </section>
+
+      <section class="xv-card xv-step">
+        <h3 class="xv-step-title">2. Thuyết trình 60 giây • Câu chuyện phía sau tác phẩm</h3>
+        <div class="xv-grid3">
+          <label>① Em bắt đầu từ điều gì của di sản?<textarea id="xvShare1"></textarea></label>
+          <label>② Em đã thay đổi / phát triển ý tưởng thế nào?<textarea id="xvShare2"></textarea></label>
+          <label>③ Dấu ấn riêng rõ nhất của em là gì?<textarea id="xvShare3"></textarea></label>
+        </div>
+        <details class="xv-help">
+          <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+          <p>Nói theo mạch: Em quan sát thấy… → em quyết định thay đổi… → dấu ấn của em nằm ở… Không cần đọc bài viết dài.</p>
+        </details>
+      </section>
+
+      <section class="xv-card xv-step">
+        <h3 class="xv-step-title">3. Phản hồi bạn học • 2 ấn tượng + 1 trao đổi</h3>
+        <div class="xv-grid3">
+          <label>👍 Ấn tượng 1<textarea id="xvFb1"></textarea></label>
+          <label>👍 Ấn tượng 2<textarea id="xvFb2"></textarea></label>
+          <label>💬 Một điều muốn hỏi / góp ý<textarea id="xvFb3"></textarea></label>
+        </div>
+        <details class="xv-help">
+          <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+          <p>Có thể bắt đầu: “Mình ấn tượng với… vì…”; “Mình nhận ra dấu ấn riêng ở…”; “Mình muốn hỏi vì sao bạn chọn…”. Tránh chỉ viết “đẹp/hay”.</p>
+        </details>
+      </section>
+
+      <section class="xv-card xv-step">
+        <h3 class="xv-step-title">4. Tự đánh giá cuối hành trình</h3>
+        <div class="xv-grid2">
+          <label>Ý tưởng thay đổi rõ nhất ở giai đoạn nào?<textarea id="xvSelf1"></textarea></label>
+          <label>Điều em làm tốt nhất là gì?<textarea id="xvSelf2"></textarea></label>
+          <label>Nếu làm lại, em sẽ thay đổi điều gì?<textarea id="xvSelf3"></textarea></label>
+          <label>Em học được gì về di sản?<textarea id="xvSelf4"></textarea></label>
+        </div>
+      </section>
+
+      <section class="xv-card xv-step">
+        <h3 class="xv-step-title">5. Khép lại hành trình sáng tạo</h3>
+        <label class="xv-confirm">
+          <input type="checkbox" id="xvConfirm">
+          <span>Tôi đã giới thiệu tác phẩm, lắng nghe phản hồi và tự đánh giá.</span>
+        </label>
+        <div class="xv-finish-row">
+          <span id="xvExStatus" class="xv-status">Chưa hoàn tất phần trưng bày – chia sẻ.</span>
+          <button id="xvSaveEx" type="button" class="xv-btn-save">💾 Lưu phần trưng bày</button>
+          <button id="xvFinish" type="button" class="xv-btn-finish">✓ Hoàn tất hành trình</button>
+        </div>
+      </section>
+
+    </div>
 
     <!-- Gallery -->
     <div class="xv-gallery-head">
@@ -674,6 +844,14 @@
       var studentId = document.getElementById('xvStudentId').value.trim();
       var studentClass = document.getElementById('xvClass').value.trim();
       var heritage = document.getElementById('xvHeritage').value;
+      var artTitle = document.getElementById('xvArtTitle').value.trim();
+      var artMaterial = document.getElementById('xvArtMaterial').value.trim();
+      var artMessage = document.getElementById('xvArtMessage').value.trim();
+      var descParts = [];
+      if (note) descParts.push(note);
+      if (artMaterial) descParts.push('Chất liệu: ' + artMaterial);
+      if (artMessage) descParts.push('Thông điệp: ' + artMessage);
+      var desc = descParts.join(' · ');
 
       var pending = files.length;
       var added = 0;
@@ -685,11 +863,11 @@
           works.unshift({
             id: 'w' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
             kind: file.type.indexOf('pdf') !== -1 ? 'pdf' : 'image',
-            title: note ? note : base,
+            title: artTitle || note || base,
             studentId: studentId,
             studentClass: studentClass,
             heritage: heritage,
-            note: note && base !== note ? 'Tệp gốc: ' + file.name : '',
+            note: [desc, base !== (artTitle || note) ? 'Tệp gốc: ' + file.name : ''].filter(Boolean).join(' · '),
             dataUrl: dataUrl,
             fileName: file.name,
             bytes: file.size,
@@ -735,6 +913,9 @@
           render();
           setStatus('✓ Đã thêm ' + added + ' tác phẩm vào bộ sưu tập.', true);
           document.getElementById('xvNote').value = '';
+          document.getElementById('xvArtTitle').value = '';
+          document.getElementById('xvArtMaterial').value = '';
+          document.getElementById('xvArtMessage').value = '';
         }
       }
     }
@@ -899,10 +1080,71 @@
       render();
     });
 
+    /* ---------- exhibit 5-step fields (demo exhibitV38) ---------- */
+    var EX38_KEY = 'sah_ex38';
+    var EX38_FIELDS = ['xvShare1', 'xvShare2', 'xvShare3', 'xvFb1', 'xvFb2', 'xvFb3', 'xvSelf1', 'xvSelf2', 'xvSelf3', 'xvSelf4'];
+    var exStatus = document.getElementById('xvExStatus');
+
+    function loadEx38() {
+      try {
+        var data = JSON.parse(localStorage.getItem(EX38_KEY) || '{}');
+        EX38_FIELDS.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && data[id]) el.value = data[id];
+        });
+        if (data.confirmed) document.getElementById('xvConfirm').checked = true;
+        refreshExStatus();
+      } catch (e) { /* first run */ }
+    }
+
+    function saveEx38() {
+      var data = { confirmed: document.getElementById('xvConfirm').checked };
+      EX38_FIELDS.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) data[id] = el.value.trim();
+      });
+      localStorage.setItem(EX38_KEY, JSON.stringify(data));
+    }
+
+    function refreshExStatus() {
+      if (!exStatus) return;
+      var filled = EX38_FIELDS.filter(function (id) {
+        var el = document.getElementById(id);
+        return el && el.value.trim();
+      }).length;
+      var confirmed = document.getElementById('xvConfirm').checked;
+      exStatus.textContent = (filled > 0 || confirmed)
+        ? 'Đã điền ' + filled + '/10 phần • ' + (confirmed ? 'đã xác nhận' : 'chưa xác nhận')
+        : 'Chưa hoàn tất phần trưng bày – chia sẻ.';
+      exStatus.className = 'xv-status' + (filled === EX38_FIELDS.length && confirmed ? ' ok' : '');
+    }
+
+    EX38_FIELDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', refreshExStatus);
+    });
+    document.getElementById('xvConfirm').addEventListener('change', refreshExStatus);
+    document.getElementById('xvSaveEx').addEventListener('click', function () {
+      saveEx38();
+      exStatus.textContent = '✓ Đã lưu phần trưng bày trên máy của em.';
+      exStatus.className = 'xv-status ok';
+    });
+    document.getElementById('xvFinish').addEventListener('click', function () {
+      if (!document.getElementById('xvConfirm').checked) {
+        exStatus.textContent = 'Hãy tích chọn xác nhận ở trên trước khi hoàn tất nhé.';
+        exStatus.className = 'xv-status';
+        return;
+      }
+      saveEx38();
+      exStatus.textContent = '🎉 Hoàn tất hành trình sáng tạo — tác phẩm của em đã ở trong Triển Lãm phía dưới!';
+      exStatus.className = 'xv-status ok';
+    });
+
     /* ---------- init ---------- */
     loadWorks();
     migrateOldCanvasSketches();
     restoreStudentMeta();
+    loadEx38();
     render();
   })();
   </script>

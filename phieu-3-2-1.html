@@ -119,16 +119,35 @@
     .p321-sub b { color: var(--gold); font-weight: 700; }
     .p321-rule { width: 72px; height: 1px; background: var(--gold); margin-top: 26px; opacity: 0.9; }
 
-    /* ---------- layout ---------- */
+    /* ---------- layout — single column, demo-style card flow ---------- */
     .p321-main {
-      max-width: 1180px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 34px 28px 0;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 22px;
-      align-items: start;
+      padding: 26px 28px 0;
+      display: block;
     }
+
+    /* ---------- flow note strip (demo: sah-flow-note) ---------- */
+    .p321-flow {
+      max-width: 1180px;
+      margin: 16px auto 0;
+      padding: 0 28px;
+    }
+    .p321-flow-inner {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: rgba(43, 38, 32, 0.94);
+      color: #f4efe6;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .p321-flow-tag { color: var(--gold); }
+    .p321-flow-chain { opacity: 0.85; font-weight: 600; }
 
     /* ---------- student panel ---------- */
     .p321-side {
@@ -184,6 +203,29 @@
     }
     .p321-select option { background: #e9e1d1; color: var(--ink); }
 
+    /* ---------- meta row (demo: sah-meta — project select inline) ---------- */
+    .p321-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+    }
+    .p321-meta .p321-field { margin-bottom: 0; flex: 1 1 170px; }
+    .p321-meta .p321-savebox { margin: 0; padding: 0; border: none; }
+
+    .p321-instruction {
+      font-size: 0.84rem;
+      color: var(--ink-dim);
+      margin: 0 0 16px;
+      line-height: 1.6;
+    }
+    .p321-instruction b { color: var(--ink); }
+
     .p321-savebox {
       margin-top: 20px;
       padding-top: 16px;
@@ -219,6 +261,38 @@
       transition: border-color 0.25s ease;
     }
     .p321-step:focus-within { border-color: rgba(200, 149, 71, 0.4); }
+
+    /* demo step format: 3 – KHÁM PHÁ → CÂU HỎI → prompt → help → textarea */
+    .p321-step-head3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .p321-question-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.26em;
+      color: var(--terra);
+      margin-bottom: 6px;
+    }
+    .p321-prompt {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .p321-help { margin-bottom: 14px; font-size: 0.84rem; color: var(--ink-dim); }
+    .p321-help summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--gold);
+      list-style: none;
+    }
+    .p321-help summary::-webkit-details-marker { display: none; }
+    .p321-help p { margin: 8px 0 0; line-height: 1.6; }
 
     .p321-step-head {
       display: flex;
@@ -337,8 +411,8 @@
 
   <!-- ============ HERO ============ -->
   <header class="p321-hero">
-    <div class="p321-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 3/5 · PHẢN TƯ TRƯỚC KHI SÁNG TẠO</div>
-    <h1 class="p321-title">Phiếu Tư Duy &amp; Phản Tư 3–2–1</h1>
+    <div class="p321-eyebrow">SMART ART HERITAGE — PHẢN TƯ TRƯỚC KHI SÁNG TẠO</div>
+    <h1 class="p321-title">Phiếu 3–2–1 • Hình thành ý tưởng cá nhân</h1>
     <p class="p321-sub">
       Trước khi cầm bút hay mở AI, em quan sát thật kỹ — rồi ghi lại điều khiến em xúc động.
       Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, phiếu này là bước đầu tiên của mọi tác phẩm.
@@ -347,21 +421,29 @@
     <div class="p321-rule"></div>
   </header>
 
-  <!-- ============ FORM ============ -->
+  <!-- ============ FLOW NOTE (demo: sah-flow-note) ============ -->
+  <div class="p321-flow">
+    <div class="p321-flow-inner">
+      <span class="p321-flow-tag">BƯỚC 3 • PHIẾU 3–2–1</span>
+      <span class="p321-flow-chain">Quan sát di sản → 3 Khám phá → 2 Lựa chọn &amp; suy nghĩ → 1 Ý tưởng sáng tạo → AI 5A</span>
+    </div>
+  </div>
+
+  <!-- ============ FORM (single column, demo sah321 arrangement) ============ -->
   <main class="p321-main">
-    <aside class="p321-side">
-      <h2 class="p321-side-title">Thông tin học sinh</h2>
+    <div id="teacherFeedbackBox" hidden style="
+      border: 1px solid rgba(200, 149, 71, 0.45);
+      background: rgba(200, 149, 71, 0.08);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 18px;">
+      <div style="font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em; color: #c89547; margin-bottom: 6px;">PHẢN HỒI CỦA GIÁO VIÊN</div>
+      <p id="teacherFeedbackText" style="margin: 0; font-size: 0.9rem; line-height: 1.65; color: rgba(43, 38, 32, 0.85);"></p>
+    </div>
 
-      <div class="p321-field">
-        <label class="p321-label" for="form321StudentId">Mã Học Sinh</label>
-        <input class="p321-input" id="form321StudentId" type="text" value="HS-6A1-024">
-      </div>
+    <p class="p321-instruction"><b>Cách làm:</b> Đọc câu hỏi → tự trả lời → chỉ mở gợi ý khi cần → lưu phiếu.</p>
 
-      <div class="p321-field">
-        <label class="p321-label" for="form321Class">Lớp</label>
-        <input class="p321-input" id="form321Class" type="text" value="6A1">
-      </div>
-
+    <div class="p321-meta">
       <div class="p321-field">
         <label class="p321-label" for="form321Project">Di Sản Lựa Chọn</label>
         <select class="p321-select" id="form321Project">
@@ -372,73 +454,68 @@
           <option value="dongxam">Chạm bạc Đồng Xâm</option>
         </select>
       </div>
-
+      <div class="p321-field">
+        <label class="p321-label" for="form321StudentId">Mã Học Sinh</label>
+        <input class="p321-input" id="form321StudentId" type="text" value="HS-6A1-024">
+      </div>
+      <div class="p321-field">
+        <label class="p321-label" for="form321Class">Lớp</label>
+        <input class="p321-input" id="form321Class" type="text" value="6A1">
+      </div>
       <div class="p321-savebox">
         <span class="p321-save-dot"></span>
         <span class="p321-save" id="save321Status">✓ Đã sẵn sàng</span>
       </div>
-    </aside>
+    </div>
 
-    <section class="p321-steps">
-      <div id="teacherFeedbackBox" hidden style="
-        border: 1px solid rgba(200, 149, 71, 0.45);
-        background: rgba(200, 149, 71, 0.08);
-        border-radius: 16px;
-        padding: 16px 18px;
-        margin-bottom: 18px;">
-        <div style="font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em; color: #c89547; margin-bottom: 6px;">PHẢN HỒI CỦA GIÁO VIÊN</div>
-        <p id="teacherFeedbackText" style="margin: 0; font-size: 0.9rem; line-height: 1.65; color: rgba(43, 38, 32, 0.85);"></p>
-      </div>
+    <form id="worksheetForm321" onsubmit="return false;">
+      <div style="display:flex; flex-direction:column; gap:18px;">
 
-      <form id="worksheetForm321" onsubmit="return false;">
-        <div style="display:flex; flex-direction:column; gap:18px;">
-
-          <div class="p321-step">
-            <div class="p321-step-head">
-              <span class="p321-badge">3</span>
-              <div>
-                <h3 class="p321-step-title">3 Điều quan sát ấn tượng nhất</h3>
-                <p class="p321-step-desc">Ghi lại 3 chi tiết về đường nét, hình khối, hoa văn, hoặc màu sắc khiến em xúc động.</p>
-              </div>
-            </div>
-            <textarea id="field321_3" class="p321-textarea" placeholder="1. Nhịp điệu 12 đầu đao mái cong thanh thoát...&#10;2. Kết cấu con sơn vì kèo tầng 2 bằng gỗ lim khít khao...&#10;3. Sự tương phản giữa màu đỏ ngói và màu xanh mặt hồ..."></textarea>
-          </div>
-
-          <div class="p321-step">
-            <div class="p321-step-head">
-              <span class="p321-badge">2</span>
-              <div>
-                <h3 class="p321-step-title">2 Câu hỏi tò mò / thắc mắc</h3>
-                <p class="p321-step-desc">Đặt 2 câu hỏi mà em muốn tìm hiểu sâu về kỹ thuật dựng hoặc ý nghĩa văn hóa.</p>
-              </div>
-            </div>
-            <textarea id="field321_2" class="p321-textarea" placeholder="1. Làm thế nào người xưa đưa quả chuông đồng nặng hàng tấn lên đỉnh tầng 3?&#10;2. Tại sao kiến trúc không dùng đinh sắt mà vẫn vững chãi qua bão gió?"></textarea>
-          </div>
-
-          <div class="p321-step">
-            <div class="p321-step-head">
-              <span class="p321-badge">1</span>
-              <div>
-                <h3 class="p321-step-title">1 Ý tưởng nghệ thuật cá nhân</h3>
-                <p class="p321-step-desc">Đề xuất 1 ý tưởng tác phẩm mĩ thuật số mà em muốn tự tay thực hiện.</p>
-              </div>
-            </div>
-            <textarea id="field321_1" class="p321-textarea" placeholder="Em muốn sáng tác một bức tranh màu nước góc nhìn ngước lên từ chân gác chuông, nhấn mạnh ánh hoàng hôn xuyên qua các khe vì kèo gỗ..."></textarea>
-          </div>
-
+        <div class="p321-step">
+          <h3 class="p321-step-head3">3 – KHÁM PHÁ</h3>
+          <div class="p321-question-label">CÂU HỎI</div>
+          <p class="p321-prompt" id="prompt321_3"></p>
+          <details class="p321-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p id="help321_3"></p>
+          </details>
+          <textarea id="field321_3" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
         </div>
-      </form>
 
-      <div class="p321-actions">
-        <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
-          <span>In / Xuất PDF</span>
-        </button>
-        <a id="btnSendToAI5A" class="p321-btn p321-btn-primary" href="tro-ly-ai.html">
-          <span>Chuyển dữ liệu sang Trợ Lý Ai</span>
-          <span>↗</span>
-        </a>
+        <div class="p321-step">
+          <h3 class="p321-step-head3">2 – LỰA CHỌN &amp; SUY NGHĨ</h3>
+          <div class="p321-question-label">CÂU HỎI</div>
+          <p class="p321-prompt" id="prompt321_2"></p>
+          <details class="p321-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p id="help321_2"></p>
+          </details>
+          <textarea id="field321_2" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
+        </div>
+
+        <div class="p321-step">
+          <h3 class="p321-step-head3">1 – Ý TƯỞNG SÁNG TẠO CÁ NHÂN</h3>
+          <div class="p321-question-label">CÂU HỎI</div>
+          <p class="p321-prompt" id="prompt321_1"></p>
+          <details class="p321-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p id="help321_1"></p>
+          </details>
+          <textarea id="field321_1" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
+        </div>
+
       </div>
-    </section>
+    </form>
+
+    <div class="p321-actions">
+      <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
+        <span>In / Xuất PDF</span>
+      </button>
+      <a id="btnSendToAI5A" class="p321-btn p321-btn-primary" href="tro-ly-ai.html">
+        <span>Tiếp tục → AI 5A</span>
+        <span>↗</span>
+      </a>
+    </div>
   </main>
 
   <script>
@@ -448,6 +525,61 @@
     var FIELDS = ['field321_3', 'field321_2', 'field321_1'];
     var saveStatus = document.getElementById('save321Status');
     var saveTimer = null;
+
+    /* Per-heritage question packs (demo: direct321 module) */
+    var QUESTION_PACKS = {
+      phohien: {
+        q3: 'Nêu 3 chi tiết giúp em nhận ra nét riêng của không gian Phố Hiến xưa.',
+        h3: 'Quan sát mái nhà, cổng, đường phố, cây xanh, màu sắc hoặc chi tiết kiến trúc.',
+        q2: 'Chọn 2 chi tiết tiêu biểu nhất. Chúng gợi cho em cảm xúc hoặc câu chuyện gì về Phố Hiến?',
+        h2: 'Ưu tiên chi tiết gợi nét cổ kính, yên bình hoặc dấu ấn giao lưu văn hóa; giải thích vì sao.',
+        q1: 'Từ 2 chi tiết đã chọn, đề xuất 1 sản phẩm Mĩ thuật giới thiệu Phố Hiến theo cách riêng.',
+        h1: 'Có thể là tranh, poster, bưu thiếp, logo hoặc thiết kế số; nêu hình ảnh chính, màu sắc và thông điệp.'
+      },
+      chuakeo: {
+        q3: 'Tìm 3 đặc điểm tạo hình nổi bật của kiến trúc Chùa Keo.',
+        h3: 'Chú ý mái, các lớp công trình, đường cong – thẳng, nhịp lặp, kết cấu gỗ hoặc trang trí.',
+        q2: 'Chọn 2 đặc điểm tạo nên vẻ đẹp riêng của Chùa Keo. Vì sao?',
+        h2: 'Xem đặc điểm nào tạo cảm giác cân đối, thanh thoát, nhịp nhàng hoặc cổ kính.',
+        q1: 'Từ 2 đặc điểm đã chọn, hình thành 1 ý tưởng sản phẩm Mĩ thuật lấy cảm hứng từ Chùa Keo.',
+        h1: 'Có thể cách điệu mái chùa, hoa văn hoặc nhịp kiến trúc thành tranh, họa tiết, mô hình hay sản phẩm ứng dụng.'
+      },
+      dentran: {
+        q3: 'Nêu 3 hình ảnh hoặc chi tiết ở Đền Trần gợi cảm giác trang nghiêm và dấu ấn lịch sử.',
+        h3: 'Chú ý cổng, đền, lăng mộ, trục đường, cây xanh, đồ án trang trí hoặc cách sắp xếp công trình.',
+        q2: 'Chọn 2 chi tiết để kể một câu chuyện ngắn bằng hình ảnh về Đền Trần. Em muốn người xem hiểu điều gì?',
+        h2: 'Không cần kể nhiều sự kiện; chọn hai hình ảnh rõ và nêu một ý nghĩa em hiểu được.',
+        q1: 'Từ câu chuyện đó, đề xuất 1 sản phẩm Mĩ thuật thể hiện sự trân trọng đối với di sản Đền Trần.',
+        h1: 'Có thể làm poster, tranh kể chuyện, bìa sách, biểu trưng hoặc mô hình; chọn hình ảnh trung tâm và thông điệp ngắn.'
+      },
+      lequydon: {
+        q3: 'Tìm 3 hình ảnh hoặc đồ vật ở khu lưu niệm gợi về học tập, nghiên cứu và tri thức.',
+        h3: 'Chú ý chân dung, sách, bút, bàn học, không gian từ đường hoặc hiện vật.',
+        q2: 'Chọn 2 chi tiết thể hiện rõ nhất tinh thần ham học và khám phá tri thức. Vì sao?',
+        h2: 'Chọn chi tiết giúp người xem liên tưởng đến đọc sách, suy nghĩ, nghiên cứu hoặc học hỏi.',
+        q1: 'Từ 2 chi tiết đó, hình thành 1 ý tưởng sản phẩm Mĩ thuật truyền cảm hứng học tập cho học sinh hôm nay.',
+        h1: 'Có thể thiết kế poster, bookmark, bìa sổ, tranh minh họa hoặc sản phẩm số; thêm thông điệp ngắn.'
+      },
+      dongxam: {
+        q3: 'Tìm 3 đặc điểm tạo hình khiến sản phẩm chạm bạc Đồng Xâm trở nên nổi bật.',
+        h3: 'Chú ý hoa văn, đường chạm, hình nổi – chìm, nhịp lặp, bố cục hoặc ánh sáng bề mặt.',
+        q2: 'Chọn 2 đặc điểm có thể phát triển thành họa tiết mới. Em sẽ giữ điều gì và thay đổi điều gì?',
+        h2: 'Có thể giữ nhịp hoa văn hoặc nét chạm đặc trưng rồi đơn giản hóa hình hay đổi cách sắp xếp.',
+        q1: 'Từ 2 đặc điểm đã chọn, đề xuất 1 sản phẩm Mĩ thuật ứng dụng hiện đại nhưng vẫn gợi nhớ chạm bạc Đồng Xâm.',
+        h1: 'Có thể thiết kế họa tiết cho hộp, túi, bìa sổ, huy hiệu, trang sức mô phỏng hoặc sản phẩm số.'
+      }
+    };
+
+    function applyPrompts() {
+      var pack = QUESTION_PACKS[document.getElementById('form321Project').value] || QUESTION_PACKS.chuakeo;
+      [['3', pack.q3, pack.h3], ['2', pack.q2, pack.h2], ['1', pack.q1, pack.h1]].forEach(function (row) {
+        var n = row[0];
+        document.getElementById('prompt321_' + n).textContent = row[1];
+        document.getElementById('help321_' + n).textContent = row[2];
+      });
+    }
+    document.getElementById('form321Project').addEventListener('change', applyPrompts);
+    applyPrompts();
 
     function debounce(fn, delay) {
       return function () {

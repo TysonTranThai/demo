@@ -84,6 +84,10 @@
       transition: color 0.2s ease, background 0.2s ease;
     }
     .p321-link:hover { color: var(--ink); background: var(--glass-strong); }
+    .p321-jnote {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--ink-dim); align-self: center;
+    }
     .p321-link.is-current {
       color: var(--gold);
       background: var(--glass-strong);
@@ -401,11 +405,10 @@
       <span>Trang Chủ</span>
     </a>
     <nav class="p321-links">
-      <a class="p321-link" href="di-san.html">1 · Di sản &amp; Câu hỏi</a>
-      <a class="p321-link" href="models.html">2 · Phòng 3D</a>
-      <a class="p321-link is-current" href="phieu-3-2-1.html" aria-current="page">3 · Phiếu 3–2–1</a>
-      <a class="p321-link" href="tro-ly-ai.html">4 · Trợ Lý Ai</a>
-      <a class="p321-link" href="trien-lam.html">5 · Triển lãm</a>
+      <span class="p321-jnote">Hành trình đã tích hợp trên một trang —</span>
+      <a class="p321-link" href="index.html#p321">Mở hành trình tích hợp ↗</a>
+      <a class="p321-link" href="models.html">Phòng 3D</a>
+      <a class="p321-link" href="giao-vien.html">Giáo Viên</a>
     </nav>
   </div>
 
@@ -511,8 +514,8 @@
       <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
         <span>In / Xuất PDF</span>
       </button>
-      <a id="btnSendToAI5A" class="p321-btn p321-btn-primary" href="tro-ly-ai.html">
-        <span>Tiếp tục → AI 5A</span>
+      <a id="btnSendToAI5A" class="p321-btn p321-btn-primary" href="index.html#ai5a">
+        <span>Tiếp tục → Xưởng AI 5A (trang tích hợp)</span>
         <span>↗</span>
       </a>
     </div>

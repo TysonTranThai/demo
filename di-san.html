@@ -96,7 +96,12 @@
       background: var(--glass);
       transition: color 0.2s ease, background 0.2s ease;
     }
-    .ds-journey-link:hover { color: var(--ink); background: var(--glass-strong); }
+    .ds-journey-note {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-dim);
+      display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
     .ds-journey-link.is-current {
       color: var(--gold);
       background: var(--glass-strong);
@@ -469,13 +474,13 @@
     <nav class="ds-tabs" id="dsTabs" aria-label="Chọn di sản"></nav>
   </div>
 
-  <!-- ============ JOURNEY STRIP ============ -->
+  <!-- ============ JOURNEY INTEGRATION NOTE ============ -->
   <nav class="ds-journey" aria-label="Hành trình học tập">
-    <a class="ds-journey-link is-current" href="di-san.html" aria-current="page">1 · Di sản &amp; Câu hỏi</a>
-    <a class="ds-journey-link" href="models.html">2 · Phòng 3D</a>
-    <a class="ds-journey-link" href="phieu-3-2-1.html">3 · Phiếu 3–2–1</a>
-    <a class="ds-journey-link" href="tro-ly-ai.html">4 · Trợ Lý Ai</a>
-    <a class="ds-journey-link" href="trien-lam.html">5 · Triển lãm</a>
+    <span class="ds-journey-note">Hành trình đã tích hợp trên một trang —
+      <a class="ds-journey-link" href="index.html#dossier">Mở hành trình tích hợp ↗</a>
+      <a class="ds-journey-link" href="models.html">Phòng 3D</a>
+      <a class="ds-journey-link" href="giao-vien.html">Giáo Viên</a>
+    </span>
   </nav>
 
   <!-- ============ HEAD — title block sits ABOVE the cover ============ -->
@@ -515,8 +520,8 @@
   <div class="ds-foot">
     <span class="ds-foot-text">NO OBSERVATION → NO AI · Quan sát thật trước khi sáng tạo</span>
     <div class="ds-actions">
-      <a class="ds-btn" href="models.html">Vào phòng 3D ↗</a>
-      <a class="ds-btn ds-btn-primary" href="index.html#selectedWork">Tất cả di sản</a>
+      <a class="ds-btn ds-btn-primary" href="index.html#dossier">Vào hành trình tích hợp ↗</a>
+      <a class="ds-btn" href="index.html">Trang chính</a>
     </div>
   </div>
 
@@ -590,6 +595,12 @@
       });
     }
 
+    // Whole journey is integrated in index.html — hand this heritage over to it
+    function selectAndGo(key) {
+      try { sessionStorage.setItem('sah_pick', key); } catch (e) {}
+      location.href = 'index.html#dossier';
+    }
+
     function buildTabs() {
       var tabs = $('dsTabs');
       tabs.innerHTML = '';
@@ -601,7 +612,7 @@
         b.innerHTML =
           '<span class="ds-tab-dot" style="background:' + META[key].color + '"></span>' +
           '0' + (i + 1) + ' • ' + META[key].crumbName;
-        b.addEventListener('click', function () { location.hash = key; window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        b.addEventListener('click', function () { selectAndGo(key); });
         tabs.appendChild(b);
       });
     }

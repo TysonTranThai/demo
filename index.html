@@ -2,303 +2,2673 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMART ART HERITAGE V1.0 — Chọn hồ sơ di sản</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SMART ART HERITAGE — Hành trình tích hợp: Di sản → 3–2–1 → AI 5A → Triển lãm</title>
+  <meta name="description" content="Một trang duy nhất: chọn hồ sơ di sản → xem 15 ảnh tư liệu & bộ câu hỏi → phiếu 3–2–1 → AI 5A → triển lãm tác phẩm. Toàn bộ hành trình liền mạch như một bài học.">
+  <meta name="theme-color" content="#f4efe6">
 
-  <!-- Google Fonts: Plus Jakarta Sans for high-craft editorial typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
-  <!-- Custom Core Design System -->
-  <link rel="stylesheet" href="css/smart-art-heritage.css?v=3">
+  <link rel="stylesheet" href="css/smart-art-heritage.css?v=4">
 
   <style>
-    /* ===== Home arranged like the reference: intro → notice → 5 profile cards → flow note ===== */
-    .hm-wrap {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 34px 24px 60px;
+    :root {
+      --ink: #2b2620;
+      --ink-dim: rgba(43, 38, 32, 0.72);
+      --ink-faint: rgba(43, 38, 32, 0.55);
+      --glass: rgba(255, 255, 255, 0.78);
+      --glass-strong: rgba(255, 255, 255, 0.92);
+      --gold: #c89547;
+      --terra: #c46238;
+      --hair: rgba(43, 38, 32, 0.14);
+      --field: rgba(43, 38, 32, 0.06);
     }
-    .hm-eyebrow {
-      font-size: 0.68rem; font-weight: 800;
-      letter-spacing: 0.32em;
-      color: var(--gold);
-      margin-bottom: 12px;
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #f4efe6; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding-bottom: 60px;
     }
-    .hm-title {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.08;
-      margin: 0;
-      letter-spacing: 0.01em;
+    section[id], div[id] { scroll-margin-top: 96px; }
+
+    /* ============ INTEGRATED JOURNEY BAR (sticky, like the demo tabs) ============ */
+    .jn-bar {
+      position: sticky; top: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 12px 24px;
+      background: rgba(244, 239, 230, 0.94);
+      border-bottom: 1px solid var(--hair);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
-    .hm-muted {
-      margin: 14px 0 0;
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--ink-dim);
-      max-width: 820px;
+    .jn-brand {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em;
+      color: var(--ink); text-decoration: none; white-space: nowrap;
     }
+    .jn-brand em {
+      font-style: normal; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); box-shadow: 0 0 0 4px rgba(200, 149, 71, 0.18);
+    }
+    .jn-steps { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; max-width: 72vw; }
+    .jn-steps::-webkit-scrollbar { display: none; }
+    .jn-link {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-dim); text-decoration: none; white-space: nowrap;
+      padding: 8px 13px; border-radius: 999px; border: 1px solid transparent;
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .jn-link:hover { color: var(--ink); background: rgba(43, 38, 32, 0.07); }
+    .jn-link.is-current {
+      color: var(--gold); background: var(--glass-strong);
+      border-color: var(--gold);
+    }
+    .jn-ext { color: var(--ink-faint); }
+
+    @media (max-width: 760px) {
+      .jn-bar { padding: 10px 14px; }
+      .jn-steps { max-width: none; }
+      .jn-link { padding: 7px 11px; font-size: 0.62rem; }
+    }
+
+    /* ============ BƯỚC BELT (demo: sah-flow-note / notice) ============ */
+    .sec-belt { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .sec-belt-inner {
+      display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+      background: rgba(23, 61, 50, 0.96);
+      color: #f4efe6; padding: 12px 18px; border-radius: 14px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+    }
+    .sec-belt-tag { color: #f1d084; white-space: nowrap; }
+    .sec-belt-chain { opacity: 0.88; font-weight: 600; }
+
+    /* ============ STEP 1 — HOME (demo p0) ============ */
+    .hm-wrap { max-width: 1050px; margin: 0 auto; padding: 34px 24px 8px; }
+    .hm-eyebrow { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.32em; color: var(--gold); margin-bottom: 12px; }
+    .hm-title { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.08; margin: 0; letter-spacing: 0.01em; }
+    .hm-muted { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.65; color: var(--ink-dim); max-width: 820px; }
     .hm-notice {
-      background: rgba(43, 38, 32, 0.92);
-      color: #f4efe6;
-      border-radius: 16px;
-      padding: 14px 18px;
-      margin: 20px 0 0;
-      font-size: 0.88rem;
-      line-height: 1.6;
+      background: rgba(23, 61, 50, 0.96); color: #f4efe6;
+      border-radius: 16px; padding: 14px 18px; margin: 20px 0 0;
+      font-size: 0.88rem; line-height: 1.6;
     }
     .hm-notice b { color: #f1d084; }
 
-    /* five profile tab-cards (demo: .tabs > .tablabel) */
-    .hm-tabs {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin: 26px 0 30px;
-    }
+    .hm-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 26px 0 6px; }
     @media (max-width: 1024px) { .hm-tabs { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px)  { .hm-tabs { grid-template-columns: 1fr; } }
     .hm-tab {
-      display: block;
-      overflow: hidden;
-      background: var(--glass-strong);
-      border: 1px solid var(--hair);
-      border-radius: 16px;
-      padding: 0;
-      text-decoration: none;
-      color: var(--ink);
+      display: block; overflow: hidden; padding: 0; text-align: left;
+      background: var(--glass-strong); border: 1px solid var(--hair); border-radius: 16px;
+      font-family: inherit; color: var(--ink); cursor: pointer;
       transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
     }
-    .hm-tab:hover {
-      border-color: rgba(200, 149, 71, 0.55);
-      background: #fff;
-      transform: translateY(-2px);
-    }
-    .hm-tab img {
-      display: block;
-      width: 100%;
-      height: 118px;
-      object-fit: cover;
-      filter: saturate(0.95);
-      border-bottom: 1px solid var(--hair);
-    }
+    .hm-tab:hover { border-color: rgba(200, 149, 71, 0.55); background: #fff; transform: translateY(-2px); }
+    .hm-tab img { display: block; width: 100%; height: 118px; object-fit: cover; filter: saturate(0.95); border-bottom: 1px solid var(--hair); }
     .hm-tab-body { padding: 13px 15px 15px; }
-    .hm-tab small {
-      display: block;
-      color: var(--terra);
-      font-weight: 800;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-    }
-    .hm-tab strong {
-      display: block;
-      font-size: 1.22rem;
-      margin: 5px 0 4px;
-      font-weight: 800;
-    }
-    .hm-tab span {
-      color: var(--ink-dim);
-      font-size: 0.78rem;
-      line-height: 1.5;
-      display: block;
-    }
+    .hm-tab small { display: block; color: var(--terra); font-weight: 800; font-size: 0.62rem; letter-spacing: 0.22em; }
+    .hm-tab strong { display: block; font-size: 1.22rem; margin: 5px 0 4px; font-weight: 800; }
+    .hm-tab span { color: var(--ink-dim); font-size: 0.78rem; line-height: 1.5; display: block; }
+    .hm-tab.is-active { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 2px rgba(200, 149, 71, 0.25); }
 
-    /* home panel (demo: #p0 home-panel) */
-    .hm-panel {
-      background: var(--glass);
-      border: 1px solid var(--hair);
-      border-radius: 20px;
-      padding: 26px 28px;
-    }
-    .hm-panel-eyebrow {
-      font-size: 0.62rem; font-weight: 800;
-      letter-spacing: 0.3em;
-      color: var(--terra);
-      margin-bottom: 8px;
-    }
-    .hm-panel h2 {
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin: 0 0 10px;
-    }
+    .hm-panel { background: var(--glass); border: 1px solid var(--hair); border-radius: 20px; padding: 26px 28px; margin-top: 24px; }
+    .hm-panel-eyebrow { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.3em; color: var(--terra); margin-bottom: 8px; }
+    .hm-panel h2 { font-size: 1.7rem; font-weight: 800; margin: 0 0 10px; }
     .hm-note {
-      background: #fff;
-      border: 1px solid var(--hair);
-      border-radius: 16px;
-      padding: 15px 18px;
-      line-height: 1.6;
-      font-size: 0.88rem;
-      color: var(--ink-dim);
-      margin-top: 16px;
+      background: #fff; border: 1px solid var(--hair); border-radius: 16px;
+      padding: 15px 18px; line-height: 1.6; font-size: 0.88rem; color: var(--ink-dim); margin-top: 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
     }
     .hm-note b { color: var(--ink); }
+    .hm-cta {
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #171716; background: var(--gold); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 11px 20px; text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .hm-cta:hover { background: #f7dfa8; }
+
+    /* ============ STEP 2 — HERITAGE DOSSIER (di-san layout, demo p1–p5) ============ */
+    .ds-shell { display: none; }
+    .ds-shell.is-open { display: block; }
+    .ds-head { max-width: 1180px; margin: 0 auto; padding: 40px 28px 0; }
+    .ds-eyebrow { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.36em; color: var(--gold); margin-bottom: 12px; }
+    .ds-title { font-size: clamp(2.2rem, 5.5vw, 3.9rem); font-weight: 800; letter-spacing: 0.01em; margin: 0; line-height: 1.05; }
+    .ds-sub { margin: 14px 0 0; font-size: clamp(0.9rem, 2vw, 1.02rem); line-height: 1.65; color: var(--ink-dim); max-width: 860px; }
+    .ds-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .ds-meta-chip {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-dim);
+      border: 1px solid var(--hair); background: var(--glass); padding: 6px 12px; border-radius: 999px;
+    }
+    .ds-cover-wrap { max-width: 1180px; margin: 0 auto; padding: 18px 28px 0; }
+    .ds-cover { display: block; width: 100%; max-height: 420px; object-fit: cover; border-radius: 20px; border: 1px solid var(--hair); filter: saturate(0.95); }
+
+    .ds-gallery-sec { max-width: 1180px; margin: 0 auto; padding: 30px 28px 0; }
+    .ds-gal-title { font-size: 1.3rem; font-weight: 800; margin: 0; }
+    .ds-gal-sub { margin: 6px 0 0; font-size: 0.86rem; color: var(--ink-dim); line-height: 1.6; }
+    .ds-gallery { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .ds-photo {
+      font-family: inherit; text-align: left; padding: 0;
+      background: var(--glass); border: 1px solid var(--hair); border-radius: 14px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .ds-photo:hover { border-color: rgba(200, 149, 71, 0.5); transform: translateY(-2px); }
+    .ds-photo img { display: block; width: 100%; height: 175px; object-fit: cover; filter: saturate(0.95); }
+    .ds-photo-cap { display: block; font-size: 0.72rem; font-weight: 600; padding: 8px 10px; color: var(--ink-dim); line-height: 1.4; }
+    @media (max-width: 640px) { .ds-gallery { grid-template-columns: repeat(2, 1fr); } .ds-photo img { height: 130px; } }
+
+    .ds-main { max-width: 1180px; margin: 0 auto; padding: 34px 28px 10px; }
+    .ds-lab-head { margin: 0 0 20px; }
+    .ds-lab-head .ds-eyebrow { color: var(--terra); margin-bottom: 8px; }
+    .ds-section-title { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.02em; margin: 0; }
+    .ds-section-note { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 4px; }
+
+    .hs-grid { column-count: 3; column-gap: 18px; }
+    @media (max-width: 1024px) { .hs-grid { column-count: 2; } }
+    @media (max-width: 640px)  { .hs-grid { column-count: 1; } }
+    .hs-card {
+      break-inside: avoid; margin: 0 0 18px; scroll-margin-top: 96px;
+      background: var(--glass); border: 1px solid var(--hair); border-radius: 16px; overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .hs-card:hover { border-color: rgba(200, 149, 71, 0.4); }
+    .hs-photo-wrap { position: relative; background: #f0eae1; }
+    .hs-photo { display: block; width: 100%; height: auto; filter: saturate(0.95); }
+    .hs-no {
+      position: absolute; top: 10px; left: 10px;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em;
+      color: #171716; background: var(--gold); padding: 4px 9px; border-radius: 999px;
+    }
+    .hs-body { padding: 16px 18px 14px; }
+    .hs-title { font-size: 1.02rem; font-weight: 700; line-height: 1.35; margin: 0 0 12px; }
+    .hs-q { border-top: 1px solid var(--hair); }
+    .hs-q summary {
+      list-style: none; display: flex; align-items: center; gap: 9px;
+      padding: 11px 2px; cursor: pointer; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.05em; color: var(--ink-dim); transition: color 0.2s ease; user-select: none;
+    }
+    .hs-q summary::-webkit-details-marker { display: none; }
+    .hs-q summary:hover, .hs-q[open] summary { color: var(--ink); }
+    .hs-q-mark {
+      width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--hair);
+      display: flex; align-items: center; justify-content: center; font-size: 0.62rem; color: var(--gold); flex-shrink: 0;
+    }
+    .hs-q[open] .hs-q-mark { background: rgba(200, 149, 71, 0.14); border-color: rgba(200, 149, 71, 0.35); }
+    .hs-q-chev { margin-left: auto; font-size: 0.7rem; transition: transform 0.25s ease; color: var(--ink-faint); }
+    .hs-q[open] .hs-q-chev { transform: rotate(90deg); }
+    .hs-q-body { padding: 2px 2px 14px 31px; font-size: 0.86rem; line-height: 1.6; color: var(--ink-dim); }
+    .hs-flash { animation: hsFlash 1.6s ease; }
+    @keyframes hsFlash {
+      0%, 55% { border-color: rgba(200, 149, 71, 0.85); box-shadow: 0 0 0 3px rgba(200, 149, 71, 0.22); }
+      100% { border-color: rgba(43, 38, 32, 0.14); box-shadow: none; }
+    }
+    .ds-loading { padding: 60px 0; text-align: center; color: var(--ink-faint); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .ds-foot { max-width: 1180px; margin: 0 auto; padding: 6px 28px 10px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .ds-foot-text { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+    .ds-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 999px;
+      border: 1px solid var(--hair); background: var(--glass); color: var(--ink-dim);
+      font-family: inherit; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background 0.2s ease, color 0.2s ease;
+    }
+    .ds-btn:hover { background: var(--glass-strong); color: var(--ink); }
+    .ds-btn-primary { background: var(--gold); border-color: var(--gold); color: #171716; }
+    .ds-btn-primary:hover { background: #f7dfa8; color: #171716; }
+
+    /* ============ STEP 3 — PHIẾU 3–2–1 (phieu-3-2-1 layout) ============ */
+    .p321-wrap { max-width: 880px; margin: 0 auto; padding: 30px 28px 10px; }
+    .p321-eyebrow { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.36em; color: var(--gold); margin-bottom: 14px; }
+    .p321-title { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: 0.01em; margin: 0; line-height: 1.06; }
+    .p321-sub { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.65; color: var(--ink-dim); max-width: 780px; }
+    .p321-sub b { color: var(--gold); font-weight: 700; }
+    .p321-instruction { font-size: 0.84rem; color: var(--ink-dim); margin: 18px 0 16px; line-height: 1.6; }
+    .p321-instruction b { color: var(--ink); }
+
+    .p321-meta {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+      background: var(--glass); border: 1px solid var(--hair); border-radius: 18px; padding: 18px 20px; margin-bottom: 18px;
+    }
+    .p321-field { margin-bottom: 0; flex: 1 1 170px; }
+    .p321-label {
+      display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink-dim); margin-bottom: 8px;
+    }
+    .p321-input, .p321-select, .p321-textarea {
+      width: 100%; background: var(--field); border: 1px solid var(--hair); border-radius: 12px;
+      color: var(--ink); font-family: inherit; font-size: 0.9rem; padding: 11px 14px; outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .p321-input:focus, .p321-select:focus, .p321-textarea:focus { border-color: rgba(200, 149, 71, 0.5); background: rgba(43, 38, 32, 0.09); }
+    .p321-select {
+      appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 38px;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232b2620' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+    }
+    .p321-select option { background: #e9e1d1; color: var(--ink); }
+    .p321-savebox { display: flex; align-items: center; gap: 9px; min-height: 22px; }
+    .p321-save { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; color: #3e7d50; }
+    .p321-save-dot { width: 7px; height: 7px; border-radius: 50%; background: #3e7d50; flex-shrink: 0; }
+
+    .p321-steps { display: flex; flex-direction: column; gap: 18px; }
+    .p321-step {
+      background: var(--glass); border: 1px solid var(--hair); border-radius: 18px; padding: 24px;
+      transition: border-color 0.25s ease;
+    }
+    .p321-step:focus-within { border-color: rgba(200, 149, 71, 0.4); }
+    .p321-step-head3 { margin: 0 0 12px; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.02em; }
+    .p321-question-label { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.26em; color: var(--terra); margin-bottom: 6px; }
+    .p321-prompt { margin: 0 0 10px; font-size: 0.92rem; line-height: 1.6; font-weight: 600; color: var(--ink); }
+    .p321-help { margin-bottom: 14px; font-size: 0.84rem; color: var(--ink-dim); }
+    .p321-help summary { cursor: pointer; font-weight: 700; font-size: 0.8rem; color: var(--gold); list-style: none; }
+    .p321-help summary::-webkit-details-marker { display: none; }
+    .p321-help p { margin: 8px 0 0; line-height: 1.6; }
+    .p321-textarea { min-height: 118px; resize: vertical; line-height: 1.6; }
+
+    .p321-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin: 18px 0 8px; }
+    .p321-btn {
+      display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 999px;
+      font-family: inherit; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .p321-btn:active { transform: scale(0.98); }
+    .p321-btn-ghost { background: var(--glass); border: 1px solid var(--hair); color: var(--ink-dim); }
+    .p321-btn-ghost:hover { background: var(--glass-strong); color: var(--ink); }
+    .p321-btn-primary { background: var(--gold); border: 1px solid var(--gold); color: #171716; }
+    .p321-btn-primary:hover { background: #f7dfa8; }
+
+    .p321-feedback {
+      border: 1px solid rgba(200, 149, 71, 0.45); background: rgba(200, 149, 71, 0.08);
+      border-radius: 16px; padding: 16px 18px; margin-bottom: 18px;
+    }
+    .p321-feedback-tag { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.22em; color: #c89547; margin-bottom: 6px; }
+    .p321-feedback-text { margin: 0; font-size: 0.9rem; line-height: 1.65; color: rgba(43, 38, 32, 0.85); }
+
+    /* ============ STEP 4 — AI 5A STUDIO (tro-ly-ai layout) ============ */
+    .tlai-wrap { max-width: 1050px; margin: 0 auto; padding: 30px 28px 10px; }
+    .tlai-eyebrow { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.36em; color: var(--gold); margin-bottom: 14px; }
+    .tlai-title { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: 0.01em; margin: 0; line-height: 1.06; }
+    .tlai-title .ai-mark { color: var(--gold); }
+    .tlai-sub { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.65; color: var(--ink-dim); max-width: 780px; }
+    .tlai-sub b { color: var(--gold); font-weight: 700; }
+    .tlai-ownership { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .tlai-ownership span {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
+      padding: 7px 13px; border-radius: 999px; border: 1px solid var(--hair); background: var(--glass); color: var(--ink-dim);
+    }
+    .tlai-ownership .own-student { color: #3e7d50; border-color: rgba(62,125,80,.4); background: rgba(62,125,80,.08); }
+    .tlai-ownership .own-ai { color: #3d5a80; border-color: rgba(61,90,128,.4); background: rgba(61,90,128,.08); }
+    .tlai-progress5 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+    .tlai-progress5 .p5 {
+      display: flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; color: var(--ink-dim);
+      padding: 8px 14px; border-radius: 999px; border: 1px solid var(--hair); background: var(--glass);
+    }
+    .tlai-progress5 .p5.on { background: rgba(200,149,71,.14); border-color: rgba(200,149,71,.4); color: var(--gold); }
+    .tlai-progress5 .p5-arrow { color: var(--ink-faint); }
+    .tlai-studio-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-top: 18px; }
+    .tlai-field label {
+      display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px;
+    }
+    .tlai-field select, .tlai-field input, .tlai-field textarea {
+      width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; outline: none; transition: border-color .2s ease;
+    }
+    .tlai-field select:focus, .tlai-field input:focus, .tlai-field textarea:focus { border-color: rgba(200,149,71,.55); }
+    .tlai-field select option { background: #e9e1d1; color: var(--ink); }
+    .tlai-field textarea { resize: vertical; }
+    .tlai-seed { margin-top: 16px; background: var(--glass); border: 1px solid var(--hair); border-radius: 16px; padding: 16px 18px; }
+    .tlai-seed-head { font-size: 0.8rem; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+    .tlai-seed-sub { font-size: 0.76rem; color: var(--ink-dim); margin-bottom: 10px; }
+    .tlai-studio-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 22px; }
+    .tlai-step5 {
+      position: relative; background: var(--glass); border: 1px solid var(--hair);
+      border-radius: 20px; padding: 22px 24px 22px 80px;
+    }
+    .tlai-stepbadge {
+      position: absolute; left: 20px; top: 22px; width: 42px; height: 42px; border-radius: 14px;
+      background: var(--gold); color: #171716; font-weight: 800; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tlai-step5 h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 800; }
+    .tlai-step5 .sub { margin: 0 0 14px; font-size: 0.82rem; color: var(--ink-dim); line-height: 1.55; }
+    .tlai-nat { border-top: 1px solid var(--hair); }
+    .tlai-nat summary {
+      list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+      padding: 12px 2px; font-weight: 700; font-size: 0.86rem; color: var(--ink-dim);
+    }
+    .tlai-nat summary::-webkit-details-marker { display: none; }
+    .tlai-nat[open] summary { color: var(--ink); }
+    .tlai-nat-body { padding: 2px 2px 14px; }
+    .tlai-nat-body p { margin: 0 0 8px; font-size: 0.86rem; font-weight: 600; color: var(--ink); line-height: 1.55; }
+    .tlai-nat-body textarea {
+      width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; min-height: 74px; resize: vertical; outline: none;
+    }
+    .tlai-nat-body textarea:focus { border-color: rgba(200,149,71,.55); }
+    .tlai-asklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .tlai-askq {
+      text-align: left; font-family: inherit; font-size: 0.84rem; font-weight: 600; color: var(--ink-dim);
+      background: var(--glass-strong); border: 1px solid var(--hair); border-radius: 12px; padding: 10px 14px;
+      cursor: pointer; transition: border-color .2s ease, color .2s ease;
+    }
+    .tlai-askq:hover { border-color: rgba(200,149,71,.5); color: var(--ink); }
+    .tlai-pathgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .tlai-path {
+      text-align: left; background: var(--glass-strong); border: 1px solid var(--hair); border-radius: 14px;
+      padding: 14px 16px; cursor: pointer; font-family: inherit; transition: border-color .2s ease, background .2s ease;
+    }
+    .tlai-path b { display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--ink); }
+    .tlai-path span { font-size: 0.78rem; color: var(--ink-dim); line-height: 1.5; }
+    .tlai-path:hover { border-color: rgba(200,149,71,.5); }
+    .tlai-path.sel { border-color: var(--gold); background: rgba(200,149,71,.1); }
+    .tlai-decision { display: block; margin-top: 14px; font-size: 0.8rem; font-weight: 700; color: var(--ink-dim); }
+    .tlai-decision textarea {
+      width: 100%; margin-top: 7px; min-height: 74px; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 12px; padding: 11px 14px;
+      outline: none; resize: vertical;
+    }
+    .tlai-designboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .tlai-designboard fieldset { border: 1px solid var(--hair); border-radius: 14px; padding: 12px 14px; margin: 0; }
+    .tlai-designboard legend {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--ink-faint); padding: 0 6px;
+    }
+    .tlai-designboard label { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; color: var(--ink-dim); padding: 4px 0; cursor: pointer; }
+    .tlai-designboard input { accent-color: #c89547; }
+    .tlai-passport { background: #fff; border: 1.5px solid rgba(200,149,71,.5); border-radius: 18px; overflow: hidden; }
+    .tlai-passport-title {
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      background: rgba(200,149,71,.12); padding: 12px 18px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; color: var(--ink);
+    }
+    .tlai-passport-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px 18px; }
+    .tlai-passport-grid label {
+      display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ink-faint);
+    }
+    .tlai-passport-grid input {
+      width: 100%; margin-top: 5px; font-family: inherit; font-size: 0.85rem; color: var(--ink);
+      background: rgba(43,38,32,.05); border: 1px solid var(--hair); border-radius: 10px; padding: 9px 12px; outline: none;
+    }
+    .tlai-passport-grid .wide { grid-column: 1 / -1; }
+    .tlai-confirm { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; font-size: 0.86rem; font-weight: 700; color: var(--ink-dim); cursor: pointer; }
+    .tlai-confirm input { width: 17px; height: 17px; accent-color: #c89547; margin-top: 2px; }
+    .tlai-studio-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .tlai-savebtn {
+      font-family: inherit; font-size: 0.8rem; font-weight: 800; padding: 11px 20px; border-radius: 999px; cursor: pointer;
+      background: var(--gold); border: 1px solid var(--gold); color: #171716; transition: background .2s ease;
+    }
+    .tlai-savebtn:hover { background: #f7dfa8; }
+    .tlai-msg { font-size: 0.8rem; color: var(--ink-dim); min-height: 1.2em; }
+
+    /* chat stage */
+    .tlai-chat {
+      display: flex; flex-direction: column; border-radius: 20px; border: 1px solid var(--hair);
+      background: var(--glass); overflow: hidden; height: 520px; min-height: 480px;
+    }
+    .tlai-chat-head {
+      display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+      border-bottom: 1px solid var(--hair); background: var(--glass-strong); flex-wrap: wrap;
+    }
+    .tlai-chat-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(200, 149, 71, 0.18); flex-shrink: 0; }
+    .tlai-chat-title { font-size: 0.9rem; font-weight: 700; }
+    .tlai-chat-note { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+    .tlai-conn {
+      margin-left: auto; font-family: inherit; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--ink-faint); background: transparent; border: 1px solid var(--hair);
+      border-radius: 999px; padding: 6px 12px; cursor: pointer; flex-shrink: 0;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .tlai-conn:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); }
+    .tlai-conn.connected { color: var(--gold); border-color: rgba(200, 149, 71, 0.55); background: rgba(200, 149, 71, 0.08); }
+    .tlai-history { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .tlai-bubble { max-width: 86%; padding: 14px 18px; border-radius: 18px; font-size: 0.9rem; line-height: 1.65; overflow-wrap: break-word; }
+    .tlai-bubble.ai { align-self: flex-start; background: rgba(43, 38, 32, 0.07); border: 1px solid var(--hair); border-bottom-left-radius: 6px; }
+    .tlai-bubble.ai b { color: var(--gold); }
+    .tlai-bubble.ai a { color: var(--gold); }
+    .tlai-bubble.user { align-self: flex-end; background: rgba(200, 149, 71, 0.14); border: 1px solid rgba(200, 149, 71, 0.38); border-bottom-right-radius: 6px; }
+    .tlai-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .tlai-chip {
+      font-family: inherit; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-dim);
+      background: transparent; border: 1px solid var(--hair); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease; text-decoration: none;
+    }
+    .tlai-chip:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); background: rgba(200, 149, 71, 0.07); }
+    .tlai-input-bar {
+      display: flex; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--hair); background: var(--glass-strong);
+    }
+    .tlai-input {
+      flex: 1; font-family: inherit; font-size: 0.9rem; color: var(--ink); background: var(--field);
+      border: 1px solid var(--hair); border-radius: 999px; padding: 12px 20px; outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .tlai-input:focus { border-color: rgba(200, 149, 71, 0.55); }
+    .tlai-send {
+      font-family: inherit; display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 800;
+      letter-spacing: 0.06em; color: #171716; background: var(--gold); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 10px 20px; cursor: pointer; transition: filter 0.2s ease;
+    }
+    .tlai-send:hover { filter: brightness(1.07); }
+    .tlai-typing { display: flex; gap: 5px; align-items: center; padding: 14px 18px; }
+    .tlai-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); animation: tlaiBounce 1.2s infinite; }
+    .tlai-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .tlai-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes tlaiBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+    .tlai-modal {
+      position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 24px;
+    }
+    .tlai-modal.open { display: flex; }
+    .tlai-modal-card {
+      width: min(480px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 20px;
+      border: 1px solid var(--hair); background: rgba(20, 24, 30, 0.97); padding: 26px 26px 22px;
+    }
+    .tlai-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .tlai-modal-head h3 { margin: 0 0 6px; font-size: 1.15rem; font-weight: 800; }
+    .tlai-modal-head p { margin: 0; font-size: 0.8rem; line-height: 1.6; color: var(--ink-dim); }
+    .tlai-modal-x {
+      font-family: inherit; font-size: 0.9rem; color: var(--ink-dim); background: var(--glass);
+      border: 1px solid var(--hair); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; flex-shrink: 0;
+    }
+    .tlai-cfg-status { margin: 12px 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--ink-dim); min-height: 1.2em; }
+    .tlai-cfg-status.ok { color: var(--gold); }
+    .tlai-modal-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .tlai-modal-note {
+      margin: 16px 0 0; font-size: 0.7rem; line-height: 1.65; color: var(--ink-faint);
+      border-top: 1px solid var(--hair); padding-top: 14px;
+    }
+    .tlai-modal-note b { color: var(--ink-dim); }
+
+    /* ============ STEP 5 — TRIỂN LÃM (trien-lam layout) ============ */
+    .xv-wrap { max-width: 1180px; margin: 0 auto; padding: 30px 28px 10px; }
+    .xv-eyebrow { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.36em; color: var(--gold); margin-bottom: 14px; }
+    .xv-title { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: 0.01em; margin: 0; line-height: 1.06; }
+    .xv-title .accent { color: var(--gold); }
+    .xv-sub { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.65; color: var(--ink-dim); max-width: 780px; }
+    .xv-sub b { color: var(--gold); font-weight: 700; }
+    .xv-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+    .xv-card { border-radius: 20px; border: 1px solid var(--hair); background: var(--glass); padding: 24px; }
+    .xv-step-title { font-size: 1.06rem; font-weight: 800; margin: 0 0 16px; }
+    .xv-meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+    .xv-art-meta { grid-template-columns: repeat(2, 1fr); }
+    .xv-field label {
+      display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px;
+    }
+    .xv-field input, .xv-field select, .xv-field textarea,
+    .xv-grid3 textarea, .xv-grid2 textarea {
+      width: 100%; font-family: inherit; font-size: 0.88rem; color: var(--ink);
+      background: var(--field); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; min-height: 84px; resize: vertical; outline: none; transition: border-color 0.2s ease;
+    }
+    .xv-field input, .xv-field select { min-height: 0; resize: none; }
+    .xv-field input:focus, .xv-field select:focus, .xv-field textarea:focus,
+    .xv-grid3 textarea:focus, .xv-grid2 textarea:focus { border-color: rgba(200, 149, 71, 0.55); }
+    .xv-field select option { background: #e9e1d1; color: var(--ink); }
+    .xv-msg-field textarea { min-height: 64px; }
+    .xv-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .xv-grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .xv-grid3 label, .xv-grid2 label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--ink-dim); line-height: 1.5; }
+    .xv-grid3 label textarea, .xv-grid2 label textarea { margin-top: 7px; }
+    .xv-help { margin-top: 14px; font-size: 0.8rem; color: var(--ink-dim); }
+    .xv-help summary { cursor: pointer; font-weight: 700; font-size: 0.78rem; color: var(--gold); list-style: none; }
+    .xv-help summary::-webkit-details-marker { display: none; }
+    .xv-help p { margin: 8px 0 0; line-height: 1.6; }
+    .xv-confirm { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; font-weight: 600; color: var(--ink-dim); line-height: 1.55; cursor: pointer; }
+    .xv-confirm input { width: 17px; height: 17px; accent-color: #c89547; margin-top: 2px; }
+    .xv-finish-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .xv-btn-save, .xv-btn-finish {
+      font-family: inherit; font-size: 0.8rem; font-weight: 800; padding: 11px 20px; border-radius: 999px;
+      cursor: pointer; transition: background 0.2s ease, color 0.2s ease;
+    }
+    .xv-btn-save { background: var(--glass-strong); border: 1px solid var(--hair); color: var(--ink-dim); }
+    .xv-btn-save:hover { background: #fff; color: var(--ink); }
+    .xv-btn-finish { background: var(--gold); border: 1px solid var(--gold); color: #171716; }
+    .xv-btn-finish:hover { background: #f7dfa8; }
+    .xv-status { margin: 0; font-size: 0.8rem; color: var(--ink-dim); min-height: 1.2em; }
+    .xv-status.ok { color: var(--gold); }
+    .xv-drop {
+      border: 1.5px dashed rgba(200, 149, 71, 0.4); border-radius: 16px; padding: 34px 24px;
+      text-align: center; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .xv-drop:hover, .xv-drop.dragover { background: rgba(200, 149, 71, 0.06); border-color: rgba(200, 149, 71, 0.75); }
+    .xv-drop-icon { font-size: 1.9rem; line-height: 1; }
+    .xv-drop-title { margin: 12px 0 6px; font-size: 1rem; font-weight: 700; }
+    .xv-drop-hint { margin: 0; font-size: 0.78rem; color: var(--ink-faint); }
+    .xv-drop-hint b { color: var(--gold); }
+    .xv-note-row { display: flex; gap: 12px; margin-top: 14px; }
+    .xv-note-row input {
+      flex: 1; font-family: inherit; font-size: 0.88rem; color: var(--ink); background: var(--field);
+      border: 1px solid var(--hair); border-radius: 12px; padding: 11px 14px; outline: none;
+    }
+    .xv-gallery-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 34px 0 14px; }
+    .xv-gallery-title { font-size: 1.25rem; font-weight: 800; margin: 0; }
+    .xv-gallery-stats { font-size: 0.78rem; color: var(--ink-faint); }
+    .xv-filter-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
+    .xv-chip {
+      font-family: inherit; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-dim);
+      background: transparent; border: 1px solid var(--hair); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .xv-chip:hover { color: var(--ink); background: rgba(43, 38, 32, 0.08); }
+    .xv-chip.active { color: #e9e1d1; background: var(--gold); border-color: var(--gold); }
+    .xv-filter-bar select, .xv-filter-bar input {
+      font-family: inherit; font-size: 0.8rem; color: var(--ink); background: var(--field);
+      border: 1px solid var(--hair); border-radius: 999px; padding: 8px 14px; outline: none;
+    }
+    .xv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+    .xv-work {
+      border-radius: 16px; border: 1px solid var(--hair); background: var(--glass); overflow: hidden;
+      display: flex; flex-direction: column; transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .xv-work:hover { transform: translateY(-3px); border-color: rgba(200, 149, 71, 0.4); }
+    .xv-work-thumb {
+      position: relative; aspect-ratio: 4 / 3; background: rgba(43, 38, 32, 0.05); cursor: zoom-in;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .xv-work-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .xv-work-pdf { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-dim); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; }
+    .xv-work-pdf .pdf-icon { font-size: 2rem; color: var(--terra); }
+    .xv-kind-badge {
+      position: absolute; top: 10px; left: 10px; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.14em;
+      padding: 4px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.78); border: 1px solid var(--hair); color: var(--gold);
+    }
+    .xv-work-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .xv-work-title { font-size: 0.92rem; font-weight: 700; line-height: 1.35; margin: 0; }
+    .xv-work-meta { font-size: 0.7rem; color: var(--ink-faint); }
+    .xv-grade {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.08em; color: #e9e1d1; background: var(--gold); border-radius: 999px; padding: 4px 11px;
+    }
+    .xv-teacher-note {
+      font-size: 0.74rem; line-height: 1.55; color: var(--gold);
+      background: rgba(200, 149, 71, 0.07); border: 1px solid rgba(200, 149, 71, 0.3);
+      border-radius: 12px; padding: 9px 12px;
+    }
+    .xv-teacher-note b { display: block; font-size: 0.58rem; letter-spacing: 0.18em; margin-bottom: 3px; opacity: 0.8; }
+    .xv-work-heritage {
+      align-self: flex-start; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-dim); border: 1px solid var(--hair); border-radius: 999px; padding: 3px 9px;
+    }
+    .xv-work-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; }
+    .xv-mini {
+      font-family: inherit; flex: 1; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em;
+      padding: 8px 10px; border-radius: 999px; cursor: pointer; border: 1px solid var(--hair);
+      background: transparent; color: var(--ink-dim); text-decoration: none; text-align: center;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .xv-mini:hover { color: var(--gold); border-color: rgba(200, 149, 71, 0.5); }
+    .xv-mini.danger:hover { color: #c0492f; border-color: rgba(196, 73, 47, 0.5); }
+    .xv-empty { border: 1.5px dashed var(--hair); border-radius: 16px; padding: 46px 24px; text-align: center; color: var(--ink-faint); font-size: 0.9rem; line-height: 1.6; }
+    .xv-lightbox {
+      position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(10px); padding: 30px;
+    }
+    .xv-lightbox.open { display: flex; }
+    .xv-lightbox-inner { max-width: min(1000px, 94vw); max-height: 90vh; display: flex; flex-direction: column; gap: 12px; }
+    .xv-lightbox-media {
+      flex: 1; min-height: 0; border-radius: 14px; border: 1px solid var(--hair); overflow: hidden;
+      background: #ece5d8; display: flex; align-items: center; justify-content: center;
+    }
+    .xv-lightbox-media img { max-width: 100%; max-height: 74vh; object-fit: contain; display: block; }
+    .xv-lightbox-media iframe { width: min(860px, 86vw); height: 74vh; border: 0; background: #fff; }
+    .xv-lightbox-bar { display: flex; align-items: center; gap: 14px; color: var(--ink); }
+    .xv-lightbox-title { font-size: 0.95rem; font-weight: 700; }
+    .xv-lightbox-meta { font-size: 0.72rem; color: var(--ink-faint); }
+    .xv-lightbox-close {
+      margin-left: auto; font-family: inherit; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      color: var(--ink-dim); background: var(--glass-strong); border: 1px solid var(--hair);
+      border-radius: 999px; padding: 9px 18px; cursor: pointer;
+    }
+
+    /* ---------- heritage switcher (di-san top tabs) ---------- */
+    .ds-tabsbar { max-width: 1180px; margin: 0 auto; padding: 22px 28px 0; }
+    .ds-tabs { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .ds-tabs::-webkit-scrollbar { display: none; }
+    .ds-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border: 1px solid transparent; border-radius: 999px;
+      background: transparent; color: var(--ink-dim);
+      font-family: inherit; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em;
+      cursor: pointer; white-space: nowrap;
+    }
+    .ds-tab:hover { background: rgba(43, 38, 32, 0.08); color: var(--ink); }
+    .ds-tab.is-active { background: rgba(200, 149, 71, 0.14); border-color: rgba(200, 149, 71, 0.35); color: var(--gold); }
+    .ds-tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ============ responsive ============ */
+    @media (max-width: 900px) {
+      .tlai-pathgrid { grid-template-columns: 1fr; }
+      .tlai-designboard { grid-template-columns: 1fr; }
+      .tlai-passport-grid { grid-template-columns: 1fr; }
+      .tlai-step5 { padding: 20px 18px 20px 70px; }
+      .xv-meta-row, .xv-grid3, .xv-grid2 { grid-template-columns: 1fr; }
+      .hm-panel, .p321-step, .xv-card { padding: 20px 18px; }
+    }
+    @media (max-width: 560px) {
+      .hm-wrap, .sec-belt, .ds-head, .ds-cover-wrap, .ds-gallery-sec, .ds-main, .ds-foot,
+      .p321-wrap, .tlai-wrap, .xv-wrap { padding-left: 16px; padding-right: 16px; }
+      .tlai-chat { height: 460px; }
+    }
+
+    @media print {
+      .jn-bar, .sec-belt, .hm-tabs, .hm-cta, .p321-actions, .tlai-wrap, .xv-wrap, .ds-foot { display: none !important; }
+      body { background: #fff; }
+      .p321-step { background: #fff; border-color: #ccc; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Site Navigation -->
-  <header class="site-header">
-    <div class="container">
-      <div class="nav-inner">
-        <!-- Brand -->
-        <a href="#" class="brand-group">
-          <div class="brand-logo-text">
-            <span>SMART ART HERITAGE</span>
-          </div>
-        </a>
+  <!-- ============ INTEGRATED JOURNEY BAR ============ -->
+  <div class="jn-bar">
+    <a class="jn-brand" href="#home"><em></em>SMART ART HERITAGE</a>
+    <nav class="jn-steps" aria-label="Hành trình tích hợp">
+      <a class="jn-link is-current" href="#home" data-step="home">1 · Trang chính</a>
+      <a class="jn-link" href="#dossier" data-step="dossier">2 · Di sản &amp; Câu hỏi</a>
+      <a class="jn-link" href="#p321" data-step="p321">3 · Phiếu 3–2–1</a>
+      <a class="jn-link" href="#ai5a" data-step="ai5a">4 · Trợ Lý Ai</a>
+      <a class="jn-link" href="#exhibit" data-step="exhibit">5 · Triển lãm</a>
+      <a class="jn-link jn-ext" href="models.html">Phòng 3D ↗</a>
+      <a class="jn-link jn-ext" href="giao-vien.html">Giáo Viên ↗</a>
+    </nav>
+  </div>
 
-        <!-- Navigation Links -->
-        <ul class="nav-links">
-          <li><a href="di-san.html" class="nav-link">Di sản &amp; Câu hỏi <span class="badge-count">(5)</span></a></li>
-          <li><a href="models.html" class="nav-link">Phòng 3D</a></li>
-          <li><a href="phieu-3-2-1.html" class="nav-link">Phiếu 3–2–1</a></li>
-          <li><a href="tro-ly-ai.html" class="nav-link">Trợ Lý Ai</a></li>
-          <li><a href="trien-lam.html" class="nav-link">Triển Lãm</a></li>
-          <li><a href="giao-vien.html" class="nav-link">Giáo Viên</a></li>
-        </ul>
-
-        <!-- Right Action Button -->
-        <div class="nav-actions">
-          <button type="button" class="btn-pill-cta" onclick="location.href='di-san.html'">
-            <span>Bắt đầu khám phá</span>
-            <span class="btn-icon-circle">↗</span>
-          </button>
-          <button class="mobile-menu-btn" type="button" onclick="location.href='di-san.html'">☰</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content — arranged exactly like the reference home -->
-  <main>
+  <!-- ============ STEP 1 — TRANG CHÍNH (demo p0) ============ -->
+  <section id="home" data-jnsec="home">
     <div class="hm-wrap">
-
-      <!-- Intro block -->
-      <div class="hm-eyebrow">SMART ART HERITAGE V1.0 • 5 HỒ SƠ: HOTSPOT THCS 3 BƯỚC</div>
-      <h1 class="hm-title">Trang chính trước.<br>Chọn hồ sơ sau.</h1>
+      <div class="hm-eyebrow">SMART ART HERITAGE • MỘT TRANG • MỘT HÀNH TRÌNH</div>
+      <h1 class="hm-title">Cả hành trình nằm trong một trang.<br>Chọn hồ sơ để bắt đầu.</h1>
       <p class="hm-muted">
-        Trang chính trung lập, không tự mở Phố Hiến hay bất kỳ hồ sơ nào. Khi chọn một hồ sơ,
-        chỉ hồ sơ đó và 15 ảnh tương ứng hiện ra; 4 hồ sơ còn lại được ẩn.
+        Chọn một hồ sơ di sản — ngay dưới đây hiện ra liên tiếp: <b>15 ảnh tư liệu</b> và bộ câu hỏi quan sát,
+        <b>Phiếu 3–2–1</b>, <b>AI 5A</b> và <b>Triển lãm</b>. Không nhảy trang, không mất dữ liệu giữa các bước.
       </p>
       <div class="hm-notice">
-        <b>Cấu trúc:</b> chọn hồ sơ → xem 15 ảnh → nhiệm vụ 3–2–1 → AI 5A. Không bao giờ mở một hồ sơ mà
-        kéo xuống lại thấy 4 hồ sơ khác.
+        <b>Luồng tích hợp chuẩn:</b> chọn hồ sơ → xem 15 ảnh &amp; trả lời câu hỏi → điền Phiếu 3–2–1 →
+        sang Xưởng AI 5A → đóng góp Triển lãm — <b>toàn bộ ngay trong trang này</b>, đúng như tệp mẫu V3.8.
       </div>
 
-      <!-- 5 profile tab-cards -->
-      <div class="hm-tabs">
-        <a class="hm-tab" href="di-san.html#phohien">
+      <!-- 5 profile tab-cards (demo .tabs > .tablabel) -->
+      <div class="hm-tabs" id="homeTabs">
+        <button type="button" class="hm-tab" data-key="phohien">
           <img src="assets/extracted/cover_phohien.jpeg" alt="Phố Hiến" loading="lazy">
           <div class="hm-tab-body">
             <small>HỒ SƠ 01</small>
             <strong>Phố Hiến</strong>
             <span>Không gian đô thị cổ và quần thể di tích tiêu biểu của Phố Hiến.</span>
           </div>
-        </a>
-        <a class="hm-tab" href="di-san.html#chuakeo">
+        </button>
+        <button type="button" class="hm-tab" data-key="chuakeo">
           <img src="assets/extracted/cover_chuakeo.jpeg" alt="Chùa Keo" loading="lazy">
           <div class="hm-tab-body">
             <small>HỒ SƠ 02</small>
             <strong>Chùa Keo</strong>
             <span>Kiến trúc gỗ, gác chuông, chạm khắc và không gian cảnh quan Chùa Keo.</span>
           </div>
-        </a>
-        <a class="hm-tab" href="di-san.html#dentran">
+        </button>
+        <button type="button" class="hm-tab" data-key="dentran">
           <img src="assets/extracted/cover_dentran.jpeg" alt="Đền Trần Hưng Hà" loading="lazy">
           <div class="hm-tab-body">
             <small>HỒ SƠ 03</small>
             <strong>Đền Trần Hưng Hà</strong>
             <span>Quần thể đền thờ, nghi lễ, lễ hội và khu lăng mộ các vua Trần.</span>
           </div>
-        </a>
-        <a class="hm-tab" href="di-san.html#lequydon">
+        </button>
+        <button type="button" class="hm-tab" data-key="lequydon">
           <img src="assets/extracted/cover_lequydon.jpeg" alt="Khu lưu niệm Lê Quý Đôn" loading="lazy">
           <div class="hm-tab-body">
             <small>HỒ SƠ 04</small>
             <strong>Khu lưu niệm Lê Quý Đôn</strong>
             <span>Không gian tưởng niệm, trưng bày và giáo dục về Nhà bác học Lê Quý Đôn.</span>
           </div>
-        </a>
-        <a class="hm-tab" href="di-san.html#dongxam">
+        </button>
+        <button type="button" class="hm-tab" data-key="dongxam">
           <img src="assets/extracted/cover_dongxam.jpeg" alt="Làng nghề chạm bạc Đồng Xâm" loading="lazy">
           <div class="hm-tab-body">
             <small>HỒ SƠ 05</small>
             <strong>Làng nghề chạm bạc Đồng Xâm</strong>
             <span>Nghệ nhân, kỹ thuật chạm bạc, hoa văn và sản phẩm thủ công truyền thống.</span>
           </div>
-        </a>
+        </button>
       </div>
 
-      <!-- Home panel -->
-      <section class="hm-panel">
+      <div class="hm-panel">
         <div class="hm-panel-eyebrow">CƠ SỞ DỮ LIỆU 5 DI SẢN</div>
-        <h2>Chọn một hồ sơ để bắt đầu</h2>
+        <h2>Chạm một hồ sơ — toàn bộ các bước mở ra ngay dưới đây</h2>
         <p class="hm-muted">
-          Trang chính không tự mở bất kỳ hồ sơ nào. Hãy chạm vào một trong 5 thẻ phía trên;
-          khi đó chỉ hồ sơ được chọn mới xuất hiện.
+          Trang chính không tự mở bất kỳ hồ sơ nào. Khi chọn, chỉ hồ sơ đó và 15 ảnh tương ứng hiện ra;
+          Phiếu 3–2–1, AI 5A và Triển lãm đều tự động đồng bộ theo đúng hồ sơ em chọn.
         </p>
         <div class="hm-note">
-          <b>Luồng sử dụng chuẩn:</b> Trang chính → chọn 1 hồ sơ → xem 15 ảnh → nhiệm vụ 3–2–1 →
-          AI 5A → quay về trang chính để chọn hồ sơ khác.
+          <span><b>Bốn bước phía dưới:</b> Quan sát &amp; Câu hỏi → Phiếu 3–2–1 → AI 5A → Triển lãm.</span>
+          <a class="hm-cta" id="hmStartBtn" href="#dossier">Bắt đầu khám phá <span>↗</span></a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 2 — DI SẢN & CÂU HỎI (demo p1–p5) ============ -->
+  <section id="dossier" data-jnsec="dossier" class="ds-shell">
+    <div class="ds-tabsbar">
+      <div class="ds-tabs" id="dsTabs" aria-label="Chọn di sản"></div>
+    </div>
+
+    <div class="sec-belt" style="padding-top:10px;">
+      <div class="sec-belt-inner">
+        <span class="sec-belt-tag">BƯỚC 2 • QUAN SÁT &amp; KHÁM PHÁ</span>
+        <span class="sec-belt-chain">15 ảnh tư liệu → chạm ảnh để nhảy tới bộ câu hỏi → ghi nhận vào Phiếu 3–2–1</span>
+      </div>
+    </div>
+
+    <header class="ds-head">
+      <div class="ds-eyebrow" id="dsCrumb">HỒ SƠ 02 • SMART ART HERITAGE</div>
+      <h1 class="ds-title" id="dsTitle">Chùa Keo</h1>
+      <p class="ds-sub" id="dsDesc">Chọn một hồ sơ ở Trang chính để mở bộ tư liệu.</p>
+      <div class="ds-meta" id="dsMeta"></div>
+    </header>
+
+    <div class="ds-cover-wrap">
+      <img class="ds-cover" id="dsHeroImg" src="assets/extracted/cover_chuakeo.jpeg" alt="">
+    </div>
+
+    <section class="ds-gallery-sec">
+      <h2 class="ds-gal-title" id="dsGalTitle">15 ảnh tư liệu tiêu biểu</h2>
+      <p class="ds-gal-sub">Toàn bộ ảnh tư liệu của hồ sơ đang chọn — chạm vào một ảnh để nhảy tới bộ câu hỏi của ảnh đó.</p>
+      <div class="ds-gallery" id="dsGallery"></div>
+    </section>
+
+    <main class="ds-main">
+      <div class="ds-lab-head">
+        <div class="ds-eyebrow" id="dsLabEyebrow">HOTSPOT THCS</div>
+        <h2 class="ds-section-title" id="dsLabTitle">Khám phá từ dễ đến sâu</h2>
+        <p class="ds-section-note" id="dsCount"></p>
+      </div>
+      <div class="hs-grid" id="dsGrid">
+        <div class="ds-loading">Chọn một hồ sơ ở Trang chính để tải điểm chạm…</div>
+      </div>
+    </main>
+
+    <div class="ds-foot">
+      <span class="ds-foot-text">NO OBSERVATION → NO AI · Quan sát thật trước khi sáng tạo</span>
+      <div class="ds-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="ds-btn" href="#p321">Đến Phiếu 3–2–1 ↓</a>
+        <a class="ds-btn ds-btn-primary" href="#home">Chọn hồ sơ khác</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 — PHIẾU 3–2–1 (demo sah321-integrated) ============ -->
+  <section id="p321" data-jnsec="p321">
+    <div class="sec-belt" style="padding-top:40px;">
+      <div class="sec-belt-inner">
+        <span class="sec-belt-tag">BƯỚC 3 • PHIẾU 3–2–1</span>
+        <span class="sec-belt-chain">Quan sát di sản → 3 Khám phá → 2 Lựa chọn &amp; suy nghĩ → 1 Ý tưởng sáng tạo → AI 5A</span>
+      </div>
+    </div>
+
+    <div class="p321-wrap">
+      <div class="p321-eyebrow">PHẢN TƯ TRƯỚC KHI SÁNG TẠO — NGAY TRONG HÀNH TRÌNH</div>
+      <h2 class="p321-title">Phiếu 3–2–1 • Hình thành ý tưởng cá nhân</h2>
+      <p class="p321-sub">
+        Trước khi cầm bút hay mở AI, em quan sát thật kỹ — rồi ghi lại điều khiến em xúc động.
+        Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, phiếu này là bước đầu tiên của mọi tác phẩm.
+        Tiến độ được <b>tự động lưu</b> trên máy của em.
+      </p>
+
+      <p class="p321-instruction"><b>Cách làm:</b> Đọc câu hỏi → tự trả lời → chỉ mở gợi ý khi cần → lưu phiếu.</p>
+
+      <div id="teacherFeedbackBox" class="p321-feedback" hidden>
+        <div class="p321-feedback-tag">PHẢN HỒI CỦA GIÁO VIÊN</div>
+        <p id="teacherFeedbackText" class="p321-feedback-text"></p>
+      </div>
+
+      <div class="p321-meta">
+        <div class="p321-field">
+          <label class="p321-label" for="form321Project">Di Sản Lựa Chọn</label>
+          <select class="p321-select" id="form321Project">
+            <option value="phohien">Phố Hiến — Đô thị cổ</option>
+            <option value="chuakeo" selected>Chùa Keo — Kiến trúc gỗ</option>
+            <option value="dentran">Đền Trần — Hào khí Đông A</option>
+            <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
+            <option value="dongxam">Chạm bạc Đồng Xâm</option>
+          </select>
+        </div>
+        <div class="p321-field">
+          <label class="p321-label" for="form321StudentId">Mã Học Sinh</label>
+          <input class="p321-input" id="form321StudentId" type="text" value="HS-6A1-024">
+        </div>
+        <div class="p321-field">
+          <label class="p321-label" for="form321Class">Lớp</label>
+          <input class="p321-input" id="form321Class" type="text" value="6A1">
+        </div>
+        <div class="p321-savebox">
+          <span class="p321-save-dot"></span>
+          <span class="p321-save" id="save321Status">✓ Đã sẵn sàng</span>
+        </div>
+      </div>
+
+      <form id="worksheetForm321" onsubmit="return false;">
+        <div class="p321-steps">
+          <div class="p321-step">
+            <h3 class="p321-step-head3">3 – KHÁM PHÁ</h3>
+            <div class="p321-question-label">CÂU HỎI</div>
+            <p class="p321-prompt" id="prompt321_3"></p>
+            <details class="p321-help">
+              <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+              <p id="help321_3"></p>
+            </details>
+            <textarea id="field321_3" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
+          </div>
+
+          <div class="p321-step">
+            <h3 class="p321-step-head3">2 – LỰA CHỌN &amp; SUY NGHĨ</h3>
+            <div class="p321-question-label">CÂU HỎI</div>
+            <p class="p321-prompt" id="prompt321_2"></p>
+            <details class="p321-help">
+              <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+              <p id="help321_2"></p>
+            </details>
+            <textarea id="field321_2" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
+          </div>
+
+          <div class="p321-step">
+            <h3 class="p321-step-head3">1 – Ý TƯỞNG SÁNG TẠO CÁ NHÂN</h3>
+            <div class="p321-question-label">CÂU HỎI</div>
+            <p class="p321-prompt" id="prompt321_1"></p>
+            <details class="p321-help">
+              <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+              <p id="help321_1"></p>
+            </details>
+            <textarea id="field321_1" class="p321-textarea" placeholder="Em trả lời tại đây..."></textarea>
+          </div>
+        </div>
+      </form>
+
+      <div class="p321-actions">
+        <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
+          <span>In / Xuất PDF</span>
+        </button>
+        <a id="btnToAI5A" class="p321-btn p321-btn-primary" href="#ai5a">
+          <span>Tiếp tục → Xưởng AI 5A (ngay dưới đây)</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 4 — XƯỞNG AI 5A (demo sah-ai5a-studio) ============ -->
+  <section id="ai5a" data-jnsec="ai5a">
+    <div class="sec-belt" style="padding-top:40px;">
+      <div class="sec-belt-inner">
+        <span class="sec-belt-tag">BƯỚC 4 • XƯỞNG ĐỐI THOẠI SÁNG TẠO</span>
+        <span class="sec-belt-chain">Hạt giống từ Phiếu 3–2–1 → A1 Phân tích → A2 Đối thoại → A3 Lựa chọn → A4 Cá nhân hóa → A5 Làm chủ</span>
+      </div>
+    </div>
+
+    <div class="tlai-wrap">
+      <div class="tlai-eyebrow">SMART ART HERITAGE — AI ĐỒNG HÀNH, HỌC SINH LÀ CHỦ THỂ</div>
+      <h2 class="tlai-title">AI 5A • Từ quan sát đến <span class="ai-mark">dấu ấn cá nhân</span></h2>
+      <p class="tlai-sub">
+        AI không đưa “đáp án đẹp nhất”. AI đặt câu hỏi, mở hướng và giúp em tự quyết định —
+        theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, AI không bao giờ vẽ thay em.
+      </p>
+
+      <div class="tlai-ownership">
+        <span class="own-student">🟢 Học sinh: Chủ thể sáng tạo</span>
+        <span class="own-ai">🔵 AI: Trợ lý gợi mở</span>
+      </div>
+      <div class="tlai-progress5">
+        <span class="p5 on">🔎 <span>Phân tích</span></span><span class="p5-arrow">→</span>
+        <span class="p5">💬 <span>Đối thoại</span></span><span class="p5-arrow">→</span>
+        <span class="p5">💡 <span>Lựa chọn</span></span><span class="p5-arrow">→</span>
+        <span class="p5">🎨 <span>Cá nhân hóa</span></span><span class="p5-arrow">→</span>
+        <span class="p5">⭐ <span>Làm chủ</span></span>
+      </div>
+
+      <div class="tlai-studio-meta">
+        <div class="tlai-field" style="flex:1 1 240px;">
+          <label for="studioProject">Dự án di sản (đồng bộ với Phiếu 3–2–1)</label>
+          <select id="studioProject">
+            <option value="phohien">Phố Hiến</option>
+            <option value="chuakeo" selected>Chùa Keo</option>
+            <option value="dentran">Đền Trần</option>
+            <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
+            <option value="dongxam">Làng nghề chạm bạc Đồng Xâm</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tlai-seed">
+        <div class="tlai-seed-head">🌱 Hạt giống ý tưởng từ Phiếu 3–2–1</div>
+        <div class="tlai-seed-sub">Ý tưởng của em được tự động mang sang đây từ phiếu vừa điền phía trên.</div>
+        <div class="tlai-field">
+          <textarea id="studioSeed" rows="3" placeholder="Ý tưởng từ phiếu 3–2–1 sẽ hiện ở đây..."></textarea>
+        </div>
+        <button id="studioLoad" type="button" class="tlai-askq" style="margin-top:10px;">↻ Lấy ý tưởng đã lưu</button>
+      </div>
+
+      <section class="tlai-studio-steps">
+
+        <article class="tlai-step5" id="studioA1">
+          <div class="tlai-stepbadge">A1</div>
+          <div>
+            <h3>🔎 ANALYZE • AI soi ý tưởng</h3>
+            <p class="sub" id="a1Prompt"></p>
+            <details class="tlai-nat" open>
+              <summary>🖼️ Hình ảnh chính</summary>
+              <div class="tlai-nat-body">
+                <p>Hình ảnh nào là trung tâm trong ý tưởng của em?</p>
+                <textarea id="a1n1" rows="3" placeholder="Em viết tại đây..."></textarea>
+              </div>
+            </details>
+            <details class="tlai-nat">
+              <summary>🏛️ Nét di sản em giữ lại</summary>
+              <div class="tlai-nat-body">
+                <p>Chi tiết di sản nào em muốn giữ nguyên hồn?</p>
+                <textarea id="a1n2" rows="3" placeholder="Em viết tại đây..."></textarea>
+              </div>
+            </details>
+            <details class="tlai-nat">
+              <summary>❤️ Cảm xúc / thông điệp</summary>
+              <div class="tlai-nat-body">
+                <p>Em muốn người xem nhận được cảm xúc hay thông điệp gì?</p>
+                <textarea id="a1n3" rows="3" placeholder="Em viết tại đây..."></textarea>
+              </div>
+            </details>
+            <p class="sub" style="margin-top:14px; margin-bottom:8px;">✨ BẢN PHÂN TÍCH Ý TƯỞNG A1 — hệ thống tự tổng hợp từ phần em viết.</p>
+            <div class="tlai-field">
+              <textarea id="a1Combined" rows="3" readonly placeholder="Em chưa nhập nội dung A1."></textarea>
+            </div>
+          </div>
+        </article>
+
+        <article class="tlai-step5" id="studioA2">
+          <div class="tlai-stepbadge">A2</div>
+          <div>
+            <h3>💬 ASK • Đối thoại cùng AI</h3>
+            <p class="sub">Ba câu hỏi thay đổi theo từng di sản — chạm vào một câu hỏi để trả lời trong khung chat bên dưới.</p>
+            <div class="tlai-asklist" id="askCards"></div>
+
+            <section class="tlai-chat">
+              <div class="tlai-chat-head">
+                <span class="tlai-chat-dot"></span>
+                <span class="tlai-chat-title">AI Art Assistant — Quy trình 5A</span>
+                <span class="tlai-chat-note">Không vẽ thay học sinh</span>
+                <button id="tlaiConnBadge" class="tlai-conn" type="button" title="AI do giáo viên kết nối qua API trong trang Quản lý">○ AI: chưa cấu hình</button>
+              </div>
+
+              <div id="aiChatHistory" class="tlai-history">
+                <div class="tlai-bubble ai">
+                  Chào em! Thầy/Cô AI đồng hành cùng em trong dự án <b>SMART ART HERITAGE</b>.<br><br>
+                  Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, chúng ta sẽ bắt đầu từ những cảm nhận thật của em trên Phiếu 3–2–1. Em đang chọn khám phá di sản nào và có mong muốn sáng tác bức tranh như thế nào?
+                  <div class="tlai-chips">
+                    <button class="tlai-chip" type="button" onclick="triggerAiWith321Context('chuakeo', 'Mái cong 12 đầu đao', 'Tranh màu nước hoàng hôn')">Chùa Keo: Tranh màu nước hoàng hôn</button>
+                    <button class="tlai-chip" type="button" onclick="triggerAiWith321Context('phohien', 'Đền Mẫu hồ Bán Nguyệt', 'Tranh khắc gỗ đồ họa')">Phố Hiến: Đồ họa cổ điển</button>
+                    <button class="tlai-chip" type="button" onclick="triggerAiWith321Context('dentran', 'Rồng đá tam cấp', 'Tạo hình 3D pop-up')">Đền Trần: Tạo hình 3D</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tlai-input-bar">
+                <input id="aiChatInput" class="tlai-input" type="text" placeholder="Nhập câu trả lời hoặc suy nghĩ của em để AI gợi ý tiếp..." />
+                <button id="btnAiSend" class="tlai-send" type="button">
+                  <span>Gửi</span>
+                  <span>↗</span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </article>
+
+        <article class="tlai-step5" id="studioA3">
+          <div class="tlai-stepbadge">A3</div>
+          <div>
+            <h3>💡 ADVISE • Ba con đường sáng tạo</h3>
+            <p class="sub">Chọn một hướng, kết hợp nhiều hướng, hoặc tự mở hướng thứ tư.</p>
+            <div class="tlai-pathgrid" id="pathCards"></div>
+            <button id="ownPathBtn" class="tlai-askq" type="button" style="margin-top:12px;">✨ Tôi muốn tự tạo hướng thứ 4</button>
+            <div id="ownPathWrap" style="display:none; margin-top:12px;">
+              <div class="tlai-field"><label for="ownPathTitle">Tên hướng của em</label><input id="ownPathTitle" type="text" placeholder="VD: Chùa Keo dưới mắt em"></div>
+              <div class="tlai-field" style="margin-top:10px;"><label for="ownPathText">Mô tả hướng đi</label><textarea id="ownPathText" rows="2"></textarea></div>
+            </div>
+            <label class="tlai-decision">Điều em quyết định chọn / không chọn từ gợi ý của AI
+              <textarea id="a3Decision" placeholder="Tôi giữ..., nhưng tôi không theo... vì..."></textarea>
+            </label>
+            <details class="tlai-nat">
+              <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+              <div class="tlai-nat-body"><p>Chỉ lấy điều giúp ý tưởng rõ hơn. Không cần nghe theo AI nếu gợi ý không đúng với điều em muốn thể hiện.</p></div>
+            </details>
+          </div>
+        </article>
+
+        <article class="tlai-step5" id="studioA4">
+          <div class="tlai-stepbadge">A4</div>
+          <div>
+            <h3>🎨 ADAPT • Bàn thiết kế của em</h3>
+            <p class="sub">Chọn nhanh rồi sửa lại để thành phương án riêng.</p>
+            <div class="tlai-designboard">
+              <fieldset><legend>Hình ảnh chính</legend>
+                <label><input type="radio" name="mainimg" value="Kiến trúc"> Kiến trúc</label>
+                <label><input type="radio" name="mainimg" value="Hoa văn"> Hoa văn</label>
+                <label><input type="radio" name="mainimg" value="Nhân vật"> Nhân vật</label>
+                <label><input type="radio" name="mainimg" value="Hiện vật"> Hiện vật</label>
+                <label><input type="radio" name="mainimg" value="Khác"> Khác</label>
+              </fieldset>
+              <fieldset><legend>Bố cục</legend>
+                <label><input type="radio" name="layout" value="Trung tâm"> Trung tâm</label>
+                <label><input type="radio" name="layout" value="Đối xứng"> Đối xứng</label>
+                <label><input type="radio" name="layout" value="Tự do"> Tự do</label>
+                <label><input type="radio" name="layout" value="Nhịp điệu"> Nhịp điệu</label>
+              </fieldset>
+              <fieldset><legend>Màu sắc</legend>
+                <label><input type="radio" name="color" value="Theo màu di sản"> Theo màu di sản</label>
+                <label><input type="radio" name="color" value="Tương phản"> Tương phản</label>
+                <label><input type="radio" name="color" value="Đơn sắc"> Đơn sắc</label>
+                <label><input type="radio" name="color" value="Tự chọn"> Tự chọn</label>
+              </fieldset>
+              <fieldset><legend>Kỹ thuật</legend>
+                <label><input type="radio" name="tech" value="Vẽ"> Vẽ</label>
+                <label><input type="radio" name="tech" value="Cắt dán"> Cắt dán</label>
+                <label><input type="radio" name="tech" value="In"> In</label>
+                <label><input type="radio" name="tech" value="Thiết kế số"> Thiết kế số</label>
+                <label><input type="radio" name="tech" value="Kết hợp"> Kết hợp</label>
+              </fieldset>
+            </div>
+            <label class="tlai-decision">Điều tôi thay đổi so với gợi ý của AI
+              <textarea id="a4Decision" placeholder="Tôi giữ..., nhưng tôi thay đổi... vì..."></textarea>
+            </label>
+            <details class="tlai-nat">
+              <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+              <div class="tlai-nat-body"><p>Ít nhất hãy thay đổi <b>một lựa chọn</b> theo suy nghĩ của em. Đây là bước biến gợi ý thành phương án cá nhân.</p></div>
+            </details>
+          </div>
+        </article>
+
+        <article class="tlai-step5" id="studioA5">
+          <div class="tlai-stepbadge">A5</div>
+          <div>
+            <h3>⭐ AUTHOR • Dấu ấn của tôi</h3>
+            <p class="sub">Hoàn thiện “Hộ chiếu sáng tạo” để xác nhận phương án trước khi phác thảo và đưa vào Triển lãm ngay dưới đây.</p>
+            <div class="tlai-passport">
+              <div class="tlai-passport-title"><span>SMART ART HERITAGE</span><b>HỘ CHIẾU SÁNG TẠO • CREATIVE PASSPORT</b></div>
+              <div class="tlai-passport-grid">
+                <label>Di sản<input id="passportHeritage" readonly></label>
+                <label>Tên tác phẩm<input data-pass="title" placeholder="Tên em đặt cho tác phẩm"></label>
+                <label>Nguồn cảm hứng<input data-pass="source"></label>
+                <label>Chi tiết di sản tôi giữ<input data-pass="keep"></label>
+                <label>Điều tôi biến đổi<input data-pass="change"></label>
+                <label>Bố cục<input data-pass="layout"></label>
+                <label>Màu sắc<input data-pass="color"></label>
+                <label>Chất liệu / kỹ thuật<input data-pass="material"></label>
+                <label class="wide">Thông điệp<input data-pass="message"></label>
+                <label class="wide">Dấu ấn riêng của tôi<input data-pass="signature"></label>
+                <label class="wide">AI đã giúp tôi<input data-pass="aihelp" placeholder="AI giúp tôi nhìn thêm... / đặt câu hỏi... / gợi ý..."></label>
+                <label class="wide">Quyết định sáng tạo của tôi<input data-pass="decision" placeholder="Tôi quyết định..."></label>
+              </div>
+            </div>
+            <label class="tlai-confirm"><input type="checkbox" id="authorConfirm"><span><b>Tôi xác nhận đây là phương án do tôi lựa chọn và phát triển.</b></span></label>
+            <div class="tlai-studio-actions">
+              <button type="button" id="studioSave" class="tlai-savebtn">💾 Lưu Hộ chiếu sáng tạo</button>
+              <span id="studioMsg" class="tlai-msg"></span>
+            </div>
+          </div>
+        </article>
+
       </section>
-
     </div>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h4>SMART ART HERITAGE V1.0</h4>
-          <p class="footer-desc">
-            Hệ sinh thái Mĩ thuật số thông minh hỗ trợ học sinh THCS khám phá, sáng tạo và trải nghiệm di sản Hưng Yên bằng công nghệ AI, mô hình 3D và AR.
-          </p>
+    <!-- AI API is configured by the teacher in giao-vien.html -->
+    <div id="tlaiSettings" class="tlai-modal" role="dialog" aria-modal="true">
+      <div class="tlai-modal-card">
+        <div class="tlai-modal-head">
+          <div>
+            <h3>AI do giáo viên kết nối qua API</h3>
+            <p>Chỉ giáo viên mới kết nối được API cho Trợ Lý Ai (trang Quản lý — thẻ API CONNECTOR).</p>
+          </div>
+          <button id="tlaiSettingsClose" class="tlai-modal-x" type="button">✕</button>
         </div>
-
-        <div class="footer-col">
-          <h5>QUẦN THỂ DI SẢN</h5>
-          <ul>
-            <li><a href="di-san.html#phohien">Phố Hiến thế kỷ XVII</a></li>
-            <li><a href="di-san.html#chuakeo">Chùa Keo kiến trúc gỗ</a></li>
-            <li><a href="di-san.html#dentran">Đền Trần Hưng Hà</a></li>
-            <li><a href="di-san.html#lequydon">Nhà bác học Lê Quý Đôn</a></li>
-            <li><a href="di-san.html#dongxam">Chạm bạc Đồng Xâm</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h5>CÔNG NGHỆ & SƯ PHẠM</h5>
-          <ul>
-            <li><a href="models.html">Phòng 3D Di Sản WebGL</a></li>
-            <li><a href="phieu-3-2-1.html">Phiếu tư duy 3–2–1</a></li>
-            <li><a href="tro-ly-ai.html">Trợ Lý Ai — Quy trình 5A</a></li>
-            <li><a href="trien-lam.html">Triển Lãm Tác Phẩm Học Sinh</a></li>
-            <li><a href="giao-vien.html">Trang Quản Trị Giáo Viên</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h5>TIÊU CHUẨN KỸ THUẬT</h5>
-          <ul>
-            <li><span style="font-size:0.875rem; color:#aca79c;">100% Client-side privacy</span></li>
-            <li><span style="font-size:0.875rem; color:#aca79c;">Mã học sinh ẩn danh</span></li>
-            <li><span style="font-size:0.875rem; color:#aca79c;">Responsive Mobile/Tablet</span></li>
-            <li><span style="font-size:0.875rem; color:#aca79c;">Bản quyền Mĩ thuật số</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© 2026 SMART ART HERITAGE V1.0. All rights reserved. Hệ sinh thái Mĩ thuật số di sản Việt Nam.</span>
-        <span>NO OBSERVATION → NO AI</span>
+        <p id="cfgStatus" class="tlai-cfg-status"></p>
+        <div class="tlai-modal-actions" id="tlaiModalActions"></div>
+        <p class="tlai-modal-note" id="tlaiModalNote"></p>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <!-- Core JavaScript -->
-  <script src="js/smart-art-heritage.js"></script>
+  <!-- ============ STEP 5 — TRIỂN LÃM (demo exhibitV38) ============ -->
+  <section id="exhibit" data-jnsec="exhibit">
+    <div class="sec-belt" style="padding-top:40px;">
+      <div class="sec-belt-inner">
+        <span class="sec-belt-tag">BƯỚC 5 • TRƯNG BÀY · CHIA SẺ · PHẢN HỒI</span>
+        <span class="sec-belt-chain">Đưa tác phẩm vào không gian trưng bày → thuyết trình 60 giây → phản hồi → tự đánh giá → khép lại</span>
+      </div>
+    </div>
+
+    <div class="xv-wrap">
+      <div class="xv-eyebrow">HÀNH TRÌNH 5/5 — NGAY TRONG TRANG</div>
+      <h2 class="xv-title">Triển Lãm <span class="accent">Tác Phẩm</span></h2>
+      <p class="xv-sub">
+        Nơi học sinh <b>tải lên</b> bản vẽ, sản phẩm mĩ thuật và nghiên cứu của mình —
+        và nơi <b>trưng bày toàn bộ tác phẩm</b> của lớp. Mọi tệp được lưu ngay trên máy
+        của em, không gửi đi đâu cả.
+      </p>
+
+      <div class="xv-steps">
+        <section class="xv-card xv-step">
+          <h3 class="xv-step-title">1. Đưa tác phẩm vào không gian trưng bày</h3>
+
+          <div class="xv-meta-row">
+            <div class="xv-field">
+              <label for="xvStudentId">Mã học sinh</label>
+              <input id="xvStudentId" type="text" placeholder="VD: HS-6A1-024">
+            </div>
+            <div class="xv-field">
+              <label for="xvClass">Lớp</label>
+              <input id="xvClass" type="text" placeholder="VD: 6A1">
+            </div>
+            <div class="xv-field">
+              <label for="xvHeritage">Di sản liên quan (đồng bộ hồ sơ)</label>
+              <select id="xvHeritage">
+                <option value="">— Không chọn —</option>
+                <option value="phohien">Phố Hiến</option>
+                <option value="chuakeo">Chùa Keo</option>
+                <option value="dentran">Đền Trần</option>
+                <option value="lequydon">Lê Quý Đôn</option>
+                <option value="dongxam">Đồng Xâm</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="xv-meta-row xv-art-meta">
+            <div class="xv-field">
+              <label for="xvArtTitle">Tên tác phẩm</label>
+              <input id="xvArtTitle" type="text" placeholder="VD: Hoàng hôn trên gác chuông">
+            </div>
+            <div class="xv-field">
+              <label for="xvArtMaterial">Hình thức / chất liệu</label>
+              <input id="xvArtMaterial" type="text" placeholder="VD: Màu nước trên giấy">
+            </div>
+          </div>
+
+          <div class="xv-field xv-msg-field">
+            <label for="xvArtMessage">Thông điệp ngắn</label>
+            <textarea id="xvArtMessage" rows="2" placeholder="1–2 câu — em muốn người xem nhận được điều gì?"></textarea>
+          </div>
+
+          <div id="xvDrop" class="xv-drop" role="button" tabindex="0" aria-label="Chọn hoặc kéo tệp vào đây">
+            <div class="xv-drop-icon">🖼️</div>
+            <p class="xv-drop-title">Kéo tệp vào đây, hoặc bấm để chọn</p>
+            <p class="xv-drop-hint">Ảnh (JPG, PNG, WebP) hoặc PDF — có thể chọn nhiều tệp cùng lúc. Ảnh sẽ được <b>nén tự động</b> để lưu trữ.</p>
+            <input id="xvFileInput" type="file" accept="image/*,.pdf" multiple hidden>
+          </div>
+
+          <div class="xv-note-row">
+            <input id="xvNote" type="text" placeholder="Ghi chú chung cho các tệp này (không bắt buộc) — VD: 'Bước phác thảo 1, chụp tại hiện trường'">
+          </div>
+
+          <details class="xv-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p>Tên tác phẩm có thể lấy sẵn từ “Hộ chiếu sáng tạo” ở Xưởng AI 5A phía trên. Thông điệp chỉ cần 1–2 câu.</p>
+          </details>
+
+          <p id="xvStatus" class="xv-status" style="margin-top:14px;"></p>
+        </section>
+
+        <section class="xv-card xv-step">
+          <h3 class="xv-step-title">2. Thuyết trình 60 giây • Câu chuyện phía sau tác phẩm</h3>
+          <div class="xv-grid3">
+            <label>① Em bắt đầu từ điều gì của di sản?<textarea id="xvShare1"></textarea></label>
+            <label>② Em đã thay đổi / phát triển ý tưởng thế nào?<textarea id="xvShare2"></textarea></label>
+            <label>③ Dấu ấn riêng rõ nhất của em là gì?<textarea id="xvShare3"></textarea></label>
+          </div>
+          <details class="xv-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p>Nói theo mạch: Em quan sát thấy… → em quyết định thay đổi… → dấu ấn của em nằm ở… Không cần đọc bài viết dài.</p>
+          </details>
+        </section>
+
+        <section class="xv-card xv-step">
+          <h3 class="xv-step-title">3. Phản hồi bạn học • 2 ấn tượng + 1 trao đổi</h3>
+          <div class="xv-grid3">
+            <label>👍 Ấn tượng 1<textarea id="xvFb1"></textarea></label>
+            <label>👍 Ấn tượng 2<textarea id="xvFb2"></textarea></label>
+            <label>💬 Một điều muốn hỏi / góp ý<textarea id="xvFb3"></textarea></label>
+          </div>
+          <details class="xv-help">
+            <summary>💡 Cần trợ giúp? Mở gợi ý</summary>
+            <p>Có thể bắt đầu: “Mình ấn tượng với… vì…”; “Mình nhận ra dấu ấn riêng ở…”; “Mình muốn hỏi vì sao bạn chọn…”. Tránh chỉ viết “đẹp/hay”.</p>
+          </details>
+        </section>
+
+        <section class="xv-card xv-step">
+          <h3 class="xv-step-title">4. Tự đánh giá cuối hành trình</h3>
+          <div class="xv-grid2">
+            <label>Ý tưởng thay đổi rõ nhất ở giai đoạn nào?<textarea id="xvSelf1"></textarea></label>
+            <label>Điều em làm tốt nhất là gì?<textarea id="xvSelf2"></textarea></label>
+            <label>Nếu làm lại, em sẽ thay đổi điều gì?<textarea id="xvSelf3"></textarea></label>
+            <label>Em học được gì về di sản?<textarea id="xvSelf4"></textarea></label>
+          </div>
+        </section>
+
+        <section class="xv-card xv-step">
+          <h3 class="xv-step-title">5. Khép lại hành trình sáng tạo</h3>
+          <label class="xv-confirm">
+            <input type="checkbox" id="xvConfirm">
+            <span>Tôi đã giới thiệu tác phẩm, lắng nghe phản hồi và tự đánh giá.</span>
+          </label>
+          <div class="xv-finish-row">
+            <span id="xvExStatus" class="xv-status">Chưa hoàn tất phần trưng bày – chia sẻ.</span>
+            <button id="xvSaveEx" type="button" class="xv-btn-save">💾 Lưu phần trưng bày</button>
+            <button id="xvFinish" type="button" class="xv-btn-finish">✓ Hoàn tất hành trình</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="xv-gallery-head">
+        <h2 class="xv-gallery-title">Triển lãm tác phẩm</h2>
+        <span id="xvStats" class="xv-gallery-stats"></span>
+      </div>
+
+      <div class="xv-filter-bar">
+        <button class="xv-chip active" data-kind="all" type="button">Tất cả</button>
+        <button class="xv-chip" data-kind="image" type="button">Hình ảnh</button>
+        <button class="xv-chip" data-kind="pdf" type="button">PDF</button>
+        <select id="xvFilterHeritage">
+          <option value="">Mọi di sản</option>
+          <option value="phohien">Phố Hiến</option>
+          <option value="chuakeo">Chùa Keo</option>
+          <option value="dentran">Đền Trần</option>
+          <option value="lequydon">Lê Quý Đôn</option>
+          <option value="dongxam">Đồng Xâm</option>
+        </select>
+        <input id="xvSearch" type="text" placeholder="Tìm theo tên hoặc mã học sinh...">
+      </div>
+
+      <div id="xvGrid" class="xv-grid"></div>
+      <div id="xvEmpty" class="xv-empty" hidden>
+        Chưa có tác phẩm nào trong bộ sưu tập.<br>
+        Hãy tải lên bản vẽ hoặc nghiên cứu đầu tiên của em ở khung phía trên!
+      </div>
+    </div>
+
+    <div id="xvLightbox" class="xv-lightbox" role="dialog" aria-modal="true">
+      <div class="xv-lightbox-inner">
+        <div id="xvLightboxMedia" class="xv-lightbox-media"></div>
+        <div class="xv-lightbox-bar">
+          <div>
+            <div id="xvLightboxTitle" class="xv-lightbox-title"></div>
+            <div id="xvLightboxMeta" class="xv-lightbox-meta"></div>
+          </div>
+          <button id="xvLightboxClose" class="xv-lightbox-close" type="button">Đóng ✕</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  /* ================================================================
+     INTEGRATED JOURNEY — one page, one shared heritage selection.
+     Step 1 home picker → Step 2 dossier → Step 3 3-2-1 →
+     Step 4 AI 5A → Step 5 exhibit. Demo V3.8 arrangement.
+     ================================================================ */
+  (function () {
+    'use strict';
+
+    var ORDER = ['phohien', 'chuakeo', 'dentran', 'lequydon', 'dongxam'];
+    var STEP_KEY = 'sah_int_step';
+
+    var META = {
+      phohien: {
+        name: 'Phố Hiến', crumbName: 'Phố Hiến',
+        tagline: 'Đô thị & Thương cảng cổ thế kỷ XVII',
+        year: 'Thế kỷ XVII', location: 'Thành phố Hưng Yên',
+        cover: 'assets/extracted/cover_phohien.jpeg',
+        description: "Từng được mệnh danh là 'Thứ nhất Kinh Kỳ, thứ nhì Phố Hiến', đây là thương cảng quốc tế sầm uất bậc nhất Đàng Ngoài với quần thể di tích đình, đền, chùa và hồ Bán Nguyệt thơ mộng.",
+        tags: ['Thương Cảng Cổ', 'Đền Mẫu', 'Hồ Bán Nguyệt', 'Kiến Trúc Gỗ'],
+        color: '#c46238'
+      },
+      chuakeo: {
+        name: 'Chùa Keo', crumbName: 'Chùa Keo',
+        tagline: 'Kiệt tác kiến trúc gỗ & Gác chuông 3 tầng 12 mái',
+        year: 'Khởi dựng 1632', location: 'Hưng Yên cổ / Thái Bình',
+        cover: 'assets/extracted/cover_chuakeo.jpeg',
+        description: 'Đỉnh cao của kiến trúc gỗ cổ truyền Việt Nam. Gác chuông Chùa Keo cao 11.04m với 3 tầng 12 mái cong hình đầu đao, liên kết bằng hệ thống con sơn đấu củng chịu lực tinh xảo hoàn toàn không dùng đinh sắt.',
+        tags: ['Gác Chuông 3 Tầng', '12 Mái Cong', 'Đấu Củng', 'Gỗ Lim'],
+        color: '#7c4c28'
+      },
+      dentran: {
+        name: 'Đền Trần Hưng Hà', crumbName: 'Đền Trần',
+        tagline: 'Vùng đất phát tích & Lăng mộ các vua triều Trần',
+        year: 'Hào khí Đông A', location: 'Hưng Hà',
+        cover: 'assets/extracted/cover_dentran.jpeg',
+        description: 'Nơi an nghỉ của các vị vua khởi nghiệp nhà Trần, mang đậm hào khí Đông A với kiến trúc trục thần đạo trang nghiêm, bậc tam cấp chạm rồng đá và các lễ hội rước nước, kéo chữ truyền thống.',
+        tags: ['Lăng Mộ Triều Trần', 'Hào Khí Đông A', 'Rồng Đá', 'Trục Thần Đạo'],
+        color: '#435c4b'
+      },
+      lequydon: {
+        name: 'Khu lưu niệm Lê Quý Đôn', crumbName: 'Lê Quý Đôn',
+        tagline: 'Không gian tưởng niệm Nhà bác học bách khoa thế kỷ XVIII',
+        year: 'Thế kỷ XVIII', location: 'Diên Hà, Thái Bình',
+        cover: 'assets/extracted/cover_lequydon.jpeg',
+        description: 'Khu lưu niệm tôn vinh danh nhân văn hóa, nhà bác học lỗi lạc Lê Quý Đôn. Không gian kết hợp giữa đền thờ truyền thống, tượng danh nhân, thư tịch cổ và các hoạt động giáo dục địa phương.',
+        tags: ['Nhà Bác Học', 'Tượng Đồng Danh Nhân', 'Thư Tịch Cổ', 'Giáo Dục Địa Phương'],
+        color: '#a39e93'
+      },
+      dongxam: {
+        name: 'Làng nghề chạm bạc Đồng Xâm', crumbName: 'Đồng Xâm',
+        tagline: 'Nghệ thuật chạm khắc kim hoàn thủ công tinh xảo 500 năm',
+        year: 'Truyền thống 500 năm', location: 'Kiến Xương, Thái Bình',
+        cover: 'assets/extracted/cover_dongxam.jpeg',
+        description: 'Cái nôi của nghề chạm bạc truyền thống Việt Nam. Với kỹ thuật "thúc, ve, trổ, chạm" điêu luyện, nghệ nhân Đồng Xâm thổi hồn vào các tấm kim loại bạc, đồng thành những tác phẩm hoa văn rồng phượng sống động.',
+        tags: ['Chạm Bạc', 'Nghệ Nhân Kim Hoàn', 'Hoa Văn Rồng Phượng', 'Thủ Công Mỹ Nghệ'],
+        color: '#c89547'
+      }
+    };
+
+    /* Per-heritage question packs (demo direct321 module) */
+    var QUESTION_PACKS = {
+      phohien: {
+        q3: 'Nêu 3 chi tiết giúp em nhận ra nét riêng của không gian Phố Hiến xưa.',
+        h3: 'Quan sát mái nhà, cổng, đường phố, cây xanh, màu sắc hoặc chi tiết kiến trúc.',
+        q2: 'Chọn 2 chi tiết tiêu biểu nhất. Chúng gợi cho em cảm xúc hoặc câu chuyện gì về Phố Hiến?',
+        h2: 'Ưu tiên chi tiết gợi nét cổ kính, yên bình hoặc dấu ấn giao lưu văn hóa; giải thích vì sao.',
+        q1: 'Từ 2 chi tiết đã chọn, đề xuất 1 sản phẩm Mĩ thuật giới thiệu Phố Hiến theo cách riêng.',
+        h1: 'Có thể là tranh, poster, bưu thiếp, logo hoặc thiết kế số; nêu hình ảnh chính, màu sắc và thông điệp.'
+      },
+      chuakeo: {
+        q3: 'Tìm 3 đặc điểm tạo hình nổi bật của kiến trúc Chùa Keo.',
+        h3: 'Chú ý mái, các lớp công trình, đường cong – thẳng, nhịp lặp, kết cấu gỗ hoặc trang trí.',
+        q2: 'Chọn 2 đặc điểm tạo nên vẻ đẹp riêng của Chùa Keo. Vì sao?',
+        h2: 'Xem đặc điểm nào tạo cảm giác cân đối, thanh thoát, nhịp nhàng hoặc cổ kính.',
+        q1: 'Từ 2 đặc điểm đã chọn, hình thành 1 ý tưởng sản phẩm Mĩ thuật lấy cảm hứng từ Chùa Keo.',
+        h1: 'Có thể cách điệu mái chùa, hoa văn hoặc nhịp kiến trúc thành tranh, họa tiết, mô hình hay sản phẩm ứng dụng.'
+      },
+      dentran: {
+        q3: 'Nêu 3 hình ảnh hoặc chi tiết ở Đền Trần gợi cảm giác trang nghiêm và dấu ấn lịch sử.',
+        h3: 'Chú ý cổng, đền, lăng mộ, trục đường, cây xanh, đồ án trang trí hoặc cách sắp xếp công trình.',
+        q2: 'Chọn 2 chi tiết để kể một câu chuyện ngắn bằng hình ảnh về Đền Trần. Em muốn người xem hiểu điều gì?',
+        h2: 'Không cần kể nhiều sự kiện; chọn hai hình ảnh rõ và nêu một ý nghĩa em hiểu được.',
+        q1: 'Từ câu chuyện đó, đề xuất 1 sản phẩm Mĩ thuật thể hiện sự trân trọng đối với di sản Đền Trần.',
+        h1: 'Có thể làm poster, tranh kể chuyện, bìa sách, biểu trưng hoặc mô hình; chọn hình ảnh trung tâm và thông điệp ngắn.'
+      },
+      lequydon: {
+        q3: 'Tìm 3 hình ảnh hoặc đồ vật ở khu lưu niệm gợi về học tập, nghiên cứu và tri thức.',
+        h3: 'Chú ý chân dung, sách, bút, bàn học, không gian từ đường hoặc hiện vật.',
+        q2: 'Chọn 2 chi tiết thể hiện rõ nhất tinh thần ham học và khám phá tri thức. Vì sao?',
+        h2: 'Chọn chi tiết giúp người xem liên tưởng đến đọc sách, suy nghĩ, nghiên cứu hoặc học hỏi.',
+        q1: 'Từ 2 chi tiết đó, hình thành 1 ý tưởng sản phẩm Mĩ thuật truyền cảm hứng học tập cho học sinh hôm nay.',
+        h1: 'Có thể thiết kế poster, bookmark, bìa sổ, tranh minh họa hoặc sản phẩm số; thêm thông điệp ngắn.'
+      },
+      dongxam: {
+        q3: 'Tìm 3 đặc điểm tạo hình khiến sản phẩm chạm bạc Đồng Xâm trở nên nổi bật.',
+        h3: 'Chú ý hoa văn, đường chạm, hình nổi – chìm, nhịp lặp, bố cục hoặc ánh sáng bề mặt.',
+        q2: 'Chọn 2 đặc điểm có thể phát triển thành họa tiết mới. Em sẽ giữ điều gì và thay đổi điều gì?',
+        h2: 'Có thể giữ nhịp hoa văn hoặc nét chạm đặc trưng rồi đơn giản hóa hình hay đổi cách sắp xếp.',
+        q1: 'Từ 2 đặc điểm đã chọn, đề xuất 1 sản phẩm Mĩ thuật ứng dụng hiện đại nhưng vẫn gợi nhớ chạm bạc Đồng Xâm.',
+        h1: 'Có thể thiết kế họa tiết cho hộp, túi, bìa sổ, huy hiệu, trang sức mô phỏng hoặc sản phẩm số.'
+      }
+    };
+
+    function $(id) { return document.getElementById(id); }
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function escAttr(s) { return esc(s).replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+
+    var state = { key: null, data: null };
+
+    /* ================= journey-bar current-step tracking ================= */
+    function markStep(name) {
+      try { localStorage.setItem(STEP_KEY, name); } catch (e) {}
+      document.querySelectorAll('.jn-link[data-step]').forEach(function (l) {
+        var on = l.dataset.step === name;
+        l.classList.toggle('is-current', on);
+        if (on) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current');
+      });
+    }
+    function restoreStep() {
+      var name = null;
+      try { name = localStorage.getItem(STEP_KEY); } catch (e) {}
+      if (name && document.querySelector('[data-jnsec="' + name + '"]')) markStep(name);
+    }
+    function setupScrollSpy() {
+      var secs = Array.prototype.slice.call(document.querySelectorAll('[data-jnsec]'));
+      if (!('IntersectionObserver' in window) || !secs.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) markStep(en.target.dataset.jnsec);
+        });
+      }, { rootMargin: '-30% 0px -55% 0px' });
+      secs.forEach(function (s) { io.observe(s); });
+    }
+
+    /* ================= STEP 2 — dossier (di-san engine) ================= */
+    function badge(h) {
+      var code = h.code || '';
+      return (code.indexOf('•') >= 0 ? code.split('•')[0] : code).trim();
+    }
+    function headingOf(h, idx) {
+      var code = h.code || ('HOTSPOT #' + (idx + 1));
+      return code.indexOf('•') >= 0 ? code.split('•').slice(1).join('•').trim() : code;
+    }
+
+    function selectHeritage(key, opts) {
+      opts = opts || {};
+      if (ORDER.indexOf(key) < 0) key = 'chuakeo';
+      state.key = key;
+
+      document.querySelectorAll('#homeTabs .hm-tab').forEach(function (t) {
+        t.classList.toggle('is-active', t.dataset.key === key);
+      });
+      document.querySelectorAll('#dsTabs .ds-tab').forEach(function (t) {
+        t.classList.toggle('is-active', t.dataset.heritage === key);
+      });
+
+      /* 3-2-1 sync */
+      if ($('form321Project').value !== key) {
+        $('form321Project').value = key;
+        applyPrompts();
+      }
+      /* AI 5A sync */
+      if ($('studioProject').value !== key) {
+        $('studioProject').value = key;
+        renderProject();
+      }
+      /* exhibit sync */
+      if ($('xvHeritage').value !== key) $('xvHeritage').value = key;
+
+      document.getElementById('dossier').classList.add('is-open');
+
+      if (opts.scrollTo) {
+        document.getElementById('dossier').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      renderDossier(key);
+    }
+
+    function chipEl(text) {
+      var s = document.createElement('span');
+      s.className = 'ds-meta-chip';
+      s.textContent = text;
+      return s;
+    }
+
+    function renderDossier(key) {
+      var m = META[key];
+      var site = state.data && state.data[key];
+      var hotspots = site && site.hotspots ? site.hotspots : [];
+      var info = site && site.info ? site.info : {};
+
+      $('dsCrumb').textContent = 'HỒ SƠ 0' + (ORDER.indexOf(key) + 1) + ' • SMART ART HERITAGE';
+      $('dsTitle').textContent = m.name;
+      $('dsDesc').textContent = m.description;
+      $('dsHeroImg').src = m.cover;
+      $('dsHeroImg').alt = m.name;
+
+      var meta = $('dsMeta');
+      meta.innerHTML = '';
+      meta.appendChild(chipEl('📍 ' + (info.location || m.location)));
+      meta.appendChild(chipEl('🕰 ' + (info.year || m.year)));
+      meta.appendChild(chipEl(hotspots.length + ' điểm chạm'));
+      (m.tags || []).forEach(function (t) { meta.appendChild(chipEl(t)); });
+
+      $('dsGalTitle').textContent = hotspots.length + ' ảnh tư liệu tiêu biểu';
+      $('dsLabEyebrow').textContent = 'HOTSPOT THCS • ' + (hotspots.length ? badge(hotspots[0]) + '–' + badge(hotspots[hotspots.length - 1]) : '');
+      $('dsLabTitle').textContent = 'Khám phá ' + m.name + ' từ dễ đến sâu';
+      $('dsCount').textContent = 'Mỗi ảnh: Nhìn ảnh – trả lời → Em có biết? → Thử làm nhé';
+
+      renderGallery(hotspots);
+      renderGrid(hotspots);
+    }
+
+    function renderGallery(hotspots) {
+      var gal = $('dsGallery');
+      if (!hotspots.length) { gal.innerHTML = ''; return; }
+      gal.innerHTML = hotspots.map(function (h, idx) {
+        var img = h.image || 'assets/extracted/cover_chuakeo.jpeg';
+        var num = (idx < 9 ? '0' : '') + (idx + 1);
+        return '' +
+          '<button type="button" class="ds-photo" data-idx="' + idx + '">' +
+            '<img src="' + escAttr(img) + '" alt="' + escAttr(headingOf(h, idx)) + '" loading="lazy" ' +
+              'onerror="this.onerror=null;this.src=\'assets/extracted/cover_chuakeo.jpeg\'">' +
+            '<span class="ds-photo-cap">' + num + '. ' + esc(headingOf(h, idx)) + '</span>' +
+          '</button>';
+      }).join('');
+    }
+
+    function bindGalleryJump() {
+      $('dsGallery').addEventListener('click', function (ev) {
+        var btn = ev.target.closest('.ds-photo');
+        if (!btn) return;
+        var card = document.getElementById('hs-' + btn.dataset.idx);
+        if (!card) return;
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        card.classList.remove('hs-flash');
+        void card.offsetWidth;
+        card.classList.add('hs-flash');
+        setTimeout(function () { card.classList.remove('hs-flash'); }, 1600);
+      });
+    }
+
+    function renderGrid(hotspots) {
+      var grid = $('dsGrid');
+      if (!hotspots.length) {
+        grid.innerHTML = '<div class="ds-loading">Chưa có dữ liệu điểm chạm cho di sản này.</div>';
+        return;
+      }
+      grid.innerHTML = hotspots.map(function (h, idx) {
+        var code = h.code || ('HOTSPOT #' + (idx + 1));
+        var img = h.image || 'assets/extracted/cover_chuakeo.jpeg';
+        var q1 = h.q1 || {}, q2 = h.q2 || {}, q3 = h.q3 || {};
+        var bdg = code.split('•')[0].trim();
+        var heading = code.indexOf('•') >= 0 ? code.split('•').slice(1).join('•').trim() : code;
+        return '' +
+          '<article class="hs-card" id="hs-' + idx + '">' +
+            '<div class="hs-photo-wrap">' +
+              '<img class="hs-photo" src="' + escAttr(img) + '" alt="' + escAttr(heading) + '" loading="lazy" ' +
+                'onerror="this.onerror=null;this.src=\'assets/extracted/cover_chuakeo.jpeg\'">' +
+              '<span class="hs-no">' + esc(bdg) + '</span>' +
+            '</div>' +
+            '<div class="hs-body">' +
+              '<h3 class="hs-title">' + esc(heading) + '</h3>' +
+              '<details class="hs-q" open>' + qBlock(q1, '①', 'Nhìn ảnh – trả lời') + '</details>' +
+              '<details class="hs-q">' + qBlock(q2, '②', 'Em có biết?') + '</details>' +
+              '<details class="hs-q">' + qBlock(q3, '③', 'Thử làm nhé') + '</details>' +
+            '</div>' +
+          '</article>';
+      }).join('');
+    }
+
+    function qBlock(q, mark, fallbackTitle) {
+      var title = q.title || fallbackTitle;
+      title = title.replace(/^[①②③]\s*/, '');
+      var content = q.content || '—';
+      return '<summary><span class="hs-q-mark">' + mark + '</span>' + esc(title) +
+             '<span class="hs-q-chev">›</span></summary>' +
+             '<div class="hs-q-body">' + esc(content) + '</div>';
+    }
+
+    function loadDatabase() {
+      return fetch('assets/heritage_complete.json')
+        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+        .then(function (json) { state.data = json; })
+        .catch(function () { state.data = null; });
+    }
+
+    function buildHeritageTabs() {
+      var tabs = $('dsTabs');
+      tabs.innerHTML = '';
+      ORDER.forEach(function (key, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ds-tab';
+        b.dataset.heritage = key;
+        b.innerHTML =
+          '<span class="ds-tab-dot" style="background:' + META[key].color + '"></span>' +
+          '0' + (i + 1) + ' • ' + META[key].crumbName;
+        b.addEventListener('click', function () { selectHeritage(key, { scrollTo: true }); });
+        tabs.appendChild(b);
+      });
+    }
+
+    /* ================= STEP 3 — 3-2-1 engine ================= */
+    var saveTimer = null;
+
+    function applyPrompts() {
+      var pack = QUESTION_PACKS[$('form321Project').value] || QUESTION_PACKS.chuakeo;
+      [['3', pack.q3, pack.h3], ['2', pack.q2, pack.h2], ['1', pack.q1, pack.h1]].forEach(function (row) {
+        var n = row[0];
+        $('prompt321_' + n).textContent = row[1];
+        $('help321_' + n).textContent = row[2];
+      });
+    }
+
+    function autoSave321() {
+      var data = {
+        project: $('form321Project').value || 'chuakeo',
+        studentId: $('form321StudentId').value || '',
+        studentClass: $('form321Class').value || '',
+        q3: $('field321_3').value || '',
+        q2: $('field321_2').value || '',
+        q1: $('field321_1').value || '',
+        updatedAt: new Date().toISOString()
+      };
+      try { localStorage.setItem('sah_321_draft', JSON.stringify(data)); } catch (e) {}
+      var st = $('save321Status');
+      st.textContent = '✓ Đã tự động lưu nháp';
+      clearTimeout(st._t);
+      st._t = setTimeout(function () { st.textContent = '✓ Đã sẵn sàng'; }, 2500);
+    }
+
+    function debounce(fn, delay) {
+      return function () {
+        var args = arguments, ctx = this;
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(function () { fn.apply(ctx, args); }, delay);
+      };
+    }
+
+    function init321() {
+      applyPrompts();
+
+      try {
+        var fbMap = JSON.parse(localStorage.getItem('sah_321_feedback') || '{}');
+        if (fbMap['321']) {
+          $('teacherFeedbackText').textContent = fbMap['321'];
+          $('teacherFeedbackBox').hidden = false;
+        }
+      } catch (e) {}
+
+      // Restore saved draft, then sync the rest of the journey to it
+      try {
+        var draft = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
+        if (draft.q3) $('field321_3').value = draft.q3;
+        if (draft.q2) $('field321_2').value = draft.q2;
+        if (draft.q1) $('field321_1').value = draft.q1;
+        if (draft.studentId) $('form321StudentId').value = draft.studentId;
+        if (draft.studentClass) $('form321Class').value = draft.studentClass;
+        var pkey = draft.project && ORDER.indexOf(draft.project) >= 0 ? draft.project : 'chuakeo';
+        state.key = pkey;
+        $('form321Project').value = pkey;
+        applyPrompts();
+      } catch (e) {}
+
+      var debouncedSave = debounce(autoSave321, 500);
+      ['field321_3', 'field321_2', 'field321_1'].forEach(function (id) {
+        $(id).addEventListener('input', debouncedSave);
+      });
+      ['form321Project', 'form321StudentId', 'form321Class'].forEach(function (id) {
+        $(id).addEventListener('change', function () {
+          if (id === 'form321Project') {
+            applyPrompts();
+            // switching heritage in the 3-2-1 drives the WHOLE journey
+            selectHeritage($('form321Project').value);
+          }
+          autoSave321();
+        });
+      });
+
+      $('btnExport321').addEventListener('click', function () { window.print(); });
+      $('btnToAI5A').addEventListener('click', function () {
+        autoSave321();
+        $('studioSeed').value = seedFrom321();
+      });
+    }
+
+    /* ================= STEP 4 — AI 5A engine ================= */
+    var STUDIO_DATA = {
+      phohien: {
+        name: 'Phố Hiến',
+        analyze: 'Hãy nhìn lại ý tưởng 3–2–1 và chọn: 1 hình ảnh chính của phố xưa, 1 nét riêng của Phố Hiến và 1 cảm xúc/thông điệp em muốn giữ.',
+        asks: [
+          'Nếu chỉ được giữ lại một chi tiết để người xem nhận ra Phố Hiến, em sẽ chọn chi tiết nào? Vì sao?',
+          'Em muốn người xem cảm nhận Phố Hiến là cổ kính, bình yên, sầm uất xưa hay theo một cảm xúc khác?',
+          'Em sẽ thay đổi góc nhìn, màu sắc hoặc cách sắp xếp thế nào để sản phẩm có dấu ấn của riêng em?'
+        ],
+        paths: [
+          ['Giữ hồn phố xưa', 'Giữ mái nhà, cổng, đường phố hoặc dấu tích kiến trúc làm trung tâm; nhấn không khí cổ kính.'],
+          ['Phố Hiến qua mắt em', 'Chọn một góc/chi tiết em thích, phóng đại hoặc cách điệu để kể cảm nhận cá nhân.'],
+          ['Phố xưa bước vào hôm nay', 'Biến hình ảnh Phố Hiến thành poster, bưu thiếp, logo, bìa sổ hoặc thiết kế số.']
+        ]
+      },
+      chuakeo: {
+        name: 'Chùa Keo',
+        analyze: 'Từ ý tưởng 3–2–1, hãy xác định: hình ảnh kiến trúc chính, đặc điểm tạo hình em muốn giữ và cảm xúc em muốn người xem nhận được.',
+        asks: [
+          'Nếu chỉ giữ một nét để người xem nhận ra Chùa Keo, em chọn nhịp mái, kết cấu gỗ, hoa văn hay đặc điểm nào khác?',
+          'Em muốn nhấn mạnh vẻ cân đối, thanh thoát, cổ kính hay nhịp điệu của kiến trúc?',
+          'Em sẽ biến đổi chi tiết đã chọn thế nào để tác phẩm không chỉ là chép lại ảnh?'
+        ],
+        paths: [
+          ['Giữ hồn kiến trúc', 'Lấy nhịp mái, kết cấu gỗ và sự cân đối làm ngôn ngữ tạo hình chính.'],
+          ['Một góc Chùa Keo qua mắt em', 'Chọn một góc kiến trúc, phóng đại/cách điệu đường nét và nhịp điệu em ấn tượng.'],
+          ['Chùa Keo trong thiết kế mới', 'Chuyển mái, hoa văn hoặc nhịp kiến trúc thành họa tiết, poster, mô hình hay sản phẩm ứng dụng.']
+        ]
+      },
+      dentran: {
+        name: 'Đền Trần',
+        analyze: 'Từ kết quả quan sát, hãy chọn một hình ảnh trung tâm, một dấu ấn lịch sử và một thông điệp em muốn kể bằng Mĩ thuật.',
+        asks: [
+          'Hình ảnh nào giúp em thể hiện rõ nhất không khí trang nghiêm và dấu ấn nhà Trần?',
+          'Nếu kể một câu chuyện bằng hình ảnh, em muốn người xem nhớ điều gì sau khi xem?',
+          'Em sẽ làm gì để sản phẩm vừa tôn trọng di sản vừa có cách thể hiện của riêng em?'
+        ],
+        paths: [
+          ['Dấu ấn lịch sử', 'Dùng cổng, đền, lăng hoặc biểu tượng lịch sử làm điểm nhấn trong bố cục trang trọng.'],
+          ['Kể chuyện bằng hình ảnh', 'Chọn hai chi tiết liên quan để tạo một câu chuyện ngắn, rõ và có cảm xúc.'],
+          ['Di sản với thế hệ trẻ', 'Thiết kế poster, bìa sách, biểu trưng hoặc sản phẩm số giúp người trẻ tiếp cận Đền Trần.']
+        ]
+      },
+      lequydon: {
+        name: 'Khu lưu niệm Lê Quý Đôn',
+        analyze: 'Hãy chọn một hình ảnh gợi tri thức, một phẩm chất em muốn nhấn mạnh và một thông điệp học tập dành cho học sinh hôm nay.',
+        asks: [
+          'Trong các hình ảnh em quan sát, hình ảnh nào thể hiện tinh thần học tập và nghiên cứu rõ nhất?',
+          'Nếu không viết tên “Lê Quý Đôn”, em sẽ dùng hình ảnh nào để người xem vẫn hiểu chủ đề?',
+          'Em muốn sản phẩm truyền cho học sinh hôm nay thông điệp gì về học tập và khám phá tri thức?'
+        ],
+        paths: [
+          ['Chân dung tri thức', 'Kết hợp chân dung/hình ảnh nhà bác học với sách, bút hoặc biểu tượng nghiên cứu.'],
+          ['Kể chuyện về ham học', 'Dùng chuỗi hình ảnh đơn giản để kể tinh thần học hỏi, suy nghĩ và khám phá.'],
+          ['Tri thức truyền cảm hứng', 'Thiết kế poster, bookmark, bìa sổ hoặc sản phẩm số dành cho học sinh hôm nay.']
+        ]
+      },
+      dongxam: {
+        name: 'Làng nghề chạm bạc Đồng Xâm',
+        analyze: 'Hãy xác định một hoa văn/đường chạm chính, một đặc điểm bề mặt và một điều em muốn đổi mới từ nghề truyền thống.',
+        asks: [
+          'Nếu chỉ giữ một đặc điểm của chạm bạc Đồng Xâm, em sẽ giữ hoa văn, nhịp chạm, nổi–chìm hay đặc điểm nào?',
+          'Em muốn sản phẩm mới nhìn ra Đồng Xâm ngay lập tức hay chỉ gợi nhớ một cách tinh tế?',
+          'Em sẽ thay đổi hình, nhịp, bố cục hoặc công năng thế nào để sản phẩm có dấu ấn của em?'
+        ],
+        paths: [
+          ['Giữ nhịp hoa văn', 'Giữ cấu trúc hoa văn và nhịp chạm đặc trưng, tinh giản để dễ nhận biết.'],
+          ['Cách điệu theo mắt em', 'Phóng to, lược bớt hoặc tổ hợp lại hoa văn để tạo mẫu trang trí cá nhân.'],
+          ['Đồng Xâm trong đời sống mới', 'Đưa họa tiết vào hộp, túi, bìa sổ, huy hiệu, trang sức mô phỏng hoặc sản phẩm số.']
+        ]
+      }
+    };
+
+    var PKEY = 'sah_passport';
+
+    function renderProject() {
+      var key = $('studioProject').value || 'chuakeo';
+      var d = STUDIO_DATA[key];
+      $('a1Prompt').textContent = d.analyze;
+      $('askCards').innerHTML = d.asks.map(function (q) {
+        return '<button type="button" class="tlai-askq">💬 ' + esc(q) + '</button>';
+      }).join('');
+      $('pathCards').innerHTML = d.paths.map(function (p, i) {
+        return '<button type="button" class="tlai-path" data-i="' + i + '"><b>' + (i + 1) + '. ' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></button>';
+      }).join('');
+      $('passportHeritage').value = d.name;
+    }
+
+    var HERITAGE_LABELS = {
+      phohien: 'Phố Hiến', chuakeo: 'Chùa Keo', dentran: 'Đền Trần',
+      lequydon: 'Khu lưu niệm Lê Quý Đôn', dongxam: 'Chạm bạc Đồng Xâm'
+    };
+
+    function seedFrom321() {
+      try {
+        var draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null');
+        if (!draft) { return 'Chưa có phiếu 3–2–1 nào được lưu trên máy này.'; }
+        var lines = [];
+        if (draft.project) lines.push('Di sản: ' + (HERITAGE_LABELS[draft.project] || draft.project));
+        if (draft.q3) lines.push('3 – Khám phá: ' + draft.q3);
+        if (draft.q2) lines.push('2 – Lựa chọn: ' + draft.q2);
+        if (draft.q1) lines.push('1 – Ý tưởng: ' + draft.q1);
+        return lines.join('\n') || 'Phiếu 3–2–1 chưa có nội dung.';
+      } catch (e) { return 'Chưa có phiếu 3–2–1 nào được lưu trên máy này.'; }
+    }
+
+    function savePassport() {
+      var data = { heritage: $('passportHeritage').value };
+      document.querySelectorAll('[data-pass]').forEach(function (el) {
+        data[el.dataset.pass] = el.value.trim();
+      });
+      data.confirmed = $('authorConfirm').checked;
+      try { localStorage.setItem(PKEY, JSON.stringify(data)); return true; }
+      catch (e) { return false; }
+    }
+
+    function initAI5A() {
+      $('studioProject').addEventListener('change', function () {
+        // switching project here drives the whole journey too
+        selectHeritage($('studioProject').value);
+      });
+      $('studioLoad').addEventListener('click', function () {
+        $('studioSeed').value = seedFrom321();
+      });
+
+      // A2: clicking an ask drops it into the chat input
+      $('askCards').addEventListener('click', function (e) {
+        var btn = e.target.closest('.tlai-askq');
+        if (!btn) return;
+        var input = $('aiChatInput');
+        input.value = btn.textContent.replace(/^💬\s*/, '');
+        input.focus();
+      });
+
+      // A3: selecting a path
+      $('pathCards').addEventListener('click', function (e) {
+        var btn = e.target.closest('.tlai-path');
+        if (!btn) return;
+        document.querySelectorAll('.tlai-path').forEach(function (p) { p.classList.remove('sel'); });
+        btn.classList.add('sel');
+      });
+      $('ownPathBtn').addEventListener('click', function () {
+        var w = $('ownPathWrap');
+        w.style.display = w.style.display === 'none' ? 'block' : 'none';
+      });
+
+      // A1: auto-combine the three reflections
+      function combineA1() {
+        var parts = ['a1n1', 'a1n2', 'a1n3']
+          .map(function (id) { return $(id).value.trim(); })
+          .filter(Boolean);
+        var out = $('a1Combined');
+        out.value = parts.length ? parts.join('\n') : '';
+        out.placeholder = parts.length ? '' : 'Em chưa nhập nội dung A1.';
+      }
+      ['a1n1', 'a1n2', 'a1n3'].forEach(function (id) {
+        $(id).addEventListener('input', combineA1);
+      });
+
+      // A5: passport
+      $('studioSave').addEventListener('click', function () {
+        var ok = savePassport();
+        var msg = $('studioMsg');
+        msg.textContent = ok ? '✓ Đã lưu Hộ chiếu sáng tạo trên máy của em.' : 'Không lưu được — bộ nhớ máy đầy.';
+        msg.style.color = ok ? '#3e7d50' : '#a33c2f';
+        // Tác phẩm chảy thẳng sang Triển lãm phía dưới (chỉ điền ô còn trống)
+        prefillExhibitFromPassport();
+      });
+
+      renderProject();
+      // auto-seed from the 3-2-1 — integrated, no button needed
+      $('studioSeed').value = seedFrom321();
+    }
+
+    /* ================= STEP 5 — exhibit engine ================= */
+    var STORE_KEY = 'sah_student_works';
+    var MIGRATE_FLAG = 'sah_student_works_migrated_canvas';
+    var works = [];
+    var filter = { kind: 'all', heritage: '', search: '' };
+
+    function loadWorks() {
+      try { works = JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); }
+      catch (e) { works = []; }
+      if (!Array.isArray(works)) works = [];
+    }
+    function saveWorks() {
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(works)); return true; }
+      catch (e) { return false; }
+    }
+    function migrateOldCanvasSketches() {
+      if (localStorage.getItem(MIGRATE_FLAG)) return;
+      try {
+        var old = JSON.parse(localStorage.getItem('sah_portfolio') || '[]');
+        if (Array.isArray(old) && old.length) {
+          old.forEach(function (it) {
+            works.push({
+              id: 'mig-' + (it.id || Date.now()),
+              kind: 'image',
+              title: it.title || 'Bản phác thảo cũ',
+              studentId: it.studentId || '',
+              studentClass: '',
+              heritage: '',
+              note: 'Nhập từ bản vẽ canvas cũ',
+              dataUrl: it.image,
+              fileName: '',
+              bytes: 0,
+              createdAt: it.createdAt || new Date().toLocaleDateString('vi-VN')
+            });
+          });
+          saveWorks();
+        }
+      } catch (e) {}
+      localStorage.setItem(MIGRATE_FLAG, '1');
+    }
+
+    function restoreExhibitMeta() {
+      var draft = null;
+      try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
+      if (draft) {
+        if (draft.studentId) $('xvStudentId').value = draft.studentId;
+        if (draft.studentClass) $('xvClass').value = draft.studentClass;
+        if (draft.project && ORDER.indexOf(draft.project) >= 0) $('xvHeritage').value = draft.project;
+      }
+      ['xvStudentId', 'xvClass'].forEach(function (id) {
+        $(id).addEventListener('change', function () {
+          try {
+            var d = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
+            if (id === 'xvStudentId') d.studentId = $(id).value;
+            else d.studentClass = $(id).value;
+            localStorage.setItem('sah_321_draft', JSON.stringify(d));
+          } catch (e) {}
+        });
+      });
+
+      // Prefill from the A5 Creative Passport (integrated handoff)
+      prefillExhibitFromPassport();
+    }
+
+    function prefillExhibitFromPassport() {
+      try {
+        var p = JSON.parse(localStorage.getItem(PKEY) || 'null');
+        if (p) {
+          if (p.title && !$('xvArtTitle').value) $('xvArtTitle').value = p.title;
+          if (p.material && !$('xvArtMaterial').value) $('xvArtMaterial').value = p.material;
+          if (p.message && !$('xvArtMessage').value) $('xvArtMessage').value = p.message;
+        }
+      } catch (e) {}
+    }
+
+    /* upload */
+    var drop, fileInput, statusEl;
+
+    function setStatus(msg, ok) {
+      statusEl.textContent = msg;
+      statusEl.className = 'xv-status' + (ok ? ' ok' : '');
+    }
+
+    function handleFiles(fileList) {
+      var files = Array.prototype.slice.call(fileList);
+      var note = $('xvNote').value.trim();
+      var studentId = $('xvStudentId').value.trim();
+      var studentClass = $('xvClass').value.trim();
+      var heritage = $('xvHeritage').value;
+      var artTitle = $('xvArtTitle').value.trim();
+      var artMaterial = $('xvArtMaterial').value.trim();
+      var artMessage = $('xvArtMessage').value.trim();
+      var descParts = [];
+      if (note) descParts.push(note);
+      if (artMaterial) descParts.push('Chất liệu: ' + artMaterial);
+      if (artMessage) descParts.push('Thông điệp: ' + artMessage);
+      var desc = descParts.join(' · ');
+
+      var pending = files.length;
+      var added = 0;
+      setStatus('Đang xử lý ' + pending + ' tệp...');
+
+      files.forEach(function (file) {
+        var finish = function (dataUrl) {
+          var base = file.name.replace(/\.[^.]+$/, '');
+          works.unshift({
+            id: 'w' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+            kind: file.type.indexOf('pdf') !== -1 ? 'pdf' : 'image',
+            title: artTitle || note || base,
+            studentId: studentId,
+            studentClass: studentClass,
+            heritage: heritage,
+            note: [desc, base !== (artTitle || note) ? 'Tệp gốc: ' + file.name : ''].filter(Boolean).join(' · '),
+            dataUrl: dataUrl,
+            fileName: file.name,
+            bytes: file.size,
+            createdAt: new Date().toLocaleDateString('vi-VN')
+          });
+          added++;
+          pending--;
+          if (pending === 0) finishBatch();
+        };
+
+        if (file.type.indexOf('image/') === 0) {
+          compressImage(file, finish, function () {
+            var r = new FileReader();
+            r.onload = function () { finish(r.result); };
+            r.onerror = function () { pending--; if (pending === 0) finishBatch(); };
+            r.readAsDataURL(file);
+          });
+        } else if (file.type.indexOf('pdf') !== -1) {
+          if (file.size > 8 * 1024 * 1024) {
+            setStatus('Tệp "' + file.name + '" lớn hơn 8MB — hãy nén hoặc xuất bản nhỏ hơn.');
+            pending--;
+            if (pending === 0) finishBatch();
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function () { finish(reader.result); };
+          reader.onerror = function () { pending--; if (pending === 0) finishBatch(); };
+          reader.readAsDataURL(file);
+        } else {
+          setStatus('Chỉ nhận ảnh hoặc PDF — bỏ qua "' + file.name + '".');
+          pending--;
+          if (pending === 0) finishBatch();
+        }
+      });
+
+      function finishBatch() {
+        if (added > 0) {
+          if (!saveWorks()) {
+            setStatus('Bộ nhớ máy đã đầy — hãy xóa bớt tác phẩm cũ rồi thử lại.');
+            return;
+          }
+          render();
+          setStatus('✓ Đã thêm ' + added + ' tác phẩm vào bộ sưu tập.', true);
+          $('xvNote').value = '';
+          $('xvArtTitle').value = '';
+          $('xvArtMaterial').value = '';
+          $('xvArtMessage').value = '';
+        }
+      }
+    }
+
+    function compressImage(file, done, fail) {
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        var MAX = 1280;
+        var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        try { done(canvas.toDataURL('image/jpeg', 0.82)); }
+        catch (e) { fail(); }
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); fail(); };
+      img.src = url;
+    }
+
+    function fmtSize(bytes) {
+      if (!bytes) return '';
+      if (bytes > 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+      return Math.round(bytes / 1024) + ' KB';
+    }
+
+    function visibleWorks() {
+      var q = filter.search.toLowerCase();
+      return works.filter(function (w) {
+        if (filter.kind !== 'all' && w.kind !== filter.kind) return false;
+        if (filter.heritage && w.heritage !== filter.heritage) return false;
+        if (q && (w.title + ' ' + w.studentId).toLowerCase().indexOf(q) === -1) return false;
+        return true;
+      });
+    }
+
+    function esc2(s) {
+      return String(s || '').replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function render() {
+      var grid = $('xvGrid');
+      var empty = $('xvEmpty');
+      var stats = $('xvStats');
+      var list = visibleWorks();
+
+      var students = {};
+      works.forEach(function (w) { if (w.studentId) students[w.studentId] = true; });
+      var totalBytes = works.reduce(function (s, w) { return s + (w.bytes || 0); }, 0);
+      stats.textContent = works.length + ' tác phẩm · ' + Object.keys(students).length + ' học sinh' +
+        (totalBytes ? ' · ~' + fmtSize(totalBytes) : '');
+
+      empty.hidden = list.length > 0;
+      grid.innerHTML = list.map(function (w) {
+        var grades = {};
+        try { grades = JSON.parse(localStorage.getItem('sah_work_grades') || '{}'); } catch (e) {}
+        var g = grades[w.id];
+
+        var thumb;
+        if (w.kind === 'image') {
+          thumb = '<img src="' + w.dataUrl + '" alt="' + esc2(w.title) + '" loading="lazy">';
+        } else {
+          thumb = '<div class="xv-work-pdf"><span class="pdf-icon">📄</span>' + esc2(w.fileName || 'PDF') + '</div>';
+        }
+        return '<article class="xv-work" data-id="' + w.id + '">' +
+          '<div class="xv-work-thumb" data-act="view">' +
+            thumb +
+            '<span class="xv-kind-badge">' + (w.kind === 'pdf' ? 'PDF' : 'ẢNH') + '</span>' +
+            (g ? '<span class="xv-grade" style="position:absolute; top:10px; right:10px;">★ ' + g.total.toFixed(1) + '/10</span>' : '') +
+          '</div>' +
+          '<div class="xv-work-body">' +
+            '<h3 class="xv-work-title">' + esc2(w.title) + '</h3>' +
+            '<span class="xv-work-meta">' + esc2(w.studentId || 'Ẩn danh') +
+              (w.studentClass ? ' · ' + esc2(w.studentClass) : '') + ' · ' + esc2(w.createdAt) +
+              (w.bytes ? ' · ' + fmtSize(w.bytes) : '') + '</span>' +
+            (w.heritage ? '<span class="xv-work-heritage">' + esc2(HERITAGE_LABELS[w.heritage] || w.heritage) + '</span>' : '') +
+            (w.note ? '<span class="xv-work-meta" style="font-style:italic;">' + esc2(w.note) + '</span>' : '') +
+            (g && g.feedback ? '<div class="xv-teacher-note"><b>NHẬN XÉT CỦA GIÁO VIÊN</b>' + esc2(g.feedback) + '</div>' : '') +
+            '<div class="xv-work-actions">' +
+              '<button class="xv-mini" data-act="view" type="button">Xem</button>' +
+              '<a class="xv-mini" data-act="download" href="' + w.dataUrl + '" download="' + esc2(w.fileName || (w.title + (w.kind === 'pdf' ? '.pdf' : '.jpg'))) + '">Tải xuống</a>' +
+              '<button class="xv-mini danger" data-act="delete" type="button">Xóa</button>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+      }).join('');
+    }
+
+    function initExhibit() {
+      drop = $('xvDrop');
+      fileInput = $('xvFileInput');
+      statusEl = $('xvStatus');
+
+      drop.addEventListener('click', function () { fileInput.click(); });
+      drop.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+      });
+      drop.addEventListener('dragover', function (e) { e.preventDefault(); drop.classList.add('dragover'); });
+      drop.addEventListener('dragleave', function () { drop.classList.remove('dragover'); });
+      drop.addEventListener('drop', function (e) {
+        e.preventDefault();
+        drop.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+      });
+      fileInput.addEventListener('change', function () {
+        if (fileInput.files && fileInput.files.length) handleFiles(fileInput.files);
+        fileInput.value = '';
+      });
+
+      $('xvGrid').addEventListener('click', function (e) {
+        var card = e.target.closest('.xv-work');
+        if (!card) return;
+        var work = works.find(function (w) { return w.id === card.dataset.id; });
+        if (!work) return;
+        var actEl = e.target.closest('[data-act]');
+        var act = actEl ? actEl.dataset.act : null;
+
+        if (act === 'view') openLightbox(work);
+        else if (act === 'delete') {
+          if (confirm('Xóa tác phẩm "' + work.title + '" khỏi bộ sưu tập?')) {
+            works = works.filter(function (w) { return w.id !== work.id; });
+            saveWorks();
+            render();
+          }
+        }
+      });
+
+      // Heritage chosen here drives the whole journey too (reverse sync)
+      $('xvHeritage').addEventListener('change', function () {
+        if (this.value && ORDER.indexOf(this.value) >= 0) selectHeritage(this.value);
+      });
+
+      var lightbox = $('xvLightbox');
+      var lbMedia = $('xvLightboxMedia');
+
+      function openLightbox(w) {
+        if (w.kind === 'image') {
+          lbMedia.innerHTML = '<img src="' + w.dataUrl + '" alt="' + esc2(w.title) + '">';
+        } else {
+          lbMedia.innerHTML = '<iframe src="' + w.dataUrl + '" title="' + esc2(w.title) + '"></iframe>';
+        }
+        $('xvLightboxTitle').textContent = w.title;
+        $('xvLightboxMeta').textContent =
+          (w.studentId || 'Ẩn danh') + (w.studentClass ? ' · ' + w.studentClass : '') +
+          (w.heritage ? ' · ' + (HERITAGE_LABELS[w.heritage] || w.heritage) : '') +
+          ' · ' + w.createdAt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        lbMedia.innerHTML = '';
+        document.body.style.overflow = '';
+      }
+      $('xvLightboxClose').addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      });
+
+      document.querySelectorAll('.xv-chip').forEach(function (c) {
+        c.addEventListener('click', function () {
+          document.querySelectorAll('.xv-chip').forEach(function (x) { x.classList.remove('active'); });
+          c.classList.add('active');
+          filter.kind = c.dataset.kind;
+          render();
+        });
+      });
+      $('xvFilterHeritage').addEventListener('change', function (e) {
+        filter.heritage = e.target.value;
+        render();
+      });
+      $('xvSearch').addEventListener('input', function (e) {
+        filter.search = e.target.value.trim();
+        render();
+      });
+
+      /* exhibit 5-step fields (demo exhibitV38) */
+      var EX38_KEY = 'sah_ex38';
+      var EX38_FIELDS = ['xvShare1', 'xvShare2', 'xvShare3', 'xvFb1', 'xvFb2', 'xvFb3', 'xvSelf1', 'xvSelf2', 'xvSelf3', 'xvSelf4'];
+      var exStatus = $('xvExStatus');
+
+      function loadEx38() {
+        try {
+          var data = JSON.parse(localStorage.getItem(EX38_KEY) || '{}');
+          EX38_FIELDS.forEach(function (id) {
+            var el = $(id);
+            if (el && data[id]) el.value = data[id];
+          });
+          if (data.confirmed) $('xvConfirm').checked = true;
+          refreshExStatus();
+        } catch (e) { /* first run */ }
+      }
+      function saveEx38() {
+        var data = { confirmed: $('xvConfirm').checked };
+        EX38_FIELDS.forEach(function (id) {
+          var el = $(id);
+          if (el) data[id] = el.value.trim();
+        });
+        try { localStorage.setItem(EX38_KEY, JSON.stringify(data)); } catch (e) {}
+      }
+      function refreshExStatus() {
+        var filled = EX38_FIELDS.filter(function (id) {
+          var el = $(id);
+          return el && el.value.trim();
+        }).length;
+        var confirmed = $('xvConfirm').checked;
+        exStatus.textContent = (filled > 0 || confirmed)
+          ? 'Đã điền ' + filled + '/10 phần • ' + (confirmed ? 'đã xác nhận' : 'chưa xác nhận')
+          : 'Chưa hoàn tất phần trưng bày – chia sẻ.';
+        exStatus.className = 'xv-status' + (filled === EX38_FIELDS.length && confirmed ? ' ok' : '');
+      }
+
+      EX38_FIELDS.forEach(function (id) {
+        var el = $(id);
+        if (el) el.addEventListener('input', refreshExStatus);
+      });
+      $('xvConfirm').addEventListener('change', refreshExStatus);
+      $('xvSaveEx').addEventListener('click', function () {
+        saveEx38();
+        exStatus.textContent = '✓ Đã lưu phần trưng bày trên máy của em.';
+        exStatus.className = 'xv-status ok';
+      });
+      $('xvFinish').addEventListener('click', function () {
+        if (!$('xvConfirm').checked) {
+          exStatus.textContent = 'Hãy tích chọn xác nhận ở trên trước khi hoàn tất nhé.';
+          exStatus.className = 'xv-status';
+          return;
+        }
+        saveEx38();
+        exStatus.textContent = '🎉 Hoàn tất hành trình sáng tạo — tác phẩm của em đã ở trong Triển Lãm phía dưới!';
+        exStatus.className = 'xv-status ok';
+      });
+
+      loadWorks();
+      migrateOldCanvasSketches();
+      restoreExhibitMeta();
+      loadEx38();
+      render();
+    }
+
+    /* ================= boot ================= */
+    function init() {
+      buildHeritageTabs();
+      bindGalleryJump();
+      init321();
+      initAI5A();
+      initExhibit();
+
+      // Open the dossier once data is in, honoring the saved draft heritage
+      // (or a heritage picked on the old di-san page via sessionStorage)
+      loadDatabase().then(function () {
+        var pick = null;
+        try { pick = sessionStorage.getItem('sah_pick'); } catch (e) {}
+        if (pick) { try { sessionStorage.removeItem('sah_pick'); } catch (e) {} }
+        var startKey = (pick && ORDER.indexOf(pick) >= 0) ? pick
+          : (state.key && ORDER.indexOf(state.key) >= 0 ? state.key : 'chuakeo');
+        selectHeritage(startKey);
+      });
+
+      // home picker + "bắt đầu" → open dossier
+      $('homeTabs').addEventListener('click', function (e) {
+        var tab = e.target.closest('.hm-tab');
+        if (!tab) return;
+        selectHeritage(tab.dataset.key, { scrollTo: true });
+      });
+      restoreStep();
+      setupScrollSpy();
+
+      // deep links: index.html#dossier etc.
+      if (location.hash && document.querySelector(location.hash)) {
+        setTimeout(function () {
+          document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' });
+        }, 250);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+
+  /* ================================================================
+     CHAT ENGINE — scripted 5A flow (offline) + live bridge.
+     Live AI = teacher's API connector (giao-vien.html → sah_chatgpt_cfg);
+     fallback = offline 5A script. No third-party AI script embedded.
+     ================================================================ */
+  (function () {
+    'use strict';
+
+    var SAH_STATE = { currentAiStep: 0 };
+
+    var HERITAGE_NAMES = {
+      phohien: "Phố Hiến",
+      chuakeo: "Chùa Keo",
+      dentran: "Đền Trần Hưng Hà",
+      lequydon: "Lê Quý Đôn",
+      dongxam: "Chạm bạc Đồng Xâm"
+    };
+
+    function renderAiStepList() {
+      var container = document.getElementById('aiStepsSidebar');
+      if (!container) return; // integrated page uses the progress5 strip instead
+    }
+
+    function handleUserSendMessage() {
+      var input = document.getElementById('aiChatInput');
+      var text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      appendChatMessage('user', text);
+      input.value = '';
+
+      if (window.__tlaiLive && window.__tlaiLive.connected()) {
+        window.__tlaiLive.reply();
+        return;
+      }
+      setTimeout(function () { generateAiResponse(text); }, 700);
+    }
+
+    function appendChatMessage(sender, content, suggestions) {
+      suggestions = suggestions || [];
+      var history = document.getElementById('aiChatHistory');
+      if (!history) return;
+
+      var bubble = document.createElement('div');
+      bubble.className = 'tlai-bubble ' + sender;
+      bubble.innerHTML = content;
+
+      if (suggestions.length > 0) {
+        var chipBox = document.createElement('div');
+        chipBox.className = 'tlai-chips';
+        suggestions.forEach(function (s) {
+          var chip = document.createElement('button');
+          chip.className = 'tlai-chip';
+          chip.type = 'button';
+          chip.textContent = s;
+          chip.onclick = function () {
+            document.getElementById('aiChatInput').value = s;
+            handleUserSendMessage();
+          };
+          chipBox.appendChild(chip);
+        });
+        bubble.appendChild(chipBox);
+      }
+
+      history.appendChild(bubble);
+      history.scrollTop = history.scrollHeight;
+    }
+
+    function triggerAiWith321Context(project, q3, q1) {
+      var name = HERITAGE_NAMES[project] || 'Chùa Keo';
+
+      if (window.__tlaiLive && window.__tlaiLive.connected()) {
+        SAH_STATE.currentAiStep = 0;
+        renderAiStepList();
+        appendChatMessage('ai',
+          'Thầy/Cô đã nhận được Phiếu 3–2–1 của em về <b>' + name + '</b>.<br>' +
+          '<b>Ý tưởng của em:</b> <i>"' + (q1 || 'chưa ghi') + '"</i><br><br>' +
+          'Em kể thêm vì sao chi tiết đó khiến em xúc động nhé?');
+        window.__tlaiLive.reply();
+        return;
+      }
+
+      appendChatMessage('ai',
+        'Chào em! Thầy/Cô AI đã nhận được Phiếu 3–2–1 của em về <b>' + name + '</b>.<br><br>' +
+        '<b>Ý tưởng ban đầu của em:</b> <i>"' + (q1 || 'Tập trung vào đường nét mái cong và cột gỗ lim') + '"</i>.<br><br>' +
+        'Theo nguyên tắc <b>NO OBSERVATION → NO AI</b>, AI sẽ không vẽ thay em, mà sẽ cùng em thực hiện quy trình 5 bước <b>AI 5A</b> để nâng tầm ý tưởng này thành một tác phẩm mĩ thuật độc bản nhé!',
+        [
+          "Em muốn vẽ tranh màu nước về Gác Chuông",
+          "Em muốn làm tranh xé dán hoa văn",
+          "Em muốn nhấn mạnh độ tương phản ánh sáng"
+        ]
+      );
+      SAH_STATE.currentAiStep = 0;
+      renderAiStepList();
+    }
+
+    function generateAiResponse() {
+      var step = SAH_STATE.currentAiStep;
+      if (step === 0) {
+        appendChatMessage('ai',
+          'Tuyệt vời! Để định hình rõ hơn ở bước <b>A1 — ASK</b>, thầy muốn hỏi em:<br>' +
+          '• Trong 3 tầng mái của Chùa Keo, em muốn góc nhìn từ dưới ngước lên (tạo cảm giác kỳ vĩ) hay góc nhìn toàn cảnh soi bóng mặt hồ (tạo cảm giác thanh bình tĩnh lặng)?',
+          ["Góc nhìn ngước từ dưới lên kỳ vĩ", "Góc nhìn toàn cảnh soi bóng hồ nước"]
+        );
+        SAH_STATE.currentAiStep = 1;
+        renderAiStepList();
+      } else if (step === 1) {
+        appendChatMessage('ai',
+          'Phân tích mĩ thuật (<b>A2 — ANALYZE</b>):<br>' +
+          '• <b>Đường nét:</b> Sự kết hợp giữa đường thẳng đứng vững chãi của cột lim và nhịp điệu uốn lượn mềm mại của 12 đầu đao.<br>' +
+          '• <b>Màu sắc:</b> Tông nâu gỗ lim trầm ấm đối sánh với màu ngói đỏ đất nung và sắc xanh ngọc của mặt hồ.<br>' +
+          '• <b>Điểm nhấn:</b> Quả chuông đồng cổ ở tầng 3 sẽ là trung tâm hút mắt người xem.',
+          ["Chuyển sang bước A3 Gợi ý phương án", "Em muốn điều chỉnh bảng màu"]
+        );
+        SAH_STATE.currentAiStep = 2;
+        renderAiStepList();
+      } else if (step === 2) {
+        appendChatMessage('ai',
+          'Gợi ý phương án tạo hình (<b>A3 — ADVISE</b>):<br>' +
+          '<b>Phương án 1:</b> Tranh đồ họa khắc gỗ đen trắng, tập trung vào kết cấu vì kèo ngàm mộng.<br>' +
+          '<b>Phương án 2:</b> Tranh màu nước tông hoàng hôn (ấm áp, dùng kỹ thuật loang màu trên nền ướt).<br>' +
+          '<b>Phương án 3:</b> Tạo hình xé dán 3D nhiều lớp (Paper Cut Art), tạo chiều sâu không gian gác chuông.',
+          ["Em chọn Phương án 2: Màu nước hoàng hôn", "Em chọn Phương án 3: Xé dán 3D"]
+        );
+        SAH_STATE.currentAiStep = 3;
+        renderAiStepList();
+      } else {
+        appendChatMessage('ai',
+          'Hoàn thiện ý tưởng (<b>A5 — ART</b>):<br>' +
+          '🎨 <b>Bảng màu đề xuất:</b> #7C4C28 (Nâu gỗ lim), #C46238 (Đỏ chu sa ngói cổ), #C89547 (Vàng son ánh kim), #2D3D33 (Xanh rêu cổ kính).<br>' +
+          '📐 <b>Bố cục:</b> Tỉ lệ 1/3, đặt gác chuông hơi lệch phải để tạo khoảng thở mặt trời lặn bên trái.<br><br>' +
+          '👉 Bây giờ em hãy kéo xuống <b><a href="#exhibit">Triển Lãm (ngay dưới đây)</a></b> để tải lên bản vẽ, sản phẩm &amp; nghiên cứu của em nhé!',
+          ["Em đã tải tác phẩm lên Triển Lãm", "Em cần thêm gợi ý màu sắc"]
+        );
+      }
+    }
+
+    window.triggerAiWith321Context = triggerAiWith321Context;
+    window.handleUserSendMessage = handleUserSendMessage;
+    window.generateAiResponse = generateAiResponse;
+    window.SAH_STATE = SAH_STATE;
+    window.__tlaiAppend = appendChatMessage;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderAiStepList();
+      var sendBtn = document.getElementById('btnAiSend');
+      var input = document.getElementById('aiChatInput');
+      if (sendBtn) sendBtn.addEventListener('click', handleUserSendMessage);
+      if (input) input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') handleUserSendMessage();
+      });
+    });
+  })();
+
+  /* ================================================================
+     LIVE AI ENGINE — teacher's API connector (sah_chatgpt_cfg).
+     ================================================================ */
+  (function () {
+    'use strict';
+
+    var CFG_KEY = 'sah_chatgpt_cfg';
+
+    var HERITAGE_FACTS = {
+      chuakeo: 'Chùa Keo (Thái Bình, dựng 1632): gác chuông 11,04m, 3 tầng 12 mái cong đầu đao, kết cấu gỗ lim toàn đấu củng KHÔNG dùng đinh sắt, 16 chữ Hán trong bia.',
+      phohien: 'Phố Hiến (Hưng Yên): thương cảng quốc tế thế kỷ XVII, "Thứ nhất Kinh Kỳ, thứ nhì Phố Hiến", hồ Bán Nguyệt, đền Mẫu, kiến trúc đình chùa cổ.',
+      dentran: 'Đền Trần (Hưng Yên): nơi thờ các vua Trần, kiến trúc "Thiên trường cổ tự", rồng đá độc đáo, lễ hội đền Trần, hào khí Đông A.',
+      lequydon: 'Khu lưu niệm Lê Quý Đôn (Hưng Yên): nhà bác học Lê Quý Đôn (1726-1784), tác phẩm Vân Đài Loại Ngữ, tri thức bách khoa thời Lê.',
+      dongxam: 'Làng chạm bạc Đồng Xâm (Thái Bình): nghề 500 năm, truyền thuyết Trần Thủ Độ, nghệ nhân Kim Hoàn, chạm nổi hoa văn tứ linh tinh xảo.'
+    };
+
+    function cfg() {
+      try { return JSON.parse(localStorage.getItem(CFG_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function connected() {
+      var c = cfg();
+      return !!(c.key && c.validated);
+    }
+    function model() {
+      var c = cfg();
+      return c.model || 'gpt-4o-mini';
+    }
+    function buildSystemPrompt() {
+      var draft = null;
+      try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
+      var lines = [
+        'Em là "Thầy/Cô AI" đồng hành mĩ thuật cho học sinh THCS (12-15 tuổi) trong dự án SMART ART HERITAGE về di sản Hưng Yên, Việt Nam.',
+        'NGUYÊN TẮC TUYỆT ĐỐI: NO OBSERVATION → NO AI. Em KHÔNG BAO GIỜ vẽ/tạo hình thay học sinh. Em chỉ hỏi gợi mở, phân tích mĩ thuật, gợi ý phương án, khích lệ.',
+        'Quy trình 5A: A1 ASK (đặt câu hỏi khơi gợi) → A2 ANALYZE (phân tích đường nét, màu sắc, bố cục) → A3 ADVISE (đề xuất 3 phương án tạo hình) → A4 ADAPT (cá nhân hoá theo sở thích học sinh) → A5 ART (bảng màu cụ thể, bố cục, gợi ý bước vẽ đầu tiên).',
+        'Trả lời TIẾNG VIỆT, ấm áp, xưng "thầy/cô" - "em", ngắn gọn (dưới 120 từ), phù hợp lứa tuổi THCS, luôn kết thúc bằng 1-2 câu hỏi mở để học sinh tiếp tục suy nghĩ.',
+        'Nếu học sinh chưa quan sát kỹ: nhắc em quay lại quan sát di sản trước khi cho ý kiến, thay vì đưa ý tưởng sẵn.'
+      ];
+      if (draft && draft.project) {
+        lines.push('Di sản học sinh đang chọn: ' + (HERITAGE_FACTS[draft.project] || draft.project));
+      }
+      if (draft && (draft.q3 || draft.q1)) {
+        lines.push('Phiếu 3-2-1 của học sinh — 3 điều quan sát: ' + (draft.q3 || '(trống)') + '. Ý tưởng: ' + (draft.q1 || '(trống)'));
+      }
+      return lines.join('\n');
+    }
+    function buildHistory() {
+      var out = [];
+      document.querySelectorAll('#aiChatHistory .tlai-bubble').forEach(function (b) {
+        var isAi = b.classList.contains('ai');
+        var text = b.cloneNode(true);
+        text.querySelectorAll('.tlai-chips').forEach(function (c) { c.remove(); });
+        var t = text.textContent.replace(/\s+/g, ' ').trim();
+        if (!t) return;
+        out.push({ role: isAi ? 'assistant' : 'user', content: t.slice(0, 1500) });
+      });
+      return out.slice(-16);
+    }
+    function apiBase() {
+      var c = cfg();
+      var base = String(c.baseUrl || '').replace(/\/+$/, '');
+      if (base) return base;
+      return c.provider === 'groq'
+        ? 'https://api.groq.com/openai/v1'
+        : 'https://api.openai.com/v1';
+    }
+    function chatEndpoint() {
+      return apiBase() + '/chat/completions';
+    }
+    function liveConnected() {
+      return connected();
+    }
+    async function callLiveAi() {
+      var messages = [{ role: 'system', content: buildSystemPrompt() }].concat(buildHistory());
+
+      if (connected()) {
+        var c = cfg();
+        try {
+          var res = await fetch(chatEndpoint(), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + c.key
+            },
+            body: JSON.stringify({ model: model(), messages: messages })
+          });
+          if (res.ok) {
+            var data = await res.json();
+            var msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+            if (msg) return { text: msg.trim(), provider: model() };
+          }
+        } catch (e) { /* fall through */ }
+      }
+      throw new Error('Chưa gọi được API của giáo viên');
+    }
+
+    var origAppend = window.__tlaiAppend;
+    var typingEl = null;
+
+    function showTyping() {
+      hideTyping();
+      var history = document.getElementById('aiChatHistory');
+      typingEl = document.createElement('div');
+      typingEl.className = 'tlai-bubble ai';
+      typingEl.innerHTML = '<div class="tlai-typing"><span></span><span></span><span></span></div>';
+      history.appendChild(typingEl);
+      history.scrollTop = history.scrollHeight;
+    }
+    function hideTyping() {
+      if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+      typingEl = null;
+    }
+
+    async function liveReply() {
+      showTyping();
+      try {
+        var out = await callLiveAi();
+        hideTyping();
+        origAppend('ai', out.text.replace(/\n/g, '<br>'));
+      } catch (e) {
+        hideTyping();
+        origAppend('ai',
+          '<b>⚠ Tạm chưa gọi được AI</b> <span style="opacity:.7">(' + String(e.message || e).replace(/</g, '&lt;') + ')</span>' +
+          '<br>Không sao — mình tiếp tục với bản kịch bản 5A nhé:');
+        if (typeof window.generateAiResponse === 'function') {
+          setTimeout(function () { window.generateAiResponse(); }, 400);
+        }
+      }
+    }
+
+    function initChatGptBridge() {
+      var badge = document.getElementById('tlaiConnBadge');
+      var modal = document.getElementById('tlaiSettings');
+      var statusEl = document.getElementById('cfgStatus');
+      var actionsEl = document.getElementById('tlaiModalActions');
+      var noteEl = document.getElementById('tlaiModalNote');
+      var closeBtn = document.getElementById('tlaiSettingsClose');
+      if (!badge || !modal) return;
+
+      function refreshBadge() {
+        if (connected()) {
+          badge.textContent = '● ' + model();
+          badge.title = 'AI trực tuyến qua API (' + model() + ') — do giáo viên kết nối';
+          badge.classList.add('connected');
+        } else {
+          badge.textContent = '○ AI: offline';
+          badge.title = 'Mất kết nối — chat đang dùng kịch bản 5A offline';
+          badge.classList.remove('connected');
+        }
+      }
+      function openModal() {
+        refreshBadge();
+        statusEl.className = 'tlai-cfg-status';
+        if (connected()) {
+          statusEl.innerHTML = '✓ AI qua API (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua API do giáo viên kết nối.';
+        } else {
+          statusEl.innerHTML = '○ Chat đang dùng <b>kịch bản 5A offline</b>. Giáo viên hãy kết nối API (Groq miễn phí, OpenRouter, OpenAI…) để AI trả lời thật <b>ngay trong trang này</b>.';
+        }
+        actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
+        noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể kết nối mọi API tương thích OpenAI (OpenAI, Groq miễn phí, OpenRouter…) trong trang Quản lý (thẻ API CONNECTOR).';
+        modal.classList.add('open');
+      }
+      function closeModal() { modal.classList.remove('open'); }
+
+      badge.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+      window.addEventListener('storage', function (e) {
+        if (e.key === CFG_KEY || e.key === null) refreshBadge();
+      });
+
+      refreshBadge();
+    }
+
+    window.__tlaiLive = {
+      connected: liveConnected,
+      reply: liveReply
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChatGptBridge);
+    } else {
+      initChatGptBridge();
+    }
+  })();
+  </script>
 </body>
 </html>

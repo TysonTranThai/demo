@@ -24,13 +24,15 @@ Nguyên tắc vàng của dự án: **NO OBSERVATION → NO AI.** Muốn AI gợ
 
 ## 🗺️ Các trang trong hệ thống
 
+**⭐ Hành trình tích hợp trên MỘT trang:** [Trang chủ](index.html) giờ là một bài học liền mạch theo đúng tệp mẫu V3.8 — chọn hồ sơ di sản → 15 ảnh tư liệu + bộ câu hỏi quan sát → Phiếu 3–2–1 → Xưởng AI 5A → Triển lãm, **tất cả ngay trong một trang, một lựa chọn di sản dùng chung cho mọi bước** (không nhảy trang, không mất dữ liệu giữa các bước).
+
 | Trang | Dành cho | Nội dung |
 |---|---|---|
-| 🏠 [Trang chủ](index.html) | Mọi người | Giới thiệu dự án, hành trình 4 bước, 5 quần thể di sản |
-| 🏛️ [Di Sản & Câu Hỏi](di-san.html) | Học sinh | 5 quần thể di sản với 75 điểm chạm Hotspot kiến trúc |
+| 🏠 [Trang chủ — Hành trình tích hợp](index.html) | Học sinh | **Một trang duy nhất:** hồ sơ di sản → quan sát & câu hỏi → 3–2–1 → AI 5A → triển lãm |
+| 🏛️ [Di Sản & Câu Hỏi](di-san.html) | Học sinh | Trang riêng 5 quần thể di sản với 75 điểm chạm Hotspot (chuyển sang hành trình tích hợp khi chọn hồ sơ) |
 | 🧊 [Phòng 3D](models.html) | Học sinh | Mô hình 3D Gác Chuông Chùa Keo xoay – zoom trực tiếp trên web |
-| 📝 [Phiếu 3–2–1](phieu-3-2-1.html) | Học sinh | 3 điều ấn tượng · 2 câu hỏi tò mò · 1 ý tưởng — "hộ chiếu" vào mọi công đoạn sau |
-| 🤖 [Trợ Lý Ai](tro-ly-ai.html) | Học sinh | Chat theo quy trình 5A: Ask – Analyze – Advise – Adapt – Art |
+| 📝 [Phiếu 3–2–1](phieu-3-2-1.html) | Học sinh | Trang riêng của phiếu tư duy (tiếp tục sang AI 5A trong trang tích hợp) |
+| 🤖 [Trợ Lý Ai](tro-ly-ai.html) | Học sinh | Trang riêng chat 5A: Ask – Analyze – Advise – Adapt – Art |
 | 🖼️ [Triển Lãm](trien-lam.html) | Cả lớp | Tải tác phẩm lên, xem điểm ★ và nhận xét của giáo viên |
 | 👩‍🏫 [Trang Quản Trị](giao-vien.html) | Giáo viên | Chấm rubric, phản hồi, thống kê lớp, xuất CSV, kết nối API AI |
 
@@ -40,6 +42,8 @@ Nguyên tắc vàng của dự án: **NO OBSERVATION → NO AI.** Muốn AI gợ
 flowchart LR
     A[👁️ Quan sát<br>di sản] --> B[📝 Phiếu<br>3–2–1] --> C[🤖 Trợ Lý Ai<br>gợi mở 5A] --> D[🎨 Tác phẩm<br>độc bản] --> E[🖼️ Triển Lãm<br>+ nhận xét GV]
 ```
+
+Cả năm bước trên nằm **liền nhau trong một trang** ([index.html](index.html)) — học sinh cuộn xuống là tới bước tiếp theo, giống hệt tệp mẫu V3.8. Các trang riêng vẫn giữ lại cho dạy học theo từng phần.
 
 ## 🤖 Trợ Lý Ai hoạt động thế nào?
 
@@ -91,7 +95,7 @@ python3 -m http.server 8080
 
 ```
 smart-art-heritage/
-├── index.html                  # Trang chủ
+├── index.html                  # HÀNH TRÌNH TÍCH HỢP: di sản → 3–2–1 → AI 5A → triển lãm
 ├── di-san.html                 # 5 quần thể di sản + hotspot
 ├── models.html                 # Phòng 3D WebGL
 ├── phieu-3-2-1.html            # Phiếu tư duy 3–2–1

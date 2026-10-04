@@ -138,62 +138,37 @@
       flex-shrink: 0;
     }
 
-    /* ---------- hero header ---------- */
-    .ds-hero {
-      position: relative;
-      min-height: 44vh;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
-    }
-    .ds-hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(0.92);
-    }
-    .ds-hero-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.97) 100%);
-    }
-    .ds-hero-inner {
-      position: relative;
-      z-index: 2;
-      width: 100%;
+    /* ---------- page head (title block above the cover, like the demo) ---------- */
+    .ds-head {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 48px 28px 30px;
+      padding: 40px 28px 0;
     }
-    .ds-hero-eyebrow {
+    .ds-eyebrow {
       font-size: 0.66rem; font-weight: 700;
       letter-spacing: 0.36em;
       color: var(--gold);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-    .ds-hero-title {
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
+    .ds-title {
+      font-size: clamp(2.2rem, 5.5vw, 3.9rem);
       font-weight: 800;
       letter-spacing: 0.01em;
       margin: 0;
-      line-height: 1.04;
-      text-shadow: 0 8px 50px rgba(0,0,0,0.5);
+      line-height: 1.05;
     }
-    .ds-hero-sub {
-      margin-top: 12px;
-      font-size: clamp(0.9rem, 2vw, 1.05rem);
-      font-weight: 500;
-      letter-spacing: 0.06em;
+    .ds-sub {
+      margin: 14px 0 0;
+      font-size: clamp(0.9rem, 2vw, 1.02rem);
+      line-height: 1.65;
       color: var(--ink-dim);
-      max-width: 760px;
-      line-height: 1.6;
+      max-width: 860px;
     }
-    .ds-hero-meta {
+    .ds-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
     .ds-meta-chip {
       font-size: 0.68rem; font-weight: 600;
@@ -205,6 +180,87 @@
       border-radius: 999px;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* ---------- cover image (below the title, above the gallery) ---------- */
+    .ds-cover-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 28px 0;
+    }
+    .ds-cover {
+      display: block;
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid var(--hair);
+      filter: saturate(0.95);
+    }
+
+    /* ---------- photo gallery strip (demo: “15 ảnh tư liệu tiêu biểu”) ---------- */
+    .ds-gallery-sec {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 30px 28px 0;
+    }
+    .ds-gal-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 0;
+    }
+    .ds-gal-sub {
+      margin: 6px 0 0;
+      font-size: 0.86rem;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+    .ds-gallery {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .ds-photo {
+      font-family: inherit;
+      text-align: left;
+      padding: 0;
+      background: var(--glass);
+      border: 1px solid var(--hair);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .ds-photo:hover { border-color: rgba(200, 149, 71, 0.5); transform: translateY(-2px); }
+    .ds-photo img {
+      display: block;
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      filter: saturate(0.95);
+    }
+    .ds-photo-cap {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 8px 10px;
+      color: var(--ink-dim);
+      line-height: 1.4;
+    }
+    @media (max-width: 640px) {
+      .ds-gallery { grid-template-columns: repeat(2, 1fr); }
+      .ds-photo img { height: 130px; }
+    }
+
+    /* ---------- lab (Q&A) section head, below the gallery ---------- */
+    .ds-lab-head { margin: 0 0 20px; }
+    .ds-lab-head .ds-eyebrow { color: var(--terra); margin-bottom: 8px; }
+    .hs-card { scroll-margin-top: 96px; }
+    .hs-flash { animation: hsFlash 1.6s ease; }
+    @keyframes hsFlash {
+      0%, 55% { border-color: rgba(200, 149, 71, 0.85); box-shadow: 0 0 0 3px rgba(200, 149, 71, 0.22); }
+      100% { border-color: rgba(43, 38, 32, 0.14); box-shadow: none; }
     }
 
     /* ---------- main ---------- */
@@ -390,7 +446,9 @@
       .ds-home-text { display: none; }
       .ds-home { padding: 8px 13px 8px 11px; }
       .ds-tabs { max-width: none; }
-      .ds-hero-inner { padding: 36px 18px 24px; }
+      .ds-head { padding: 32px 18px 0; }
+      .ds-cover-wrap { padding: 14px 18px 0; }
+      .ds-gallery-sec { padding: 24px 18px 0; }
       .ds-main { padding: 24px 18px 70px; }
       .ds-foot { padding: 0 18px 36px; }
     }
@@ -420,23 +478,32 @@
     <a class="ds-journey-link" href="trien-lam.html">5 · Triển lãm</a>
   </nav>
 
-  <!-- ============ HERO ============ -->
-  <header class="ds-hero">
-    <img class="ds-hero-img" id="dsHeroImg" src="assets/extracted/cover_chuakeo.jpeg" alt="">
-    <div class="ds-hero-scrim"></div>
-    <div class="ds-hero-inner">
-      <div class="ds-hero-eyebrow" id="dsCrumb">DI SẢN 02 / 05</div>
-      <h1 class="ds-hero-title" id="dsTitle">Chùa Keo</h1>
-      <p class="ds-hero-sub" id="dsDesc">Đang tải hồ sơ di sản…</p>
-      <div class="ds-hero-meta" id="dsMeta"></div>
-    </div>
+  <!-- ============ HEAD — title block sits ABOVE the cover ============ -->
+  <header class="ds-head">
+    <div class="ds-eyebrow" id="dsCrumb">HỒ SƠ 02 • SMART ART HERITAGE</div>
+    <h1 class="ds-title" id="dsTitle">Chùa Keo</h1>
+    <p class="ds-sub" id="dsDesc">Đang tải hồ sơ di sản…</p>
+    <div class="ds-meta" id="dsMeta"></div>
   </header>
+
+  <!-- ============ COVER ============ -->
+  <div class="ds-cover-wrap">
+    <img class="ds-cover" id="dsHeroImg" src="assets/extracted/cover_chuakeo.jpeg" alt="">
+  </div>
+
+  <!-- ============ PHOTO GALLERY — images ABOVE, questions BELOW ============ -->
+  <section class="ds-gallery-sec">
+    <h2 class="ds-gal-title" id="dsGalTitle">15 ảnh tư liệu tiêu biểu</h2>
+    <p class="ds-gal-sub">Toàn bộ ảnh tư liệu của hồ sơ đang chọn — chạm vào một ảnh để nhảy tới bộ câu hỏi của ảnh đó.</p>
+    <div class="ds-gallery" id="dsGallery"></div>
+  </section>
 
   <!-- ============ HOTSPOTS + QUESTIONS ============ -->
   <main class="ds-main">
-    <div class="ds-section-head">
-      <h2 class="ds-section-title">15 Điểm chạm quan sát &amp; câu hỏi</h2>
-      <span class="ds-section-note" id="dsCount"></span>
+    <div class="ds-lab-head">
+      <div class="ds-eyebrow" id="dsLabEyebrow">HOTSPOT THCS</div>
+      <h2 class="ds-section-title" id="dsLabTitle">Khám phá từ dễ đến sâu</h2>
+      <p class="ds-section-note" id="dsCount"></p>
     </div>
 
     <div class="ds-grid" id="dsGrid">
@@ -514,6 +581,7 @@
     function init() {
       var hash = (location.hash || '').replace('#', '');
       buildTabs();
+      bindGalleryJump();
       var startKey = ORDER.indexOf(hash) >= 0 ? hash : 'chuakeo';
       loadData(startKey);
       window.addEventListener('hashchange', function () {
@@ -567,7 +635,7 @@
       var info = site && site.info ? site.info : {};
 
       document.title = m.name + ' — Di sản & Câu hỏi — Smart Art Heritage';
-      $('dsCrumb').textContent = 'DI SẢN 0' + (ORDER.indexOf(key) + 1) + ' / 05 — ' + (m.year || '');
+      $('dsCrumb').textContent = 'HỒ SƠ 0' + (ORDER.indexOf(key) + 1) + ' • SMART ART HERITAGE';
       $('dsTitle').textContent = m.name;
       $('dsDesc').textContent = m.description;
       $('dsHeroImg').src = m.cover;
@@ -580,9 +648,53 @@
       meta.appendChild(chip(hotspots.length + ' điểm chạm'));
       (m.tags || []).forEach(function (t) { meta.appendChild(chip(t)); });
 
-      $('dsCount').textContent = hotspots.length + ' HÌNH ẢNH · ' + hotspots.length + ' BỘ CÂU HỎI';
+      $('dsGalTitle').textContent = hotspots.length + ' ảnh tư liệu tiêu biểu';
+      $('dsLabEyebrow').textContent = 'HOTSPOT THCS • ' + (hotspots.length ? badge(hotspots[0]) + '–' + badge(hotspots[hotspots.length - 1]) : '');
+      $('dsLabTitle').textContent = 'Khám phá ' + m.name + ' từ dễ đến sâu';
+      $('dsCount').textContent = 'Mỗi ảnh: Nhìn ảnh – trả lời → Em có biết? → Thử làm nhé';
 
+      renderGallery(hotspots);
       renderGrid(hotspots);
+    }
+
+    function badge(h) {
+      var code = h.code || '';
+      return (code.indexOf('•') >= 0 ? code.split('•')[0] : code).trim();
+    }
+
+    function headingOf(h, idx) {
+      var code = h.code || ('HOTSPOT #' + (idx + 1));
+      return code.indexOf('•') >= 0 ? code.split('•').slice(1).join('•').trim() : code;
+    }
+
+    function renderGallery(hotspots) {
+      var gal = $('dsGallery');
+      if (!hotspots.length) { gal.innerHTML = ''; return; }
+      gal.innerHTML = hotspots.map(function (h, idx) {
+        var img = h.image || 'assets/extracted/cover_chuakeo.jpeg';
+        var num = (idx < 9 ? '0' : '') + (idx + 1);
+        return '' +
+          '<button type="button" class="ds-photo" data-idx="' + idx + '">' +
+            '<img src="' + img + '" alt="' + escapeAttr(headingOf(h, idx)) + '" loading="lazy" ' +
+              'onerror="this.onerror=null;this.src=\'assets/extracted/cover_chuakeo.jpeg\'">' +
+            '<span class="ds-photo-cap">' + num + '. ' + escapeHtml(headingOf(h, idx)) + '</span>' +
+          '</button>';
+      }).join('');
+    }
+
+    // Gallery thumb → jump to the matching Q&A card (wired once)
+    function bindGalleryJump() {
+      $('dsGallery').addEventListener('click', function (ev) {
+        var btn = ev.target.closest('.ds-photo');
+        if (!btn) return;
+        var card = document.getElementById('hs-' + btn.dataset.idx);
+        if (!card) return;
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        card.classList.remove('hs-flash');
+        void card.offsetWidth;
+        card.classList.add('hs-flash');
+        setTimeout(function () { card.classList.remove('hs-flash'); }, 1600);
+      });
     }
 
     function chip(text) {
@@ -606,7 +718,7 @@
         var badge = code.split('•')[0].trim();
         var heading = code.indexOf('•') >= 0 ? code.split('•').slice(1).join('•').trim() : code;
         return '' +
-          '<article class="hs-card">' +
+          '<article class="hs-card" id="hs-' + idx + '">' +
             '<div class="hs-photo-wrap">' +
               '<img class="hs-photo" src="' + img + '" alt="' + escapeAttr(heading) + '" loading="lazy" ' +
                 'onerror="this.onerror=null;this.src=\'assets/extracted/cover_chuakeo.jpeg\'">' +

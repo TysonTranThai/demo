@@ -46,8 +46,7 @@ flowchart LR
 Trang chat của học sinh cố gắng trả lời thật **ngay trong khung chat** theo thứ tự ưu tiên:
 
 1. **🔌 API của giáo viên** — giáo viên dán *bất kỳ* API tương thích OpenAI nào (OpenAI, Groq miễn phí, OpenRouter, LM Studio, Ollama…) vào Trang Quản Trị: base URL + key + tên mô hình. Key chỉ lưu trên máy của giáo viên và gửi thẳng tới API khi chat.
-2. **⚡ AI miễn phí tích hợp sẵn** — luôn bật làm dự phòng, không cần key (lần đầu có thể hiện cửa sổ đăng nhập Puter).
-3. **📜 Kịch bản 5A offline** — nếu cả hai không khả dụng, chat **không bao giờ treo**: tự quay về kịch bản sư phạm có sẵn.
+2. **📜 Kịch bản 5A offline** — nếu chưa kết nối API hoặc API lỗi, chat **không bao giờ treo**: tự quay về kịch bản sư phạm có sẵn.
 
 Đúng nguyên tắc **NO OBSERVATION → NO AI**: hệ thống chỉ mở Trợ Lý Ai sau khi học sinh đã điền Phiếu 3–2–1.
 
@@ -85,7 +84,6 @@ python3 -m http.server 8080
 
 - **Thuần HTML + CSS + JavaScript** — không framework, không build step
 - **Three.js** (qua `vendor/`) — phòng xem 3D WebGL
-- **Puter.js** — AI miễn phí không cần key
 - **localStorage / sessionStorage** — lưu trữ 100% trên máy người dùng
 - **Google Fonts** — Plus Jakarta Sans
 

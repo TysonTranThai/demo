@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <!-- Free embedded AI (no key, no redirect): puter.js "User Pays" model -->
-  <script src="https://js.puter.com/v2/"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Trợ Lý Ai — Smart Art Heritage</title>
@@ -702,16 +700,13 @@
      ("Trợ Lý AI" tab), stored in localStorage (sah_chatgpt_cfg).
      Providers, tried in order:
        1. Teacher's API connector (any OpenAI-compatible endpoint:
-          OpenAI, Groq, OpenRouter, local servers…) — full quality.
-       2. Free embedded AI via puter.js (no key, no redirect, User-Pays
-          model) — the default path; works for every class instantly.
-       3. Offline 5A script — last-resort fallback.
+          OpenAI, Groq, OpenRouter, local servers…).
+       2. Offline 5A script — fallback when no key is configured or the
+          API call fails. No third-party AI script is embedded.
      Everything happens INSIDE this page: no chatgpt.com redirect.
      ======================================================================== */
   (function () {
     'use strict';
-
-    if (window.puter) { try { window.puter.quiet = true; } catch (e) {} }
 
     var CFG_KEY = 'sah_chatgpt_cfg';
 
@@ -770,10 +765,8 @@
       return out.slice(-16);
     }
 
-    /* Ask the live providers. Order: teacher's API connector (any
-       OpenAI-compatible endpoint), then the free embedded AI (puter.js,
-       with a hard timeout so a blocked sign-in popup can never hang the
-       chat). Throws when all fail. */
+    /* Ask the live provider: teacher's API connector (any OpenAI-compatible
+       endpoint). Throws when it is not configured or the call fails. */
     function apiBase() {
       var c = cfg();
       var base = String(c.baseUrl || '').replace(/\/+$/, '');
@@ -786,23 +779,8 @@
     function chatEndpoint() {
       return apiBase() + '/chat/completions';
     }
-    function puterOk() {
-      return !!(window.puter && window.puter.ai && typeof window.puter.ai.chat === 'function');
-    }
-    // Free AI is always enabled as the no-key fallback (teacher request).
-    function freeEnabled() {
-      return true;
-    }
     function liveConnected() {
-      return connected() || (puterOk() && freeEnabled());
-    }
-    function withTimeout(p, ms, label) {
-      return Promise.race([
-        p,
-        new Promise(function (_, rej) {
-          setTimeout(function () { rej(new Error(label + ' không phản hồi sau ' + Math.round(ms / 1000) + 's')); }, ms);
-        })
-      ]);
+      return connected();
     }
     async function callLiveAi() {
       var messages = [{ role: 'system', content: buildSystemPrompt() }].concat(buildHistory());
@@ -824,25 +802,12 @@
             var msg = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
             if (msg) return { text: msg.trim(), provider: model() };
           }
-        } catch (e) { /* fall through to the free provider */ }
+        } catch (e) { /* fall through to the offline 5A script */ }
       }
 
-      // Provider 2 — free embedded AI via puter.js (no key; hard timeout
-      // because a blocked first-use sign-in popup would otherwise hang forever)
-      if (puterOk() && freeEnabled()) {
-        var FREE_TIMEOUT_MS = (window.AI_FREE_TIMEOUT_MS || 30000);
-        var resp = await withTimeout(window.puter.ai.chat(messages), FREE_TIMEOUT_MS, 'AI miễn phí');
-        var txt = resp && resp.message && resp.message.content;
-        if (txt && typeof txt === 'string') return { text: txt.trim(), provider: 'AI miễn phí' };
-        if (txt && typeof txt === 'object' && Array.isArray(txt)) {
-          var joined = txt.map(function (p) { return p && p.text; }).filter(Boolean).join('');
-          if (joined) return { text: joined.trim(), provider: 'AI miễn phí' };
-        }
-        if (typeof resp === 'string') return { text: resp.trim(), provider: 'AI miễn phí' };
-        throw new Error('Phản hồi trống từ AI miễn phí');
-      }
-
-      throw new Error('Không có nhà cung cấp AI nào khả dụng (mất mạng?)');
+      // No teacher key configured (or the call failed) — the caller falls
+      // back to the offline 5A script.
+      throw new Error('Chưa gọi được API của giáo viên');
     }
 
     /* ---------- chat UI integration ---------- */
@@ -900,10 +865,6 @@
           badge.textContent = '● ' + model();
           badge.title = 'AI trực tuyến qua API (' + model() + ') — do giáo viên kết nối';
           badge.classList.add('connected');
-        } else if (puterOk() && freeEnabled()) {
-          badge.textContent = '● AI: đang hoạt động';
-          badge.title = 'AI trả lời thật ngay trong trang này (miễn phí, không cần key)';
-          badge.classList.add('connected');
         } else {
           badge.textContent = '○ AI: offline';
           badge.title = 'Mất kết nối — chat đang dùng kịch bản 5A offline';
@@ -917,7 +878,7 @@
         if (connected()) {
           statusEl.innerHTML = '✓ AI qua API (mô hình <b>' + model() + '</b>) đang trả lời <b>ngay trong trang này</b> — qua API do giáo viên kết nối.';
         } else {
-          statusEl.innerHTML = '✓ AI trả lời thật <b>ngay trong trang này</b> (miễn phí, không cần key, không chuyển trang). Đôi lúc AI miễn phí có thể chậm hoặc lỗi — khi đó chat tự quay về kịch bản 5A.';
+          statusEl.innerHTML = '○ Chat đang dùng <b>kịch bản 5A offline</b>. Giáo viên hãy kết nối API (Groq miễn phí, OpenRouter, OpenAI…) để AI trả lời thật <b>ngay trong trang này</b>.';
         }
         actionsEl.innerHTML = '<a class="tlai-chip" href="giao-vien.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center;">Trang giáo viên</a>';
         noteEl.innerHTML = 'Toàn bộ hội thoại diễn ra trong khung chat bên trên — không mở tab khác. Giáo viên có thể kết nối mọi API tương thích OpenAI (OpenAI, Groq miễn phí, OpenRouter…) trong trang Quản lý (thẻ API CONNECTOR).';

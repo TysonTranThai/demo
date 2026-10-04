@@ -648,6 +648,96 @@
     .ds-tab.is-active { background: rgba(200, 149, 71, 0.14); border-color: rgba(200, 149, 71, 0.35); color: var(--gold); }
     .ds-tab-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
+    /* ---------- role gate (first open) ---------- */
+    .rg-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(244, 239, 230, 0.97);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      padding: 24px;
+    }
+    .rg-overlay.hidden { display: none; }
+    .rg-card {
+      width: min(640px, 100%); max-height: 92vh; overflow-y: auto;
+      background: var(--glass-strong); border: 1px solid var(--hair);
+      border-radius: 24px; padding: 32px 30px 26px; text-align: center;
+    }
+    .rg-eyebrow { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 10px; }
+    .rg-card h2 { font-size: 1.7rem; font-weight: 800; margin: 0 0 8px; }
+    .rg-sub { margin: 0 0 20px; font-size: 0.88rem; color: var(--ink-dim); line-height: 1.6; }
+    .rg-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .rg-choice {
+      font-family: inherit; cursor: pointer; text-align: center;
+      background: var(--glass); border: 1px solid var(--hair); border-radius: 16px;
+      padding: 16px 12px; transition: border-color .2s ease, transform .2s ease, background .2s ease;
+    }
+    .rg-choice:hover { border-color: rgba(200,149,71,.55); background: #fff; transform: translateY(-2px); }
+    .rg-choice .rg-ico { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+    .rg-choice b { display: block; font-size: 0.95rem; margin-bottom: 4px; }
+    .rg-choice span:not(.rg-ico) { font-size: 0.72rem; color: var(--ink-dim); line-height: 1.45; display: block; }
+    .rg-form { margin-top: 18px; text-align: left; }
+    .rg-form label { display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin: 12px 0 6px; }
+    .rg-form input {
+      width: 100%; font-family: inherit; font-size: 0.92rem; color: var(--ink);
+      background: var(--field); border: 1px solid var(--hair); border-radius: 12px;
+      padding: 11px 14px; outline: none;
+    }
+    .rg-form input:focus { border-color: rgba(200,149,71,.55); }
+    .rg-form-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .rg-btn {
+      font-family: inherit; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em;
+      padding: 12px 22px; border-radius: 999px; cursor: pointer;
+      background: var(--gold); border: 1px solid var(--gold); color: #171716;
+    }
+    .rg-btn:hover { background: #f7dfa8; }
+    .rg-btn-ghost { background: transparent; border: 1px solid var(--hair); color: var(--ink-dim); }
+    .rg-note { margin: 18px 0 0; font-size: 0.72rem; color: var(--ink-faint); line-height: 1.6; }
+    .rg-err { color: #c0492f; font-size: 0.76rem; margin-top: 8px; min-height: 1em; }
+
+    .jn-role { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .jn-role-chip {
+      font-size: 0.66rem; font-weight: 800; letter-spacing: 0.06em;
+      color: var(--ink-dim); background: var(--glass); border: 1px solid var(--hair);
+      border-radius: 999px; padding: 7px 12px; white-space: nowrap;
+    }
+    .jn-role-switch {
+      font-family: inherit; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+      color: var(--ink-faint); background: transparent; border: 1px solid var(--hair);
+      border-radius: 999px; padding: 7px 11px; cursor: pointer;
+    }
+    .jn-role-switch:hover { color: var(--gold); border-color: rgba(200,149,71,.5); }
+
+    /* sequential task gating: locked sections render EMPTY with a cover card */
+    .gate-locked .p321-wrap, .gate-locked .tlai-wrap, .gate-locked .xv-wrap { display: none !important; }
+    .gate-cover { display: none; }
+    .gate-locked .gate-cover { display: block; }
+    .gate-cover-inner {
+      max-width: 880px; margin: 26px auto; padding: 34px 28px;
+      background: var(--glass); border: 1.5px dashed rgba(200,149,71,.45);
+      border-radius: 20px; text-align: center;
+    }
+    .gate-cover-ico { font-size: 2rem; }
+    .gate-cover-title { font-size: 1.2rem; font-weight: 800; margin: 10px 0 8px; }
+    .gate-cover-msg { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.6; margin: 0 0 16px; }
+    .gate-cover-cta {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #171716; background: var(--gold); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 11px 20px;
+    }
+    .gate-cover-cta:hover { background: #f7dfa8; }
+
+    .stu-only { display: none; }
+    body.role-student .stu-only { display: inline-flex; }
+    .non-stu-note { display: none; font-size: 0.78rem; color: var(--ink-faint); font-weight: 600; }
+    body.role-guest .non-stu-note, body.role-teacher .non-stu-note { display: inline; }
+    /* guests & teachers never submit work */
+    body.role-guest #xvFinish, body.role-teacher #xvFinish,
+    body.role-guest #xvSaveEx, body.role-teacher #xvSaveEx,
+    body.role-guest #studioSave, body.role-teacher #studioSave { display: none !important; }
+    .step-status { font-size: 0.72rem; font-weight: 700; color: #3e7d50; letter-spacing: 0.04em; }
+    .hm-progress { font-size: 0.78rem; color: var(--ink-dim); font-weight: 700; }
+
     /* ============ responsive ============ */
     @media (max-width: 900px) {
       .tlai-pathgrid { grid-template-columns: 1fr; }
@@ -661,6 +751,8 @@
       .hm-wrap, .sec-belt, .ds-head, .ds-cover-wrap, .ds-gallery-sec, .ds-main, .ds-foot,
       .p321-wrap, .tlai-wrap, .xv-wrap { padding-left: 16px; padding-right: 16px; }
       .tlai-chat { height: 460px; }
+      .jn-role-chip { display: none; }
+      .rg-choices { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -671,6 +763,41 @@
   </style>
 </head>
 <body>
+
+  <!-- ============ ROLE GATE (first open) ============ -->
+  <div id="roleGate" class="rg-overlay hidden">
+    <div class="rg-card">
+      <div class="rg-eyebrow">SMART ART HERITAGE • HÀNH TRÌNH 1 → 5</div>
+      <h2>Trước tiên: em là ai?</h2>
+      <p class="rg-sub">Chọn vai trò để bắt đầu. Học sinh nhập họ tên + lớp rồi làm và nộp từng bước 1 → 5 cho từng hồ sơ; khách có thể xem mọi bước nhưng không nộp bài.</p>
+      <div class="rg-choices" id="rgChoices">
+        <button type="button" class="rg-choice" data-role="student">
+          <span class="rg-ico">🎓</span><b>Học sinh</b>
+          <span>Nhập họ tên + lớp, làm và nộp từng bước</span>
+        </button>
+        <button type="button" class="rg-choice" data-role="teacher">
+          <span class="rg-ico">👩‍🏫</span><b>Giáo viên</b>
+          <span>Về Trang Quản Trị để chấm bài &amp; kết nối AI</span>
+        </button>
+        <button type="button" class="rg-choice" data-role="guest">
+          <span class="rg-ico">👀</span><b>Khách</b>
+          <span>Xem thử toàn bộ hành trình, không cần tên</span>
+        </button>
+      </div>
+      <div class="rg-form" id="rgStudentForm" hidden>
+        <label for="rgName">Họ tên đầy đủ của em</label>
+        <input id="rgName" type="text" placeholder="VD: Nguyễn Minh An" autocomplete="name">
+        <label for="rgClass">Lớp</label>
+        <input id="rgClass" type="text" placeholder="VD: 6A1" autocomplete="off">
+        <div class="rg-err" id="rgErr"></div>
+        <div class="rg-form-actions">
+          <button type="button" class="rg-btn" id="rgStudentStart">Bắt đầu hành trình →</button>
+          <button type="button" class="rg-btn rg-btn-ghost" id="rgStudentBack">← Chọn lại vai trò</button>
+        </div>
+      </div>
+      <p class="rg-note">Lựa chọn được lưu trên máy này. Muốn đổi vai trò, bấm “Đổi” trên thanh trên cùng.</p>
+    </div>
+  </div>
 
   <!-- ============ INTEGRATED JOURNEY BAR ============ -->
   <div class="jn-bar">
@@ -684,6 +811,10 @@
       <a class="jn-link jn-ext" href="models.html">Phòng 3D ↗</a>
       <a class="jn-link jn-ext" href="giao-vien.html">Giáo Viên ↗</a>
     </nav>
+    <div class="jn-role">
+      <span class="jn-role-chip" id="jnRoleChip">— chưa chọn vai trò —</span>
+      <button class="jn-role-switch" id="jnRoleSwitch" type="button" title="Đổi vai trò">Đổi</button>
+    </div>
   </div>
 
   <!-- ============ STEP 1 — TRANG CHÍNH (demo p0) ============ -->
@@ -744,6 +875,8 @@
         </button>
       </div>
 
+      <div><span class="hm-progress" id="hmProgress"></span><a class="non-stu-link" id="hmResetLink" href="#" style="display:none; font-size:0.72rem; color:var(--terra); font-weight:700; margin-left:10px;">Xóa tiến độ của em</a></div>
+
       <div class="hm-panel">
         <div class="hm-panel-eyebrow">CƠ SỞ DỮ LIỆU 5 DI SẢN</div>
         <h2>Chạm một hồ sơ — toàn bộ các bước mở ra ngay dưới đây</h2>
@@ -752,7 +885,7 @@
           Phiếu 3–2–1, AI 5A và Triển lãm đều tự động đồng bộ theo đúng hồ sơ em chọn.
         </p>
         <div class="hm-note">
-          <span><b>Bốn bước phía dưới:</b> Quan sát &amp; Câu hỏi → Phiếu 3–2–1 → AI 5A → Triển lãm.</span>
+          <span id="hmRoleHint"><b>Bốn bước phía dưới:</b> Quan sát &amp; Câu hỏi → Phiếu 3–2–1 → AI 5A → Triển lãm.</span>
           <a class="hm-cta" id="hmStartBtn" href="#dossier">Bắt đầu khám phá <span>↗</span></a>
         </div>
       </div>
@@ -802,15 +935,26 @@
 
     <div class="ds-foot">
       <span class="ds-foot-text">NO OBSERVATION → NO AI · Quan sát thật trước khi sáng tạo</span>
-      <div class="ds-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="ds-actions" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <span class="step-status" id="dsStepStatus" data-status="dossier"></span>
+        <button type="button" id="dsStepDone" class="ds-btn ds-btn-primary stu-only">✓ Đã xem &amp; trả lời — nộp bước 2</button>
+        <span class="non-stu-note">Khách &amp; giáo viên chỉ xem — không nộp.</span>
         <a class="ds-btn" href="#p321">Đến Phiếu 3–2–1 ↓</a>
-        <a class="ds-btn ds-btn-primary" href="#home">Chọn hồ sơ khác</a>
+        <a class="ds-btn" href="#home">Chọn hồ sơ khác</a>
       </div>
     </div>
   </section>
 
   <!-- ============ STEP 3 — PHIẾU 3–2–1 (demo sah321-integrated) ============ -->
   <section id="p321" data-jnsec="p321">
+    <div class="gate-cover">
+      <div class="gate-cover-inner">
+        <div class="gate-cover-ico">🔒</div>
+        <div class="gate-cover-title">Bước 3 — Phiếu 3–2–1 chưa mở</div>
+        <p class="gate-cover-msg" id="p321GateMsg"></p>
+        <button type="button" class="gate-cover-cta" id="p321GateBtn">↑ Về bước trước</button>
+      </div>
+    </div>
     <div class="sec-belt" style="padding-top:40px;">
       <div class="sec-belt-inner">
         <span class="sec-belt-tag">BƯỚC 3 • PHIẾU 3–2–1</span>
@@ -819,7 +963,7 @@
     </div>
 
     <div class="p321-wrap">
-      <div class="p321-eyebrow">PHẢN TƯ TRƯỚC KHI SÁNG TẠO — NGAY TRONG HÀNH TRÌNH</div>
+      <div class="p321-eyebrow">PHẢN TƯ TRƯỚC KHI SÁNG TẠO — NGAY TRONG HÀNH TRÌNH <span class="step-status" id="p321Status" data-status="p321"></span></div>
       <h2 class="p321-title">Phiếu 3–2–1 • Hình thành ý tưởng cá nhân</h2>
       <p class="p321-sub">
         Trước khi cầm bút hay mở AI, em quan sát thật kỹ — rồi ghi lại điều khiến em xúc động.
@@ -900,7 +1044,9 @@
         <button id="btnExport321" type="button" class="p321-btn p321-btn-ghost">
           <span>In / Xuất PDF</span>
         </button>
-        <a id="btnToAI5A" class="p321-btn p321-btn-primary" href="#ai5a">
+        <span class="non-stu-note">Khách &amp; giáo viên chỉ xem phiếu — không nộp.</span>
+        <button id="btn321Submit" type="button" class="p321-btn p321-btn-primary stu-only">✓ Nộp phiếu 3–2–1 — mở AI 5A</button>
+        <a id="btnToAI5A" class="p321-btn p321-btn-primary" href="#ai5a" hidden>
           <span>Tiếp tục → Xưởng AI 5A (ngay dưới đây)</span>
           <span>↗</span>
         </a>
@@ -910,6 +1056,14 @@
 
   <!-- ============ STEP 4 — XƯỞNG AI 5A (demo sah-ai5a-studio) ============ -->
   <section id="ai5a" data-jnsec="ai5a">
+    <div class="gate-cover">
+      <div class="gate-cover-inner">
+        <div class="gate-cover-ico">🔒</div>
+        <div class="gate-cover-title">Bước 4 — Xưởng AI 5A chưa mở</div>
+        <p class="gate-cover-msg" id="ai5aGateMsg"></p>
+        <button type="button" class="gate-cover-cta" id="ai5aGateBtn">↑ Về bước trước</button>
+      </div>
+    </div>
     <div class="sec-belt" style="padding-top:40px;">
       <div class="sec-belt-inner">
         <span class="sec-belt-tag">BƯỚC 4 • XƯỞNG ĐỐI THOẠI SÁNG TẠO</span>
@@ -1118,10 +1272,12 @@
                 <label class="wide">Quyết định sáng tạo của tôi<input data-pass="decision" placeholder="Tôi quyết định..."></label>
               </div>
             </div>
-            <label class="tlai-confirm"><input type="checkbox" id="authorConfirm"><span><b>Tôi xác nhận đây là phương án do tôi lựa chọn và phát triển.</b></span></label>
-            <div class="tlai-studio-actions">
-              <button type="button" id="studioSave" class="tlai-savebtn">💾 Lưu Hộ chiếu sáng tạo</button>
+            <label class="tlai-confirm"><input type="checkbox" id="authorConfirm"><span><b>Tôi xác nhận đây là phương án do tôi lựa chọn và phát triển.</b></span></label>    <div class="tlai-studio-actions">
+            <span class="step-status" id="ai5aStatus" data-status="ai5a"></span>
+            <button type="button" id="studioSave" class="tlai-savebtn">💾 Lưu Hộ chiếu sáng tạo</button>
+              <button type="button" id="ai5aSubmit" class="tlai-savebtn stu-only">✓ Nộp bước 4 — mở Triển lãm</button>
               <span id="studioMsg" class="tlai-msg"></span>
+              <span class="non-stu-note">Khách &amp; giáo viên chỉ xem xưởng — không nộp.</span>
             </div>
           </div>
         </article>
@@ -1148,6 +1304,14 @@
 
   <!-- ============ STEP 5 — TRIỂN LÃM (demo exhibitV38) ============ -->
   <section id="exhibit" data-jnsec="exhibit">
+    <div class="gate-cover">
+      <div class="gate-cover-inner">
+        <div class="gate-cover-ico">🔒</div>
+        <div class="gate-cover-title">Bước 5 — Triển lãm chưa mở</div>
+        <p class="gate-cover-msg" id="exhibitGateMsg"></p>
+        <button type="button" class="gate-cover-cta" id="exhibitGateBtn">↑ Về bước trước</button>
+      </div>
+    </div>
     <div class="sec-belt" style="padding-top:40px;">
       <div class="sec-belt-inner">
         <span class="sec-belt-tag">BƯỚC 5 • TRƯNG BÀY · CHIA SẺ · PHẢN HỒI</span>
@@ -1268,6 +1432,7 @@
             <span>Tôi đã giới thiệu tác phẩm, lắng nghe phản hồi và tự đánh giá.</span>
           </label>
           <div class="xv-finish-row">
+            <span class="step-status" id="xvStepStatus" data-status="exhibit"></span>
             <span id="xvExStatus" class="xv-status">Chưa hoàn tất phần trưng bày – chia sẻ.</span>
             <button id="xvSaveEx" type="button" class="xv-btn-save">💾 Lưu phần trưng bày</button>
             <button id="xvFinish" type="button" class="xv-btn-finish">✓ Hoàn tất hành trình</button>
@@ -1492,6 +1657,7 @@
         document.getElementById('dossier').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       renderDossier(key);
+      if (typeof refreshGates === 'function') refreshGates(); // per-heritage task locks
     }
 
     function chipEl(text) {
@@ -2311,6 +2477,7 @@
       });
       restoreStep();
       setupScrollSpy();
+      initTaskFlow();   // role gate + sequential 1→5 task gating
 
       // deep links: index.html#dossier etc.
       if (location.hash && document.querySelector(location.hash)) {
@@ -2318,6 +2485,234 @@
           document.querySelector(location.hash).scrollIntoView({ behavior: 'smooth' });
         }, 250);
       }
+    }
+
+    /* ================================================================
+       SEQUENTIAL TASK FLOW + ROLE GATE
+       - First open: are you a student / teacher / guest?
+         student → full name + class, saved on this machine
+         teacher → guided to giao-vien.html (admin)
+         guest   → can view everything but never submit
+       - Steps run 1 → 5 per Hồ sơ: steps below start EMPTY
+         and unlock only after the previous step is submitted.
+       ================================================================ */
+    var ROLE_KEY = 'sah_role';
+    var PROG_KEY = 'sah_task_progress';
+    var STEP_DEFS = [
+      { id: 'dossier', label: 'Quan sát & Câu hỏi', gate: 'p321' },
+      { id: 'p321',    label: 'Phiếu 3–2–1',        gate: 'ai5a' },
+      { id: 'ai5a',    label: 'Xưởng AI 5A',        gate: 'exhibit' }
+    ];
+    var GATE_LABELS = { p321: 'Phiếu 3–2–1', ai5a: 'Xưởng AI 5A', exhibit: 'Triển lãm' };
+    var HM_HINTS = {
+      student: '<b>Hành trình 1 → 5:</b> các bước phía dưới mở lần lượt — nộp xong bước này mới tới bước sau, cho từng hồ sơ.',
+      guest: '<b>Bạn đang xem ở chế độ Khách:</b> xem được mọi bước nhưng không nộp bài. Học sinh bấm “Đổi” trên thanh trên cùng để bắt đầu.',
+      teacher: '<b>Chế độ Giáo viên:</b> chấm bài, phản hồi và kết nối AI trong Trang Quản Trị.'
+    };
+
+    function setStatus(id, text) { var el = $(id); if (el) el.textContent = text; }
+
+    function loadProgress() {
+      try { return JSON.parse(localStorage.getItem(PROG_KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function saveProgress(p) {
+      try { localStorage.setItem(PROG_KEY, JSON.stringify(p)); } catch (e) {}
+    }
+    function currentRole() {
+      try { return localStorage.getItem(ROLE_KEY) || ''; } catch (e) { return ''; }
+    }
+
+    function unlockedThrough(key) {
+      // how many steps of THIS heritage are done: dossier → p321 → ai5a → exhibit
+      var p = loadProgress();
+      var h = p[key] || {};
+      if (h.exhibit) return 4;
+      if (h.ai5a) return 3;
+      if (h.p321) return 2;
+      if (h.dossier) return 1;
+      return 0;
+    }
+    function isStepOpen(stepId, key) {
+      if (stepId === 'home' || stepId === 'dossier') return true;
+      return unlockedThrough(key) >= ['p321', 'ai5a', 'exhibit'].indexOf(stepId) + 1;
+    }
+
+    function gateMessage(gateId, key, n) {
+      var meta = META[key];
+      if (currentRole() !== 'student') {
+        return 'Bạn đang xem ở chế độ không nộp bài. Phần “' + GATE_LABELS[gateId] + '” chỉ mở khi học sinh nộp bước trước — bấm “Đổi” trên thanh trên cùng để vào làm bài.';
+      }
+      if (n === 0) {
+        return 'Hãy xem 15 ảnh tư liệu và trả lời câu hỏi ở Bước 2, rồi bấm “Đã xem & trả lời — nộp bước 2” để mở Phiếu 3–2–1 cho hồ sơ ' + meta.name + '.';
+      }
+      return 'Đã mở ' + n + '/3 bước cho hồ sơ ' + meta.name + '. Hoàn thành bước trước rồi nộp để mở “' + GATE_LABELS[gateId] + '”.';
+    }
+
+    function refreshGates() {
+      var key = state.key || 'chuakeo';
+      var role = currentRole();
+      var n = unlockedThrough(key);
+
+      // role chip in the top bar
+      var chip = $('jnRoleChip');
+      if (role === 'student') {
+        chip.textContent = '🎓 ' + (loadProgress()._profile ? loadProgress()._profile.name + ' · ' + loadProgress()._profile.cls : 'Học sinh');
+      } else if (role === 'teacher') chip.textContent = '👩‍🏫 Giáo viên';
+      else if (role === 'guest') chip.textContent = '👀 Khách';
+      else chip.textContent = '— chưa chọn vai trò —';
+
+      document.body.classList.toggle('role-student', role === 'student');
+      document.body.classList.toggle('role-guest', role === 'guest');
+      document.body.classList.toggle('role-teacher', role === 'teacher');
+
+      // home hint + progress
+      $('hmRoleHint').innerHTML = HM_HINTS[role] || HM_HINTS.student;
+      var done = unlockedThrough(key);
+      $('hmProgress').textContent = role
+        ? 'Hồ sơ đang chọn: ' + META[key].name + ' — ' + (done >= 4 ? 'hoàn tất cả 4 bước ✓' : 'đã nộp ' + done + '/4 bước')
+        : '';
+      $('hmResetLink').style.display = (role === 'student') ? 'inline' : 'none';
+
+      // unlock covers on steps 3–5
+      ['p321', 'ai5a', 'exhibit'].forEach(function (gateId, i) {
+        var sec = document.getElementById(gateId);
+        var open = n >= i + 1;
+        sec.classList.toggle('gate-locked', !open);
+        var msg = $(gateId + 'GateMsg');
+        if (msg) msg.textContent = gateMessage(gateId, key, n);
+      });
+
+      // per-step status + submit buttons
+      setStatus('dsStepStatus', n >= 1 ? 'Bước 2 đã nộp ✓' : 'Bước 2 chưa nộp');
+      setStatus('p321Status', n >= 2 ? 'Đã nộp ✓' : 'Chưa nộp');
+      setStatus('ai5aStatus', n >= 3 ? 'Đã nộp ✓' : 'Chưa nộp');
+      setStatus('xvStepStatus', n >= 4 ? 'Hành trình hoàn tất ✓' : (n >= 3 ? 'Sẵn sàng nộp' : 'Chưa tới lượt'));
+
+      var submit2 = $('dsStepDone');
+      if (submit2) submit2.disabled = n >= 1;
+      var submit3 = $('btn321Submit');
+      if (submit3) submit3.hidden = n >= 2;   // submitted → show the continue link instead
+      var toAi = $('btnToAI5A');
+      if (toAi) toAi.hidden = n < 2;
+      var submit4 = $('ai5aSubmit');
+      if (submit4) submit4.hidden = n >= 3;
+    }
+
+    function submitStep(stepId) {
+      var key = state.key || 'chuakeo';
+      var p = loadProgress();
+      if (!p[key]) p[key] = {};
+      p[key][stepId] = true;
+      p._last = { key: key, step: stepId, ts: Date.now() };
+      saveProgress(p);
+      refreshGates();
+    }
+
+    function initTaskFlow() {
+      var gate = $('roleGate');
+
+      function showGate() { gate.classList.remove('hidden'); }
+      function hideGate() { gate.classList.add('hidden'); }
+
+      function startStudentForm() {
+        $('rgChoices').hidden = true;
+        $('rgStudentForm').hidden = false;
+        $('rgErr').textContent = '';
+        try {
+          var prof = loadProgress()._profile;
+          if (prof) { $('rgName').value = prof.name; $('rgClass').value = prof.cls; }
+        } catch (e) {}
+      }
+
+      function chooseRole(role) {
+        if (role === 'teacher') {
+          try { localStorage.setItem(ROLE_KEY, 'teacher'); } catch (e) {}
+          hideGate();
+          location.href = 'giao-vien.html';
+          return;
+        }
+        if (role === 'student') { startStudentForm(); return; }
+        // guest
+        try { localStorage.setItem(ROLE_KEY, 'guest'); } catch (e) {}
+        hideGate();
+        refreshGates();
+      }
+
+      $('rgChoices').addEventListener('click', function (e) {
+        var c = e.target.closest('.rg-choice');
+        if (!c) return;
+        chooseRole(c.dataset.role);
+      });
+      $('rgStudentBack').addEventListener('click', function () {
+        $('rgStudentForm').hidden = true;
+        $('rgChoices').hidden = false;
+      });
+      $('rgStudentStart').addEventListener('click', function () {
+        var name = $('rgName').value.trim();
+        var cls = $('rgClass').value.trim();
+        if (!name || !cls) { $('rgErr').textContent = 'Hãy điền đủ họ tên và lớp nhé!'; return; }
+        var p = loadProgress();
+        p._profile = { name: name, cls: cls };
+        saveProgress(p);
+        try { localStorage.setItem(ROLE_KEY, 'student'); } catch (e) {}
+        try { sessionStorage.removeItem('sah_teacher_session'); } catch (e) {}
+        hideGate();
+        refreshGates();
+      });
+      $('rgName').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('rgStudentStart').click(); });
+      $('rgClass').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('rgStudentStart').click(); });
+
+      $('jnRoleSwitch').addEventListener('click', showGate);
+
+      // task buttons
+      var dsDone = $('dsStepDone');
+      if (dsDone) dsDone.addEventListener('click', function () {
+        submitStep('dossier');
+        dsDone.textContent = '✓ Đã nộp — sang Phiếu 3–2–1';
+        document.getElementById('p321').scrollIntoView({ behavior: 'smooth' });
+      });
+      var b321 = $('btn321Submit');
+      if (b321) b321.addEventListener('click', function () {
+        autoSave321();
+        submitStep('p321');
+        $('studioSeed').value = seedFrom321();
+        document.getElementById('ai5a').scrollIntoView({ behavior: 'smooth' });
+      });
+      var b4 = $('ai5aSubmit');
+      if (b4) b4.addEventListener('click', function () {
+        savePassport();
+        submitStep('ai5a');
+        document.getElementById('exhibit').scrollIntoView({ behavior: 'smooth' });
+      });
+      var xfin = $('xvFinish');
+      if (xfin) {
+        xfin.addEventListener('click', function () {
+          if (document.getElementById('xvConfirm').checked) submitStep('exhibit');
+        });
+      }
+
+      // gate covers: “về bước trước” buttons
+      [['p321GateBtn', 'dossier'], ['ai5aGateBtn', 'p321'], ['exhibitGateBtn', 'ai5a']].forEach(function (pair) {
+        var btn = $(pair[0]);
+        if (btn) btn.addEventListener('click', function () {
+          document.getElementById(pair[1]).scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // reset progress link (students only)
+      $('hmResetLink').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (confirm('Xóa toàn bộ tiến độ nộp bài trên máy này? Phiếu 3–2–1 vẫn giữ nguyên.')) {
+          try { localStorage.removeItem(PROG_KEY); } catch (err) {}
+          refreshGates();
+        }
+      });
+
+      // FIRST OPEN: show the gate if no role chosen yet
+      if (!currentRole()) {
+        showGate();
+      }
+      refreshGates();
     }
 
     if (document.readyState === 'loading') {

@@ -587,7 +587,7 @@
       var hash = (location.hash || '').replace('#', '');
       buildTabs();
       bindGalleryJump();
-      var startKey = ORDER.indexOf(hash) >= 0 ? hash : 'chuakeo';
+      var startKey = ORDER.indexOf(hash) >= 0 ? hash : ORDER[0];
       loadData(startKey);
       window.addEventListener('hashchange', function () {
         var k = (location.hash || '').replace('#', '');

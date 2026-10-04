@@ -592,8 +592,8 @@
       <div class="tlai-field">
         <label for="studioProject">Dự án di sản</label>
         <select id="studioProject">
-          <option value="phohien">Phố Hiến</option>
-          <option value="chuakeo" selected>Chùa Keo</option>
+          <option value="phohien" selected>Phố Hiến</option>
+          <option value="chuakeo">Chùa Keo</option>
           <option value="dentran">Đền Trần</option>
           <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
           <option value="dongxam">Làng nghề chạm bạc Đồng Xâm</option>
@@ -1297,7 +1297,7 @@
     var PKEY = 'sah_passport';
 
     function projectKey() {
-      return document.getElementById('studioProject').value || 'chuakeo';
+      return document.getElementById('studioProject').value || 'phohien';
     }
 
     function renderProject() {

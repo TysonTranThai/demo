@@ -982,8 +982,8 @@
         <div class="p321-field">
           <label class="p321-label" for="form321Project">Di Sản Lựa Chọn</label>
           <select class="p321-select" id="form321Project">
-            <option value="phohien">Phố Hiến — Đô thị cổ</option>
-            <option value="chuakeo" selected>Chùa Keo — Kiến trúc gỗ</option>
+            <option value="phohien" selected>Phố Hiến — Đô thị cổ</option>
+            <option value="chuakeo">Chùa Keo — Kiến trúc gỗ</option>
             <option value="dentran">Đền Trần — Hào khí Đông A</option>
             <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
             <option value="dongxam">Chạm bạc Đồng Xâm</option>
@@ -1095,8 +1095,8 @@
         <div class="tlai-field" style="flex:1 1 240px;">
           <label for="studioProject">Dự án di sản (đồng bộ với Phiếu 3–2–1)</label>
           <select id="studioProject">
-            <option value="phohien">Phố Hiến</option>
-            <option value="chuakeo" selected>Chùa Keo</option>
+            <option value="phohien" selected>Phố Hiến</option>
+            <option value="chuakeo">Chùa Keo</option>
             <option value="dentran">Đền Trần</option>
             <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
             <option value="dongxam">Làng nghề chạm bạc Đồng Xâm</option>
@@ -1491,6 +1491,8 @@
     'use strict';
 
     var ORDER = ['phohien', 'chuakeo', 'dentran', 'lequydon', 'dongxam'];
+    // Hồ sơ 01 (Phố Hiến) is what every fresh visitor must land on.
+    var DEFAULT_KEY = ORDER[0];
     var STEP_KEY = 'sah_int_step';
 
     var META = {
@@ -1628,7 +1630,7 @@
 
     function selectHeritage(key, opts) {
       opts = opts || {};
-      if (ORDER.indexOf(key) < 0) key = 'chuakeo';
+      if (ORDER.indexOf(key) < 0) key = DEFAULT_KEY;
       state.key = key;
 
       document.querySelectorAll('#homeTabs .hm-tab').forEach(function (t) {
@@ -1789,7 +1791,7 @@
     var saveTimer = null;
 
     function applyPrompts() {
-      var pack = QUESTION_PACKS[$('form321Project').value] || QUESTION_PACKS.chuakeo;
+      var pack = QUESTION_PACKS[$('form321Project').value] || QUESTION_PACKS[DEFAULT_KEY];
       [['3', pack.q3, pack.h3], ['2', pack.q2, pack.h2], ['1', pack.q1, pack.h1]].forEach(function (row) {
         var n = row[0];
         $('prompt321_' + n).textContent = row[1];
@@ -1799,7 +1801,7 @@
 
     function autoSave321() {
       var data = {
-        project: $('form321Project').value || 'chuakeo',
+        project: $('form321Project').value || DEFAULT_KEY,
         studentId: $('form321StudentId').value || '',
         studentClass: $('form321Class').value || '',
         q3: $('field321_3').value || '',
@@ -1841,7 +1843,10 @@
         if (draft.q1) $('field321_1').value = draft.q1;
         if (draft.studentId) $('form321StudentId').value = draft.studentId;
         if (draft.studentClass) $('form321Class').value = draft.studentClass;
-        var pkey = draft.project && ORDER.indexOf(draft.project) >= 0 ? draft.project : 'chuakeo';
+        // Only a draft the student actually filled in may pick the heritage;
+        // an empty/missing draft must not drag the page away from Hồ sơ 01.
+        var filled = !!(draft.q3 || draft.q2 || draft.q1);
+        var pkey = (filled && ORDER.indexOf(draft.project) >= 0) ? draft.project : DEFAULT_KEY;
         state.key = pkey;
         $('form321Project').value = pkey;
         applyPrompts();
@@ -1946,7 +1951,7 @@
     var PKEY = 'sah_passport';
 
     function renderProject() {
-      var key = $('studioProject').value || 'chuakeo';
+      var key = $('studioProject').value || DEFAULT_KEY;
       var d = STUDIO_DATA[key];
       $('a1Prompt').textContent = d.analyze;
       $('askCards').innerHTML = d.asks.map(function (q) {
@@ -2465,7 +2470,7 @@
         try { pick = sessionStorage.getItem('sah_pick'); } catch (e) {}
         if (pick) { try { sessionStorage.removeItem('sah_pick'); } catch (e) {} }
         var startKey = (pick && ORDER.indexOf(pick) >= 0) ? pick
-          : (state.key && ORDER.indexOf(state.key) >= 0 ? state.key : 'chuakeo');
+          : (state.key && ORDER.indexOf(state.key) >= 0 ? state.key : DEFAULT_KEY);
         selectHeritage(startKey);
       });
 
@@ -2549,7 +2554,7 @@
     }
 
     function refreshGates() {
-      var key = state.key || 'chuakeo';
+      var key = state.key || DEFAULT_KEY;
       var role = currentRole();
       var n = unlockedThrough(key);
 
@@ -2599,7 +2604,7 @@
     }
 
     function submitStep(stepId) {
-      var key = state.key || 'chuakeo';
+      var key = state.key || DEFAULT_KEY;
       var p = loadProgress();
       if (!p[key]) p[key] = {};
       p[key][stepId] = true;

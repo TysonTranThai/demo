@@ -450,8 +450,8 @@
       <div class="p321-field">
         <label class="p321-label" for="form321Project">Di Sản Lựa Chọn</label>
         <select class="p321-select" id="form321Project">
+          <option value="phohien" selected>Phố Hiến — Đô thị cổ</option>
           <option value="chuakeo">Chùa Keo — Kiến trúc gỗ</option>
-          <option value="phohien">Phố Hiến — Đô thị cổ</option>
           <option value="dentran">Đền Trần — Hào khí Đông A</option>
           <option value="lequydon">Khu lưu niệm Lê Quý Đôn</option>
           <option value="dongxam">Chạm bạc Đồng Xâm</option>
@@ -574,7 +574,7 @@
     };
 
     function applyPrompts() {
-      var pack = QUESTION_PACKS[document.getElementById('form321Project').value] || QUESTION_PACKS.chuakeo;
+      var pack = QUESTION_PACKS[document.getElementById('form321Project').value] || QUESTION_PACKS.phohien;
       [['3', pack.q3, pack.h3], ['2', pack.q2, pack.h2], ['1', pack.q1, pack.h1]].forEach(function (row) {
         var n = row[0];
         document.getElementById('prompt321_' + n).textContent = row[1];
@@ -594,7 +594,7 @@
 
     function autoSave() {
       var data = {
-        project: document.getElementById('form321Project').value || 'chuakeo',
+        project: document.getElementById('form321Project').value || 'phohien',
         studentId: document.getElementById('form321StudentId').value || '',
         studentClass: document.getElementById('form321Class').value || '',
         q3: document.getElementById('field321_3').value || '',
@@ -654,7 +654,7 @@
       var data = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
       try {
         sessionStorage.setItem('sah_321_to_ai5a', JSON.stringify({
-          project: data.project || 'chuakeo',
+          project: data.project || 'phohien',
           q3: data.q3 || '',
           q1: data.q1 || '',
           ts: Date.now()

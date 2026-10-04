@@ -86,6 +86,11 @@
       transition: color 0.2s ease, background 0.2s ease;
     }
     .tlai-link:hover { color: var(--ink); background: var(--glass-strong); }
+    .tlai-link.is-current {
+      color: var(--gold);
+      background: var(--glass-strong);
+      border-color: var(--gold);
+    }
 
     /* ---------- hero ---------- */
     .tlai-hero {
@@ -422,14 +427,16 @@
       <span>Trang Chủ</span>
     </a>
     <nav class="tlai-links">
-      <a class="tlai-link" href="di-san.html">Di Sản &amp; Câu Hỏi</a>
-      <a class="tlai-link" href="models.html">Phòng 3D</a>
-      <a class="tlai-link" href="phieu-3-2-1.html">Phiếu 3–2–1</a>
+      <a class="tlai-link" href="di-san.html">1 · Di Sản &amp; Câu Hỏi</a>
+      <a class="tlai-link" href="models.html">2 · Phòng 3D</a>
+      <a class="tlai-link" href="phieu-3-2-1.html">3 · Phiếu 3–2–1</a>
+      <a class="tlai-link is-current" href="tro-ly-ai.html" aria-current="page">4 · Trợ Lý Ai</a>
+      <a class="tlai-link" href="trien-lam.html">5 · Triển lãm</a>
     </nav>
   </div>
 
   <header class="tlai-hero">
-    <div class="tlai-eyebrow">SMART ART HERITAGE — ĐỒNG HÀNH SÁNG TẠO</div>
+    <div class="tlai-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 4/5 · ĐỒNG HÀNH SÁNG TẠO</div>
     <h1 class="tlai-title">Trợ Lý <span class="ai-mark">Ai</span></h1>
     <p class="tlai-sub">
       Quy trình 5 bước <b>Ask • Analyze • Advise • Adapt • Art</b>. Theo nguyên tắc

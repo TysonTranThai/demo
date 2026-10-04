@@ -76,6 +76,33 @@
     }
     .ds-home:hover { color: var(--gold); background: rgba(43, 38, 32, 0.12); }
 
+    /* ---------- journey strip (shared across all pages) ---------- */
+    .ds-journey {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 24px 0;
+    }
+    .ds-journey-link {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-dim);
+      text-decoration: none;
+      padding: 9px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      background: var(--glass);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .ds-journey-link:hover { color: var(--ink); background: var(--glass-strong); }
+    .ds-journey-link.is-current {
+      color: var(--gold);
+      background: var(--glass-strong);
+      border-color: var(--gold);
+    }
+
     .ds-tabs {
       display: flex;
       align-items: center;
@@ -383,6 +410,15 @@
     </a>
     <nav class="ds-tabs" id="dsTabs" aria-label="Chọn di sản"></nav>
   </div>
+
+  <!-- ============ JOURNEY STRIP ============ -->
+  <nav class="ds-journey" aria-label="Hành trình học tập">
+    <a class="ds-journey-link is-current" href="di-san.html" aria-current="page">1 · Di sản &amp; Câu hỏi</a>
+    <a class="ds-journey-link" href="models.html">2 · Phòng 3D</a>
+    <a class="ds-journey-link" href="phieu-3-2-1.html">3 · Phiếu 3–2–1</a>
+    <a class="ds-journey-link" href="tro-ly-ai.html">4 · Trợ Lý Ai</a>
+    <a class="ds-journey-link" href="trien-lam.html">5 · Triển lãm</a>
+  </nav>
 
   <!-- ============ HERO ============ -->
   <header class="ds-hero">

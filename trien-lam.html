@@ -84,6 +84,11 @@
       transition: color 0.2s ease, background 0.2s ease;
     }
     .xv-link:hover { color: var(--ink); background: var(--glass-strong); }
+    .xv-link.is-current {
+      color: var(--gold);
+      background: var(--glass-strong);
+      border-color: var(--gold);
+    }
 
     /* ---------- hero ---------- */
     .xv-hero {
@@ -448,15 +453,16 @@
       <span>Trang Chủ</span>
     </a>
     <nav class="xv-links">
-      <a class="xv-link" href="di-san.html">Di Sản &amp; Câu Hỏi</a>
-      <a class="xv-link" href="models.html">Phòng 3D</a>
-      <a class="xv-link" href="phieu-3-2-1.html">Phiếu 3–2–1</a>
-      <a class="xv-link" href="tro-ly-ai.html">Trợ Lý Ai</a>
+      <a class="xv-link" href="di-san.html">1 · Di Sản &amp; Câu Hỏi</a>
+      <a class="xv-link" href="models.html">2 · Phòng 3D</a>
+      <a class="xv-link" href="phieu-3-2-1.html">3 · Phiếu 3–2–1</a>
+      <a class="xv-link" href="tro-ly-ai.html">4 · Trợ Lý Ai</a>
+      <a class="xv-link is-current" href="trien-lam.html" aria-current="page">5 · Triển lãm</a>
     </nav>
   </div>
 
   <header class="xv-hero">
-    <div class="xv-eyebrow">SMART ART HERITAGE — TRIỂN LÃM TÁC PHẨM HỌC SINH</div>
+    <div class="xv-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 5/5 · TRƯNG BÀY · CHIA SẺ · PHẢN HỒI</div>
     <h1 class="xv-title">Triển Lãm <span class="accent">Tác Phẩm</span></h1>
     <p class="xv-sub">
       Nơi học sinh <b>tải lên</b> bản vẽ, sản phẩm mĩ thuật và nghiên cứu của mình —

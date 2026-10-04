@@ -362,6 +362,35 @@
     }
     .jr-home:hover { color: var(--jr-gold); background: rgba(43, 38, 32, 0.12); }
 
+    /* ---------- next-step pill (journey: Phòng 3D → Phiếu 3–2–1) ---------- */
+    .jr-next {
+      position: absolute;
+      top: 76px;
+      left: 24px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: var(--jr-glass-strong);
+      border: 1px solid var(--jr-hair);
+      color: var(--jr-ink-dim);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .jr-next-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .jr-next-arrow { color: var(--jr-gold); font-weight: 700; }
+    .jr-next:hover { color: var(--jr-gold); background: rgba(43, 38, 32, 0.12); }
+
     .jr-zen-btn {
       position: absolute;
       top: 20px;
@@ -456,6 +485,8 @@
       .jr-info-hint { display: none; }
       .jr-home-text { display: none; }
       .jr-home { padding: 8px 13px 8px 11px; }
+      .jr-next-label { display: none; }
+      .jr-next { padding: 9px 12px; top: 64px; }
       .jr-stop-name { display: none; }
       .jr-stop { padding: 8px 10px; }
       .jr-stop-num { font-size: 0.66rem; }
@@ -479,7 +510,7 @@
     <!-- Title veil -->
     <div class="jr-veil" id="jrVeil">
       <div class="jr-veil-inner">
-        <div class="jr-veil-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 3D</div>
+        <div class="jr-veil-eyebrow">SMART ART HERITAGE — HÀNH TRÌNH 2/5 · PHÒNG 3D</div>
         <h1 class="jr-veil-title" id="jrVeilTitle">Chùa Keo</h1>
         <div class="jr-veil-rule"></div>
         <div class="jr-veil-sub" id="jrVeilSub">Gác chuông · Thái Bình</div>
@@ -517,6 +548,10 @@
         <path d="M10 21v-6h4v6"/>
       </svg>
       <span class="jr-home-label">Trang Chủ</span>
+    </a>
+    <a class="jr-next" href="phieu-3-2-1.html" title="Bước tiếp theo: Phiếu 3–2–1">
+      <span class="jr-next-label">Tiếp: Phiếu 3–2–1</span>
+      <span class="jr-next-arrow">↗</span>
     </a>
     <button class="jr-zen-btn" id="jrZenBtn" type="button" title="Chế độ chiêm ngưỡng (Z)">
       <span class="jr-zen-icon">◔</span><span class="jr-zen-label">Chiêm ngưỡng</span>

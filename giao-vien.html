@@ -1178,7 +1178,11 @@
       var crits = g.scores ? RUBRIC.map(function (c) {
         return c.name.split(' ')[0] + ' ' + (typeof g.scores[c.key] === 'number' ? g.scores[c.key] : '—');
       }).join(' · ') : '';
-      return '<span class="gv-badge ok" title="' + esc(crits) + '">' + g.total.toFixed(1) + '/10</span>';
+      // a grade written without a numeric total must not take the whole table down
+      var total = (typeof g.total === 'number') ? g.total
+        : (typeof g.score === 'number') ? g.score : null;
+      if (total === null) return '<span class="gv-badge warn" title="' + esc(crits) + '">Chưa có điểm</span>';
+      return '<span class="gv-badge ok" title="' + esc(crits) + '">' + total.toFixed(1) + '/10</span>';
     }
 
     /* ---- GRADING TAB: stats + grade queue + rubric panel ---- */
@@ -1195,11 +1199,17 @@
         if (!lowWork || grades[w.id].total < grades[lowWork].total) lowWork = w.id;
       });
       var avg = gradedIds.length ? totalScore / gradedIds.length : null;
+      // a grade record without a numeric total must not break the stats block
+      function totalOf(id) {
+        var t = id ? grades[id] && grades[id].total : null;
+        return typeof t === 'number' ? t : null;
+      }
+      var topTotal = totalOf(topWork), lowTotal = totalOf(lowWork);
       document.getElementById('gradeStats').innerHTML = works.length
         ? '<div class="gv-grade-stat"><b>' + gradedIds.length + '/' + works.length + '</b><span>Đã chấm</span></div>' +
           '<div class="gv-grade-stat"><b>' + (avg === null ? '—' : avg.toFixed(1)) + '</b><span>Điểm TB lớp</span></div>' +
-          '<div class="gv-grade-stat"><b>' + (topWork ? grades[topWork].total.toFixed(1) : '—') + '</b><span>Cao nhất — ' + (topWork ? esc(works.find(function (w) { return w.id === topWork; }).title) : '') + '</span></div>' +
-          '<div class="gv-grade-stat"><b>' + (lowWork ? grades[lowWork].total.toFixed(1) : '—') + '</b><span>Thấp nhất — ' + (lowWork ? esc(works.find(function (w) { return w.id === lowWork; }).title) : '') + '</span></div>'
+          '<div class="gv-grade-stat"><b>' + (topTotal === null ? '—' : topTotal.toFixed(1)) + '</b><span>Cao nhất — ' + (topWork ? esc(works.find(function (w) { return w.id === topWork; }).title) : '') + '</span></div>' +
+          '<div class="gv-grade-stat"><b>' + (lowTotal === null ? '—' : lowTotal.toFixed(1)) + '</b><span>Thấp nhất — ' + (lowWork ? esc(works.find(function (w) { return w.id === lowWork; }).title) : '') + '</span></div>'
         : '';
 
       var filtered = filteredWorks();

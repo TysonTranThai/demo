@@ -295,6 +295,20 @@
     txt($('rmExportMsg'), '✓ Đã tải phiếu.');
   }
 
+  /* The reference ships five independent project selects that can disagree.
+     Driving them all from the dossier choice keeps the bridged work filed
+     under the heritage the student is actually looking at. */
+  var PROJECT_SELECTS = ['sahProjectSelect', 'studioProject', 'skvProject', 'avProject', 'ex38Project', 'j39p'];
+  function selectHeritage(key) {
+    PROJECT_SELECTS.forEach(function (id) {
+      var sel = $(id); if (!sel) return;
+      if (id === 'j39p') { if (sel.selectedIndex !== ORDER.indexOf(key)) sel.selectedIndex = ORDER.indexOf(key); }
+      else if (ORDER.indexOf(sel.value) !== ORDER.indexOf(key)) { sel.value = key; }
+      else return;
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  }
+
   /* ============================================================ step lock */
   var STEPS = [
     ['sah321-integrated', 'Phiếu 3–2–1'], ['sah-ai5a-studio', 'AI 5A'],
@@ -434,17 +448,12 @@
 
     // keep the teacher worksheet in sync
     var save321 = $('sahSave321'); if (save321) save321.addEventListener('click', function () { syncDraft(); markDossier(); });
-    // opening a dossier counts as finishing the discovery step, and keeps the
-    // 3-2-1 sheet on the same heritage so the bridged work is filed correctly
+    // opening a dossier counts as finishing the discovery step
     ['h1', 'h2', 'h3', 'h4', 'h5'].forEach(function (id, i) {
       var r = $(id); if (!r) return;
       r.addEventListener('change', function () {
         markDossier();
-        var ps = $('sahProjectSelect');
-        if (ps && ORDER.indexOf(ps.value) !== i) {
-          ps.value = ORDER[i];
-          ps.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+        selectHeritage(ORDER[i]);
         syncDraft(); renderGallery();
       });
     });
@@ -468,6 +477,7 @@
   window.rmRestored = {
     role: role, profile: profile, works: works, syncDraft: syncDraft, saveWork: saveWork,
     renderGallery: renderGallery, renderFeedback: renderFeedback,
-    unlockedThrough: unlockedThrough, refreshLocks: refreshLocks
+    unlockedThrough: unlockedThrough, refreshLocks: refreshLocks,
+    selectHeritage: function (k) { if (ORDER.indexOf(k) < 0) return; selectHeritage(k); }
   };
 })();

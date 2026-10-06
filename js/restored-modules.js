@@ -434,9 +434,19 @@
 
     // keep the teacher worksheet in sync
     var save321 = $('sahSave321'); if (save321) save321.addEventListener('click', function () { syncDraft(); markDossier(); });
-    // opening a dossier counts as finishing the discovery step
-    ['h1', 'h2', 'h3', 'h4', 'h5'].forEach(function (id) {
-      var r = $(id); if (r) r.addEventListener('change', markDossier);
+    // opening a dossier counts as finishing the discovery step, and keeps the
+    // 3-2-1 sheet on the same heritage so the bridged work is filed correctly
+    ['h1', 'h2', 'h3', 'h4', 'h5'].forEach(function (id, i) {
+      var r = $(id); if (!r) return;
+      r.addEventListener('change', function () {
+        markDossier();
+        var ps = $('sahProjectSelect');
+        if (ps && ORDER.indexOf(ps.value) !== i) {
+          ps.value = ORDER[i];
+          ps.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        syncDraft(); renderGallery();
+      });
     });
     var ps = $('sahProjectSelect'); if (ps) ps.addEventListener('change', function () { syncDraft(); refreshLocks(); });
 

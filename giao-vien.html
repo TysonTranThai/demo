@@ -1132,7 +1132,10 @@
               var g = grades[w.id];
               return '<div class="gv-profile-item"><b>' + esc(w.title) + '</b><br>' +
                 (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + ' · ' + fmtSize(w.bytes) + ' · ' + esc(w.createdAt) + '<br>' +
-                (g ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>' : '<span class="gv-badge warn">Chưa chấm</span>') +
+                (g ? (typeof g.total === 'number'
+                    ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>'
+                    : '<span class="gv-badge warn">Chưa có điểm</span>')
+                  : '<span class="gv-badge warn">Chưa chấm</span>') +
                 (g && g.feedback ? '<br><i>' + esc(g.feedback) + '</i>' : '') +
               '</div>';
             }).join('') + '</div>'
@@ -1190,7 +1193,12 @@
       var works = getWorks();
       var grades = getGrades();
 
-      var gradedIds = works.filter(function (w) { return grades[w.id]; });
+      // only records that actually carry a numeric total count toward the stats
+      function totalOf(id) {
+        var t = id ? grades[id] && grades[id].total : null;
+        return typeof t === 'number' ? t : null;
+      }
+      var gradedIds = works.filter(function (w) { return totalOf(w.id) !== null; });
       var totalScore = 0;
       var topWork = null, lowWork = null;
       gradedIds.forEach(function (w) {
@@ -1199,11 +1207,6 @@
         if (!lowWork || grades[w.id].total < grades[lowWork].total) lowWork = w.id;
       });
       var avg = gradedIds.length ? totalScore / gradedIds.length : null;
-      // a grade record without a numeric total must not break the stats block
-      function totalOf(id) {
-        var t = id ? grades[id] && grades[id].total : null;
-        return typeof t === 'number' ? t : null;
-      }
       var topTotal = totalOf(topWork), lowTotal = totalOf(lowWork);
       document.getElementById('gradeStats').innerHTML = works.length
         ? '<div class="gv-grade-stat"><b>' + gradedIds.length + '/' + works.length + '</b><span>Đã chấm</span></div>' +

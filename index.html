@@ -1358,7 +1358,7 @@ function status(){
 root.querySelectorAll("[data-f]").forEach(x=>x.addEventListener("input",save));
 root.querySelectorAll(".skv-option").forEach(b=>b.addEventListener("click",()=>{root.querySelectorAll(".skv-option").forEach(x=>x.classList.remove("chosen"));b.closest(".skv-option").classList.add("chosen");save();}));
 confirm.addEventListener("change",save); P.addEventListener("change",()=>{load();refreshProjectHelp();});
-root.querySelectorAll(".skv-btn").forEach(b=>b.addEventListener("click",()=>{b.closest(".skv-option").classList.add("chosen");save();}));
+root.querySelectorAll(".skv-option .skv-btn").forEach(b=>b.addEventListener("click",()=>{b.closest(".skv-option").classList.add("chosen");save();}));
 root.querySelectorAll(".skv-help-btn").forEach(b=>b.onclick=()=>{let h=b.nextElementSibling;h.classList.toggle("open");b.textContent=h.classList.contains("open")?"Thu gọn gợi ý":"💡 Cần trợ giúp? Mở gợi ý";});
 root.querySelectorAll(".skv-file").forEach(inp=>inp.onchange=()=>{let f=inp.files[0],img=inp.parentElement.querySelector(".skv-preview");if(f){img.src=URL.createObjectURL(f);img.style.display="block";}});
 document.getElementById("skvFinalFile").onchange=function(){let f=this.files[0],img=document.getElementById("skvFinalPreview");if(f){img.src=URL.createObjectURL(f);img.style.display="block";}};

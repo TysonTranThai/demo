@@ -987,7 +987,9 @@
           '<div class="xv-work-thumb" data-act="view">' +
             thumb +
             '<span class="xv-kind-badge">' + (w.kind === 'pdf' ? 'PDF' : 'ẢNH') + '</span>' +
-            (g ? '<span class="xv-grade" style="position:absolute; top:10px; right:10px;">★ ' + g.total.toFixed(1) + '/10</span>' : '') +
+            (g ? (typeof g.total === 'number'
+                ? '<span class="xv-grade" style="position:absolute; top:10px; right:10px;">★ ' + g.total.toFixed(1) + '/10</span>'
+                : '') : '') +
           '</div>' +
           '<div class="xv-work-body">' +
             '<h3 class="xv-work-title">' + esc(w.title) + '</h3>' +

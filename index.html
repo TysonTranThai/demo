@@ -1634,6 +1634,9 @@ document.getElementById("ex38Finish").onclick=function(){save();document.getElem
 
 <!-- RM-CSS-START -->
 <style>
+/* The author display rules below outrank the UA [hidden]{display:none} rule, so
+   every hidden overlay would stay on screen. Make hidden authoritative. */
+[hidden]{display:none !important}
 .rm-topnav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 16px;background:#12281f;color:#eaf3ee;font-size:13px;position:sticky;top:0;z-index:60}
 .rm-topnav a{color:#cfe3d8;text-decoration:none;padding:5px 9px;border-radius:8px}
 .rm-topnav a:hover{background:#1d4033}

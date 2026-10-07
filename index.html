@@ -1186,20 +1186,15 @@ document.addEventListener("DOMContentLoaded",function(){
  lequydon:["chân dung và phẩm chất của nhà bác học","không gian, hiện vật và dấu hiệu nhận biết nơi lưu niệm","sách, bút và biểu tượng của tri thức","chuỗi hình ảnh có thể kể một câu chuyện rõ ràng","thông điệp học tập có ý nghĩa với học sinh hôm nay"],
  dongxam:["hoa văn và đường chạm đặc trưng","sáng–tối, nổi–chìm và cảm giác bề mặt kim loại","nhịp lặp và cấu trúc trang trí","giữ nét truyền thống nhưng thay đổi hình thức hoặc công năng","bảo tồn nghề bằng một sản phẩm Mĩ thuật mới"]};
  function detect(p){
-   let idx=-1;
+   let idx=-1,found=false;
+   const work=k=>{for(let q=1;q<=3;q++){if((localStorage.getItem(k+"-"+q)||"").trim())return true;}return false;};
    for(let i=0;i<5;i++){
-     for(let q=0;q<3;q++){
-       const candidates=[
-        "sah321-bank-answer-"+p+"-"+i+"-"+q,
-        "sah321-bank-answer-"+p+"-"+(i+1)+"-"+(q+1)
-       ];
-       if(candidates.some(k=>(localStorage.getItem(k)||"").trim())) idx=i;
-     }
+     if(work("sah321-integrated-"+p+"-"+i)||work("sah321-bank-answer-"+p+"-"+i)){idx=i;found=true;}
    }
    let c=localStorage.getItem("sah321-integrated-pack-"+p);
    if(c!==null && c!=="" && !isNaN(+c)){
-     let n=+c; if(n>=1&&n<=5)n=n-1;
-     idx=Math.max(0,Math.min(4,n));
+     let n=Math.max(0,Math.min(4,+c));
+     if(work("sah321-integrated-"+p+"-"+n)||work("sah321-bank-answer-"+p+"-"+n)||!found) idx=n;
    }
    return idx;
  }
@@ -1716,7 +1711,7 @@ section[id],.rm-sec,:target{scroll-margin-top:calc(var(--rm-navh) + 26px)}
 .rmfb-head small{font-weight:400;color:#6b7a72}
 </style>
 <!-- RM-CSS-END -->
-<script src="js/restored-modules.js?v=8c469a9802"></script>
+<script src="js/restored-modules.js?v=11f7da6e5f"></script>
 
 <!-- J39-WIRING-START -->
 <script>
@@ -1742,124 +1737,22 @@ function t(v){var s=String(v==null?"":v).trim();return NOPLACE.indexOf(s)>=0?"":
 function json(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{};}catch(e){return {};}}
 function join(){var a=[].slice.call(arguments).map(t).filter(Boolean);return a.join("  •  ");}
 
-/* the gói the student is on, resolved the same way js0/js5 do */
+/* the gói the student is on, resolved the same way js0/js5 do. The sheet and the
+   Kho both store the index 0-based, so a saved index is 0-based too: reading
+   1..4 as "1-based" shifted gói 2..5 onto gói 1..4 and hid the answers the
+   student had just written. Prefer a gói that holds work, so a stale index can
+   never hide it. */
 function packIdx(p){
-  var i=0,j;
-  for(j=0;j<5;j++){
-    for(var q=0;q<3;q++){
-      if(t(g("sah321-bank-answer-"+p+"-"+j+"-"+q))) i=j;
-    }
-  }
+  var i=-1,j,found=false,
+      work=function(k){for(var q=1;q<=3;q++){if(t(g(k+"-"+q)))return true;}return false;},
+      any=function(k){return work("sah321-integrated-"+k)||work("sah321-bank-answer-"+k);};
+  for(j=0;j<5;j++){if(any(p+"-"+j)){i=j;found=true;}}
   var c=g("sah321-integrated-pack-"+p);
-  if(c!==""&&!isNaN(+c)){var n=+c; if(n>=1&&n<=5)n=n-1; i=Math.max(0,Math.min(4,n));}
-  return i;
-}
-/* one 3-2-1 answer, preferring the integrated sheet then the bank then the per-project sheet */
-function ans(p,i,q){
-  var v=t(g("sah321-integrated-"+p+"-"+packIdx(p)+"-"+q));
-  if(!v) v=t(g("sah321-bank-answer-"+p+"-"+packIdx(p)+"-"+q));
-  if(!v) v=t(g("direct321-"+p+"-"+q));
-  return v;
-}
-/* every gói the student has filled, so stage 1 shows all their discoveries */
-function ansAll(p,q){
-  var a=[],j;
-  for(j=0;j<5;j++){var v=t(g("sah321-bank-answer-"+p+"-"+j+"-"+q)); if(v) a.push(v);}
-  a.push(ans(p,null,q));
-  return a.filter(Boolean).join("  •  ");
-}
-function ai(p,x){return t(g("sah-ai5a-studio-"+p+"-"+x));}
-function pass(p,x){return t(g("sah-ai5a-studio-"+p+"-pass-"+x));}
-function sketch(p){return json("sah-sketch-v25-"+p);}
-function art(p){return json("sah-art-v33-"+p);}
-function ex(p){return json("sah-ex38-"+p);}
-
-/* the 26 fields, in document order, each with the real storage it reads */
-function fields(p){
-  var a1=ai(p,"a1"), sk=sketch(p), ar=art(p), exd=ex(p);
-  if(!a1){var parts=[["a1part-main","hình ảnh chính"],["a1part-heritage","nét di sản"],["a1part-feeling","cảm xúc / thông điệp"]];
-    var z=[];parts.forEach(function(q){var v=ai(p,q[0]);if(v)z.push(q[1]+": "+v);});if(z.length)a1=z.join("  •  ");}
-  var idea=t(g("sah-ai5a-seed-"+p))||ans(p,null,1);
-  var feedback=join(exd.peer1,exd.peer2,exd.peer3);
-  var talk=join(exd.talk1,exd.talk2,exd.talk3);
-  var obs=ans(p,null,3);
-  return [
-    /* 1 */ ansAll(p,3), ansAll(p,2)||ai(p,"a1part-main"),
-    /* 2 */ obs?("Gói "+(packIdx(p)+1)+" • "+PACKNAME[p][packIdx(p)]+" — "+obs):"",
-             ans(p,null,2), idea, ai(p,"ask-0"),
-    /* 3 */ a1, join(ai(p,"a3"),ai(p,"a4")), pass(p,"signature"), pass(p,"decision"),
-    /* 4 */ sk.carryForward, sk.heritage, sk.change, sk.why,
-    /* 5 */ ar.title, join(ar.tech,ar.form,ar.size), ar.core, ar.message,
-    /* 6 */ talk, join(exd.peer1,exd.peer2),
-             exd.peer3, feedback?("Tiếp thu từ phản hồi: "+feedback):"",
-    /* 7 */ exd.self1, exd.self2, exd.self4, exd.self3
-  ];
-}
-
-function render(){
-  var p=KEYS[P.selectedIndex]||KEYS[0];
-  var vals=fields(p);
-  /* must match ANY span: spans are re-classed between renders, so selecting
-     ".j39miss" here would return an empty list on every render after the first */
-  var spans=R.querySelectorAll(".j39field > span"), i;
-  for(i=0;i<spans.length;i++){
-    var v=t(vals[i]);
-    if(v){
-      spans[i].className="j39real";
-      spans[i].textContent=v;
-    }else{
-      spans[i].className="j39miss";
-      spans[i].textContent=HINT;
-    }
+  if(c!==""&&!isNaN(+c)){
+    var n=Math.max(0,Math.min(4,+c));
+    if(any(p+"-"+n)||!found)i=n;
   }
-}
-P.addEventListener("change",render);
-render();
-});
-</script>
-<style>
-.j39real{color:#1f3d31}
-.j39field:has(.j39real){background:#f2f8f3;border-left:3px solid #285b46}
-.j39field:has(.j39miss){border-left:3px solid #d7e0da}
-</style>
-<!-- J39-WIRING-END -->
-
-
-<!-- J39-WIRING-START -->
-<script>
-document.addEventListener("DOMContentLoaded",function(){
-var R=document.getElementById("journey39"), P=document.getElementById("j39p");
-if(!R||!P)return;
-
-/* #j39p has no value= attributes, so its options are the five projects in order. */
-var KEYS=["phohien","chuakeo","dentran","lequydon","dongxam"];
-/* mirrors js5.js so the dossier label matches the gói the student actually opened */
-var PACKNAME={phohien:["Dấu ấn Phố Hiến","Kiến trúc & không gian","Màu sắc & cảm xúc","Xưa & nay","Biểu tượng cá nhân"],
- chuakeo:["Nhịp điệu mái chùa","Hình khối kiến trúc","Hoa văn & chi tiết gỗ","Không gian & góc nhìn","Chùa Keo hiện đại"],
- dentran:["Dấu ấn lịch sử","Kiến trúc trang nghiêm","Biểu tượng & hoa văn","Không gian tưởng niệm","Di sản với thế hệ trẻ"],
- lequydon:["Chân dung nhà bác học","Không gian lưu niệm","Sách & tri thức","Kể chuyện bằng hình ảnh","Tri thức hôm nay"],
- dongxam:["Hoa văn chạm bạc","Ánh sáng & bề mặt","Nhịp điệu trang trí","Truyền thống → hiện đại","Bảo tồn bằng Mĩ thuật"]};
-var HINT="Sẽ lấy từ phần Khám phá.";
-
-function g(k){var v=localStorage.getItem(k);return v==null?"":String(v);}
-/* the reference's own AI 5A writes this literal placeholder into storage when A1 is
-   empty, so it must never be mistaken for a student answer */
-var NOPLACE=["Em chưa nhập nội dung A1."];
-function t(v){var s=String(v==null?"":v).trim();return NOPLACE.indexOf(s)>=0?"":s;}
-function json(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{};}catch(e){return {};}}
-function join(){var a=[].slice.call(arguments).map(t).filter(Boolean);return a.join("  •  ");}
-
-/* the gói the student is on, resolved the same way js0/js5 do */
-function packIdx(p){
-  var i=0,j;
-  for(j=0;j<5;j++){
-    for(var q=0;q<3;q++){
-      if(t(g("sah321-bank-answer-"+p+"-"+j+"-"+q))) i=j;
-    }
-  }
-  var c=g("sah321-integrated-pack-"+p);
-  if(c!==""&&!isNaN(+c)){var n=+c; if(n>=1&&n<=5)n=n-1; i=Math.max(0,Math.min(4,n));}
-  return i;
+  return i<0?0:i;
 }
 /* one 3-2-1 answer, preferring the integrated sheet then the bank then the per-project sheet */
 function ans(p,i,q){

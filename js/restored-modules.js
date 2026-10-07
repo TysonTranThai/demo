@@ -47,17 +47,37 @@
     var s = $('sahProjectSelect');
     return (s && s.value && ORDER.indexOf(s.value) >= 0) ? s.value : DEFAULT_KEY;
   }
-  function curPack() {
-    var v = get('sah321-integrated-pack-' + curKey());
-    var n = parseInt(v, 10);
-    if (isNaN(n)) n = 0;
-    if (n >= 1 && n <= 5) n -= 1;
-    return Math.max(0, Math.min(4, n));
+  /* a gói holds work once any of its three answers is filled, in the sheet or
+     in the Kho */
+  function packWork(h, i) {
+    for (var q = 1; q <= 3; q++) {
+      if ((get('sah321-integrated-' + h + '-' + i + '-' + q) || '').trim()) return true;
+      if ((get('sah321-bank-answer-' + h + '-' + i + '-' + q) || '').trim()) return true;
+    }
+    return false;
   }
+  /* The sheet and the Kho both store the gói index 0-based, so a saved index is
+     0-based too: reading 1..4 as "1-based" shifted gói 2..5 onto gói 1..4 and
+     hid the answers the student had just written. Prefer a gói that holds work
+     so a stale index can never hide it. */
+  function curPack() {
+    var h = curKey(), i = 0, found = false, j;
+    for (j = 0; j < 5; j++) if (packWork(h, j)) { i = j; found = true; }
+    var n = parseInt(get('sah321-integrated-pack-' + h), 10);
+    if (!isNaN(n)) {
+      n = Math.max(0, Math.min(4, n));
+      if (packWork(h, n) || !found) i = n;
+    }
+    return i;
+  }
+  /* one 3-2-1 answer, wherever the student wrote it: the sheet, the Kho, or the
+     per-project phiếu */
   function integrated(q) {
-    var p = curPack();
-    return get('sah321-integrated-' + curKey() + '-' + p + '-' + q)
-      || get('sah321-integrated-' + curKey() + '-0-' + q) || '';
+    var h = curKey(), p = curPack();
+    return (get('sah321-integrated-' + h + '-' + p + '-' + q) || '').trim()
+      || (get('sah321-bank-answer-' + h + '-' + p + '-' + q) || '').trim()
+      || (get('sah321-integrated-' + h + '-0-' + q) || '').trim()
+      || (get('direct321-' + h + '-' + q) || '').trim();
   }
   function artwork() { return jget('sah-art-v33-' + curKey(), {}) || {}; }
 
@@ -392,10 +412,13 @@
     });
     var bar = $('rmLockStatus');
     if (bar) {
-      var next = STEPS[open + 1];
-      txt(bar, !isStudent ? '' : (next
-        ? 'Chặng kế tiếp mở khi em hoàn thành: ' + next[1]
-        : '✓ Em đã mở hết các chặng của hồ sơ này.'));
+      // The student must finish the first stage they have not completed; that
+      // is what opens the next one. `open` counts finished stages, so the stage
+      // to complete is the one at open-1 (open+1 announced a step two ahead).
+      var todo = STEPS[Math.max(0, open - 1)];
+      txt(bar, !isStudent ? '' : (open >= STEPS.length
+        ? '✓ Em đã mở hết các chặng của hồ sơ này.'
+        : 'Chặng kế tiếp mở khi em hoàn thành: ' + todo[1]));
     }
   }
 

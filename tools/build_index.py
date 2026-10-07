@@ -131,6 +131,46 @@ patch(
     "ai5a A1: drop the call to script7-private refreshProjectHelp() that killed load()",
 )
 
+# 3d. the reference's own pack-context banner treated the saved gói index as
+#     1-based ("if(n>=1&&n<=5)n=n-1"), but every writer in this page stores it
+#     0-based: the "dùng gói" buttons save dataset.pack (0..4) verbatim. So a
+#     student who worked in gói 2 was shown gói 1 and their answers looked lost.
+#     Read the saved index as 0-based and prefer a gói that actually holds work.
+patch(
+    'function detect(p){\n'
+    '   let idx=-1;\n'
+    '   for(let i=0;i<5;i++){\n'
+    '     for(let q=0;q<3;q++){\n'
+    '       const candidates=[\n'
+    '        "sah321-bank-answer-"+p+"-"+i+"-"+q,\n'
+    '        "sah321-bank-answer-"+p+"-"+(i+1)+"-"+(q+1)\n'
+    '       ];\n'
+    '       if(candidates.some(k=>(localStorage.getItem(k)||"").trim())) idx=i;\n'
+    '     }\n'
+    '   }\n'
+    '   let c=localStorage.getItem("sah321-integrated-pack-"+p);\n'
+    '   if(c!==null && c!=="" && !isNaN(+c)){\n'
+    '     let n=+c; if(n>=1&&n<=5)n=n-1;\n'
+    '     idx=Math.max(0,Math.min(4,n));\n'
+    '   }\n'
+    '   return idx;\n'
+    ' }',
+    'function detect(p){\n'
+    '   let idx=-1,found=false;\n'
+    '   const work=k=>{for(let q=1;q<=3;q++){if((localStorage.getItem(k+"-"+q)||"").trim())return true;}return false;};\n'
+    '   for(let i=0;i<5;i++){\n'
+    '     if(work("sah321-integrated-"+p+"-"+i)||work("sah321-bank-answer-"+p+"-"+i)){idx=i;found=true;}\n'
+    '   }\n'
+    '   let c=localStorage.getItem("sah321-integrated-pack-"+p);\n'
+    '   if(c!==null && c!=="" && !isNaN(+c)){\n'
+    '     let n=Math.max(0,Math.min(4,+c));\n'
+    '     if(work("sah321-integrated-"+p+"-"+n)||work("sah321-bank-answer-"+p+"-"+n)||!found) idx=n;\n'
+    '   }\n'
+    '   return idx;\n'
+    ' }',
+    "pack context: read the saved gói index as 0-based and prefer a gói that holds work",
+)
+
 # --------------------------------------------------------------------------
 # 4. journey39 wiring
 # --------------------------------------------------------------------------
@@ -159,17 +199,22 @@ function t(v){var s=String(v==null?"":v).trim();return NOPLACE.indexOf(s)>=0?"":
 function json(k){try{return JSON.parse(localStorage.getItem(k)||"{}")||{};}catch(e){return {};}}
 function join(){var a=[].slice.call(arguments).map(t).filter(Boolean);return a.join("  •  ");}
 
-/* the gói the student is on, resolved the same way js0/js5 do */
+/* the gói the student is on, resolved the same way js0/js5 do. The sheet and the
+   Kho both store the index 0-based, so a saved index is 0-based too: reading
+   1..4 as "1-based" shifted gói 2..5 onto gói 1..4 and hid the answers the
+   student had just written. Prefer a gói that holds work, so a stale index can
+   never hide it. */
 function packIdx(p){
-  var i=0,j;
-  for(j=0;j<5;j++){
-    for(var q=0;q<3;q++){
-      if(t(g("sah321-bank-answer-"+p+"-"+j+"-"+q))) i=j;
-    }
-  }
+  var i=-1,j,found=false,
+      work=function(k){for(var q=1;q<=3;q++){if(t(g(k+"-"+q)))return true;}return false;},
+      any=function(k){return work("sah321-integrated-"+k)||work("sah321-bank-answer-"+k);};
+  for(j=0;j<5;j++){if(any(p+"-"+j)){i=j;found=true;}}
   var c=g("sah321-integrated-pack-"+p);
-  if(c!==""&&!isNaN(+c)){var n=+c; if(n>=1&&n<=5)n=n-1; i=Math.max(0,Math.min(4,n));}
-  return i;
+  if(c!==""&&!isNaN(+c)){
+    var n=Math.max(0,Math.min(4,+c));
+    if(any(p+"-"+n)||!found)i=n;
+  }
+  return i<0?0:i;
 }
 /* one 3-2-1 answer, preferring the integrated sheet then the bank then the per-project sheet */
 function ans(p,i,q){
@@ -476,7 +521,6 @@ src = src.replace(
     "<title>", 1)
 
 assert src.count(anchor) == 1, "expected exactly one </body>, found %d" % src.count(anchor)
-src = src.replace(anchor, J39 + "\n" + anchor, 1)
 
 # --------------------------------------------------------------------------
 open(OUT, "w", encoding="utf-8").write(src)

@@ -68,6 +68,14 @@
     return (p && p.name) ? p : { name: '', id: '', cls: '' };
   }
 
+  /* The nav is sticky and wraps to a different number of rows per width and
+     role, so anchor targets read their offset from its measured height. */
+  function syncNavHeight() {
+    var n = document.querySelector('.rm-topnav'); if (!n) return;
+    document.documentElement.style.setProperty('--rm-navh',
+      Math.round(n.getBoundingClientRect().height) + 'px');
+  }
+
   function renderRole() {
     var r = role(), p = profile();
     txt($('rmRoleChip'), r === 'student' ? ('🎓 ' + (p.name || 'Học sinh'))
@@ -81,6 +89,7 @@
     ['sahSave321', 'sahToAI5A', 'skvSave', 'avSave', 'ex38Save', 'rmSaveWork'].forEach(function (id) {
       var el = $(id); if (el) el.style.display = student ? '' : 'none';
     });
+    syncNavHeight();
   }
 
   function openGate() {
@@ -92,7 +101,7 @@
   function setStudent(name, id, cls) {
     var p = jget(K.prog, {}); p._profile = { name: name, id: id, cls: cls };
     jset(K.prog, p); set(K.role, 'student');
-    closeGate(); renderRole(); syncDraft();
+    closeGate(); renderRole(); syncDraft(); refreshLocks();
   }
 
   /* ================================================== 3-2-1 -> teacher page */
@@ -333,21 +342,60 @@
     p[k].dossier = true; jset(K.prog, p); refreshLocks();
   }
 
+  /* A locked section must say why it is locked and how to get there, otherwise
+     a dimmed page just reads as broken. The badge lives inside the section so
+     the explanation travels with the content it explains. */
+  function ensureLockBadge(sec) {
+    var badge = sec.querySelector('.rm-lockbadge');
+    if (badge) return badge;
+    badge = document.createElement('div');
+    badge.className = 'rm-lockbadge';
+    badge.setAttribute('role', 'note');
+    badge.innerHTML =
+      '<span class="rm-lockico" aria-hidden="true">🔒</span>' +
+      '<span class="rm-lockbody">' +
+        '<b>Chặng này chưa mở</b>' +
+        '<span class="rm-lockmsg"></span>' +
+        '<a class="rm-btn sm ghost rm-lockgo" href="#' + STEPS[0][0] + '"></a>' +
+      '</span>';
+    sec.insertBefore(badge, sec.firstChild);
+    return badge;
+  }
+
   function refreshLocks() {
-    if (role() !== 'student') return;           // only students get the lock
-    var open = unlockedThrough();
+    var isStudent = role() === 'student';        // only students get the lock
+    var open = isStudent ? unlockedThrough() : STEPS.length;
+    var here = Math.min(open, STEPS.length - 1);
     STEPS.forEach(function (s, i) {
       var sec = $(s[0]); if (!sec) return;
-      var unlocked = (i + 1) <= open + 1;
+      var unlocked = !isStudent || (i + 1) <= open + 1;
       sec.classList.toggle('rm-locked', !unlocked);
-      var badge = sec.querySelector('.rm-lockbadge');
-      if (badge) badge.hidden = unlocked;
+      var badge = ensureLockBadge(sec);
+      badge.hidden = unlocked;
+      if (!unlocked) {
+        var prev = STEPS[i - 1];
+        txt(badge.querySelector('.rm-lockmsg'),
+          'Mở khoá sau khi em hoàn thành chặng trước: ' + (prev ? prev[1] : STEPS[0][1]) + '.');
+        var go = badge.querySelector('.rm-lockgo');
+        go.href = '#' + STEPS[here][0];
+        txt(go, '→ Về chặng đang làm: ' + STEPS[here][1]);
+      }
+      // CSS mutes a locked section for the mouse; inert also takes it out of the
+      // tab order so a student cannot type into a step that is not open yet.
+      Array.prototype.forEach.call(sec.children, function (child) {
+        var tag = child.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEMPLATE') return;
+        if (child.classList.contains('rm-lockbadge')) return;
+        if (unlocked) child.removeAttribute('inert');
+        else child.setAttribute('inert', '');
+      });
     });
     var bar = $('rmLockStatus');
     if (bar) {
       var next = STEPS[open + 1];
-      txt(bar, next ? 'Chặng kế tiếp mở khi em hoàn thành: ' + next[1]
-        : '✓ Em đã mở hết các chặng của hồ sơ này.');
+      txt(bar, !isStudent ? '' : (next
+        ? 'Chặng kế tiếp mở khi em hoàn thành: ' + next[1]
+        : '✓ Em đã mở hết các chặng của hồ sơ này.'));
     }
   }
 
@@ -468,7 +516,10 @@
 
     renderRole(); renderFeedback(); renderGallery(); refreshLocks();
     if (!role()) openGate(); else closeGate();
-    setInterval(function () { if (role() === 'student') refreshLocks(); }, 4000);
+    // always re-check: the lock must also clear when the role is switched away
+    setInterval(refreshLocks, 4000);
+    syncNavHeight();
+    window.addEventListener('resize', syncNavHeight);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

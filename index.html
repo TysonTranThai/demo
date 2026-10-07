@@ -1667,8 +1667,19 @@ document.getElementById("ex38Finish").onclick=function(){save();document.getElem
 @media(max-width:760px){.rm-choices{grid-template-columns:1fr}}
 .rm-sec{max-width:1160px;margin:28px auto;padding:20px;background:#fff;border:1px solid #d7e0da;border-radius:20px}
 .rm-sec h2{margin:0 0 6px}
-.rm-lockbadge{display:block;background:#fff8e5;border-left:4px solid #8b6d1f;padding:9px 12px;border-radius:8px;margin:8px 0;font-size:13px}
-.rm-locked{position:relative;opacity:.55;filter:saturate(.5)}
+/* the nav below is sticky, so a plain #hash jump parks the target heading
+   underneath it. --rm-navh is kept in sync with the real nav height in JS. */
+html{scroll-behavior:smooth}
+:root{--rm-navh:79px}
+section[id],.rm-sec,:target{scroll-margin-top:calc(var(--rm-navh) + 26px)}
+.rm-lockbadge{display:flex;gap:11px;align-items:flex-start;background:#fff8e5;border:1px solid #e8d8ab;border-left:5px solid #8b6d1f;border-radius:12px;padding:12px 14px;margin:0 0 16px;font-size:14px;line-height:1.55;color:#4a3c12}
+.rm-lockbadge .rm-lockico{font-size:19px;line-height:1.35}
+.rm-lockbadge .rm-lockbody{flex:1;display:grid;gap:6px;justify-items:start}
+.rm-lockbadge b{font-size:14px}
+.rm-lockbadge .rm-lockgo{text-decoration:none}
+/* a locked step is muted, never blurred: the banner above it stays sharp */
+.rm-locked{position:relative;background:#fffdf6;border-color:#e8d8ab}
+.rm-locked>*:not(.rm-lockbadge){opacity:.4;pointer-events:none;user-select:none}
 .rm-frame{position:relative;aspect-ratio:16/9;background:#0e1c17;border-radius:16px;overflow:hidden}
 .rm-frame iframe{width:100%;height:100%;border:0;display:block}
 .rm-frame-cta{position:absolute;inset:0;margin:auto;width:max-content;height:max-content;background:#c89547;color:#12281f;border:0;border-radius:999px;padding:14px 26px;font:inherit;font-weight:800;cursor:pointer}
@@ -1705,7 +1716,7 @@ document.getElementById("ex38Finish").onclick=function(){save();document.getElem
 .rmfb-head small{font-weight:400;color:#6b7a72}
 </style>
 <!-- RM-CSS-END -->
-<script src="js/restored-modules.js?v=2"></script>
+<script src="js/restored-modules.js?v=8afd6c2936"></script>
 
 <!-- J39-WIRING-START -->
 <script>

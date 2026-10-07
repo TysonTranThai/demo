@@ -1553,9 +1553,9 @@
           });
           addLog('restore', 'Khôi phục dữ liệu từ bản sao lưu');
           refreshAll();
-          alert('✓ Đã khôi phục dữ liệu từ bản sao lưu.');
+          toast('✓ Đã khôi phục dữ liệu từ bản sao lưu.');
         } catch (err) {
-          alert('Tệp sao lưu không hợp lệ.');
+          toast('Tệp sao lưu không hợp lệ.');
         }
       };
       reader.readAsText(file);

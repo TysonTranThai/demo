@@ -148,10 +148,13 @@
 
   function saveWork() {
     var p = profile(), ar = artwork(), ex = jget('sah-ex38-' + curKey(), {}) || {};
-    if (!ar.title && !ar.message && !ar.core) { alert('Em điền thêm thông tin tác phẩm trước nhé.'); return; }
+    if (!ar.title && !ar.message && !ar.core) {
+      txt($('rmWorkMsg'), '⚠ Em điền thêm thông tin tác phẩm trước nhé.');
+      return;
+    }
     var img = currentArtworkImage();
     if (!img) {
-      alert('Chưa có ảnh tác phẩm. Em tải ảnh ở Bàn thực hành hoặc Trưng bày trước khi lưu vào triển lãm.');
+      txt($('rmWorkMsg'), '⚠ Chưa có ảnh tác phẩm. Em tải ảnh ở Bàn thực hành hoặc Trưng bày trước khi lưu vào triển lãm.');
       return;
     }
     var list = jget(K.works, []); if (!Array.isArray(list)) list = [];

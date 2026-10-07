@@ -514,9 +514,21 @@
       if (e.key === K.works || e.key === K.grades) renderGallery();
     });
 
+    // A stage must open the moment the student finishes the one before it.
+    // The stages save themselves on change/click, so re-read on the same events
+    // (debounced, capture phase, so the section's own handler has already run)
+    // instead of making the student wait for the next poll.
+    var lockTick = null;
+    function soonLocks() {
+      if (lockTick) return;
+      lockTick = setTimeout(function () { lockTick = null; refreshLocks(); }, 80);
+    }
+    document.addEventListener('change', soonLocks, true);
+    document.addEventListener('click', soonLocks, true);
+
     renderRole(); renderFeedback(); renderGallery(); refreshLocks();
     if (!role()) openGate(); else closeGate();
-    // always re-check: the lock must also clear when the role is switched away
+    // backstop: the lock must also clear when another tab switches the role
     setInterval(refreshLocks, 4000);
     syncNavHeight();
     window.addEventListener('resize', syncNavHeight);

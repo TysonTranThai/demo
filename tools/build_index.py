@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
 """
-Build index.html as an exact clone of SMART_ART_HERITAGE_V3_11_RASOAT_HE_THONG.html.
+Build index.html from the team's newest master, "new 9_10_2026.html".
+
+That master is a superset of SMART_ART_HERITAGE_V3_11_RASOAT_HE_THONG.html: it
+adds the sahed hotspot content editor, the #p321V312 worksheet section, the
+AI 5A direct-content patch and the native <details> help blocks — and it
+already carries two repairs this build used to apply itself (the truncated
+sketch script, and the AI 5A call into a private refreshProjectHelp()).
+Everything the master still gets wrong or loses is repaired below.
 
 Transformations (everything else is byte-identical to the reference):
   1. The 155 inline data: base64 images -> the byte-identical real files in assets/extracted/
   2. Remove <section id="auditV311"> ... </section>          (user decision: leave it out)
-  3. Repair 3 broken script blocks in the reference (see REPAIRS below)
+  3. Restore what the master's scripts still lose, and prove on every build that
+     the fixes it carries are actually present (see REPAIRS and CHECKS below)
   4. Append one new script that wires #journey39 to the real localStorage data
 """
 import base64
@@ -16,7 +24,9 @@ import re
 import sys
 
 ROOT = "/Users/tysontran/Desktop/Smart Art Heritage"
-REF = os.path.join(ROOT, "SMART_ART_HERITAGE_V3_11_RASOAT_HE_THONG.html")
+# The team's 2026-10-09 master. Keep it in the tree under this exact name (or
+# update REF here) — the build fails loudly if it is missing.
+REF = os.path.join(ROOT, "new 9_10_2026.html")
 OUT = os.path.join(ROOT, "index.html")
 
 # --------------------------------------------------------------------------
@@ -93,23 +103,27 @@ def patch(old, new, why, count=1):
     print("  repair %d: %s" % (REPAIRS, why))
 
 
-# 3a. script7 (Xương phác thảo, stage 4): two statements whose opening halves
-#     were truncated, leaving orphan tails. Reconstructed from the only state the
-#     reference CSS defines for this module (.skv-option.chosen) plus the intact
-#     .skv-help-btn sibling handler.
+def expect(cond, why):
+    """Prove something the reference must already carry; fail the build if not."""
+    assert cond, "reference check failed: %s" % why
+    print("  ok: %s" % why)
+
+
+# 3a. script7 (Xương phác thảo, stage 4): the markup still has the three
+#     <div class="skv-option"> cards and the CSS still styles .skv-option.chosen,
+#     but this master's rewrite of the script dropped the handler that ever set
+#     that class — so tapping "THỬ 1/2/3" no longer marks the chosen attempt.
+#     Restore it right after the field listeners, where the previous reference had
+#     (a truncated version of) it.
 patch(
     'root.querySelectorAll("[data-f]").forEach(x=>x.addEventListener("input",save));\n'
-    "save();}));\n"
-    'confirm.addEventListener("change",save); P.addEventListener("change",()=>{load();refreshProjectHelp();});\n'
-    'b.closest(".skv-option").classList.add("chosen");save();});\n',
+    'confirm.addEventListener("change",save); P.addEventListener("change",()=>{load();refreshProjectHelp();});\n',
     'root.querySelectorAll("[data-f]").forEach(x=>x.addEventListener("input",save));\n'
+    'confirm.addEventListener("change",save); P.addEventListener("change",()=>{load();refreshProjectHelp();});\n'
     'root.querySelectorAll(".skv-option").forEach(b=>b.addEventListener("click",()=>{'
     'root.querySelectorAll(".skv-option").forEach(x=>x.classList.remove("chosen"));'
-    'b.closest(".skv-option").classList.add("chosen");save();}));\n'
-    'confirm.addEventListener("change",save); P.addEventListener("change",()=>{load();refreshProjectHelp();});\n'
-    'root.querySelectorAll(".skv-option .skv-btn").forEach(b=>b.addEventListener("click",()=>{'
     'b.closest(".skv-option").classList.add("chosen");save();}));\n',
-    "sketchV25: restore the .skv-option 'chosen' selection (was 2 truncated statements)",
+    "sketchV25: restore the .skv-option 'chosen' selection the rewrite dropped",
 )
 
 # 3b. script8 (Bàn thực hành, stage 5): orphan tail of a help-toggle loop over
@@ -122,13 +136,13 @@ patch(
     "artV33: drop the orphan .av-help toggle tail (its target class no longer exists)",
 )
 
-# 3c. script6 (AI 5A A1): called refreshProjectHelp(), which is private to script7's
-#     DOMContentLoaded closure. The ReferenceError fired before its own load(), so
-#     the A1 questions never rendered and a1 was never written.
-patch(
-    'S.addEventListener("change",()=>setTimeout(load,30));refreshProjectHelp();\nload();',
-    'S.addEventListener("change",()=>setTimeout(load,30));\nload();',
-    "ai5a A1: drop the call to script7-private refreshProjectHelp() that killed load()",
+# 3c. script6 (AI 5A A1) used to call refreshProjectHelp() from outside script7's
+#     closure, which threw before its own load(). This master already guards the
+#     call, so only prove the guard survived.
+expect(
+    'if(typeof refreshProjectHelp === "function")' in src
+    and 'setTimeout(load,30));refreshProjectHelp();\nload();' not in src,
+    "ai5a A1: the help call is guarded, so load() still renders the A1 questions",
 )
 
 # 3d. the reference's own pack-context banner treated the saved gói index as
@@ -170,6 +184,33 @@ patch(
     ' }',
     "pack context: read the saved gói index as 0-based and prefer a gói that holds work",
 )
+
+# 3e. sketchV25 (Xương phác thảo, stage 4): the project help box under "Nhìn lại
+#     3 lần thử" was a bare empty <div> that only refreshProjectHelp() filled, and
+#     only when the project dropdown changed — so "Cần trợ giúp? Mở gợi ý" opened
+#     a blank box on first paint. This master already fixes it three ways (native
+#     <details>, default copy inside the body, refresh at init); prove all three,
+#     because this is exactly the regression the team reported.
+expect('<details class="skv-native-help">' in src and 'id="skvProjectHelp">' in src,
+       "sketchV25: the project help is a native <details> with seeded content")
+expect('projectHelp[P.value]||h.innerHTML' in src,
+       "sketchV25: an unknown project keeps the existing help instead of blanking it")
+expect('\nload();\nrefreshProjectHelp();\n' in src,
+       "sketchV25: the project help is filled at init, not only on project change")
+
+# 3f. prove the content the team added on 2026-10-09 is actually in this build:
+#     the sahed hotspot content editor, the #p321V312 worksheet section, the AI 5A
+#     direct-content patch and the native help styling.
+for _needle, _why in (
+    ('<style id="sahed-css">', "the sahed hotspot editor stylesheet is present"),
+    ('<script id="sahed-js">', "the sahed hotspot editor script is present"),
+    ('class="sahed-tools"', "the sahed edit/restore toolbars are on the hotspot cards"),
+    ('<section id="p321V312">', "the p321V312 worksheet section is present"),
+    ('<script id="p321-v312-js">', "the p321V312 tab + save script is present"),
+    ('<script id="ai5a-direct-content-patch-v314">', "the AI 5A direct-content patch is present"),
+    ('<style id="skv-native-help-fix">', "the native help styling is present"),
+):
+    expect(_needle in src, _why)
 
 # --------------------------------------------------------------------------
 # 4. journey39 wiring

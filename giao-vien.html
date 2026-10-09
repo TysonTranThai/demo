@@ -973,6 +973,52 @@
       return (f && typeof f === 'object' && !Array.isArray(f)) ? f : {};
     }
     function getLog() { return readJSON(LOG_KEY, []); }
+    function getProgress() {
+      var p = readJSON('sah_task_progress', {});
+      return (p && typeof p === 'object' && !Array.isArray(p)) ? p : {};
+    }
+
+    /* ================= whose submission is this? =================
+       The name is the one thing the teacher needs to recognise a file. It is
+       captured at submit time (trien-lam.html) and mirrored from the role gate
+       (js/restored-modules.js); records written before that fall back to the
+       draft / profile that stored it, then to the mã học sinh. */
+    function nameOf(w) {
+      var n = (w && w.studentName ? String(w.studentName) : '').trim();
+      if (n) return n;
+      var d = getDraft();
+      if (d && d.studentName && (!w || !w.studentId || d.studentId === w.studentId)) return d.studentName;
+      var p = getProgress()._profile;
+      if (p && p.name && (!w || !w.studentId || p.id === w.studentId)) return p.name;
+      return (w && w.studentId) || 'Ẩn danh';
+    }
+    /* a record that carries no name AND no mã was submitted before names were
+       stored; its name can only be inferred from whoever is declared on this
+       machine, so the cell says so instead of pretending the file identified them */
+    function nameInferred(w) {
+      return !!(w && !w.studentName && !w.studentId);
+    }
+    function studentCell(w) {
+      var name = nameOf(w);
+      var note = (w && w.studentId) ? w.studentId
+        : (nameInferred(w) ? 'theo hồ sơ trên máy' : '');
+      return '<b>' + esc(name) + '</b>' +
+        (note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(note) + '</span>' : '');
+    }
+    /* "Tải tệp" — the teacher downloads the submitted file to grade it */
+    function downloadCell(w) {
+      if (!w || !w.dataUrl) return '<span style="color:var(--ink-faint);">—</span>';
+      var name = w.fileName || ((w.title || 'tac-pham') + (w.kind === 'pdf' ? '.pdf' : '.jpg'));
+      return '<a class="gv-mini" href="' + esc(w.dataUrl) + '" download="' + esc(name) +
+        '" title="Tải tệp học sinh đã nộp để chấm">⬇ Tải tệp</a>';
+    }
+    /* which heritage stages this machine has a saved dossier for */
+    function dossierKeys() {
+      var prog = getProgress();
+      return Object.keys(prog).filter(function (k) {
+        return k !== '_profile' && prog[k] && prog[k].dossier;
+      });
+    }
 
     var toastTimer = null;
     function toast(msg) {
@@ -1057,38 +1103,54 @@
       var map = {};
 
       function row(id) {
-        if (!map[id]) map[id] = { id: id, cls: '', heritage: '', sheet: false, workCount: 0, ai: false, last: '' };
+        if (!map[id]) map[id] = { id: id, name: '', cls: '', heritage: '', sheet: false, workCount: 0, ai: false, last: '' };
         return map[id];
       }
       if (draft && draft.studentId) {
         var r = row(draft.studentId);
+        r.name = draft.studentName || '';
         r.cls = draft.studentClass || '';
         r.heritage = draft.project || '';
         r.sheet = !!draft.q3;
         r.last = draft.updatedAt || '';
       }
+      /* a student who only declared their name on the role gate still belongs in
+         the roster: their name is the record of them taking part */
+      var prof = getProgress()._profile;
+      if (prof && (prof.id || prof.name)) {
+        var pr = row(prof.id || ('name:' + prof.name));
+        pr.name = pr.name || prof.name || '';
+        pr.cls = pr.cls || prof.cls || '';
+      }
       works.forEach(function (w) {
-        if (!w.studentId) return;
-        var r = row(w.studentId);
+        if (!w.studentId && !w.studentName) return;
+        var r = row(w.studentId || ('name:' + w.studentName));
+        r.name = r.name || w.studentName || '';
         r.cls = r.cls || w.studentClass || '';
         r.heritage = r.heritage || w.heritage || '';
         r.workCount++;
         if (w.createdAt) r.last = w.createdAt;
       });
-      // AI activity marker: worksheets that reached AI page (from session log is per-tab; use draft presence as proxy)
+      var dossiers = dossierKeys();
+      var dossierLabel = dossiers.length
+        ? '<span class="gv-badge ok" title="' + esc(dossiers.map(function (k) {
+            return HERITAGE_NAMES[k] || k;
+          }).join(', ')) + '">' + dossiers.length + ' chặng</span>'
+        : '<span class="gv-badge bad">0</span>';
       var ids = Object.keys(map).sort();
       window.__studentRows = map;
       document.getElementById('studentsTableWrap').innerHTML = ids.length
         ? '<table class="gv-t"><thead><tr>' +
-          '<th>Mã HS</th><th>Lớp</th><th>Di sản</th><th>Phiếu 3–2–1</th><th>Tác phẩm</th><th>Hoạt động gần nhất</th></tr></thead><tbody>' +
+          '<th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Phiếu 3–2–1</th><th>Tác phẩm</th><th>Hồ sơ chặng</th><th>Hoạt động gần nhất</th></tr></thead><tbody>' +
           ids.map(function (id) {
             var r = map[id];
             return '<tr class="gv-click-row" data-student="' + esc(id) + '">' +
-              '<td><b>' + esc(id) + '</b></td>' +
+              '<td>' + studentCell({ studentName: r.name, studentId: (r.name && r.id.indexOf('name:') !== 0) ? r.id : '' }) + '</td>' +
               '<td>' + esc(r.cls || '—') + '</td>' +
               '<td>' + esc(r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '—') + '</td>' +
               '<td>' + (r.sheet ? '<span class="gv-badge ok">Đã làm</span>' : '<span class="gv-badge bad">Chưa</span>') + '</td>' +
               '<td>' + (r.workCount ? '<span class="gv-badge ok">' + r.workCount + ' TP</span>' : '<span class="gv-badge bad">0</span>') + '</td>' +
+              '<td>' + dossierLabel + '</td>' +
               '<td>' + esc(r.last || '—') + '</td>' +
             '</tr>';
           }).join('') + '</tbody></table>'
@@ -1104,7 +1166,9 @@
     function openStudentProfile(id) {
       var r = (window.__studentRows || {})[id];
       var draft = getDraft();
-      var works = getWorks().filter(function (w) { return w.studentId === id; });
+      var works = getWorks().filter(function (w) {
+        return (w.studentId || ('name:' + (w.studentName || ''))) === id;
+      });
       var grades = getGrades();
       var feedbackMap = getFeedbackMap();
 
@@ -1116,14 +1180,21 @@
       var fb = (draft && draft.studentId === id) ? (feedbackMap['321'] || '') : '';
       var profile = document.getElementById('studentProfile');
       profile.hidden = false;
+      var pname = (r && r.name) || (draft && draft.studentId === id && draft.studentName) || id;
+      var pcode = (r && r.id && r.id.indexOf('name:') !== 0 && r.id !== pname) ? r.id : '';
       profile.innerHTML =
-        '<div class="gv-card-head"><h3 class="gv-card-title">Hồ sơ: ' + esc(id) + '</h3>' +
+        '<div class="gv-card-head"><h3 class="gv-card-title">Hồ sơ: ' + esc(pname) +
+          (pcode ? '<br><span style="color:var(--ink-faint); font-size:0.75rem;">Mã HS: ' + esc(pcode) + '</span>' : '') +
+        '</h3>' +
         '<button class="gv-mini" id="profileClose" type="button">Đóng hồ sơ</button></div>' +
         '<div class="gv-profile-grid">' +
           '<div class="gv-profile-item"><b>Lớp:</b> ' + esc((r && r.cls) || (draft && draft.studentId === id && draft.studentClass) || '—') + '</div>' +
           '<div class="gv-profile-item"><b>Di sản:</b> ' + esc((r && r.heritage) ? (HERITAGE_NAMES[r.heritage] || r.heritage) : ((draft && draft.studentId === id && draft.project) ? (HERITAGE_NAMES[draft.project] || draft.project) : '—')) + '</div>' +
           '<div class="gv-profile-item"><b>Phiếu 3–2–1:</b> ' + ((draft && draft.studentId === id && draft.q3) ? '<span class="gv-badge ok">Đã làm</span>' : '<span class="gv-badge bad">Chưa</span>') + '</div>' +
           '<div class="gv-profile-item"><b>Điểm trung bình rubric:</b> ' + (avg ? '<b style="color:var(--gold);">' + avg + '/10</b> (' + gvals.length + ' TP)' : 'Chưa chấm') + '</div>' +
+          '<div class="gv-profile-item"><b>Hồ sơ chặng đã lưu:</b> ' + (dossierKeys().length
+            ? esc(dossierKeys().map(function (k) { return HERITAGE_NAMES[k] || k; }).join(', '))
+            : '—') + '</div>' +
         '</div>' +
         (fb ? '<div class="gv-profile-item" style="margin-top:12px;"><b>Phản hồi của giáo viên cho phiếu:</b><br>' + esc(fb) + '</div>' : '') +
         '<div class="gv-card-label" style="margin-top:16px;">TÁC PHẨM CỦA EM</div>' +
@@ -1136,6 +1207,7 @@
                     ? '<span class="gv-badge ok">' + g.total.toFixed(1) + '/10</span>'
                     : '<span class="gv-badge warn">Chưa có điểm</span>')
                   : '<span class="gv-badge warn">Chưa chấm</span>') +
+                ' ' + downloadCell(w) +
                 (g && g.feedback ? '<br><i>' + esc(g.feedback) + '</i>' : '') +
               '</div>';
             }).join('') + '</div>'
@@ -1168,7 +1240,7 @@
         if (workFilterStatus === 'ungraded' && g) return false;
         if (workFilterText) {
           var q = workFilterText.toLowerCase();
-          var hay = [w.title, w.studentId, w.studentClass, w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '', w.note]
+          var hay = [w.title, w.studentName, nameOf(w), w.studentId, w.studentClass, w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '', w.note]
             .join(' ').toLowerCase();
           if (hay.indexOf(q) === -1) return false;
         }
@@ -1224,7 +1296,7 @@
               var g = grades[w.id];
               return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
                 '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
-                '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
+                '<td>' + studentCell(w) + '</td>' +
                 '<td>' + esc(w.studentClass || '—') + '</td>' +
                 '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
                 '<td>' + esc(w.createdAt) + '</td>' +
@@ -1242,17 +1314,18 @@
       var grades = getGrades();
       document.getElementById('worksTableWrap').innerHTML = works.length
         ? '<table class="gv-t"><thead><tr>' +
-          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Ngày</th><th>Điểm</th><th></th></tr></thead><tbody>' +
+          '<th>Tác phẩm</th><th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>Loại</th><th>Ngày</th><th>Điểm</th><th>Tệp đã nộp</th><th></th></tr></thead><tbody>' +
           works.map(function (w) {
             var g = grades[w.id];
             return '<tr class="gv-click-row" data-work="' + esc(w.id) + '">' +
               '<td><b>' + esc(w.title) + '</b>' + (w.note ? '<br><span style="color:var(--ink-faint); font-size:0.7rem;">' + esc(w.note) + '</span>' : '') + '</td>' +
-              '<td>' + esc(w.studentId || 'Ẩn danh') + '</td>' +
+              '<td>' + studentCell(w) + '</td>' +
               '<td>' + esc(w.studentClass || '—') + '</td>' +
               '<td>' + esc(w.heritage ? (HERITAGE_NAMES[w.heritage] || w.heritage) : '—') + '</td>' +
               '<td>' + (w.kind === 'pdf' ? 'PDF' : 'Ảnh') + '</td>' +
               '<td>' + esc(w.createdAt) + '</td>' +
               '<td>' + scoreBadge(g) + '</td>' +
+              '<td data-noopen>' + downloadCell(w) + '</td>' +
               '<td><button class="gv-mini danger" data-del="' + esc(w.id) + '" type="button">Xoá</button></td>' +
             '</tr>';
           }).join('') + '</tbody></table>'
@@ -1275,7 +1348,7 @@
         var works = getWorks();
         var target = works.find(function (w) { return w.id === id; });
         if (!target) return;
-        if (!confirm('Xoá tác phẩm "' + target.title + '" của học sinh ' + (target.studentId || 'ẩn danh') + '?')) return;
+        if (!confirm('Xoá tác phẩm "' + target.title + '" của học sinh ' + nameOf(target) + '?')) return;
         works = works.filter(function (w) { return w.id !== id; });
         localStorage.setItem('sah_student_works', JSON.stringify(works));
         addLog('delete-work', 'Xoá tác phẩm: ' + target.title);
@@ -1285,9 +1358,10 @@
         return;
       }
 
-      /* Management table row click → jump to the dedicated grading tab */
+      /* Management table row click → jump to the dedicated grading tab.
+         The "Tải tệp" link keeps its own behaviour. */
       var row = e.target.closest('tr[data-work]');
-      if (row) {
+      if (row && !e.target.closest('[data-noopen]')) {
         switchTab('grading');
         openGradePanel(row.dataset.work);
       }
@@ -1308,13 +1382,16 @@
 
       document.getElementById('gpTitle').textContent = 'Chấm điểm: ' + w.title;
       document.getElementById('gpMeta').textContent =
-        (w.studentId || 'Ẩn danh') + (w.studentClass ? ' · ' + w.studentClass : '') +
+        nameOf(w) + (w.studentId ? ' · ' + w.studentId : '') +
+        (nameInferred(w) ? ' · theo hồ sơ trên máy' : '') +
+        (w.studentClass ? ' · ' + w.studentClass : '') +
         (w.heritage ? ' · ' + (HERITAGE_NAMES[w.heritage] || w.heritage) : '') + ' · ' + w.createdAt;
 
       var thumb = document.getElementById('gpThumb');
-      thumb.innerHTML = w.kind === 'image'
+      thumb.innerHTML = (w.kind === 'image'
         ? '<img src="' + w.dataUrl + '" alt="">'
-        : '📄';
+        : '📄') +
+        (w.dataUrl ? '<div style="margin-top:8px;">' + downloadCell(w) + '</div>' : '');
 
       document.getElementById('gpCriteria').innerHTML = RUBRIC.map(function (c) {
         var v = (g.scores && typeof g.scores[c.key] === 'number') ? g.scores[c.key] : 5;
@@ -1420,7 +1497,7 @@
       wrap.innerHTML = '<table class="gv-t"><thead><tr>' +
         '<th>Học sinh</th><th>Lớp</th><th>Di sản</th><th>3 quan sát</th><th>2 câu hỏi</th><th>1 ý tưởng</th><th>Cập nhật</th><th>Phản hồi</th></tr></thead><tbody>' +
         '<tr>' +
-          '<td><b>' + esc(d.studentId || 'Ẩn danh') + '</b></td>' +
+          '<td>' + studentCell(d) + '</td>' +
           '<td>' + esc(d.studentClass || '—') + '</td>' +
           '<td>' + esc(d.project ? (HERITAGE_NAMES[d.project] || d.project) : '—') + '</td>' +
           '<td style="max-width:260px;">' + esc(d.q3 || '—') + '</td>' +
@@ -1461,11 +1538,12 @@
       var map = {};
 
       function row(id) {
-        if (!map[id]) map[id] = { id: id, cls: '', heritage: '', sheet: false, works: 0, total: null, fb: '' };
+        if (!map[id]) map[id] = { id: id, name: '', cls: '', heritage: '', sheet: false, works: 0, total: null, fb: '' };
         return map[id];
       }
       if (draft && draft.studentId) {
         var r = row(draft.studentId);
+        r.name = draft.studentName || '';
         r.cls = draft.studentClass || '';
         r.heritage = draft.project || '';
         r.sheet = !!draft.q3;
@@ -1475,6 +1553,7 @@
       works.forEach(function (w) {
         if (!w.studentId) return;
         var r = row(w.studentId);
+        r.name = r.name || w.studentName || '';
         r.cls = r.cls || w.studentClass || '';
         r.heritage = r.heritage || w.heritage || '';
         r.works++;
@@ -1485,7 +1564,7 @@
       if (!ids.length) { toast('Chưa có học sinh nào để xuất.'); return; }
 
       var critHeader = RUBRIC.map(function (c) { return c.name; }).join(',');
-      var csv = '\uFEFFMã Học Sinh,Lớp,Di Sản,Phiếu 3-2-1,Số Tác Phẩm,' + critHeader + ',Điểm Rubric TB,Phản Hồi Của Giáo Viên\n';
+      var csv = '\uFEFFHọ Tên,Mã Học Sinh,Lớp,Di Sản,Phiếu 3-2-1,Số Tác Phẩm,' + critHeader + ',Điểm Rubric TB,Phản Hồi Của Giáo Viên\n';
       ids.forEach(function (id) {
         var r = map[id];
         var avg = gradeN ? (gradeSum / gradeN).toFixed(1) : '';
@@ -1498,7 +1577,7 @@
           });
           return n ? (sum / n).toFixed(1) : '';
         });
-        csv += [id, r.cls, r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '',
+        csv += [r.name || '', id, r.cls, r.heritage ? (HERITAGE_NAMES[r.heritage] || r.heritage) : '',
                 r.sheet ? 'Đã làm' : 'Chưa', r.works].concat(critAvg, [avg, r.fb])
           .map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',') + '\n';
       });

@@ -5,10 +5,12 @@
    so giao-vien.html can finally see real student work.
 
    Bridge contracts (verified against giao-vien.html / trien-lam.html):
-     sah_student_works : Array<{id,kind,title,studentId,studentClass,heritage,
-                               note,dataUrl,fileName,bytes,createdAt,dataset}>
+     sah_student_works : Array<{id,kind,title,studentName,studentId,studentClass,
+                               heritage,note,dataUrl,fileName,bytes,createdAt,
+                               dataset}>
      sah_work_grades   : { [workId]: {...} }
-     sah_321_draft     : {project,q1,q2,q3,studentId,studentClass,updatedAt}
+     sah_321_draft     : {project,q1,q2,q3,studentName,studentId,studentClass,
+                          updatedAt}
      sah_321_feedback  : { "321": text, "321_at": iso }
    ========================================================================== */
 (function () {
@@ -131,7 +133,8 @@
     var p = profile();
     jset(K.draft, {
       project: curKey(), q1: integrated(1), q2: integrated(2), q3: integrated(3),
-      studentId: p.id || '', studentClass: p.cls || '', updatedAt: new Date().toISOString()
+      studentName: p.name || '', studentId: p.id || '', studentClass: p.cls || '',
+      updatedAt: new Date().toISOString()
     });
   }
 
@@ -162,7 +165,7 @@
     list.push({
       id: id, kind: 'image',
       title: ar.title || ex.title || 'Tác phẩm chưa đặt tên',
-      studentId: p.id || '', studentClass: p.cls || '',
+      studentName: p.name || '', studentId: p.id || '', studentClass: p.cls || '',
       heritage: curKey(), note: ar.message || ex.message || '',
       dataUrl: img, fileName: '', bytes: Math.round(img.length * 0.75),
       createdAt: today(), dataset: 'sah-art-v33-' + curKey()

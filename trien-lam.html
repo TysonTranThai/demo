@@ -581,6 +581,10 @@
 
         <div class="xv-meta-row">
         <div class="xv-field">
+          <label for="xvStudentName">Họ tên học sinh</label>
+          <input id="xvStudentName" type="text" placeholder="VD: Nguyễn Minh An" autocomplete="name">
+        </div>
+        <div class="xv-field">
           <label for="xvStudentId">Mã học sinh</label>
           <input id="xvStudentId" type="text" placeholder="VD: HS-6A1-024">
         </div>
@@ -791,23 +795,38 @@
     }
 
     /* ---------- student meta ---------- */
+    /* The student's full name is what the teacher needs to recognise a
+       submission. It is typed here, and falls back to the name the real role
+       gate on index.html already stored (sah_task_progress._profile.name). */
+    function profileName() {
+      try {
+        var p = (JSON.parse(localStorage.getItem('sah_task_progress') || '{}') || {})._profile;
+        return (p && p.name) || '';
+      } catch (e) { return ''; }
+    }
+
     function restoreStudentMeta() {
       var draft = null;
       try { draft = JSON.parse(localStorage.getItem('sah_321_draft') || 'null'); } catch (e) {}
+      var nameInput = document.getElementById('xvStudentName');
       var idInput = document.getElementById('xvStudentId');
       var classInput = document.getElementById('xvClass');
       var heritageSel = document.getElementById('xvHeritage');
       if (draft) {
+        if (draft.studentName && nameInput) nameInput.value = draft.studentName;
         if (draft.studentId && idInput) idInput.value = draft.studentId;
         if (draft.studentClass && classInput) classInput.value = draft.studentClass;
         if (draft.project && heritageSel) heritageSel.value = draft.project;
       }
-      ['xvStudentId', 'xvClass'].forEach(function (id) {
+      if (nameInput && !nameInput.value) nameInput.value = profileName();
+      ['xvStudentName', 'xvStudentId', 'xvClass'].forEach(function (id) {
         var el = document.getElementById(id);
+        if (!el) return;
         el.addEventListener('change', function () {
           try {
             var d = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
-            if (id === 'xvStudentId') d.studentId = el.value;
+            if (id === 'xvStudentName') d.studentName = el.value;
+            else if (id === 'xvStudentId') d.studentId = el.value;
             else d.studentClass = el.value;
             localStorage.setItem('sah_321_draft', JSON.stringify(d));
           } catch (e) {}
@@ -844,6 +863,7 @@
     function handleFiles(fileList) {
       var files = Array.prototype.slice.call(fileList);
       var note = document.getElementById('xvNote').value.trim();
+      var studentName = document.getElementById('xvStudentName').value.trim() || profileName();
       var studentId = document.getElementById('xvStudentId').value.trim();
       var studentClass = document.getElementById('xvClass').value.trim();
       var heritage = document.getElementById('xvHeritage').value;
@@ -867,6 +887,7 @@
             id: 'w' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
             kind: file.type.indexOf('pdf') !== -1 ? 'pdf' : 'image',
             title: artTitle || note || base,
+            studentName: studentName,
             studentId: studentId,
             studentClass: studentClass,
             heritage: heritage,
@@ -915,6 +936,7 @@
           }
           render();
           setStatus('✓ Đã thêm ' + added + ' tác phẩm vào bộ sưu tập.', true);
+          mirrorStudentMeta();
           document.getElementById('xvNote').value = '';
           document.getElementById('xvArtTitle').value = '';
           document.getElementById('xvArtMaterial').value = '';
@@ -922,6 +944,20 @@
         }
       }
     }
+
+      /* Keep name / mã / lớp on the shared draft so the teacher's roster and
+         worksheet tab know who submitted, even before any 3-2-1 answer exists. */
+      function mirrorStudentMeta() {
+        try {
+          var d = JSON.parse(localStorage.getItem('sah_321_draft') || '{}');
+          if (!d || typeof d !== 'object') d = {};
+          if (studentName) d.studentName = studentName;
+          if (studentId) d.studentId = studentId;
+          if (studentClass) d.studentClass = studentClass;
+          if (heritage && !d.project) d.project = heritage;
+          localStorage.setItem('sah_321_draft', JSON.stringify(d));
+        } catch (e) {}
+      }
 
     function compressImage(file, done, fail) {
       var img = new Image();
@@ -954,9 +990,14 @@
       return works.filter(function (w) {
         if (filter.kind !== 'all' && w.kind !== filter.kind) return false;
         if (filter.heritage && w.heritage !== filter.heritage) return false;
-        if (q && (w.title + ' ' + w.studentId).toLowerCase().indexOf(q) === -1) return false;
+        if (q && (w.title + ' ' + (w.studentName || '') + ' ' + (w.studentId || '')).toLowerCase().indexOf(q) === -1) return false;
         return true;
       });
+    }
+
+    /* name first, so the teacher always knows whose work this is */
+    function studentLabel(w) {
+      return (w && (w.studentName || w.studentId)) || 'Ẩn danh';
     }
 
     function render() {
@@ -993,7 +1034,8 @@
           '</div>' +
           '<div class="xv-work-body">' +
             '<h3 class="xv-work-title">' + esc(w.title) + '</h3>' +
-            '<span class="xv-work-meta">' + esc(w.studentId || 'Ẩn danh') +
+            '<span class="xv-work-meta">' + esc(studentLabel(w)) +
+              (w.studentName && w.studentId ? ' · ' + esc(w.studentId) : '') +
               (w.studentClass ? ' · ' + esc(w.studentClass) : '') + ' · ' + esc(w.createdAt) +
               (w.bytes ? ' · ' + fmtSize(w.bytes) : '') + '</span>' +
             (w.heritage ? '<span class="xv-work-heritage">' + esc(HERITAGE_NAMES[w.heritage] || w.heritage) + '</span>' : '') +
@@ -1046,7 +1088,8 @@
       }
       document.getElementById('xvLightboxTitle').textContent = w.title;
       document.getElementById('xvLightboxMeta').textContent =
-        (w.studentId || 'Ẩn danh') + (w.studentClass ? ' · ' + w.studentClass : '') +
+        studentLabel(w) + (w.studentName && w.studentId ? ' · ' + w.studentId : '') +
+        (w.studentClass ? ' · ' + w.studentClass : '') +
         (w.heritage ? ' · ' + (HERITAGE_NAMES[w.heritage] || w.heritage) : '') +
         ' · ' + w.createdAt;
       lightbox.classList.add('open');

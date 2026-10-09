@@ -129,10 +129,14 @@ kiểm tra mọi sửa lỗi của bản gốc còn nguyên, rồi nối `js/res
 `#journey39` vào cuối trang. Script tự báo lỗi nếu bản gốc thiếu hoặc khác đi — vì vậy hãy
 sửa ở bản gốc rồi chạy lại, **đừng sửa trực tiếp `index.html`**.
 
-## ✏️ Giáo viên sửa nội dung & xuất bản cho học sinh
+## ✏️ Giáo viên sửa nội dung cho học sinh
 
-Giáo viên sửa trực tiếp câu hỏi, nhiệm vụ, gợi ý và tiêu đề trên trang học sinh, lưu nháp,
-rồi bấm **Xuất bản** để cả lớp đọc được nội dung mới — không cần sửa mã, không cần sinh lại trang.
+**Giáo viên không phải bấm nút nào cả.** Bấm vào một câu trên trang, gõ chữ mới, bấm **✅ Xong**
+(thậm chí chỉ cần bấm sang câu khác) — vài giây sau học sinh đã thấy bài mới. Không có tệp nào
+phải tải lên, không có mã nào phải dán, không có bước “lưu nháp” rồi “xuất bản”.
+
+Điều kiện duy nhất: máy đó **đã đăng nhập một lần** bằng mật khẩu chung của tổ chuyên môn.
+Chưa đăng nhập thì trang vẫn cho sửa (bài nằm chờ trên máy), và tự đưa lên ngay khi đăng nhập.
 
 Mở bộ công cụ bằng một trong hai cách:
 
@@ -143,14 +147,14 @@ Mở bộ công cụ bằng một trong hai cách:
 
 | Nút | Việc nó làm |
 |---|---|
-| **✏️ Sửa nội dung** | Bật/tắt chế độ sửa. Khi bật, rà chuột thấy ô nào sửa được, bấm vào là mở hộp sửa. Phím tắt: `Ctrl/Cmd + Shift + E` |
-| **👁 Xem trước** | Xem đúng những gì học sinh đang thấy (bản đã xuất bản) thay vì bản nháp |
-| **📋 Danh sách ô** | Liệt kê mọi ô nội dung theo từng khối, có ô tìm kiếm và bộ lọc “Đã sửa” |
-| **🧱 Thiết kế** | Ẩn/mở từng khối của hành trình cho phù hợp từng tiết học |
-| **📚 Thư viện** | Lưu bản nháp thành “thiết kế” dùng lại, áp dụng thiết kế mẫu hoặc của đồng nghiệp, tải/nhập tệp `.json` |
-| **↩️ Bản lưu** | Danh sách các bản đã xuất bản trước đó, kèm nút **Quay lại** để đưa học sinh về đúng bản ấy khi lần xuất bản vừa rồi sai |
-| **🚀 Xuất bản** | Đẩy bản nháp lên máy chủ để học sinh nhận ngay |
-| **🔐** | Đăng nhập giáo viên (nút đổi thành 🔐 khi máy này chưa đăng nhập). Mục “Nâng cao” giữ địa chỉ API và mã xuất bản cho script |
+| **✏️ Sửa nội dung** | Bật/tắt chế độ sửa. Khi bật, rà chuột thấy câu nào sửa được, bấm vào là mở hộp sửa. Phím tắt: `Ctrl/Cmd + Shift + E` |
+| **👁 Xem như học sinh** | Xem đúng những gì học sinh đang thấy, thay vì bản đang sửa |
+| **↩️ Hoàn tác** | Trả lại nội dung vừa sửa (một lần, cho lần sửa gần nhất) |
+| **câu trạng thái** | *Đang lưu… / ✓ Học sinh đang thấy bản này / … Chưa gửi lên / ⚠ Chưa đăng nhập / ⚠ Chưa lưu được.* Chỉ khi có việc để làm thì câu này mới gạch chân và bấm được (đăng nhập, hoặc thử gửi lại) |
+| **➕ Thêm** | Tìm câu chữ cần sửa • Ẩn/hiện từng phần • Thư viện thiết kế • Quay lại bản trước • Đăng nhập/đăng xuất |
+
+Hộp sửa một câu chỉ có **✅ Xong**, **↩️ Trả lại như cũ** và **Đóng** — gõ tới đâu trang hiện tới
+đó, và chữ đã gõ không bao giờ mất: đóng hộp bằng cách nào cũng tự lưu.
 
 ### Cách hoạt động (và vì sao đáng tin)
 
@@ -158,14 +162,16 @@ Mở bộ công cụ bằng một trong hai cách:
   `<details>`; bộ công cụ chỉ đổi đúng đoạn chữ nên cấu trúc trang giữ nguyên.
 - **Mỗi ô gắn với nội dung gốc của nó.** Bản sửa chỉ áp dụng khi nội dung gốc vẫn còn nguyên ở
   đúng chỗ. Nhờ vậy sửa câu hỏi gói 1 của Phố Hiến sẽ không dán nhầm sang gói của Chùa Keo, và
-  nếu sau này bản gốc đổi chữ thì bản sửa “trượt” — thanh công cụ báo rõ *“N ô không còn khớp”*
-  chứ không âm thầm sửa sai.
+  nếu sau này bản gốc đổi chữ thì bản sửa “trượt” — bản sửa nằm im chứ không âm thầm sửa sai.
 - **Nội dung do JavaScript sinh ra vẫn giữ bản sửa.** Khi học sinh đổi dự án/gói, câu hỏi bị vẽ
   lại từ dữ liệu; bộ công cụ đắp bản sửa trở lại ngay trong cùng nhịp nên không thấy nội dung cũ.
-- **Không nháy nội dung cũ.** Bản đã xuất bản được nhớ trên máy người xem và áp dụng trước khi
+- **Không nháy nội dung cũ.** Bản đã đưa lên được nhớ trên máy người xem và áp dụng trước khi
   trình duyệt vẽ trang.
-- **Nháp ở máy giáo viên, bản đã xuất bản ở máy chủ.** Học sinh chỉ đọc `content/published.json`,
-  chưa bấm Xuất bản thì học sinh chưa thấy gì đổi.
+- **Một thao tác duy nhất khi sửa xong, không có bước riêng để “lưu”.** Đóng hộp sửa bằng cách
+  nào — bấm ✅ Xong, bấm sang câu khác, gõ Esc, hay thậm chí đóng tab — cũng đều lưu ngay tại chỗ
+  rồi gửi lên (khi đóng tab thì yêu cầu gửi đi theo kiểu `keepalive` nên không mất chữ).
+- **Chỉ máy đã đăng nhập mới gửi được.** Học sinh vẫn chỉ đọc `content/published.json`; máy chưa
+  đăng nhập thì bài nằm chờ trên máy đó và tự đi ngay khi đăng nhập — máy chủ trả **401** cho người lạ.
 
 ### Xuất bản
 
@@ -217,7 +223,7 @@ sẽ hỏng trong im lặng.
 
 ### 🔐 Đăng nhập giáo viên — không phải dán mã mỗi máy
 
-Giáo viên **không** dán mã xuất bản. Mở **🔐** và nhập **mật khẩu chung của tổ chuyên môn** một
+Giáo viên **không** dán mã xuất bản. Mở **➕ Thêm › Đăng nhập** và nhập **mật khẩu chung của tổ chuyên môn** một
 lần trên mỗi máy: máy chủ trả về cookie `HttpOnly`, nên **trình duyệt** (không phải trang web) giữ
 phiên trong 90 ngày và JavaScript không đọc được phiên đó. Những lần sau mở trang là đã đăng nhập
 sẵn; nút **Đăng xuất máy này** nằm ngay trong hộp thoại.

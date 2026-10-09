@@ -435,7 +435,10 @@
       "#sahBar .sah-b.pri{background:#c89547;color:#12281f}",
       "#sahBar .sah-b.on{background:#2e7d55;color:#fff}",
       "#sahBar .sah-b[disabled]{opacity:.45;cursor:not-allowed}",
-      "#sahBar .sah-meta{font-size:12px;color:#bcd3c6;padding:0 4px}",
+      "#sahBar .sah-meta{font-size:12px;color:#bcd3c6;padding:2px 6px;border-radius:8px;max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      "#sahBar .sah-meta.act{cursor:pointer;text-decoration:underline dotted}",
+      "#sahBar .sah-meta.act:hover{background:#1d4033}",
+      "#sahBar .sah-meta.warn{color:#ffd479}",
       "#sahBar .sah-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#c89547;margin-right:5px;vertical-align:1px}",
       "#sahBar .sah-dot.clean{background:#3f9d6a}",
       "#sahPanel{position:fixed;right:0;top:0;bottom:0;width:390px;max-width:96vw;z-index:9001;background:#fff;border-left:1px solid #d7e0da;display:flex;flex-direction:column;font:13px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1d2a24;box-shadow:-8px 0 30px rgba(0,0,0,.14)}",
@@ -469,6 +472,8 @@
       "#sahModal .sah-mcard{background:#fff;border-radius:18px;max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:20px;font:13px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1d2a24}",
       "#sahModal h3{margin:0 0 10px}",
       "#sahModal h4{margin:16px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#5d6b63}",
+      "#sahModal .sah-more-item{display:block;width:100%;text-align:left;border:1px solid #e3eae6;background:#fbfdfc;border-radius:11px;padding:12px 14px;margin:7px 0;font-weight:700;font-size:14px}",
+      "#sahModal .sah-more-item:hover{border-color:#285b46;background:#f2f8f4}",
       "#sahModal .sah-lib{border:1px solid #e3eae6;border-radius:11px;padding:10px;margin:7px 0;display:flex;gap:10px;align-items:flex-start}",
       "#sahModal .sah-lib b{flex:1}",
       "#sahModal .sah-lib small{color:#6b7a72;display:block}",
@@ -523,26 +528,121 @@
     return out;
   }
 
-  /* --------------------------------------------------------------- thay đổi */
-  function changedKeys(d, base) {
-    var out = {}, k;
-    var dt = (d.pages && d.pages[PAGE] && d.pages[PAGE].text) || {};
-    var bt = (base.pages && base.pages[PAGE] && base.pages[PAGE].text) || {};
-    for (k in dt) if (!bt[k] || bt[k].v !== dt[k].v) out[k] = 1;
-    for (k in bt) if (!dt[k]) out[k] = 1;
-    var dh = ((d.pages && d.pages[PAGE] && d.pages[PAGE].hidden) || []).slice().sort().join(',');
-    var bh = ((base.pages && base.pages[PAGE] && base.pages[PAGE].hidden) || []).slice().sort().join(',');
-    if (dh !== bh) out.__hidden = 1;
-    return out;
-  }
-
+  /* ----------------------------------------------------- sửa một câu trên trang */
+  /* Trước đây chỗ này còn hàm changedKeys() để đếm "N thay đổi chưa xuất bản"
+     trên thanh lệnh. Thanh lệnh mới không còn con số đó nữa (giáo viên không
+     cần đếm), và việc quyết định có gửi lên hay không nay do cờ DIRTY quyết
+     định — xem phần "tự lưu & tự đưa lên" bên dưới. */
   function editField(f, value) {
     var d = draft();
     var p = pageOf(d);
+    var had = p.text[f.k];
+    lastUndo = { k: f.k, before: had ? had.v : null };   // null = trước đó là chữ gốc của trang
     if (value == null || norm(value) === '' || norm(value) === f.p) delete p.text[f.k];
     else p.text[f.k] = { v: value, p: f.p, path: f.path, i: f.i, sec: f.sec, grp: f.grp, at: nowISO() };
+    DIRTY = true;
     saveDraft(d);
     return d;
+  }
+
+  /* ------------------------------------------------- tự lưu & tự đưa lên cho học sinh */
+  /* Giáo viên không phải "lưu" rồi "xuất bản": sửa xong một câu là việc lưu và
+     việc đưa lên xảy ra cùng lúc, không hỏi gì. Không có chữ nào về tệp, mã hay
+     "bản nháp" trong giao diện — chỉ có một câu trạng thái và nút Hoàn tác.
+
+     DIRTY là "giáo viên đã sửa gì trong phiên này", không phải "tệp khác bản đã
+     đưa lên" — nhờ vậy việc tự đưa lên khi vừa đăng nhập không bao giờ ghi đè
+     bài của máy khác bằng một bản nháp rỗng. */
+  var SAVE_STATE = 'idle';       // idle | saving | saved | offline | failed
+  var SAVE_HINT = '';
+  var DIRTY = false;             // có thay đổi thật chưa gửi lên được
+  var lastUndo = null;           // { k, before } — để dựng lại thao tác vừa rồi
+
+  function setSaveState(state, hint) {
+    SAVE_STATE = state;
+    SAVE_HINT = hint || '';
+    updateBar();
+  }
+
+  /* Sau khi biết máy này đã đăng nhập hay chưa: có việc đang chờ thì gửi, không
+     thì chỉ nói cho giáo viên biết trạng thái thật. */
+  function afterSession(ok) {
+    if (!ok) { if (STUDIO_ON) setSaveState('offline'); return; }
+    if (DIRTY) commitAll();
+    else setSaveState('saved');
+  }
+
+  function saveLabel() {
+    if (SAVE_STATE === 'saving') return 'Đang lưu…';
+    if (SAVE_STATE === 'saved') return '✓ Học sinh đang thấy bản này';
+    if (SAVE_STATE === 'offline') return '⚠ Chưa đăng nhập — bấm để đăng nhập';
+    if (SAVE_STATE === 'failed') return '⚠ Chưa lưu được — bấm để thử lại';
+    return DIRTY ? '… Chưa gửi lên' : '✓ Đã lưu';
+  }
+
+  /* Lưu tại chỗ rồi đẩy lên. Gọi ở ba chỗ: khi đóng hộp sửa, khi bật/tắt khối,
+     và khi trang sắp bị đóng (để chữ đang gõ dở không mất nếu giáo viên đóng
+     tab ngay giữa câu). */
+  function commitAll() {
+    saveDraft(draft());
+    if (!DIRTY) { if (canWrite()) setSaveState('saved'); return; }
+    if (!canWrite()) { setSaveState('offline'); return; }
+    publishQuietly();
+  }
+
+  /* Không hỏi gì, không báo "đang xuất bản…": ghi xong thì báo đã lưu, lỗi thì
+     để giáo viên bấm thử lại. */
+  function publishQuietly() {
+    var pg = pageOf(draft());
+    var payload = { page: PAGE, text: pg.text || {}, hidden: pg.hidden || [],
+                    at: nowISO(), by: 'teacher' };
+    setSaveState('saving');
+    fetch(apiUrl('/api/content'), {
+      method: 'POST',
+      credentials: 'same-origin',
+      keepalive: true,             // sống sót khi trang vừa bị đóng
+      headers: apiHeaders(true),
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.text().then(function (t) { return { ok: r.ok, status: r.status, body: t }; });
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status + ' ' + r.body.slice(0, 160));
+      var saved = null;
+      try { saved = JSON.parse(r.body); } catch (e) {}
+      var store = published();
+      store.at = (saved && saved.at) || payload.at;
+      store.pages = store.pages || {};
+      store.pages[PAGE] = { text: payload.text, hidden: payload.hidden };
+      writeJSON(K.cache, store);
+      var dd = draft();
+      dd.sid = store.at;
+      saveDraft(dd);
+      DIRTY = false;
+      setSaveState('saved');
+    }).catch(function (err) {
+      var m = String(err.message || '');
+      if (m.indexOf('401') === 0) { SIGNED_IN = false; setSaveState('offline'); return; }
+      setSaveState('failed', m.slice(0, 80));
+    });
+  }
+
+  function undoLast() {
+    if (!lastUndo) return;
+    var k = lastUndo.k, before = lastUndo.before;
+    var d = draft(), p = pageOf(d);
+    if (before == null) delete p.text[k];
+    else {
+      var f = FIELD_BY_KEY[k];
+      p.text[k] = f
+        ? { v: before, p: f.p, path: f.path, i: f.i, sec: f.sec, grp: f.grp, at: nowISO() }
+        : Object.assign({}, p.text[k] || {}, { v: before });
+    }
+    saveDraft(d);
+    lastUndo = null;
+    DIRTY = true;
+    repaint(true);
+    commitAll();
+    toast('Đã trả lại như trước.');
   }
 
   /* Áp dụng cùng nội dung cho mọi ô đang có ĐÚNG nội dung gốc này. */
@@ -557,7 +657,7 @@
       p.text[x.k] = { v: value, p: x.p, path: x.path, i: x.i, sec: x.sec, grp: x.grp, at: nowISO() };
       n++;
     });
-    if (n) saveDraft(d);
+    if (n) { DIRTY = true; saveDraft(d); }
     return n;
   }
 
@@ -732,46 +832,70 @@
       ]);
     }
 
+    /* Gõ tới đâu trang hiện tới đó, và chữ đã gõ không bao giờ mất: đóng hộp
+       bằng cách nào (bấm Xong, bấm sang câu khác, gõ Esc) cũng đều tự lưu và
+       tự đưa lên cho học sinh. Không còn nút "lưu nháp" hay "xuất bản". */
+    var dirty = false;
     var live = function () { if (node && node.parentNode) setText(node, ta.value); };
-    ta.addEventListener('input', live);
+    ta.addEventListener('input', function () {
+      dirty = true;
+      /* Gõ là thanh lệnh đổi ngay thành "chưa gửi lên", để giáo viên không bao
+         giờ tưởng nhầm là học sinh đã thấy chữ mình đang gõ. */
+      if (!DIRTY) { DIRTY = true; setSaveState('idle'); }
+      live();
+    });
+
+    function saveNow() {
+      if (!dirty) return 0;
+      editField(f, ta.value);
+      var extra = 0;
+      if (sameChk && sameChk.checked) extra = editSimilar(f, ta.value);
+      dirty = false;
+      repaint(true);
+      commitAll();                 // tự lưu + tự đưa lên, không hỏi gì
+      return extra;
+    }
 
     var box = el('div', { 'data-sah-ui': '1', id: 'sahEdit' }, [
       el('div', { class: 'sah-where', text: (f.sec ? '#' + f.sec + ' › ' : '') + f.path.split('>').slice(-2).join(' › ') }),
       ta,
       sameBox,
       el('div', { class: 'sah-row' }, [
-        el('button', { class: 'sah-save', 'data-act': 'save', text: '💾 Lưu vào nháp' }),
-        el('button', { class: 'sah-apply', 'data-act': 'apply', text: '👁 Xem thử' }),
-        el('button', { class: 'sah-reset', 'data-act': 'reset', text: '↺ Về bản gốc' }),
+        el('button', { class: 'sah-save', 'data-act': 'save', text: '✅ Xong' }),
+        el('button', { class: 'sah-reset', 'data-act': 'reset', text: '↩️ Trả lại như cũ' }),
         el('button', { class: 'sah-cancel', 'data-act': 'cancel', text: 'Đóng' })
       ]),
-      el('div', { class: 'sah-where', text: 'Ô: ' + f.k })
+      el('div', { class: 'sah-where', text: canWrite()
+        ? 'Sửa xong là học sinh thấy ngay. Lỡ tay thì bấm ↩️ Hoàn tác trên thanh dưới.'
+        : 'Máy này chưa đăng nhập, nên sửa xong cần bấm Thêm › Đăng nhập một lần.' })
     ]);
 
     box.addEventListener('click', function (ev) {
       var a = ev.target.getAttribute && ev.target.getAttribute('data-act');
       if (!a) return;
-      if (a === 'cancel') { repaint(true); closeEditor(); return; }
-      if (a === 'apply') { live(); toast('Đang xem thử. Chưa lưu.'); return; }
+      if (a === 'cancel') { closeEditor(); return; }
       if (a === 'reset') {
+        lastUndo = null;
         editField(f, f.p);
         if (sameChk && sameChk.checked) {
           var d2 = draft(), p2 = pageOf(d2);
           similarFields(f).forEach(function (x) { delete p2.text[x.k]; });
           saveDraft(d2);
         }
-        repaint(true); closeEditor(); toast('Đã trả ô này về nội dung gốc.');
+        dirty = false;
+        repaint(true); closeEditor(); commitAll();
+        toast('Đã trả lại như trước.');
         return;
       }
       if (a === 'save') {
-        editField(f, ta.value);
-        var extra = 0;
-        if (sameChk && sameChk.checked) extra = editSimilar(f, ta.value);
-        repaint(true);
+        var extra = saveNow();
         closeEditor();
-        toast(extra ? 'Đã lưu ô này và ' + extra + ' vị trí giống nhau.' : 'Đã lưu vào bản nháp.');
+        if (extra) toast('Đã sửa cả ' + extra + ' chỗ có cùng câu chữ.');
       }
     });
+
+    /* Đóng hộp vì bất cứ lý do gì (bấm câu khác, gõ Esc…) cũng lưu trước. */
+    UI.editCommit = saveNow;
 
     D.body.appendChild(box);
     UI.edit = box;
@@ -783,36 +907,38 @@
     ta.focus();
   }
 
-  function closeEditor() { if (UI.edit) { UI.edit.remove(); UI.edit = null; } }
+  function closeEditor() {
+    if (!UI.edit) return;
+    var commit = UI.editCommit;
+    UI.editCommit = null;
+    UI.edit.remove();
+    UI.edit = null;
+    if (commit) { try { commit(); } catch (e) {} }
+  }
 
   /* ------------------------------------------------------------------ thanh lệnh */
+  /* Thanh này cố tình ngắn và không có một chữ kỹ thuật nào: bốn việc giáo
+     viên thật sự làm, một câu trạng thái cho biết học sinh đã thấy bài mới hay
+     chưa, và một nút "Thêm" giấu hết những thứ phức tạp ở trong. */
   function updateBar() {
     if (!UI.bar) return;
-    var d = draft(), pub = published();
-    var ch = changedKeys(d, pub);
-    var n = Object.keys(ch).length;
-    var un = pending.length ? stats.unmatched : 0;
     UI.meta.textContent = '';
-    var dot = el('span', { class: 'sah-dot' + (n ? '' : ' clean') });
-    UI.meta.appendChild(dot);
-    UI.meta.appendChild(D.createTextNode(
-      STUDIO_ON
-        ? (n ? n + ' thay đổi chưa xuất bản' : 'khớp bản đã xuất bản')
-        : 'Chế độ sửa đang tắt'
-    ));
-    if (STUDIO_ON && un) {
-      UI.meta.appendChild(D.createTextNode(' • ' + un + ' ô không còn khớp'));
-    }
-    if (STUDIO_ON && !canWrite()) {
-      UI.meta.appendChild(D.createTextNode(' • chưa đăng nhập'));
-    }
-    UI.btnPublish.disabled = !n;
-    UI.btnPublish.textContent = '🚀 Xuất bản' + (n ? ' (' + n + ')' : '');
-    UI.btnStudio.classList.toggle('on', STUDIO_ON);
+    UI.meta.appendChild(el('span', { class: 'sah-dot' + (SAVE_STATE === 'saved' || SAVE_STATE === 'idle' ? ' clean' : '') }));
+    UI.meta.appendChild(D.createTextNode(STUDIO_ON ? saveLabel() : 'Chế độ sửa đang tắt'));
+    if (SAVE_STATE === 'failed' && SAVE_HINT) UI.meta.title = SAVE_HINT;
+    else UI.meta.removeAttribute('title');
+    /* Chip chỉ trông bấm được khi bấm vào có việc để làm — "đã lưu" thì đừng
+       mời người ta bấm (kiểm tra trên máy chủ thật phát hiện chỗ này). */
+    var actionable = SAVE_STATE === 'offline' || SAVE_STATE === 'failed' || DIRTY;
+    UI.meta.classList.toggle('warn', SAVE_STATE === 'offline' || SAVE_STATE === 'failed');
+    UI.meta.classList.toggle('act', actionable);
+
     UI.btnStudio.textContent = STUDIO_ON ? '✏️ Đang sửa' : '✏️ Sửa nội dung';
+    UI.btnStudio.classList.toggle('on', STUDIO_ON);
+    UI.btnPreview.textContent = previewPublished ? '👁 Đang xem như học sinh' : '👁 Xem như học sinh';
     UI.btnPreview.classList.toggle('on', previewPublished);
-    UI.btnPreview.textContent = previewPublished ? '👁 Bản đã xuất bản' : '👁 Xem trước';
-    UI.btnMore.textContent = (STUDIO_ON && !canWrite()) ? '🔐' : '⚙️';
+    UI.btnUndo.disabled = !lastUndo;
+    UI.btnMore.textContent = (STUDIO_ON && !canWrite()) ? '🔐 Thêm' : '➕ Thêm';
   }
 
   function buildBar() {
@@ -820,28 +946,57 @@
     UI.meta = el('span', { class: 'sah-meta', 'data-sah-ui': '1' });
     UI.btnStudio = el('button', { class: 'sah-b', 'data-sah-ui': '1' });
     UI.btnPreview = el('button', { class: 'sah-b', 'data-sah-ui': '1' });
-    UI.btnPanel = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '📋 Danh sách ô' });
-    UI.btnDesign = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '🧱 Thiết kế' });
-    UI.btnLib = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '📚 Thư viện' });
-    UI.btnHistory = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '↩️ Bản lưu' });
-    UI.btnPublish = el('button', { class: 'sah-b pri', 'data-sah-ui': '1' });
-    UI.btnMore = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '⚙️',
-                                title: 'Đăng nhập giáo viên / cài đặt xuất bản' });
+    UI.btnUndo = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '↩️ Hoàn tác',
+                                title: 'Trả lại nội dung vừa sửa' });
+    UI.btnMore = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '➕ Thêm',
+                                title: 'Danh sách câu chữ, ẩn/hiện khối, quay lại bản trước' });
 
     UI.bar = el('div', { 'data-sah-ui': '1', id: 'sahBar' },
-      [UI.btnStudio, UI.btnPreview, UI.btnPanel, UI.btnDesign, UI.btnLib, UI.btnHistory,
-       UI.btnPublish, UI.meta, UI.btnMore]);
+      [UI.btnStudio, UI.btnPreview, UI.btnUndo, UI.meta, UI.btnMore]);
     D.body.appendChild(UI.bar);
 
     UI.btnStudio.onclick = function () { toggleStudio(!STUDIO_ON); };
     UI.btnPreview.onclick = function () { previewPublished = !previewPublished; repaint(true); };
-    UI.btnPanel.onclick = function () { openPanel(); };
-    UI.btnDesign.onclick = function () { openDesign(); };
-    UI.btnLib.onclick = function () { openLibrary(); };
-    UI.btnHistory.onclick = function () { openHistory(); };
-    UI.btnPublish.onclick = function () { doPublish(); };
-    UI.btnMore.onclick = function () { openSettings(); };
+    UI.btnUndo.onclick = function () { undoLast(); };
+    UI.btnMore.onclick = function () { openMore(); };
+    /* Bấm vào câu trạng thái: chưa đưa lên được thì đăng nhập, lỗi thì thử lại. */
+    UI.meta.onclick = function () {
+      if (!STUDIO_ON) return;
+      if (SAVE_STATE === 'offline') { openSettings(); return; }
+      if (SAVE_STATE === 'failed') { commitAll(); return; }
+      /* Chỉ gửi khi giáo viên thật sự vừa sửa (DIRTY). So bản nháp với bản nhớ
+         trong máy là sai đường: máy mới mở lần đầu có bản nhớ rỗng, "khác" là
+         giả, gửi đi sẽ xoá mất bài mà máy khác đã đưa lên. */
+      if (DIRTY) commitAll(); else setSaveState('saved');
+    };
     updateBar();
+  }
+
+  /* Nút "Thêm" — mọi thứ khác gom vào một chỗ, gọi tên bằng việc chứ không
+     bằng cơ chế ("Quay lại bản trước", không phải "Bản lưu đã xuất bản"). */
+  function openMore() {
+    if (!STUDIO_ON) toggleStudio(true);
+    var signed = canWrite();
+    var items = [];
+    if (!signed) items.push(['🔐 Đăng nhập để học sinh thấy bài mới', openSettings]);
+    items = items.concat([
+      ['🔎 Tìm câu chữ cần sửa', openPanel],
+      ['🙈 Ẩn / hiện từng phần', openDesign],
+      ['📚 Thư viện thiết kế', openLibrary],
+      ['🕘 Quay lại bản trước', openHistory]
+    ]);
+    if (signed) items.push(['🔐 Đăng nhập / đăng xuất', openSettings]);
+    var list = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' }, [el('h3', { text: '➕ Thêm' })]);
+    if (!signed) {
+      list.appendChild(el('p', { class: 'sah-where', text: 'Máy này chưa đăng nhập nên bài sửa chưa đến tay học sinh.' }));
+    }
+    items.forEach(function (it) {
+      var b = el('button', { class: 'sah-more-item', text: it[0] });
+      b.onclick = function () { closeModal(); it[1](); };
+      list.appendChild(b);
+    });
+    list.appendChild(el('div', { class: 'sah-row' }, [el('button', { class: 'sah-cancel', text: 'Đóng' })]));
+    showModal(list);
   }
 
   /* Mở trang với ?studio=1 mà chưa chọn vai trò thì cổng hỏi "em là ai?" sẽ
@@ -864,7 +1019,7 @@
     if (lsGet('sah_role')) {
       if (!viewableDone) {
         viewableDone = true;
-        toast('Đang mở chế độ sửa: trang xem như khách (không nộp bài).');
+        toast('Đang xem trang như học sinh (không nộp bài).');
       }
       return;
     }
@@ -887,7 +1042,7 @@
       previewPublished = false;
     }
     repaint(true);
-    if (STUDIO_ON) toast('Chế độ sửa đang bật: bấm vào câu chữ trên trang để sửa.');
+    if (STUDIO_ON) toast('Bấm vào câu chữ trên trang để sửa. Sửa xong là học sinh thấy ngay.');
   }
 
   /* --------------------------------------------------------------- bảng danh sách */
@@ -915,14 +1070,14 @@
         (groups[f.grp] = groups[f.grp] || []).push(f);
       });
       var keys = Object.keys(groups);
-      if (!keys.length) { list.appendChild(el('div', { class: 'sah-empty', text: 'Không có ô nào khớp.' })); return; }
+      if (!keys.length) { list.appendChild(el('div', { class: 'sah-empty', text: 'Không tìm thấy câu nào khớp.' })); return; }
       keys.forEach(function (gk) {
         var arr = groups[gk];
         var root = null;
         try { root = resolvePath(gk); } catch (e) { root = null; }
         var h = root ? root.querySelector('h1,h2,h3') : null;
         var name = (h ? norm(h.textContent) : '') || (root && root.id ? '#' + root.id : gk.split('>').slice(-1)[0]);
-        list.appendChild(el('div', { class: 'sah-grp', text: name + ' • ' + arr.length + ' ô' }));
+        list.appendChild(el('div', { class: 'sah-grp', text: name + ' • ' + arr.length + ' câu' }));
         arr.slice(0, 400).forEach(function (f) {
           var edited = !!p.text[f.k];
           var shown = edited ? p.text[f.k].v : f.p;
@@ -931,7 +1086,7 @@
              el('small', { text: (edited ? 'ĐÃ SỬA › ' : '') + f.p.slice(0, 70) })]);
           item.onclick = function () {
             var node = findNode({ path: f.path, i: f.i, p: f.p, v: edited ? p.text[f.k].v : f.p, sec: f.sec, grp: f.grp }) || f.node;
-            if (!node) { toast('Ô này không còn trên trang.', true); return; }
+            if (!node) { toast('Câu này không còn trên trang.', true); return; }
             try { node.parentNode.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
             openEditor(fieldFor(node) || f, node);
           };
@@ -954,7 +1109,7 @@
     q.addEventListener('input', renderList);
 
     UI.panel = el('div', { 'data-sah-ui': '1', id: 'sahPanel' }, [
-      el('header', {}, [el('b', { text: 'Danh sách ô nội dung' }),
+      el('header', {}, [el('b', { text: 'Tìm câu chữ cần sửa' }),
         el('button', { class: 'sah-x', text: '✕' })]),
       el('div', { class: 'sah-search' }, [q, tabs]),
       list
@@ -977,8 +1132,10 @@
         var dd = draft(), pp = pageOf(dd);
         pp.hidden = pp.hidden.filter(function (x) { return x !== b.id; });
         if (!chk.checked) pp.hidden.push(b.id);
+        DIRTY = true;
         saveDraft(dd);
         repaint(true);
+        commitAll();               // ẩn/hiện cũng tự lưu, không cần bấm gì thêm
       };
       fields.appendChild(el('label', { class: 'sah-lib', 'data-sah-ui': '1' }, [
         chk, el('b', {}, [
@@ -988,8 +1145,8 @@
       ]));
     });
     var m = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' }, [
-      el('h3', { text: '🧱 Thiết kế bài học — ẩn / mở từng khối' }),
-      el('p', { text: 'Chọn những khối học sinh nhìn thấy. Khối bị bỏ chọn sẽ bị ẩn sau khi xuất bản; nội dung vẫn còn nguyên và bật lại được bất cứ lúc nào.' }),
+      el('h3', { text: '🙈 Ẩn / hiện từng phần' }),
+      el('p', { text: 'Bỏ chọn phần nào thì học sinh không thấy phần đó nữa. Chữ vẫn còn nguyên, muốn cho hiện lại thì tích vào.' }),
       fields,
       el('div', { class: 'sah-row' }, [el('button', { class: 'sah-cancel', text: 'Đóng' })])
     ]);
@@ -1004,11 +1161,11 @@
     if (!STUDIO_ON) toggleStudio(true);
     var m = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' });
     m.appendChild(el('h3', { text: '📚 Thư viện thiết kế' }));
-    m.appendChild(el('p', { text: 'Lưu bản nháp hiện tại thành một "thiết kế" để dùng lại cho lớp khác, hoặc xuất ra tệp để chia sẻ cho đồng nghiệp.' }));
+    m.appendChild(el('p', { text: 'Cách bài đang sửa thành một "thiết kế" để dùng lại cho lớp khác, hoặc chọn lại một thiết kế đã lưu.' }));
 
     /* lưu bản hiện tại */
     var nameIn = el('input', { type: 'text', placeholder: 'Tên thiết kế, VD: Tiết 2 – 6A1' });
-    m.appendChild(el('h4', { text: 'Lưu bản nháp thành thiết kế' }));
+    m.appendChild(el('h4', { text: 'Cất cách bài đang sửa' }));
     m.appendChild(el('div', { class: 'sah-row' }, [
       nameIn,
       el('button', { class: 'sah-save', text: '💾 Lưu vào thư viện', onclick: function () {
@@ -1019,7 +1176,7 @@
         if (!saveLibrary(l)) { toast('Trình duyệt không cho lưu thư viện.', true); return; }
         nameIn.value = '';
         renderLibs();
-        toast('Đã lưu thiết kế “' + nm + '”.');
+        toast('Đã cất thiết kế “' + nm + '”.');
       } })
     ]));
 
@@ -1029,19 +1186,22 @@
     function renderLibs() {
       var l = library(), keys = Object.keys(l);
       libBox.textContent = '';
-      if (!keys.length) libBox.appendChild(el('div', { class: 'sah-empty', text: 'Thư viện trống. Hãy lưu bản nháp đầu tiên ở trên.' }));
+      if (!keys.length) libBox.appendChild(el('div', { class: 'sah-empty', text: 'Thư viện trống. Hãy cất thiết kế đầu tiên ở trên.' }));
       keys.forEach(function (nm) {
         var n = countText(l[nm]);
         libBox.appendChild(el('div', { class: 'sah-lib', 'data-sah-ui': '1' }, [
+
           el('b', {}, [el('span', { text: nm }),
-            el('small', { text: n + ' ô nội dung • ' + (l[nm].at || '').slice(0, 16).replace('T', ' ') })]),
-          el('button', { text: 'Áp dụng', onclick: function () {
+            el('small', { text: n + ' chỗ sửa • ' + dateText(l[nm].at) })]),
+          el('button', { text: 'Dùng cách này', onclick: function () {
             var d = draft();
             mergeInto(d, l[nm]);
+            DIRTY = true;
             saveDraft(d);
             repaint(true);
             closeModal();
-            toast('Đã áp dụng thiết kế “' + nm + '” vào bản nháp.');
+            commitAll();
+            toast('Đã đổi sang thiết kế “' + nm + '”.');
           } }),
           el('button', { text: 'Xoá', onclick: function () {
             var ll = library(); delete ll[nm]; saveLibrary(ll); renderLibs();
@@ -1050,36 +1210,6 @@
       });
     }
     renderLibs();
-
-    m.appendChild(el('h4', { text: 'Chia sẻ bằng tệp' }));
-    m.appendChild(el('div', { class: 'sah-row' }, [
-      el('button', { text: '⬇ Tải bản nháp (.json)', onclick: function () { download('sah-thiet-ke-' + PAGE + '.json', draft()); } }),
-      (function () {
-        var fi = el('input', { type: 'file', accept: '.json,application/json', style: 'display:none' });
-        fi.onchange = function () {
-          var f = fi.files && fi.files[0];
-          if (!f) return;
-          var fr = new FileReader();
-          fr.onload = function () {
-            try {
-              var obj = JSON.parse(fr.result);
-              if (!obj || !obj.pages) throw new Error('bad');
-              var d = draft();
-              d.pages = d.pages || {};
-              Object.keys(obj.pages).forEach(function (pg) { d.pages[pg] = obj.pages[pg]; });
-              saveDraft(d);
-              repaint(true);
-              closeModal();
-              toast('Đã nhập thiết kế từ tệp.');
-            } catch (e) { toast('Tệp không đúng định dạng thiết kế.', true); }
-          };
-          fr.readAsText(f);
-        };
-        var b = el('button', { text: '⬆ Nhập từ tệp' });
-        b.onclick = function () { fi.click(); };
-        return el('span', { 'data-sah-ui': '1' }, [b, fi]);
-      })()
-    ]));
 
     m.appendChild(el('div', { class: 'sah-row' }, [el('button', { class: 'sah-cancel', text: 'Đóng' })]));
     showModal(m);
@@ -1091,19 +1221,21 @@
         if (!j || !j.designs || !j.designs.length) return;
         var box = el('div', { 'data-sah-ui': '1' });
         m.insertBefore(box, m.querySelector('h4'));
-        var h = el('h4', { text: 'Thiết kế mẫu của bộ công cụ' });
+        var h = el('h4', { text: 'Thiết kế có sẵn của bộ công cụ' });
         m.insertBefore(h, box);
         j.designs.forEach(function (dz) {
           box.appendChild(el('div', { class: 'sah-lib', 'data-sah-ui': '1' }, [
             el('b', {}, [el('span', { text: dz.name }), el('small', { text: dz.desc || '' })]),
-            el('button', { text: 'Áp dụng', onclick: function () {
+            el('button', { text: 'Dùng cách này', onclick: function () {
               var d = draft(), p = pageOf(d);
               d.pages[PAGE] = d.pages[PAGE] || { text: {}, hidden: [] };
               d.pages[PAGE].hidden = (dz.hidden || []).slice();
+              DIRTY = true;
               saveDraft(d);
               repaint(true);
               closeModal();
-              toast('Đã áp dụng thiết kế mẫu “' + dz.name + '”.');
+              commitAll();
+              toast('Đã đổi sang thiết kế “' + dz.name + '”.');
             } })
           ]));
         });
@@ -1141,13 +1273,17 @@
       .catch(function () { return false; });
   }
 
-  /* ------------------------------------------------------------------ cài đặt */
+  /* ------------------------------------------------------------------ đăng nhập */
+  /* Một ô duy nhất. Giáo viên không cần biết cookie, mã hay phiên là gì — chỉ
+     cần biết "máy này đã đăng nhập hay chưa". Những thứ kỹ thuật (đổi máy chủ,
+     mã cho script) vẫn còn nhưng giấu trong mục Nâng cao, dành cho người viết
+     script chứ không dành cho giáo viên. */
   function openSettings() {
     var c = cfg();
     var pw = el('input', { type: 'password', autocomplete: 'current-password',
                            placeholder: 'Mật khẩu do tổ chuyên môn đặt' });
     var api = el('input', { type: 'text', value: c.api || '',
-                            placeholder: 'Để trống nếu xuất bản ngay trên máy chủ này' });
+                            placeholder: 'Để trống nếu dùng máy chủ của trường' });
     var tok = el('input', { type: 'password', value: c.token || '',
                             placeholder: 'Mã xuất bản (chỉ cần cho script)' });
     var state = el('p', { class: 'sah-where' });
@@ -1156,15 +1292,15 @@
 
     function paint() {
       state.textContent = SIGNED_IN
-        ? 'Đã đăng nhập trên máy này' + (SESSION_UNTIL ? ' (tới ' + whenText(SESSION_UNTIL) + '), không cần nhập lại.' : '.')
-        : 'Chưa đăng nhập — cần đăng nhập mới xuất bản được cho học sinh.';
+        ? 'Máy này đã đăng nhập. Mọi thay đổi tự động đến tay học sinh.'
+        : 'Máy này chưa đăng nhập. Học sinh chưa thấy thay đổi nào cho tới khi đăng nhập.';
       btnIn.style.display = SIGNED_IN ? 'none' : '';
       btnOut.style.display = SIGNED_IN ? '' : 'none';
     }
 
     btnIn.onclick = function () {
       var v = pw.value;
-      if (!v) { toast('Hãy nhập mật khẩu giáo viên.', true); return; }
+      if (!v) { toast('Hãy nhập mật khẩu.', true); return; }
       btnIn.disabled = true;
       btnIn.textContent = 'Đang đăng nhập…';
       fetch(apiUrl('/api/login'), {
@@ -1184,7 +1320,10 @@
       }).then(function (ok) {
         if (!ok) throw new Error('máy chủ nhận mật khẩu nhưng không lưu được phiên');
         paint();
-        toast('Đã đăng nhập. Những lần sau máy này không phải nhập lại.');
+        toast('Đã đăng nhập. Từ giờ máy này không phải nhập lại.');
+        /* Đăng nhập xong thì đưa ngay những gì đang chờ lên — giáo viên sửa
+           bài trước rồi mới đăng nhập là chuyện thường. */
+        commitAll();
       }).catch(function (err) {
         toast('Không đăng nhập được: ' + err.message, true);
       }).then(function () {
@@ -1201,27 +1340,27 @@
         SIGNED_IN = false;
         SESSION_UNTIL = '';
         paint();
-        updateBar();
+        setSaveState('offline');   // máy này không gửi được gì cho tới khi đăng nhập lại
         toast('Đã đăng xuất khỏi máy này.');
       });
     };
 
     var m = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' }, [
       el('h3', { text: '🔐 Đăng nhập giáo viên' }),
-      el('p', { text: 'Học sinh đọc tệp content/published.json. Giáo viên đăng nhập một lần rồi máy chủ nhớ máy này bằng cookie bảo mật, nên không phải dán mã xuất bản. Không đăng nhập được thì bộ công cụ vẫn cho tải tệp .json để tự chép lên máy chủ.' }),
+      el('p', { text: 'Nhập mật khẩu của tổ chuyên môn một lần. Máy này sẽ nhớ, lần sau không phải nhập lại — và mọi thay đổi tự động đến tay học sinh.' }),
       state,
-      el('label', {}, [el('span', { text: 'Mật khẩu giáo viên' }), pw]),
+      el('label', {}, [el('span', { text: 'Mật khẩu' }), pw]),
       el('details', {}, [
-        el('summary', { text: 'Nâng cao: máy chủ khác / dùng mã xuất bản' }),
-        el('label', {}, [el('span', { text: 'Địa chỉ API (bỏ trống = cùng máy chủ)' }), api]),
-        el('label', {}, [el('span', { text: 'Mã xuất bản (chỉ cần cho script)' }), tok])
+        el('summary', { text: 'Nâng cao (không cần cho giáo viên)' }),
+        el('label', {}, [el('span', { text: 'Địa chỉ máy chủ khác (bỏ trống = máy chủ này)' }), api]),
+        el('label', {}, [el('span', { text: 'Mã xuất bản cho script' }), tok])
       ]),
       el('div', { class: 'sah-row' }, [
         btnIn, btnOut,
         el('button', { class: 'sah-save', text: 'Lưu cài đặt', onclick: function () {
           saveCfg({ api: norm(api.value), token: tok.value });
           toast('Đã lưu cài đặt.');
-          checkSession().then(paint);
+          checkSession().then(function (ok) { paint(); if (ok) commitAll(); });
         } }),
         el('button', { class: 'sah-cancel', text: 'Đóng' })
       ])
@@ -1243,82 +1382,7 @@
   }
   function closeModal() { if (UI.modal) { UI.modal.remove(); UI.modal = null; } }
 
-  function download(name, obj) {
-    try {
-      var blob = new Blob([JSON.stringify(obj, null, 1)], { type: 'application/json' });
-      var a = D.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = name;
-      D.body.appendChild(a);
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
-    } catch (e) { toast('Không tải được tệp.', true); }
-  }
-
-  /* ------------------------------------------------------------------ xuất bản */
-  function doPublish() {
-    var d = draft(), pub = published();
-    var ch = changedKeys(d, pub);
-    var n = Object.keys(ch).length;
-    if (!n) { toast('Không có thay đổi nào để xuất bản.'); return; }
-    if (!canWrite()) {
-      toast('Cần đăng nhập giáo viên để xuất bản.', true);
-      openSettings();
-      return;
-    }
-    var payload = {
-      page: PAGE,
-      text: (pageOf(d).text) || {},
-      hidden: (pageOf(d).hidden) || [],
-      at: nowISO(),
-      by: 'teacher'
-    };
-    toast('Đang xuất bản…');
-    fetch(apiUrl('/api/content'), {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: apiHeaders(true),
-      body: JSON.stringify(payload)
-    }).then(function (r) {
-      return r.text().then(function (t) { return { ok: r.ok, status: r.status, body: t }; });
-    }).then(function (r) {
-      if (!r.ok) throw new Error(r.status + ' ' + r.body.slice(0, 200));
-      var saved = null;
-      try { saved = JSON.parse(r.body); } catch (e) {}
-      var store = published();
-      store.at = (saved && saved.at) || payload.at;
-      store.pages = store.pages || {};
-      store.pages[PAGE] = { text: payload.text, hidden: payload.hidden };
-      writeJSON(K.cache, store);
-      var dd = draft();
-      dd.sid = store.at;
-      saveDraft(dd);
-      repaint(true);
-      toast('Đã xuất bản. Học sinh mở trang là thấy nội dung mới.');
-    }).catch(function (err) {
-      var m = String(err.message || '');
-      if (m.indexOf('401') === 0) {
-        SIGNED_IN = false;
-        toast('Chưa đăng nhập hoặc phiên đã hết hạn — mở 🔐 để đăng nhập lại.', true);
-        openSettings();
-        return;
-      }
-      toast('Không xuất bản được: ' + m + ' — bạn có thể ⬇ tải tệp .json để tải lên máy chủ.', true);
-      offerDownload();
-    });
-  }
-
-  function offerDownload() {
-    var m = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' }, [
-      el('h3', { text: '⬇ Tải thiết kế để tải lên máy chủ' }),
-      el('p', { text: 'Máy chủ chưa nhận bài. Tải tệp dưới đây và chép vào thư mục content/published.json trên máy chủ (hoặc nhờ quản trị làm giúp), rồi tải lại trang.' }),
-      el('div', { class: 'sah-row' }, [
-        el('button', { class: 'sah-save', text: '⬇ Tải content/published.json', onclick: function () { download('published.json', draft()); closeModal(); } }),
-        el('button', { class: 'sah-cancel', text: 'Đóng' })
-      ])
-    ]);
-    showModal(m);
-  }
+  /* ------------------------------------------------------- quay lại bản trước */
 
   /* --------------------------------------------------- bản lưu & quay lại */
   /* Xuất bản sai thì phải lùi được. Máy chủ đã giữ sẵn bản cũ trước mỗi lần
@@ -1326,6 +1390,13 @@
      cụ không có đường nào tới đó — giáo viên xuất bản nhầm là hết cách. Nút
      này mở đúng hai đường dẫn đã có: GET /api/content/history và
      POST /api/content/restore. */
+  /* Ngày tháng theo kiểu người Việt đọc, không phải ISO. */
+  function dateText(iso) {
+    if (!iso) return 'không rõ ngày';
+    var s = String(iso).slice(0, 10).split('-');
+    return s.length === 3 ? s[2] + '/' + s[1] + '/' + s[0] : String(iso);
+  }
+
   function whenText(iso) {
     if (!iso) return '(không rõ thời điểm)';
     var d = new Date(iso);
@@ -1337,15 +1408,15 @@
 
   function openHistory() {
     if (!canWrite()) {
-      toast('Cần đăng nhập giáo viên để xem và quay lại bản lưu.', true);
+      toast('Cần đăng nhập giáo viên mới quay lại được bản trước.', true);
       openSettings();
       return;
     }
     var box = el('div', { 'data-sah-ui': '1' });
-    box.appendChild(el('p', { class: 'sah-where', text: 'Đang tải danh sách bản lưu…' }));
+    box.appendChild(el('p', { class: 'sah-where', text: 'Đang tải…' }));
     var m = el('div', { class: 'sah-mcard', 'data-sah-ui': '1' }, [
-      el('h3', { text: '↩️ Bản lưu đã xuất bản' }),
-      el('p', { text: 'Mỗi lần xuất bản, máy chủ giữ lại bản trước đó (60 bản gần nhất). Chọn một bản để đưa học sinh về đúng bản ấy. Lưu ý: bản nháp đang sửa trên máy này sẽ được thay bằng bản lưu được chọn.' }),
+      el('h3', { text: '🕘 Quay lại bản trước' }),
+      el('p', { text: 'Chọn thời điểm muốn quay lại. Học sinh sẽ thấy đúng bài ở thời điểm đó, còn những gì đang sửa trên máy này sẽ được thay bằng bản đó.' }),
       box,
       el('div', { class: 'sah-row' }, [
         el('button', { class: 'sah-cancel', text: 'Đóng' })
@@ -1360,19 +1431,17 @@
         box.innerHTML = '';
         var items = (j && j.revisions) || [];
         if (!items.length) {
-          box.appendChild(el('p', { class: 'sah-where', text: 'Chưa có bản lưu nào. Bản lưu đầu tiên xuất hiện từ lần xuất bản thứ hai — lúc đó máy chủ mới có bản cũ để giữ lại.' }));
+          box.appendChild(el('p', { class: 'sah-where', text: 'Chưa có bản nào để quay lại. Bản đầu tiên sẽ có sau lần sửa thứ hai.' }));
           return;
         }
         items.forEach(function (it) {
-          var pages = (it.pages && it.pages.length) ? it.pages.join(', ') : '—';
-          var kb = (it.size || 0) / 1024;
-          var size = kb < 1 ? 'dưới 1 KB' : Math.round(kb) + ' KB';
+          var pages = (it.pages || []).length;
           var btn = el('button', { text: '↩️ Quay lại' });
           btn.onclick = function () { doRestore(it, btn); };
           box.appendChild(el('div', { class: 'sah-lib', 'data-sah-ui': '1' }, [
             el('b', {}, [
               el('span', { text: whenText(it.at) }),
-              el('small', { text: 'Trang: ' + pages + ' • ' + size })
+              el('small', { text: pages > 1 ? 'gồm cả ' + pages + ' trang của bài' : 'bản trước của trang này' })
             ]),
             btn
           ]));
@@ -1380,13 +1449,14 @@
       })
       .catch(function (err) {
         box.innerHTML = '';
-        box.appendChild(el('p', { class: 'sah-where', text: 'Không tải được danh sách bản lưu: ' + err.message }));
+        box.appendChild(el('p', { class: 'sah-where', text: 'Không tải được danh sách: ' + err.message }));
       });
   }
 
   function doRestore(rev, btn) {
     if (!canWrite()) { toast('Cần đăng nhập giáo viên.', true); openSettings(); return; }
     if (btn) { btn.disabled = true; btn.textContent = 'Đang quay lại…'; }
+    lastUndo = null;
     fetch(apiUrl('/api/content/restore'), {
       method: 'POST',
       credentials: 'same-origin',
@@ -1408,7 +1478,8 @@
           }
           repaint(true);
           closeModal();
-          toast('Đã quay lại bản lưu. Học sinh mở trang là thấy bản này.');
+          setSaveState('saved');
+          toast('Đã quay lại bản trước. Học sinh mở trang là thấy bản này.');
         });
     }).catch(function (err) {
       if (btn) { btn.disabled = false; btn.textContent = '↩️ Quay lại'; }
@@ -1482,6 +1553,7 @@
     resolveReport();
     var moved = 0;
     try { moved = migrateSahed(); } catch (e) {}
+    if (moved) DIRTY = true;    // bản sửa cũ vừa được mang sang: còn phải gửi đi
 
     if (inStudio()) {
       buildBar();
@@ -1491,7 +1563,10 @@
       STUDIO_ON = true;
       ensureDraftSeeded();
       repaint(true);
-      checkSession();          // máy nào đã đăng nhập thì nhớ luôn, không hỏi lại
+      /* Máy nào đã đăng nhập thì nhớ luôn, không hỏi lại — và nếu còn thay đổi
+         chưa đến tay học sinh (sửa lúc chưa đăng nhập, hoặc bản sửa cũ vừa
+         được chuyển sang) thì đưa lên luôn, không bắt giáo viên bấm gì. */
+      checkSession().then(afterSession);
     }
 
     /* 2. tải bản mới nhất từ máy chủ rồi đắp lại
@@ -1515,7 +1590,12 @@
     startObserver();
     repaint(true);
 
-    if (moved && inStudio()) toast('Đã chuyển ' + moved + ' bản sửa hotspot cũ vào bản nháp.');
+    if (moved && inStudio()) toast('Đã mang ' + moved + ' chỗ sửa cũ sang bộ công cụ này.');
+
+    /* Đóng tab / chuyển trang khi hộp sửa đang mở: lưu ngay, đừng để mất chữ. */
+    window.addEventListener('pagehide', function () {
+      if (UI.editCommit) { try { UI.editCommit(); } catch (e) {} }
+    });
 
     D.addEventListener('click', onClickDoc, true);
     D.addEventListener('mousemove', onHoverDoc, true);
@@ -1548,6 +1628,11 @@
     checkSession: checkSession,
     signedIn: function () { return SIGNED_IN; },
     editField: editField,
+    /* Dùng cho kiểm tra tự động: lưu + đưa lên ngay, không cần bấm nút nào. */
+    save: commitAll,
+    undo: undoLast,
+    more: openMore,
+    saveState: function () { return SAVE_STATE; },
     setStudioAlways: function (on) {
       if (on) lsSet('sah_content_studio_always', '1'); else lsSet('sah_content_studio_always', '0');
     },

@@ -108,6 +108,22 @@ smart-art-heritage/
 └── assets/                     # Ảnh di sản, dữ liệu heritage
 ```
 
+## 🧱 Sinh lại `index.html`
+
+`index.html` **được sinh ra, không viết tay**. Tệp nguồn là bản gốc tổng hợp mới nhất
+(`new 9_10_2026.html` — đã gồm trình sửa hotspot `sahed`, mục `#p321V312`, bản vá nội dung
+AI 5A và các khối trợ giúp `<details>`):
+
+```bash
+python3 tools/build_index.py
+```
+
+Script sẽ thay 155 ảnh base64 bằng ảnh thật trong `assets/extracted/`, bỏ khối `#auditV311`,
+phục hồi phần mà bản gốc làm mất (chọn “lần thử” trong Xưởng phác thảo, chỉ số gói 3–2–1),
+kiểm tra mọi sửa lỗi của bản gốc còn nguyên, rồi nối `js/restored-modules.js` và phần nối
+`#journey39` vào cuối trang. Script tự báo lỗi nếu bản gốc thiếu hoặc khác đi — vì vậy hãy
+sửa ở bản gốc rồi chạy lại, **đừng sửa trực tiếp `index.html`**.
+
 ## 📄 Giấy phép
 
 Dự án phục vụ dạy và học. © 2026 Smart Art Heritage — Hệ sinh thái Mĩ thuật số di sản Việt Nam.

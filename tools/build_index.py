@@ -29,6 +29,13 @@ ROOT = "/Users/tysontran/Desktop/Smart Art Heritage"
 REF = os.path.join(ROOT, "new 9_10_2026.html")
 OUT = os.path.join(ROOT, "index.html")
 
+if not os.path.isfile(REF):
+    sys.exit(
+        "Missing the build source:\n  %s\n"
+        "index.html is generated from it — restore the file (or point REF at the\n"
+        "right master in tools/build_index.py) and run this again." % REF
+    )
+
 # --------------------------------------------------------------------------
 # 1. base64 -> real asset paths
 # --------------------------------------------------------------------------

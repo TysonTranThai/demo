@@ -568,6 +568,56 @@ src = src.replace(
     '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">\n'
     "<title>", 1)
 
+# --------------------------------------------------------------------------
+# 6. the teacher content studio (sửa câu hỏi → xuất bản cho học sinh)
+# --------------------------------------------------------------------------
+# It must load from <head>, not the end of <body>: only then can it hide the
+# blocks that carry a teacher edit before the browser paints them, so students
+# never see the old wording flash on top of the new one.
+studio_js = os.path.join(ROOT, "js", "content-studio.js")
+if not os.path.isfile(studio_js):
+    sys.exit(
+        "Missing js/content-studio.js — index.html would load a studio that is not there.\n"
+        "Restore the file and run this again."
+    )
+studio_hash = hashlib.md5(open(studio_js, "rb").read()).hexdigest()[:10]
+studio_tag = '<script src="js/content-studio.js?v=%s"></script>\n' % studio_hash
+assert src.count("<head>") == 1, "expected exactly one <head>"
+_head_end = src.index("<head>") + len("<head>")
+src = src[: _head_end] + "\n" + studio_tag + src[_head_end :]
+print("  injected js/content-studio.js?v=%s into <head>" % studio_hash)
+
+assert src.index(studio_tag) < src.index("</head>"), \
+    "the studio loader must be inside <head>"
+
+# trien-lam.html is hand-maintained, so keep its loader version in step here
+# rather than leaving a hand-typed hash to go stale after the next edit to
+# js/content-studio.js.
+for _page in ("trien-lam.html",):
+    _path = os.path.join(ROOT, _page)
+    if not os.path.isfile(_path):
+        continue
+    _html = open(_path, encoding="utf-8").read()
+    _synced, _n = re.subn(r"js/content-studio\.js\?v=[0-9a-f]+",
+                          "js/content-studio.js?v=" + studio_hash, _html)
+    assert _n == 1, "expected exactly one studio loader in %s, found %d" % (_page, _n)
+    if _synced != _html:
+        open(_path, "w", encoding="utf-8").write(_synced)
+    print("  %s studio loader is on the same hash (%s)" % (_page, studio_hash))
+expect('js/content-studio.js?v=%s' % studio_hash in src,
+       "the teacher content studio loader is in <head>, cache-busted by its own hash")
+# The studio is useless if the file it reads and the file the server writes are
+# not the same path, so prove they agree instead of trusting the naming.
+_studio_src = open(studio_js, encoding="utf-8").read()
+assert "CONTENT_URL = 'content/published.json'" in _studio_src, \
+    "content-studio.js no longer reads content/published.json"
+assert "'/api/content'" in _studio_src, "content-studio.js no longer posts to /api/content"
+_api_src = open(os.path.join(ROOT, "tools", "content_api.py"), encoding="utf-8").read()
+assert 'PUBLISHED = os.path.join(DATA_DIR, "published.json")' in _api_src, \
+    "content_api.py no longer writes content/published.json"
+expect(True, "the studio reads and the API writes the same content/published.json")
+
+# --------------------------------------------------------------------------
 assert src.count(anchor) == 1, "expected exactly one </body>, found %d" % src.count(anchor)
 
 # --------------------------------------------------------------------------

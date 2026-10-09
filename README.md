@@ -104,6 +104,11 @@ smart-art-heritage/
 ├── giao-vien.html              # Quản trị cho giáo viên
 ├── css/smart-art-heritage.css  # Toàn bộ giao diện (giao diện "bảo tàng sáng")
 ├── js/smart-art-heritage.js    # Engine dùng chung
+├── js/content-studio.js        # Bộ sửa nội dung cho giáo viên (xem mục dưới)
+├── content/published.json      # Bản giáo viên đã xuất bản — học sinh đọc tệp này
+├── content/library/designs.json# Thư viện thiết kế mẫu đóng gói kèm
+├── tools/build_index.py        # Sinh index.html từ bản gốc
+├── tools/content_api.py        # API nhỏ để "Xuất bản" (thư viện chuẩn Python)
 ├── 3d/                         # Mô hình & texture 3D
 └── assets/                     # Ảnh di sản, dữ liệu heritage
 ```
@@ -123,6 +128,142 @@ phục hồi phần mà bản gốc làm mất (chọn “lần thử” trong X
 kiểm tra mọi sửa lỗi của bản gốc còn nguyên, rồi nối `js/restored-modules.js` và phần nối
 `#journey39` vào cuối trang. Script tự báo lỗi nếu bản gốc thiếu hoặc khác đi — vì vậy hãy
 sửa ở bản gốc rồi chạy lại, **đừng sửa trực tiếp `index.html`**.
+
+## ✏️ Giáo viên sửa nội dung & xuất bản cho học sinh
+
+Giáo viên sửa trực tiếp câu hỏi, nhiệm vụ, gợi ý và tiêu đề trên trang học sinh, lưu nháp,
+rồi bấm **Xuất bản** để cả lớp đọc được nội dung mới — không cần sửa mã, không cần sinh lại trang.
+
+Mở bộ công cụ bằng một trong hai cách:
+
+- Trang Quản Trị → nút **✏️ Nội dung & thiết kế**
+- Hoặc mở thẳng `index.html?studio=1` (cũng dùng được cho `trien-lam.html?studio=1`)
+
+### Thanh công cụ
+
+| Nút | Việc nó làm |
+|---|---|
+| **✏️ Sửa nội dung** | Bật/tắt chế độ sửa. Khi bật, rà chuột thấy ô nào sửa được, bấm vào là mở hộp sửa. Phím tắt: `Ctrl/Cmd + Shift + E` |
+| **👁 Xem trước** | Xem đúng những gì học sinh đang thấy (bản đã xuất bản) thay vì bản nháp |
+| **📋 Danh sách ô** | Liệt kê mọi ô nội dung theo từng khối, có ô tìm kiếm và bộ lọc “Đã sửa” |
+| **🧱 Thiết kế** | Ẩn/mở từng khối của hành trình cho phù hợp từng tiết học |
+| **📚 Thư viện** | Lưu bản nháp thành “thiết kế” dùng lại, áp dụng thiết kế mẫu hoặc của đồng nghiệp, tải/nhập tệp `.json` |
+| **↩️ Bản lưu** | Danh sách các bản đã xuất bản trước đó, kèm nút **Quay lại** để đưa học sinh về đúng bản ấy khi lần xuất bản vừa rồi sai |
+| **🚀 Xuất bản** | Đẩy bản nháp lên máy chủ để học sinh nhận ngay |
+| **🔐** | Đăng nhập giáo viên (nút đổi thành 🔐 khi máy này chưa đăng nhập). Mục “Nâng cao” giữ địa chỉ API và mã xuất bản cho script |
+
+### Cách hoạt động (và vì sao đáng tin)
+
+- **Sửa theo ô chữ, không phải cả khối.** Một câu hỏi thường nằm lẫn với `<b>`, `<textarea>`,
+  `<details>`; bộ công cụ chỉ đổi đúng đoạn chữ nên cấu trúc trang giữ nguyên.
+- **Mỗi ô gắn với nội dung gốc của nó.** Bản sửa chỉ áp dụng khi nội dung gốc vẫn còn nguyên ở
+  đúng chỗ. Nhờ vậy sửa câu hỏi gói 1 của Phố Hiến sẽ không dán nhầm sang gói của Chùa Keo, và
+  nếu sau này bản gốc đổi chữ thì bản sửa “trượt” — thanh công cụ báo rõ *“N ô không còn khớp”*
+  chứ không âm thầm sửa sai.
+- **Nội dung do JavaScript sinh ra vẫn giữ bản sửa.** Khi học sinh đổi dự án/gói, câu hỏi bị vẽ
+  lại từ dữ liệu; bộ công cụ đắp bản sửa trở lại ngay trong cùng nhịp nên không thấy nội dung cũ.
+- **Không nháy nội dung cũ.** Bản đã xuất bản được nhớ trên máy người xem và áp dụng trước khi
+  trình duyệt vẽ trang.
+- **Nháp ở máy giáo viên, bản đã xuất bản ở máy chủ.** Học sinh chỉ đọc `content/published.json`,
+  chưa bấm Xuất bản thì học sinh chưa thấy gì đổi.
+
+### Xuất bản
+
+```bash
+# Cài dịch vụ (một lần, trên máy chủ có nginx). Dịch vụ chạy dưới tài khoản www-data,
+# nên tệp mã PHẢI thuộc www-data VÀ thư mục /etc/sah-content-api phải cho www-data
+# đi qua. Thiếu một trong hai thì mọi lần xuất bản trả về 503 dù mã đã đúng.
+install -d -m 755 -o root -g root /opt/sah-content-api
+install -m 755 tools/content_api.py /opt/sah-content-api/content_api.py
+install -d -m 750 -o root -g www-data /etc/sah-content-api
+install -o www-data -g www-data -m 600 content/.publish-token.local /etc/sah-content-api/token
+# Mật khẩu chung của tổ giáo viên (xem mục “Đăng nhập” bên dưới)
+install -o www-data -g www-data -m 600 content/.teacher-password.local /etc/sah-content-api/password
+install -d -m 755 -o www-data -g www-data /var/www/smart-art-heritage/content/history
+cp tools/sah-content-api.service /etc/systemd/system/
+systemctl daemon-reload && systemctl enable --now sah-content-api
+systemctl is-active sah-content-api && curl -s 127.0.0.1:8788/api/health
+```
+
+Khối dịch vụ đầy đủ nằm ở `tools/sah-content-api.service`. Dịch vụ chỉ nghe trên
+`127.0.0.1:8788`, nginx chuyển tiếp tại `/api/`. Cần thêm vào máy chủ:
+
+```nginx
+# ^~ để quy tắc chặn tệp ẩn ở dưới KHÔNG chặn mất đường gia hạn chứng chỉ TLS
+location ^~ /.well-known/acme-challenge/ { root /var/www/html; }
+location /api/ { proxy_pass http://127.0.0.1:8788; client_max_body_size 4m; }
+location = /content/published.json { add_header Cache-Control "no-cache, must-revalidate"; }
+# không bao giờ phục vụ tệp ẩn (content/.publish-token.local là mã xuất bản!)
+location ~ (^|/)\. { deny all; }
+# bản lưu cũ chỉ xem qua /api/content/history, không xem qua HTTP
+location ^~ /content/history/ { deny all; }
+```
+
+Mẫu `(^|/)\.` chỉ khớp dấu chấm **ngay sau** dấu `/` hoặc đầu chuỗi, nên
+`/js/content-studio.js` và `/assets/…` vẫn phục vụ bình thường. Đừng dùng `location ~ /\.`
+(mọi đường dẫn đều khớp) và đừng bỏ `^~` ở dòng ACME — bỏ đi thì việc gia hạn chứng chỉ TLS
+sẽ hỏng trong im lặng.
+
+| Đường dẫn | Việc |
+|---|---|
+| `GET /api/health` | Trạng thái dịch vụ |
+| `GET /api/session` | Máy này đã đăng nhập chưa, và phiên còn tới khi nào |
+| `POST /api/login` | Đổi mật khẩu giáo viên lấy cookie đăng nhập |
+| `POST /api/logout` | Xoá phiên trên máy đang dùng |
+| `GET /api/content` | Bản đã xuất bản |
+| `POST /api/content` | Ghi nội dung một trang — **cần `Authorization: Bearer <mã>`** |
+| `GET /api/content/history` | Danh sách bản lưu cũ |
+| `POST /api/content/restore` | Quay lại một bản lưu cũ |
+
+### 🔐 Đăng nhập giáo viên — không phải dán mã mỗi máy
+
+Giáo viên **không** dán mã xuất bản. Mở **🔐** và nhập **mật khẩu chung của tổ chuyên môn** một
+lần trên mỗi máy: máy chủ trả về cookie `HttpOnly`, nên **trình duyệt** (không phải trang web) giữ
+phiên trong 90 ngày và JavaScript không đọc được phiên đó. Những lần sau mở trang là đã đăng nhập
+sẵn; nút **Đăng xuất máy này** nằm ngay trong hộp thoại.
+
+```bash
+# Sinh mật khẩu dễ đọc cho tổ chuyên môn rồi cài lên máy chủ
+python3 -c "import secrets;w='sen-lua-to-dong-cham-bac-trong-nuoc-huong-mai-que'.split('-');print('-'.join(secrets.choice(w) for _ in range(4))+'-'+str(secrets.randbelow(90)+10))" > content/.teacher-password.local
+install -o www-data -g www-data -m 600 content/.teacher-password.local /etc/sah-content-api/password
+systemctl restart sah-content-api && curl -s 127.0.0.1:8788/api/health
+```
+
+Đổi mật khẩu: ghi lại `/etc/sah-content-api/password` rồi `systemctl restart sah-content-api`.
+Cách này **không** thu hồi các phiên đã cấp, nên nếu nghi mật khẩu bị lộ thì xoá
+`/var/lib/sah-content-api/sessions.json` và khởi động lại — khi đó mọi máy phải đăng nhập lại.
+
+Vài điểm an toàn đã kiểm chứng trên chính máy chủ này:
+
+- Cookie có `HttpOnly` + `SameSite=Lax` + `Path=/api`, phiên 90 ngày.
+- Vì trình duyệt tự gửi cookie kèm mọi yêu cầu, thay đổi chỉ được nhận khi yêu cầu đến từ chính
+  trang này: gửi kèm `Origin` lạ bị **403** (chống CSRF). Script đi bằng mã Bearer không dính.
+- Nhập sai quá 12 lần trong 5 phút → **429**.
+- Phiên nằm ở `/var/lib/sah-content-api/sessions.json`, **ngoài** thư mục web phục vụ, và không
+  bao giờ nằm trong `localStorage` của giáo viên.
+
+Mã xuất bản ở `content/.publish-token.local` (**đã bị `.gitignore` bỏ qua** — không commit, không
+dán vào chat) vẫn dùng được cho script: nhập vào mục **⚙️ → Nâng cao**, hoặc gửi
+`Authorization: Bearer <mã>`. Đổi mã: sửa `/etc/sah-content-api/token` rồi `systemctl restart
+sah-content-api`.
+
+Mỗi lần xuất bản đều lưu một bản cũ vào `content/history/` (giữ 60 bản gần nhất) để còn quay lại.
+Ghi tệp theo kiểu “tệp tạm rồi đổi tên”, nên học sinh đang tải trang không bao giờ đọc phải tệp dở.
+
+Nếu chưa cài API, nút **Xuất bản** sẽ mời tải tệp `.json` để tự chép lên máy chủ — bộ công cụ
+vẫn dùng được đầy đủ ở chế độ nháp.
+
+### Giới hạn cần biết
+
+- **Bản nháp nằm trên máy giáo viên** (localStorage). Muốn dùng ở máy khác, lưu vào Thư viện rồi
+  ⬇ tải tệp, hoặc đăng nhập cùng trình duyệt đó.
+- **Bản đã xuất bản là dùng chung**: một tệp `content/published.json` cho cả trường, không tách
+  theo lớp. Giáo viên dạy song song nên thống nhất nội dung trước khi bấm Xuất bản.
+- **Bản trên GitHub Pages** chỉ đọc được, không ghi được: muốn xuất bản từ đó thì nhập địa chỉ máy
+  chủ vào **⚙️ → Nâng cao** (máy chủ đã cho phép CORS cho tên miền Pages). Lưu ý cookie đăng nhập
+  **không** đi qua tên miền khác, nên ở bản Pages phải dùng mã xuất bản chứ không đăng nhập được.
+- **Phiên đăng nhập là theo máy.** Đổi mật khẩu không tự đăng xuất các máy đang nhớ phiên; muốn
+  thu hồi hết thì xoá `/var/lib/sah-content-api/sessions.json` rồi khởi động lại dịch vụ.
 
 ## 📄 Giấy phép
 

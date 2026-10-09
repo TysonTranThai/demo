@@ -1,0 +1,40 @@
+[Unit]
+Description=Smart Art Heritage - API xuat ban noi dung cho giao vien
+Documentation=file:/opt/sah-content-api/content_api.py
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# The service runs unprivileged. The token file must be readable by this user
+# AND /etc/sah-content-api must be traversable by it (750 root:www-data) —
+# a 700 root-owned directory makes every publish fail with a 503 even though
+# the token file itself is owned by www-data.
+User=www-data
+Group=www-data
+Environment=SAH_HOST=127.0.0.1
+Environment=SAH_PORT=8788
+Environment=SAH_DATA_DIR=/var/www/smart-art-heritage/content
+Environment=SAH_TOKEN_FILE=/etc/sah-content-api/token
+# Teacher sign-in: one shared password, exchanged for an HttpOnly cookie so
+# nobody has to paste the publish token per browser. Keep this file readable
+# by www-data and 750 root:www-data on the directory.
+Environment=SAH_PASSWORD_FILE=/etc/sah-content-api/password
+# Sessions MUST live outside the served webroot. StateDirectory below makes
+# systemd create /var/lib/sah-content-api owned by the service user and
+# writable even though ProtectSystem=full is on.
+Environment=SAH_STATE_DIR=/var/lib/sah-content-api
+# Origins allowed to publish from another domain (the GitHub Pages mirror).
+Environment=SAH_ORIGINS=https://demo.tysontranthai.site,https://smartart.tysontranthai.site,https://tysontranthai.github.io,http://15.235.206.136
+ExecStart=/usr/bin/python3 /opt/sah-content-api/content_api.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+StateDirectory=sah-content-api
+ReadWritePaths=/var/www/smart-art-heritage/content
+
+[Install]
+WantedBy=multi-user.target

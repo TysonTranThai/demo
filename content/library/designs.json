@@ -1,0 +1,30 @@
+{
+ "v": 1,
+ "note": "Thiết kế mẫu đóng gói kèm bộ công cụ. `hidden` là danh sách id khối sẽ bị ẩn với học sinh sau khi xuất bản.",
+ "designs": [
+  {
+   "id": "full",
+   "name": "Toàn bộ hành trình (mặc định)",
+   "desc": "Mở tất cả các chặng: Khám phá → Phiếu 3–2–1 → AI 5A → Phác thảo → Tác phẩm → Trưng bày.",
+   "hidden": []
+  },
+  {
+   "id": "tiet-1",
+   "name": "Tiết 1 — Quan sát & khám phá di sản",
+   "desc": "Chỉ mở phần Khám phá và Phiếu 3–2–1. Ẩn các chặng sáng tạo để học sinh tập trung quan sát.",
+   "hidden": ["sah-ai5a-studio", "sketchV25", "artV33", "exhibitV38", "journey39", "direct321-module"]
+  },
+  {
+   "id": "tiet-2",
+   "name": "Tiết 2 — Hình thành ý tưởng cá nhân",
+   "desc": "Mở Phiếu 3–2–1, AI 5A và Xưởng phác thảo. Ẩn phần tác phẩm và trưng bày.",
+   "hidden": ["artV33", "exhibitV38", "journey39", "direct321-module"]
+  },
+  {
+   "id": "tiet-3",
+   "name": "Tiết 3 — Tác phẩm & trưng bày",
+   "desc": "Mở Bàn thực hành, Trưng bày và Hồ sơ hành trình. Ẩn kho câu hỏi để học sinh tập trung hoàn thiện tác phẩm.",
+   "hidden": ["sah321-integrated", "direct321-module", "sah-ai5a-studio", "p321V312"]
+  }
+ ]
+}

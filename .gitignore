@@ -1,3 +1,6 @@
 .DS_Store
 .freebuff/
 __pycache__/
+content/.publish-token.local
+content/.teacher-password.local
+content/history/

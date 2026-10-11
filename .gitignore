@@ -4,3 +4,6 @@ __pycache__/
 content/.publish-token.local
 content/.teacher-password.local
 content/history/
+*.mp4
+tools/*.png
+

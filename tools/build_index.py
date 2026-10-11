@@ -177,6 +177,7 @@ TRAILING_HTML = src[p_p321_end:src.find('</body>')]
 
 p_header_end = src.find('</header>') + len('</header>')
 HEADER_HTML = src[:p_header_end]
+HEADER_HTML = HEADER_HTML.replace('<body>', '<body class="slide-mode">', 1)
 
 # Read Map SVG
 map_svg_path = os.path.join(ROOT, "assets", "heritage", "map_hung_yen.svg")
@@ -2456,7 +2457,8 @@ document.addEventListener('DOMContentLoaded', function() {
   window.goToSlide = goToSlide;
   window.nextSlide = nextSlide;
   window.prevSlide = prevSlide;
-  window.toggleSlideMode = toggleSlideMode;
+  window.toggleViewMode = toggleViewMode;
+  window.toggleSlideMode = toggleViewMode;
   window.updateTeacherVisibility = updateTeacherVisibility;
 
   // Observe body class changes to automatically sync teacher visibility

@@ -165,7 +165,7 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 .hot-card .sahed-editor label{display:block;font-weight:600;margin:8px 0 3px;font-size:12px}
 .hot-card .sahed-editor textarea{box-sizing:border-box;width:100%;min-height:65px;resize:vertical;padding:7px;border:1px solid #bccbd3;border-radius:6px;font:inherit;font-size:13px}
 .hot-card .sahed-editor .sahed-save{background:#d8f0df}
-</style></head><body>
+</style></head><body class="slide-mode">
 <header>SMART ART HERITAGE V2.1 • 5 HỒ SƠ: HOTSPOT THCS 3 BƯỚC</header>
 <!-- RM-NAV-START -->
 <nav class="rm-topnav">
@@ -4354,7 +4354,8 @@ document.addEventListener('DOMContentLoaded', function() {
   window.goToSlide = goToSlide;
   window.nextSlide = nextSlide;
   window.prevSlide = prevSlide;
-  window.toggleSlideMode = toggleSlideMode;
+  window.toggleViewMode = toggleViewMode;
+  window.toggleSlideMode = toggleViewMode;
   window.updateTeacherVisibility = updateTeacherVisibility;
 
   // Observe body class changes to automatically sync teacher visibility

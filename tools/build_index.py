@@ -515,8 +515,8 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
         </div>
         <div class="sah-exhibit-content-col">
           <div class="sah-exhibit-header">
-            <h3>Đền Trần Hưng Hà & Nghệ Thuật Điêu Khắc Thời Trần</h3>
-            <span class="sah-exhibit-loc">Hưng Hà, Thái Bình • Phát tích Vương triều Trần</span>
+            <h3>Đền Trần Long Hưng & Nghệ Thuật Điêu Khắc Thời Trần</h3>
+            <span class="sah-exhibit-loc">xã Long Hưng, tỉnh Hưng Yên (Hưng Hà, tỉnh Thái Bình cũ) • Phát tích Vương triều Trần</span>
           </div>
           <div class="sah-exhibit-grid">
             <div class="sah-exhibit-text">
@@ -797,7 +797,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
           <span class="sah-v-ico">▶</span>
           <div>
             <b>Dấu ấn vương triều Trần</b>
-            <small>Đền Trần Hưng Hà & khu lăng mộ các vua Trần</small>
+            <small>Đền Trần Long Hưng & khu lăng mộ các vua Trần</small>
           </div>
         </div>
         <div class="sah-video-item" onclick="switchLandingVideo('Le%CC%82%20Quy%CC%81%20%C4%90o%CC%82n%20%E2%80%93%20Nha%CC%80%20Ba%CC%81c%20Ho%CC%A3c%20Vi%CC%83%20%C4%90a%CC%A3i%20Nha%CC%82%CC%81t%20Li%CC%A3ch%20Su%CC%9B%CC%89%20Phong%20Kie%CC%82%CC%81n%20Vie%CC%A3%CC%82t%20Nam.mp4', 'Phim tài liệu 03: Nhà bác học Lê Quý Đôn – Cuộc đời và trước tác vĩ đại', this)">
@@ -887,7 +887,7 @@ STEP2_HTML = f"""<!-- STEP 2: BAN DO DI SAN HUNG YEN -->
         <div class="sah-map-item" onclick="selectHeritageByCode('dentran')">
           <span class="sah-site-pill" style="background:#285B46;">03</span>
           <div class="sah-item-info">
-            <b>Đền Trần Hưng Hà</b>
+            <b>Đền Trần Long Hưng</b>
             <p>Hưng Hà • Nơi phát tích vương triều Trần, không gian trang nghiêm và khu lăng mộ vua.</p>
           </div>
           <button type="button" class="sah-item-go">Khám phá →</button>

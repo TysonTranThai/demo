@@ -604,7 +604,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
         <div class="sah-exhibit-content-col">
           <div class="sah-exhibit-header">
             <h3>Làng Nghề Chạm Bạc Đồng Xâm — Tinh Hoa Kim Hoàn</h3>
-            <span class="sah-exhibit-loc">Kiến Xương, Thái Bình • Làng nghề truyền thống 500 năm</span>
+            <span class="sah-exhibit-loc">xã Trà Giang, tỉnh Hưng Yên (Kiến Xương, tỉnh Thái Bình cũ) • Làng nghề truyền thống 500 năm</span>
           </div>
           <div class="sah-exhibit-grid">
             <div class="sah-exhibit-text">

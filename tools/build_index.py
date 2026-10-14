@@ -472,7 +472,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
         <div class="sah-exhibit-content-col">
           <div class="sah-exhibit-header">
             <h3>Chùa Keo — Tuyệt Tác Kiến Trúc Gỗ Cổ Truyền</h3>
-            <span class="sah-exhibit-loc">Vũ Thư, Thái Bình • Khởi dựng năm 1632</span>
+            <span class="sah-exhibit-loc">xã Vũ Tiên, tỉnh Hưng Yên (Vũ Thư - Thái Bình cũ) • Khởi dựng năm 1632</span>
           </div>
           <div class="sah-exhibit-grid">
             <div class="sah-exhibit-text">

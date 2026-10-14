@@ -432,7 +432,7 @@ new_step1 = '''<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -->
       <div class="sah-rm-arr">→</div>
       <div class="sah-roadmap-step" onclick="goToSlide(8)">
         <span class="sah-rm-num">9</span>
-        <b>Đánh giá & Phản tư</b>
+        <b>Đánh giá và tự hoàn thiện</b>
         <small>Phiếu 3-2-1 & Rubric</small>
       </div>
     </div>

@@ -196,7 +196,7 @@ NAV = """<!-- RM-NAV-START -->
   <a class="rm-topnav-link" href="#step5-phong3d" onclick="goToSlide(4); return false;">🧊 Phòng 3D</a>
   <a class="rm-topnav-link" href="#step6-ai5a" onclick="goToSlide(5); return false;">🤖 Trợ lý AI</a>
   <a class="rm-topnav-link" href="#step8-argallery" onclick="goToSlide(7); return false;">🖼️ Triển lãm AR</a>
-  <a class="rm-topnav-link" href="#step9-danhgia" onclick="goToSlide(8); return false;">📝 Đánh giá & Phản tư</a>
+  <a class="rm-topnav-link" href="#step9-danhgia" onclick="goToSlide(8); return false;">📝 Đánh giá và tự hoàn thiện</a>
   <a class="rm-topnav-link teacher-only" href="giao-vien.html" style="display:none;">👩‍🏫 Quản Trị ↗</a>
   <a class="rm-topnav-link" href="trien-lam.html">🗂️ Triển lãm đầy đủ ↗</a>
   <span class="rm-topnav-spacer"></span>
@@ -289,7 +289,7 @@ GUIDELINE_STEPPER = """<!-- SAH-GUIDELINE-STEPPER-START -->
       <span class="sah-step-arrow">→</span>
       <a href="#step9-danhgia" class="sah-step-pill" data-step="9" onclick="goToSlide(8); return false;">
         <span class="sah-step-num">9</span>
-        <span class="sah-step-txt">Đánh giá & Phản tư</span>
+        <span class="sah-step-txt">Đánh giá và tự hoàn thiện</span>
       </a>
       <span class="sah-step-sep teacher-only" style="display:none;">|</span>
       <a href="#step-dashboard" class="sah-step-pill sah-step-dash teacher-only" data-step="10" style="display:none;" onclick="goToSlide(9); return false;">
@@ -760,7 +760,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
       <div class="sah-rm-arr">→</div>
       <div class="sah-roadmap-step" onclick="goToSlide(8)">
         <span class="sah-rm-num">9</span>
-        <b>Đánh giá & Phản tư</b>
+        <b>Đánh giá và tự hoàn thiện</b>
         <small>Phiếu 3-2-1 & Rubric</small>
       </div>
     </div>
@@ -1125,7 +1125,7 @@ STEP8_HTML = f"""<!-- STEP 8: AR GALLERY -->
   {EXHIBIT_BLOCK}
   {RM_EXHIBIT_SEC}
 
-  {make_ppt_footer(8, "Xưởng sáng tạo", "Đánh giá & Phản tư")}
+  {make_ppt_footer(8, "Xưởng sáng tạo", "Đánh giá và tự hoàn thiện")}
 </section>
 """
 
@@ -1260,11 +1260,11 @@ RUBRIC_PREPOST_HTML = """
 """
 
 # In Step 9, footer adapts dynamically via JS whether teacher or student
-STEP9_HTML = f"""<!-- STEP 9: DANH GIA & PHAN TU -->
+STEP9_HTML = f"""<!-- STEP 9: DANH GIA & TU HOAN THIEN -->
 <section id="step9-danhgia" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 9 / 9 • ĐÁNH GIÁ & PHẢN TƯ</div>
+  <div class="sah-step-badge">BƯỚC 9 / 9 • ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN</div>
   <div class="sah-sec-header">
-    <h2>📝 ĐÁNH GIÁ & PHẢN TƯ • PHIẾU 3-2-1 & HỒ SƠ HÀNH TRÌNH</h2>
+    <h2>📝 ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN • PHIẾU 3-2-1 & HỒ SƠ HÀNH TRÌNH</h2>
     <p class="sah-sec-sub">Phiếu tổng kết 3-2-1, Tự đánh giá của học sinh & Đánh giá của giáo viên theo Rubric chuẩn. Đối sánh năng lực sư phạm và lưu trữ Hồ sơ hành trình sáng tạo cá nhân.</p>
   </div>
 
@@ -1336,7 +1336,7 @@ STEP_DASHBOARD_HTML = f"""<!-- STEP 10: TEACHER DASHBOARD (TEACHER ONLY) -->
     <a href="giao-vien.html" class="rm-btn" style="padding:14px 28px;font-size:15px;display:inline-block;text-decoration:none;">👩‍🏫 Truy cập Trang Quản Trị Giáo Viên (giao-vien.html) ↗</a>
   </div>
 
-  {make_ppt_footer(10, "Đánh giá & Phản tư", "Trang chủ", is_last=True)}
+  {make_ppt_footer(10, "Đánh giá và tự hoàn thiện", "Trang chủ", is_last=True)}
 </section>
 """
 
@@ -2912,7 +2912,7 @@ var SLIDE_NAMES = [
   'AI Art Assistant 5A',
   'Xưởng sáng tạo',
   'Triển lãm AR Gallery',
-  'Đánh giá & Phản tư',
+  'Đánh giá và tự hoàn thiện',
   'Dashboard Quản trị GV'
 ];
 

@@ -138,6 +138,8 @@ src = src.replace(
     '<div class="rmfb-box" id="teacherFeedbackBox" hidden></div>\n'
     '<div class="sah-actions">', 1)
 
+src = src.replace('Đền Trần Hưng Hà', 'Đền Trần Long Hưng')
+
 # --------------------------------------------------------------------------
 # 4. Extract HTML Blocks
 # --------------------------------------------------------------------------
@@ -398,7 +400,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
               <span class="sah-pedestal-badge">KIỆT TÁC TIÊU BIỂU</span>
             </div>
             <div class="sah-pedestal-caption">
-              <h4>Gác chuông Chùa Keo (Vũ Thư)</h4>
+              <h4>Gác chuông Chùa Keo</h4>
               <p>Đỉnh cao kết cấu gỗ cổ truyền 12 mái chồng diêm & hệ thống đấu củng tinh xảo thế kỷ XVII.</p>
               <div class="sah-pedestal-actions">
                 <button type="button" class="sah-btn-pedestal" onclick="goToSlide(4)">Xoay 3D 360° →</button>
@@ -880,7 +882,7 @@ STEP2_HTML = f"""<!-- STEP 2: BAN DO DI SAN HUNG YEN -->
           <span class="sah-site-pill" style="background:#C89547;">02</span>
           <div class="sah-item-info">
             <b>Chùa Keo</b>
-            <p>Vũ Thư • Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái thanh thoát.</p>
+            <p>xã Vũ Tiên (Vũ Thư cũ) • Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái thanh thoát.</p>
           </div>
           <button type="button" class="sah-item-go">Khám phá →</button>
         </div>
@@ -888,7 +890,7 @@ STEP2_HTML = f"""<!-- STEP 2: BAN DO DI SAN HUNG YEN -->
           <span class="sah-site-pill" style="background:#285B46;">03</span>
           <div class="sah-item-info">
             <b>Đền Trần Long Hưng</b>
-            <p>Hưng Hà • Nơi phát tích vương triều Trần, không gian trang nghiêm và khu lăng mộ vua.</p>
+            <p>xã Long Hưng (Hưng Hà cũ) • Nơi phát tích vương triều Trần, không gian trang nghiêm và khu lăng mộ vua.</p>
           </div>
           <button type="button" class="sah-item-go">Khám phá →</button>
         </div>
@@ -896,7 +898,7 @@ STEP2_HTML = f"""<!-- STEP 2: BAN DO DI SAN HUNG YEN -->
           <span class="sah-site-pill" style="background:#1B4965;">04</span>
           <div class="sah-item-info">
             <b>Khu lưu niệm Lê Quý Đôn</b>
-            <p>Hưng Hà • Không gian tưởng niệm Nhà bác học uyên bác nhất lịch sử phong kiến Việt Nam.</p>
+            <p>xã Lê Quý Đôn (Hưng Hà cũ) • Không gian tưởng niệm Nhà bác học uyên bác nhất lịch sử phong kiến Việt Nam.</p>
           </div>
           <button type="button" class="sah-item-go">Khám phá →</button>
         </div>
@@ -904,7 +906,7 @@ STEP2_HTML = f"""<!-- STEP 2: BAN DO DI SAN HUNG YEN -->
           <span class="sah-site-pill" style="background:#6B4226;">05</span>
           <div class="sah-item-info">
             <b>Làng chạm bạc Đồng Xâm</b>
-            <p>Kiến Xương • Nghệ thuật kim hoàn truyền thống, hoa văn chạm khắc tinh xảo.</p>
+            <p>xã Trà Giang (Kiến Xương cũ) • Nghệ thuật kim hoàn truyền thống, hoa văn chạm khắc tinh xảo.</p>
           </div>
           <button type="button" class="sah-item-go">Khám phá →</button>
         </div>
@@ -1418,6 +1420,15 @@ GUIDELINE_CSS = """<!-- SAH-GUIDELINE-CSS-START -->
   --sah-font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Base Body in Slide Mode */
 body.slide-mode {
   background: var(--sah-bg-obsidian);
@@ -1429,6 +1440,8 @@ body.slide-mode {
   color: var(--sah-text-body);
   font-family: var(--sah-font-sans);
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* Classical Monogram Watermark */

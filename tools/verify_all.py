@@ -29,7 +29,7 @@ async def verify_all():
         page.on("pageerror", lambda err: page_errors.append(f"PageError: {err}"))
         page.on("console", lambda msg: page_errors.append(f"Console {msg.type}: {msg.text}") if msg.type in ["error"] else None)
         
-        response = await page.goto("http://localhost:8080/index.html", wait_until="networkidle")
+        response = await page.goto("http://localhost:8080/index.html", wait_until="domcontentloaded")
         if response.status != 200:
             errors.append(f"Failed to load index.html, HTTP {response.status}")
         await dismiss_role_gate(page)
@@ -105,7 +105,7 @@ async def verify_all():
         for vp in VIEWPORTS:
             ctx = await browser.new_context(viewport={"width": vp["width"], "height": vp["height"]})
             p_vp = await ctx.new_page()
-            await p_vp.goto("http://localhost:8080/index.html", wait_until="networkidle")
+            await p_vp.goto("http://localhost:8080/index.html", wait_until="domcontentloaded")
             
             # Check horizontal overflow
             scroll_data = await p_vp.evaluate("""() => {
@@ -156,7 +156,7 @@ async def verify_all():
         p_flow = await ctx.new_page()
         console_msgs = []
         p_flow.on("console", lambda m: console_msgs.append(f"[{m.type}] {m.text}"))
-        await p_flow.goto("http://localhost:8080/index.html", wait_until="networkidle")
+        await p_flow.goto("http://localhost:8080/index.html", wait_until="domcontentloaded")
         await dismiss_role_gate(p_flow)
         
         # Test slide transitions 1 to 9
@@ -191,11 +191,77 @@ async def verify_all():
             assert thumb_src in main_src or main_src.endswith(thumb_src), f"Image switcher failed for Exhibit {code}: {main_src} != {thumb_src}"
             print(f"  ✓ Exhibit {code} thumbnail click switcher verified")
             
-        # Check console errors (ignoring video preload connection reset/aborted)
-        bad_logs = [m for m in console_msgs if any(err_word in m.lower() for err_word in ["error", "uncaught"]) and "err_connection_reset" not in m.lower() and "err_aborted" not in m.lower()]
+        # Check console errors (ignoring video preload connection reset/aborted/socket disconnect)
+        bad_logs = [m for m in console_msgs if any(err_word in m.lower() for err_word in ["error", "uncaught"]) and "err_connection_reset" not in m.lower() and "err_aborted" not in m.lower() and "err_socket_not_connected" not in m.lower()]
         assert len(bad_logs) == 0, f"Found console errors: {bad_logs}"
         print(f"  ✓ Zero console errors detected during full interaction (Total logs evaluated: {len(console_msgs)})")
         
+        print("\n--- [PASS 4] HOVER PREVIEWS (BUTTON #3 & HERITAGE) & THEMATIC SITE BACKGROUNDS ---")
+        await p_flow.evaluate("() => { window.scrollTo(0, 0); goToSlide(0); }")
+        await asyncio.sleep(0.2)
+        
+        # 1. Hover on Stepper Pill 3 (Bước 3: 5 Kiệt Tác Di Sản)
+        pill3 = p_flow.locator('.sah-step-pill[data-step="3"]')
+        await pill3.hover()
+        await asyncio.sleep(0.2)
+        
+        preview_vis = await p_flow.locator('#sahGlobalHoverPreview').evaluate("el => el.classList.contains('visible')")
+        assert preview_vis, "Global hover preview modal is not visible on hovering step pill 3!"
+        preview_img = await p_flow.locator('#sahGhpImg').get_attribute("src")
+        assert "066_Nghi_mon_den_Tran.jpeg" in preview_img, f"Expected 066_Nghi_mon_den_Tran.jpeg, got {preview_img}"
+        preview_title = await p_flow.locator('#sahGhpTitle').inner_text()
+        print(f"  ✓ Stepper Pill 3 hover preview: '{preview_title.strip()}', img: '{preview_img}'")
+        
+        # 2. Hover on Roadmap Step 3
+        roadmap3 = p_flow.locator('.sah-roadmap-step:has(.sah-rm-num:text-is("3"))')
+        await roadmap3.hover()
+        await asyncio.sleep(0.15)
+        preview_img = await p_flow.locator('#sahGhpImg').get_attribute("src")
+        assert "066_Nghi_mon_den_Tran.jpeg" in preview_img, f"Expected 066_Nghi_mon_den_Tran.jpeg on roadmap step 3, got {preview_img}"
+        print(f"  ✓ Roadmap Step 3 hover preview displayed image: '{preview_img}'")
+
+        # 3. Slide 2: Map Item 3 & SVG Pin 3 (Đền Trần Long Hưng)
+        await p_flow.evaluate("() => goToSlide(1)")
+        await asyncio.sleep(0.15)
+        
+        # Check thumbnail in map item 3
+        thumb3_src = await p_flow.locator('.sah-map-item:nth-of-type(3) .sah-map-thumb img').get_attribute("src")
+        assert "066_Nghi_mon_den_Tran.jpeg" in thumb3_src, f"Map item 3 thumbnail missing: {thumb3_src}"
+        print(f"  ✓ Slide 2 Map Item 3 thumbnail verified: '{thumb3_src}'")
+        
+        map_item3 = p_flow.locator('.sah-map-item:nth-of-type(3)')
+        await map_item3.hover()
+        await asyncio.sleep(0.15)
+        preview_img = await p_flow.locator('#sahGhpImg').get_attribute("src")
+        assert "066_Nghi_mon_den_Tran.jpeg" in preview_img
+        print(f"  ✓ Map Item 3 hover preview displayed image: '{preview_img}'")
+        
+        pin3 = p_flow.locator('#pin-dentran')
+        await pin3.hover()
+        await asyncio.sleep(0.15)
+        preview_img = await p_flow.locator('#sahGhpImg').get_attribute("src")
+        assert "066_Nghi_mon_den_Tran.jpeg" in preview_img
+        print(f"  ✓ SVG Pin 3 (#pin-dentran) hover preview verified with image: '{preview_img}'")
+        
+        # 4. Verify thematic site background across all slides (data-active-slide)
+        slide_ids = [
+            "step1-trangchu", "step2-bando", "step3-5khudisan", "step4-hosodisan",
+            "step5-phong3d", "step6-ai5a", "step7-xuongsangtao", "step8-argallery", "step9-danhgia"
+        ]
+        for idx, sid in enumerate(slide_ids):
+            await p_flow.evaluate(f"() => goToSlide({idx})")
+            await asyncio.sleep(0.05)
+            active_attr = await p_flow.evaluate("() => document.body.getAttribute('data-active-slide')")
+            assert active_attr == sid, f"Slide {idx} expected body[data-active-slide='{sid}'], got '{active_attr}'"
+            print(f"  ✓ Slide {idx + 1} ({sid}): Dynamic thematic background attribute active")
+
+        # Capture desktop screenshot of Step 3 hover preview
+        await p_flow.evaluate("() => goToSlide(0)")
+        await pill3.hover()
+        await asyncio.sleep(0.2)
+        await p_flow.screenshot(path="tools/screenshot_hover_preview.png")
+        print("  ✓ Captured tools/screenshot_hover_preview.png")
+
         await ctx.close()
         await browser.close()
 

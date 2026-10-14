@@ -35,7 +35,7 @@
     <!-- 5 INTERACTIVE PINS -->
 
     <!-- PIN 1: Phố Hiến (Red) -->
-    <g class="map-pin-group" id="pin-phohien" style="cursor:pointer;" transform="translate(115, 230)">
+    <g class="map-pin-group" id="pin-phohien" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="01 • Quần Thể Di Tích Phố Hiến" data-preview-sub="TP. Hưng Yên • Thương cảng cổ thế kỷ XVII" data-preview-badge="ĐỊNH VỊ 01" style="cursor:pointer;" transform="translate(115, 230)">
       <circle cx="0" cy="0" r="16" fill="#B3261E" opacity="0.2" class="pin-pulse"/>
       <circle cx="0" cy="-5" r="13" fill="#B3261E" stroke="#FFFFFF" stroke-width="2.5"/>
       <text x="0" y="-1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">1</text>
@@ -43,23 +43,23 @@
     </g>
 
     <!-- PIN 2: Chùa Keo (Orange) -->
-    <g class="map-pin-group" id="pin-chuakeo" style="cursor:pointer;" transform="translate(235, 175)">
+    <g class="map-pin-group" id="pin-chuakeo" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="02 • Chùa Keo (Vũ Tiên)" data-preview-sub="xã Vũ Tiên, Hưng Yên (Vũ Thư cũ) • Gác chuông 1632" data-preview-badge="ĐỊNH VỊ 02" style="cursor:pointer;" transform="translate(235, 175)">
       <circle cx="0" cy="0" r="16" fill="#D97706" opacity="0.2" class="pin-pulse"/>
       <circle cx="0" cy="-5" r="13" fill="#D97706" stroke="#FFFFFF" stroke-width="2.5"/>
       <text x="0" y="-1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">2</text>
       <text x="0" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="700" fill="#D97706" text-anchor="middle">Chùa Keo</text>
     </g>
 
-    <!-- PIN 3: Đền Trần (Blue) -->
-    <g class="map-pin-group" id="pin-dentran" style="cursor:pointer;" transform="translate(265, 290)">
+    <!-- PIN 3: Đền Trần Long Hưng (Blue) -->
+    <g class="map-pin-group" id="pin-dentran" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="03 • Đền Trần Long Hưng" data-preview-sub="xã Long Hưng, Hưng Yên (Hưng Hà cũ) • Phát tích triều Trần" data-preview-badge="ĐỊNH VỊ 03" style="cursor:pointer;" transform="translate(265, 290)">
       <circle cx="0" cy="0" r="16" fill="#2563EB" opacity="0.2" class="pin-pulse"/>
       <circle cx="0" cy="-5" r="13" fill="#2563EB" stroke="#FFFFFF" stroke-width="2.5"/>
       <text x="0" y="-1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">3</text>
-      <text x="0" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="700" fill="#2563EB" text-anchor="middle">Đền Trần</text>
+      <text x="0" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="700" fill="#2563EB" text-anchor="middle">Đền Trần Long Hưng</text>
     </g>
 
     <!-- PIN 4: Lê Quý Đôn (Green) -->
-    <g class="map-pin-group" id="pin-lequydon" style="cursor:pointer;" transform="translate(125, 400)">
+    <g class="map-pin-group" id="pin-lequydon" data-preview-img="assets/extracted/094_Chan_dung_bac_hoc_Le_Quy_Don.jpeg" data-preview-title="04 • Khu Lưu Niệm Lê Quý Đôn" data-preview-sub="xã Lê Quý Đôn, Hưng Yên (Hưng Hà cũ) • Danh nhân văn hóa" data-preview-badge="ĐỊNH VỊ 04" style="cursor:pointer;" transform="translate(125, 400)">
       <circle cx="0" cy="0" r="16" fill="#059669" opacity="0.2" class="pin-pulse"/>
       <circle cx="0" cy="-5" r="13" fill="#059669" stroke="#FFFFFF" stroke-width="2.5"/>
       <text x="0" y="-1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">4</text>
@@ -67,7 +67,7 @@
     </g>
 
     <!-- PIN 5: Đồng Xâm (Purple) -->
-    <g class="map-pin-group" id="pin-dongxam" style="cursor:pointer;" transform="translate(200, 420)">
+    <g class="map-pin-group" id="pin-dongxam" data-preview-img="assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg" data-preview-title="05 • Làng Chạm Bạc Đồng Xâm" data-preview-sub="xã Trà Giang, Hưng Yên (Kiến Xương cũ) • Kim hoàn 500 năm" data-preview-badge="ĐỊNH VỊ 05" style="cursor:pointer;" transform="translate(200, 420)">
       <circle cx="0" cy="0" r="16" fill="#7C3AED" opacity="0.2" class="pin-pulse"/>
       <circle cx="0" cy="-5" r="13" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2.5"/>
       <text x="0" y="-1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">5</text>

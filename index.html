@@ -3276,9 +3276,10 @@ body::before {
   z-index: 0;
   opacity: 1;
   background-size: cover;
-  background-position: center top;
+  background-position: center 30%;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  filter: brightness(0.85) contrast(1.06);
   transition: background-image 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
 }
 
@@ -3294,7 +3295,7 @@ body::after {
   pointer-events: none;
   background: url("assets/heritage/bg_dong_son_motif.svg") no-repeat center center;
   background-size: contain;
-  opacity: 0.16;
+  opacity: 0.18;
   mix-blend-mode: screen;
   animation: sahDongSonFloat 120s linear infinite;
 }
@@ -3310,204 +3311,188 @@ body::after {
     right: -60px;
     width: 380px;
     height: 380px;
-    opacity: 0.11;
+    opacity: 0.12;
   }
 }
 
-/* Default / Slide 1: Trang Chu - Royal Museum Atrium & Golden Sunburst & Chùa Keo Backdrop */
+/* Default / Slide 1: Trang Chu - Chùa Keo 12 Mái Chồng Diêm (Pinnacle of Wooden Architecture) */
 body::before,
 body[data-active-slide="step1-trangchu"]::before {
   background-image:
-    radial-gradient(ellipse 95% 65% at 50% -10%, rgba(212, 175, 55, 0.32) 0%, rgba(180, 130, 30, 0.14) 45%, transparent 75%),
-    radial-gradient(circle at 12% 45%, rgba(184, 115, 51, 0.20) 0%, transparent 50%),
-    radial-gradient(circle at 88% 55%, rgba(212, 175, 55, 0.18) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(14, 11, 9, 0.80) 0%, rgba(18, 14, 11, 0.86) 50%, rgba(10, 8, 7, 0.96) 100%),
+    linear-gradient(180deg, rgba(12, 10, 8, 0.38) 0%, rgba(14, 11, 9, 0.48) 50%, rgba(10, 8, 6, 0.72) 100%),
+    radial-gradient(ellipse 95% 65% at 50% -10%, rgba(212, 175, 55, 0.22) 0%, transparent 65%),
     url("assets/heritage/hero_heritage_keo.jpg");
 }
 
-/* Slide 2: Ban Do - Red River Delta Topography & Silt-Emerald Cartography */
+/* Slide 2: Ban Do - Phố Hiến Bên Sông Hồng & Đầm Bán Nguyệt (Red River Delta Cultural Port) */
 body[data-active-slide="step2-bando"]::before {
   background-image:
-    radial-gradient(ellipse 85% 60% at 20% 30%, rgba(37, 99, 235, 0.28) 0%, transparent 65%),
-    radial-gradient(ellipse 80% 65% at 85% 65%, rgba(16, 185, 129, 0.24) 0%, transparent 65%),
-    radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.20) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(8, 14, 12, 0.82) 0%, rgba(10, 18, 15, 0.88) 50%, rgba(6, 10, 8, 0.97) 100%),
+    linear-gradient(180deg, rgba(8, 14, 12, 0.38) 0%, rgba(10, 16, 14, 0.50) 50%, rgba(6, 10, 8, 0.74) 100%),
+    radial-gradient(ellipse 85% 60% at 20% 30%, rgba(37, 99, 235, 0.20) 0%, transparent 65%),
     url("assets/extracted/001_Pho_Hien_tong_quan.jpeg");
 }
 body[data-active-slide="step2-bando"] {
   background-color: #060b09;
 }
 
-/* Slide 3: 5 Khu Di San - Royal Temple Sanctuary & Lacquered Vermilion-Amber (Đền Trần Long Hưng) */
+/* Slide 3: 5 Khu Di San - Nghi Môn Đền Trần Long Hưng (Royal Dynastic Sanctuary) */
 body[data-active-slide="step3-5khudisan"]::before {
   background-image:
-    radial-gradient(ellipse 85% 60% at 50% 0%, rgba(185, 28, 28, 0.30) 0%, rgba(120, 20, 20, 0.12) 45%, transparent 75%),
-    radial-gradient(circle at 15% 45%, rgba(212, 175, 55, 0.22) 0%, transparent 50%),
-    radial-gradient(circle at 85% 55%, rgba(180, 83, 9, 0.20) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(16, 9, 8, 0.82) 0%, rgba(22, 12, 10, 0.88) 50%, rgba(12, 7, 6, 0.97) 100%),
+    linear-gradient(180deg, rgba(16, 9, 8, 0.38) 0%, rgba(20, 11, 9, 0.50) 50%, rgba(12, 7, 6, 0.74) 100%),
+    radial-gradient(ellipse 85% 60% at 50% 0%, rgba(185, 28, 28, 0.22) 0%, transparent 70%),
     url("assets/extracted/066_Nghi_mon_den_Tran.jpeg");
 }
 body[data-active-slide="step3-5khudisan"] {
   background-color: #0e0706;
 }
 
-/* Slide 4: Ho So Di San - Curatorial Library & Archival Indigo */
+/* Slide 4: Ho So Di San - Cấu Trúc Vì Kèo & Hệ Mái Cổ Truyền (15 Masterwork Photos) */
 body[data-active-slide="step4-hosodisan"]::before {
   background-image:
-    radial-gradient(ellipse 80% 55% at 30% 10%, rgba(37, 99, 235, 0.26) 0%, transparent 65%),
-    radial-gradient(ellipse 75% 50% at 80% 30%, rgba(212, 175, 55, 0.18) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(8, 10, 20, 0.84) 0%, rgba(11, 14, 26, 0.90) 50%, rgba(7, 8, 16, 0.97) 100%),
-    url("assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg");
+    linear-gradient(180deg, rgba(8, 10, 20, 0.40) 0%, rgba(11, 14, 24, 0.52) 50%, rgba(7, 8, 16, 0.75) 100%),
+    radial-gradient(ellipse 80% 55% at 30% 10%, rgba(37, 99, 235, 0.20) 0%, transparent 65%),
+    url("assets/extracted/052_Khong_gian_kien_truc_go_va_mai.jpeg");
 }
 body[data-active-slide="step4-hosodisan"] {
   background-color: #070912;
 }
 
-/* Slide 5: Phong 3D - Cybernetic Cobalt & Hologram Virtual Studio */
+/* Slide 5: Phong 3D - Khối Gác Chuông 3 Tầng Nhìn Phối Cảnh (3D Spatial Volumetric Viewer) */
 body[data-active-slide="step5-phong3d"]::before {
   background-image:
-    radial-gradient(ellipse 80% 55% at 50% 15%, rgba(6, 182, 212, 0.28) 0%, rgba(37, 99, 235, 0.18) 45%, transparent 75%),
-    linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(6, 9, 20, 0.84) 0%, rgba(9, 14, 28, 0.90) 50%, rgba(5, 7, 16, 0.98) 100%),
-    url("assets/extracted/037_Khong_gian_kien_truc_go_va_mai.jpeg");
-  background-size: cover, 44px 44px, 44px 44px, cover, cover;
+    linear-gradient(180deg, rgba(6, 9, 20, 0.40) 0%, rgba(8, 13, 24, 0.52) 50%, rgba(5, 7, 16, 0.75) 100%),
+    radial-gradient(ellipse 80% 55% at 50% 15%, rgba(6, 182, 212, 0.22) 0%, transparent 70%),
+    url("assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg");
 }
 body[data-active-slide="step5-phong3d"] {
   background-color: #050812;
 }
 
-/* Slide 6: AI 5A - Neural Intelligence Studio & Amethyst Constellations (Lê Quý Đôn) */
+/* Slide 6: AI 5A - Khu Lưu Niệm Nhà Bác Học Lê Quý Đôn (Cultural AI Companion) */
 body[data-active-slide="step6-ai5a"]::before {
   background-image:
-    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(147, 51, 234, 0.30) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 75%),
-    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.20) 0%, transparent 50%),
-    radial-gradient(circle at 80% 60%, rgba(99, 102, 241, 0.22) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(12, 7, 24, 0.84) 0%, rgba(18, 11, 32, 0.89) 50%, rgba(9, 5, 18, 0.97) 100%),
-    url("assets/extracted/094_Chan_dung_bac_hoc_Le_Quy_Don.jpeg");
+    linear-gradient(180deg, rgba(12, 7, 24, 0.40) 0%, rgba(16, 10, 28, 0.52) 50%, rgba(9, 5, 18, 0.75) 100%),
+    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(147, 51, 234, 0.22) 0%, transparent 70%),
+    url("assets/extracted/096_Khu_luu_niem_nha_bac_hoc.jpeg");
 }
 body[data-active-slide="step6-ai5a"] {
   background-color: #0a0614;
 }
 
-/* Slide 7: Xuong Sang Tao - Artist Atelier & Fine-Art Ochre Canvas (Đồng Xâm) */
+/* Slide 7: Xuong Sang Tao - Xưởng Chạm Bạc Đồng Xâm Truyền Thống (Creative Craft Atelier) */
 body[data-active-slide="step7-xuongsangtao"]::before {
   background-image:
-    radial-gradient(ellipse 80% 55% at 40% 15%, rgba(217, 119, 6, 0.28) 0%, transparent 65%),
-    radial-gradient(circle at 80% 40%, rgba(180, 83, 9, 0.22) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(18, 12, 8, 0.84) 0%, rgba(24, 16, 11, 0.89) 50%, rgba(13, 9, 6, 0.97) 100%),
+    linear-gradient(180deg, rgba(18, 12, 8, 0.40) 0%, rgba(22, 15, 10, 0.52) 50%, rgba(13, 9, 6, 0.75) 100%),
+    radial-gradient(ellipse 80% 55% at 40% 15%, rgba(217, 119, 6, 0.22) 0%, transparent 65%),
     url("assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg");
 }
 body[data-active-slide="step7-xuongsangtao"] {
   background-color: #0f0b07;
 }
 
-/* Slide 8: Trien Lam AR - Spatial Teal Gallery & Augmented Reality Lighting */
+/* Slide 8: Trien Lam AR - Tuyệt Tác Điêu Khắc Rồng Chạm Nổi (AR Heritage Gallery) */
 body[data-active-slide="step8-argallery"]::before {
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% 5%, rgba(16, 185, 129, 0.28) 0%, rgba(6, 182, 212, 0.14) 45%, transparent 75%),
-    radial-gradient(circle at 15% 60%, rgba(20, 184, 166, 0.20) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(6, 14, 12, 0.84) 0%, rgba(9, 22, 18, 0.89) 50%, rgba(5, 11, 9, 0.97) 100%),
+    linear-gradient(180deg, rgba(6, 14, 12, 0.40) 0%, rgba(8, 18, 15, 0.52) 50%, rgba(5, 11, 9, 0.75) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 5%, rgba(16, 185, 129, 0.22) 0%, transparent 70%),
     url("assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg");
 }
 body[data-active-slide="step8-argallery"] {
   background-color: #050d0b;
 }
 
-/* Slide 9: Danh Gia & Tu Hoan Thien - Serene Zen Gold & Reflection Pavilion */
+/* Slide 9: Danh Gia & Tu Hoan Thien - Cảnh Quan Hồ Nước & Quần Thể Thanh Tịnh (Pedagogical Reflection) */
 body[data-active-slide="step9-danhgia"]::before {
   background-image:
-    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(212, 175, 55, 0.32) 0%, rgba(202, 138, 4, 0.14) 45%, transparent 75%),
-    radial-gradient(circle at 20% 50%, rgba(180, 83, 9, 0.20) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(15, 12, 8, 0.84) 0%, rgba(20, 16, 11, 0.89) 50%, rgba(11, 9, 6, 0.97) 100%),
-    url("assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg");
+    linear-gradient(180deg, rgba(15, 12, 8, 0.40) 0%, rgba(18, 14, 10, 0.52) 50%, rgba(11, 9, 6, 0.75) 100%),
+    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(212, 175, 55, 0.22) 0%, transparent 70%),
+    url("assets/extracted/033_Khong_gian_ho_va_quan_the.jpeg");
 }
 body[data-active-slide="step9-danhgia"] {
   background-color: #0d0a07;
 }
 
-/* Slide 10: Teacher Dashboard - Scholastic Command Observatory & Navy-Gold */
+/* Slide 10: Teacher Dashboard - Không Gian Nghiên Cứu & Hội Thảo Khoa Học Di Sản */
 body[data-active-slide="step-dashboard"]::before {
   background-image:
-    radial-gradient(ellipse 85% 50% at 50% 0%, rgba(59, 130, 246, 0.30) 0%, rgba(29, 78, 216, 0.14) 45%, transparent 75%),
-    radial-gradient(circle at 15% 45%, rgba(212, 175, 55, 0.20) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(8, 11, 24, 0.85) 0%, rgba(11, 16, 32, 0.90) 50%, rgba(5, 8, 18, 0.98) 100%),
-    url("assets/extracted/001_Pho_Hien_tong_quan.jpeg");
+    linear-gradient(180deg, rgba(8, 11, 24, 0.40) 0%, rgba(10, 14, 28, 0.52) 50%, rgba(5, 8, 18, 0.75) 100%),
+    radial-gradient(ellipse 85% 50% at 50% 0%, rgba(59, 130, 246, 0.22) 0%, transparent 70%),
+    url("assets/extracted/105_Hoi_thao_ky_niem_tai_khu_luu_n.jpeg");
 }
 body[data-active-slide="step-dashboard"] {
   background-color: #060914;
 }
 
-/* Distinctive Slide Container Backgrounds (Glassmorphic Translucency for Depth) */
+/* Distinctive Slide Container Backgrounds (Glassmorphic Frosted Translucency) */
 #step1-trangchu {
-  background: linear-gradient(180deg, rgba(24, 20, 16, 0.88) 0%, rgba(16, 14, 12, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(212, 175, 55, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.12) !important;
+  background: rgba(18, 14, 11, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(212, 175, 55, 0.12) !important;
 }
 #step2-bando {
-  background: linear-gradient(180deg, rgba(14, 22, 18, 0.88) 0%, rgba(10, 16, 13, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+  background: rgba(10, 16, 14, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
   border-color: rgba(40, 91, 70, 0.50) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(37, 99, 235, 0.12) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(37, 99, 235, 0.12) !important;
 }
 #step3-5khudisan {
-  background: linear-gradient(180deg, rgba(26, 15, 12, 0.88) 0%, rgba(17, 11, 8, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(185, 28, 28, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(185, 28, 28, 0.12) !important;
+  background: rgba(20, 12, 10, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(185, 28, 28, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(185, 28, 28, 0.12) !important;
 }
 #step4-hosodisan {
-  background: linear-gradient(180deg, rgba(15, 19, 30, 0.88) 0%, rgba(11, 13, 20, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(59, 130, 246, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(59, 130, 246, 0.12) !important;
+  background: rgba(11, 14, 24, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(59, 130, 246, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(59, 130, 246, 0.12) !important;
 }
 #step5-phong3d {
-  background: linear-gradient(180deg, rgba(12, 19, 30, 0.88) 0%, rgba(8, 13, 22, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+  background: rgba(8, 13, 22, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
   border-color: rgba(6, 182, 212, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(6, 182, 212, 0.14) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(6, 182, 212, 0.14) !important;
 }
 #step6-ai5a {
-  background: linear-gradient(180deg, rgba(20, 13, 30, 0.88) 0%, rgba(12, 8, 20, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(147, 51, 234, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(147, 51, 234, 0.12) !important;
+  background: rgba(14, 9, 24, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(147, 51, 234, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(147, 51, 234, 0.12) !important;
 }
 #step7-xuongsangtao {
-  background: linear-gradient(180deg, rgba(26, 19, 13, 0.88) 0%, rgba(17, 13, 9, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(217, 119, 6, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(217, 119, 6, 0.12) !important;
+  background: rgba(18, 13, 9, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(217, 119, 6, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(217, 119, 6, 0.12) !important;
 }
 #step8-argallery {
-  background: linear-gradient(180deg, rgba(13, 24, 21, 0.88) 0%, rgba(9, 16, 14, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(16, 185, 129, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(16, 185, 129, 0.12) !important;
+  background: rgba(9, 17, 15, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(16, 185, 129, 0.12) !important;
 }
 #step9-danhgia {
-  background: linear-gradient(180deg, rgba(25, 21, 15, 0.88) 0%, rgba(17, 15, 11, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
-  border-color: rgba(212, 175, 55, 0.40) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.12) !important;
+  background: rgba(18, 15, 11, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(212, 175, 55, 0.12) !important;
 }
 #step-dashboard {
-  background: linear-gradient(180deg, rgba(14, 18, 30, 0.88) 0%, rgba(10, 13, 22, 0.94) 100%) !important;
-  backdrop-filter: blur(24px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(130%) !important;
+  background: rgba(10, 13, 24, 0.70) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
   border-color: rgba(59, 130, 246, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(59, 130, 246, 0.14) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(59, 130, 246, 0.14) !important;
 }
 
 /* Classical Monogram Watermark */

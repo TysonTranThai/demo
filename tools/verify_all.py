@@ -222,7 +222,7 @@ async def verify_all():
 
         # 3. Slide 2: Map Item 3 & SVG Pin 3 (Đền Trần Long Hưng)
         await p_flow.evaluate("() => goToSlide(1)")
-        await asyncio.sleep(0.15)
+        await asyncio.sleep(0.5)
         
         # Check thumbnail in map item 3
         thumb3_src = await p_flow.locator('.sah-map-item:nth-of-type(3) .sah-map-thumb img').get_attribute("src")

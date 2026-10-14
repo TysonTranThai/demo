@@ -232,7 +232,7 @@ new_step1 = '''<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -->
         <div class="sah-exhibit-content-col">
           <div class="sah-exhibit-header">
             <h3>Khu Lưu Niệm Nhà Bác Học Lê Quý Đôn</h3>
-            <span class="sah-exhibit-loc">Hưng Hà, Thái Bình • Danh nhân văn hóa thế kỷ XVIII</span>
+            <span class="sah-exhibit-loc">xã Lê Quý Đôn, tỉnh Hưng Yên (Hưng Hà, tỉnh Thái Bình cũ) • Danh nhân văn hóa thế kỷ XVIII</span>
           </div>
           <div class="sah-exhibit-grid">
             <div class="sah-exhibit-text">

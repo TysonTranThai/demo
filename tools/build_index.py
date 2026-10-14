@@ -2449,12 +2449,14 @@ body:not(.slide-mode) .sah-slide {
   background: #1c1915;
   border: 1px solid var(--sah-gold-border);
   border-radius: 14px;
-  padding: 12px 14px;
-  min-width: 112px;
+  padding: 12px 10px;
+  min-width: 120px;
+  max-width: 150px;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  flex: 1;
+  flex: 1 0 auto;
+  box-sizing: border-box;
 }
 .sah-roadmap-step:hover {
   border-color: var(--sah-gold-primary);
@@ -2478,13 +2480,17 @@ body:not(.slide-mode) .sah-slide {
   display: block;
   font-size: 12px;
   color: var(--sah-text-heading);
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.35;
+  margin-bottom: 3px;
 }
 .sah-roadmap-step small {
   display: block;
   font-size: 10px;
   color: var(--sah-text-muted);
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.3;
 }
 .sah-rm-arr {
   color: var(--sah-gold-primary);

@@ -41,7 +41,7 @@ new_step1 = '''<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -->
         </p>
 
         <div class="sah-landing-meta-strip">
-          <div class="sah-meta-item">🏛️ <b>Đơn vị nghiên cứu:</b> Trường THCS & THPT tỉnh Hưng Yên</div>
+          <div class="sah-meta-item">🏛️ <b>Đơn vị nghiên cứu:</b> Trường Trung học cơ sở Lê Quý Đôn, xã Lê Quý Đôn, tỉnh Hưng Yên</div>
           <div class="sah-meta-item">🎓 <b>Đối tượng:</b> Học sinh THCS, THPT & Giáo viên mĩ thuật</div>
           <div class="sah-meta-item">📜 <b>Chuẩn đầu ra:</b> Phát triển năng lực mĩ thuật & cảm thụ di sản</div>
         </div>

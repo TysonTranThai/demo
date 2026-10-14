@@ -321,7 +321,7 @@ STEP1_HTML = """<!-- STEP 1: TRANG CHU -->
     <div class="sah-hero-eyebrow">SMART ART HERITAGE • HỆ SINH THÁI GIÁO DỤC MĨ THUẬT SỐ</div>
     <h1 class="sah-hero-title">GIẢI PHÁP TÍCH HỢP AI, 3D, AR VÀ BẢN ĐỒ SỐ<br><span class="sah-hero-sub-accent">TRONG GIÁO DỤC MĨ THUẬT DI SẢN VĂN HÓA ĐỊA PHƯƠNG</span></h1>
     <div class="sah-hero-meta-bar">
-      <span>🏛️ <b>Đơn vị nghiên cứu:</b> Trường THCS & THPT tỉnh Hưng Yên</span>
+      <span>🏛️ <b>Đơn vị nghiên cứu:</b> Trường Trung học cơ sở Lê Quý Đôn, xã Lê Quý Đôn, tỉnh Hưng Yên</span>
       <span>🎓 <b>Đối tượng áp dụng:</b> Học sinh THCS, THPT & Giáo viên Mĩ thuật toàn quốc</span>
     </div>
     <p class="sah-hero-lead">Chào mừng em đến với không gian học tập và sáng tạo Mĩ thuật di sản văn hóa địa phương. Trang web được thiết kế theo <b>hành trình 9 bước tuần tự</b>: từ định vị địa lý trên bản đồ số, khám phá 75 tư liệu ảnh và mô hình 3D tương tác xoay 360°, đối thoại cùng Trợ lý AI Art Assistant 5A, thực hành xưởng phác thảo, triển lãm thực tế tăng cường AR cho đến tự đánh giá và phản tư hành trình cá nhân.</p>

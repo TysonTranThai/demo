@@ -1496,6 +1496,94 @@ body:not(.slide-mode) .sah-slide {
   border-bottom: 1px solid var(--sah-gold-border) !important;
   box-shadow: 0 4px 28px rgba(0, 0, 0, 0.75) !important;
   font-family: var(--sah-font-sans) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: nowrap !important;
+  padding: 8px 18px !important;
+  box-sizing: border-box !important;
+}
+@media (min-width: 861px) {
+  .rm-topnav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 60 !important;
+  }
+  .sah-stepper-nav {
+    position: sticky !important;
+    top: 48px !important;
+    z-index: 55 !important;
+  }
+}
+@media (max-width: 860px) {
+  .rm-topnav {
+    position: relative !important;
+    top: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    padding: 8px 12px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .rm-topnav::-webkit-scrollbar {
+    display: none !important;
+  }
+  .rm-topnav-brand {
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
+  }
+  .rm-topnav-link {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    flex-shrink: 0 !important;
+  }
+  .rm-chip, .rm-btn {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    flex-shrink: 0 !important;
+  }
+  .sah-stepper-nav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 70 !important;
+    background: rgba(17, 15, 13, 0.96) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+  }
+  .sah-stepper-container {
+    padding: 6px 8px !important;
+    gap: 6px !important;
+  }
+  .sah-step-pill {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+  .sah-view-toggle {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+  .sah-step-sec {
+    margin: 14px 6px 28px !important;
+    padding: 18px 12px !important;
+    scroll-margin-top: 56px !important;
+    border-radius: 18px !important;
+  }
+  .sah-landing-page {
+    padding: 18px 12px !important;
+  }
+  .sah-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .sah-exhibit-card {
+    grid-template-columns: 1fr !important;
+    padding: 16px 12px !important;
+    gap: 12px !important;
+  }
+  .sah-exhibit-num {
+    font-size: 32px !important;
+  }
 }
 .rm-topnav-brand {
   font-family: var(--sah-font-display) !important;

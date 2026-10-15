@@ -838,14 +838,14 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
             <small>Khu lưu niệm danh nhân văn hóa & truyền thống hiếu học</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('video%20v%E1%BB%81%20ki%E1%BA%BFn%20tr%C3%BAc%20ch%C3%B9a%20keo.mp4', 'Độc đáo kiến trúc chùa Keo Thái Bình', this, 'https://www.youtube.com/watch?v=c7KmpEGgN2s')">
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=c7KmpEGgN2s', 'Độc đáo kiến trúc chùa Keo Thái Bình', this)">
           <span class="sah-v-ico">▶</span>
           <div>
             <b>4. Kiến trúc độc đáo Chùa Keo</b>
             <small>Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('video%20v%E1%BB%81%20l%C3%A0ng%20ngh%E1%BB%81%20ch%E1%BA%A1m%20b%E1%BA%A1c%20%C4%91%E1%BB%93ng%20x%C3%A2m.mp4', 'Làng nghề chạm bạc Đồng Xâm gắn với du lịch', this, 'https://www.youtube.com/watch?v=zuZoxPZLPnE')">
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=zuZoxPZLPnE', 'Làng nghề chạm bạc Đồng Xâm gắn với du lịch', this)">
           <span class="sah-v-ico">▶</span>
           <div>
             <b>5. Làng nghề chạm bạc Đồng Xâm</b>
@@ -3710,13 +3710,13 @@ function syncHeritagePanels() {
   });
 }
 
-// Video switcher on Landing Page (supports local MP4 with zero redirect below, starting from the beginning)
+// Video switcher on Landing Page (supports local MP4 and YouTube embeds with zero redirect below, starting from 0s)
 function parseYoutubeEmbed(url) {
   if (!url) return '';
   var match = url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:watch\\?v=|embed\\/))([a-zA-Z0-9_-]{11})/);
   if (!match) return url;
   var id = match[1];
-  return 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&start=0';
+  return 'https://www.youtube.com/embed/' + id + '?autoplay=1&start=0&rel=0';
 }
 
 function switchLandingVideo(srcUrl, caption, element, ytFallbackUrl) {

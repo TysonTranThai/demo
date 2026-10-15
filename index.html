@@ -171,12 +171,16 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 <nav class="rm-topnav">
   <a class="rm-topnav-brand" href="#step1-trangchu" onclick="goToSlide(0); return false;">SMART ART HERITAGE</a>
   <a class="rm-topnav-link" href="#step2-bando" onclick="goToSlide(1); return false;">🗺️ Bản đồ</a>
-  <a class="rm-topnav-link" href="#step4-hosodisan" onclick="goToSlide(3); return false;">🔍 15 Ảnh & Phiếu 3-2-1</a>
-  <a class="rm-topnav-link" href="#step5-phong3d" onclick="goToSlide(4); return false;">🧊 Phòng 3D</a>
-  <a class="rm-topnav-link" href="#step6-ai5a" onclick="goToSlide(5); return false;">🤖 Trợ lý AI</a>
-  <a class="rm-topnav-link" href="#step8-argallery" onclick="goToSlide(7); return false;">🖼️ Triển lãm AR</a>
-  <a class="rm-topnav-link" href="#step9-danhgia" onclick="goToSlide(8); return false;">📝 Đánh giá và tự hoàn thiện</a>
-  <a class="rm-topnav-link teacher-only" href="giao-vien.html" style="display:none;">👩‍🏫 Quản Trị ↗</a>
+  <a class="rm-topnav-link" href="#step3-5khudisan" onclick="goToSlide(2); return false;">🏛️ 5 Di sản</a>
+  <a class="rm-topnav-link" href="#step4-hosodisan" onclick="goToSlide(3); return false;">🔍 Hồ sơ 15 ảnh</a>
+  <a class="rm-topnav-link" href="#step5-danhgia321" onclick="goToSlide(4); return false;">📝 Đánh giá 3-2-1</a>
+  <a class="rm-topnav-link" href="#step6-ai5a" onclick="goToSlide(5); return false;">🤖 AI 5A</a>
+  <a class="rm-topnav-link" href="#step7-hopchieu" onclick="goToSlide(6); return false;">✨ Hộp Chiếu</a>
+  <a class="rm-topnav-link" href="#step8-xuongsangtao" onclick="goToSlide(7); return false;">✏️ Phác thảo</a>
+  <a class="rm-topnav-link" href="#step9-banthuchanh" onclick="goToSlide(8); return false;">🎨 Tác phẩm</a>
+  <a class="rm-topnav-link" href="#step10-trainghiemar" onclick="goToSlide(9); return false;">📱 Làm AR</a>
+  <a class="rm-topnav-link" href="#step11-phong3d" onclick="goToSlide(10); return false;">🧊 Phòng 3D</a>
+  <a class="rm-topnav-link" href="#step12-dashboard" onclick="goToSlide(11); return false;">👩‍🏫 Dashboard GV</a>
   <a class="rm-topnav-link" href="trien-lam.html">🗂️ Triển lãm đầy đủ ↗</a>
   <span class="rm-topnav-spacer"></span>
   <span class="rm-identity" id="rmIdentityChip"></span>
@@ -189,13 +193,13 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 <!-- RM-GATE-START -->
 <div id="roleGate" class="rm-overlay" hidden>
   <div class="rm-card">
-    <div class="rm-eyebrow">SMART ART HERITAGE • HÀNH TRÌNH 9 BƯỚC TUẦN TỰ</div>
+    <div class="rm-eyebrow">SMART ART HERITAGE • HÀNH TRÌNH 12 BƯỚC TUẦN TỰ</div>
     <h2>Trước tiên: em là ai?</h2>
     <p class="rm-sub">Chọn vai trò để bắt đầu hành trình. Học sinh khai báo họ tên, mã học sinh và lớp để lưu bài và nhận phản hồi từ giáo viên.</p>
     <div class="rm-choices" id="rgChoices">
       <button type="button" class="rm-choice" data-role="student"><span class="rm-ico">🎓</span><b>Học sinh</b><span>Nhập họ tên, mã học sinh, lớp rồi làm và nộp từng chặng</span></button>
-      <button type="button" class="rm-choice" data-role="teacher"><span class="rm-ico">👩‍🏫</span><b>Giáo viên</b><span>Xem toàn bộ 9 bước & Truy cập Trang Quản Trị để chấm bài theo Rubric</span></button>
-      <button type="button" class="rm-choice" data-role="guest"><span class="rm-ico">👀</span><b>Khách tham quan</b><span>Xem thử toàn bộ 9 bước hành trình mà không cần nộp bài</span></button>
+      <button type="button" class="rm-choice" data-role="teacher"><span class="rm-ico">👩‍🏫</span><b>Giáo viên</b><span>Xem toàn bộ 12 bước & Truy cập Trang Quản Trị để chấm bài theo Rubric</span></button>
+      <button type="button" class="rm-choice" data-role="guest"><span class="rm-ico">👀</span><b>Khách tham quan</b><span>Xem thử toàn bộ 12 bước hành trình mà không cần nộp bài</span></button>
     </div>
     <div class="rm-form" id="rgStudentForm" hidden>
       <label for="rmName">Họ tên đầy đủ của em</label>
@@ -216,60 +220,70 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 <!-- RM-GATE-END -->
 
 <!-- SAH-GUIDELINE-STEPPER-START -->
-<nav id="sahGuidelineNav" class="sah-stepper-nav" aria-label="Hành trình PowerPoint 9 bước">
+<nav id="sahGuidelineNav" class="sah-stepper-nav" aria-label="Hành trình PowerPoint 12 bước">
   <div class="sah-stepper-container">
     <div class="sah-stepper-left">
       <button type="button" class="sah-stepper-btn-quick" id="btnQuickPrev" onclick="prevSlide()" title="Trang trước (Phím ←)">❮</button>
-      <div class="sah-stepper-cur-badge" id="stepperSlideBadge">Trang <b id="stepperCurNum">1</b>/<span id="stepperTotalNum">9</span></div>
+      <div class="sah-stepper-cur-badge" id="stepperSlideBadge">Trang <b id="stepperCurNum">1</b>/<span id="stepperTotalNum">12</span></div>
       <button type="button" class="sah-stepper-btn-quick" id="btnQuickNext" onclick="nextSlide()" title="Trang tiếp (Phím →)">❯</button>
     </div>
     <div class="sah-stepper-track" id="sahStepperTrack">
-      <a href="#step1-trangchu" class="sah-step-pill active" data-step="1" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="Bước 1 • Cổng Bảo Tàng Số" data-preview-sub="Không gian di sản nghệ thuật & 5 kiệt tác tiêu biểu" data-preview-badge="BƯỚC 1 / 9" onclick="goToSlide(0); return false;">
+      <a href="#step1-trangchu" class="sah-step-pill active" data-step="1" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="Bước 1 • Cổng Bảo Tàng Số" data-preview-sub="Không gian di sản nghệ thuật & 5 kiệt tác tiêu biểu" data-preview-badge="BƯỚC 1 / 12" onclick="goToSlide(0); return false;">
         <span class="sah-step-num">1</span>
         <span class="sah-step-txt">Trang chủ</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step2-bando" class="sah-step-pill" data-step="2" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="Bước 2 • Bản Đồ Văn Hóa Số" data-preview-sub="Định vị 5 di sản văn hóa trọng điểm vùng Sông Hồng" data-preview-badge="BƯỚC 2 / 9" onclick="goToSlide(1); return false;">
+      <a href="#step2-bando" class="sah-step-pill" data-step="2" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="Bước 2 • Bản Đồ Văn Hóa Số" data-preview-sub="Định vị 5 di sản văn hóa trọng điểm vùng Sông Hồng" data-preview-badge="BƯỚC 2 / 12" onclick="goToSlide(1); return false;">
         <span class="sah-step-num">2</span>
         <span class="sah-step-txt">Bản đồ</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step3-5khudisan" class="sah-step-pill" data-step="3" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="Bước 3 • 5 Kiệt Tác Di Sản" data-preview-sub="Đền Trần Long Hưng, Chùa Keo, Phố Hiến..." data-preview-badge="BƯỚC 3 / 9" onclick="goToSlide(2); return false;">
+      <a href="#step3-5khudisan" class="sah-step-pill" data-step="3" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="Bước 3 • 5 Kiệt Tác Di Sản" data-preview-sub="Đền Trần Long Hưng, Chùa Keo, Phố Hiến..." data-preview-badge="BƯỚC 3 / 12" onclick="goToSlide(2); return false;">
         <span class="sah-step-num">3</span>
         <span class="sah-step-txt">5 Di sản</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step4-hosodisan" class="sah-step-pill" data-step="4" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Phiếu 3-2-1" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & hình thành ý tưởng cá nhân" data-preview-badge="BƯỚC 4 / 9" onclick="goToSlide(3); return false;">
+      <a href="#step4-hosodisan" class="sah-step-pill" data-step="4" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Hotspot" data-preview-sub="Khám phá từ dễ đến sâu: Cấu trúc, kỹ thuật & biểu tượng" data-preview-badge="BƯỚC 4 / 12" onclick="goToSlide(3); return false;">
         <span class="sah-step-num">4</span>
-        <span class="sah-step-txt">15 Ảnh & Phiếu 3-2-1</span>
+        <span class="sah-step-txt">Hồ sơ 15 ảnh</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step5-phong3d" class="sah-step-pill" data-step="5" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 5 • Phòng Tương Tác 3D" data-preview-sub="Số hóa WebGL xoay 360° cảm thụ hình khối" data-preview-badge="BƯỚC 5 / 9" onclick="goToSlide(4); return false;">
+      <a href="#step5-danhgia321" class="sah-step-pill" data-step="5" data-preview-img="assets/heritage/diagram_hotspot_321.svg" data-preview-title="Bước 5 • Đánh Giá & Tự Hoàn Thiện 3-2-1" data-preview-sub="Kho ngân hàng câu hỏi 3-2-1 & Phiếu ý tưởng độc bản" data-preview-badge="BƯỚC 5 / 12" onclick="goToSlide(4); return false;">
         <span class="sah-step-num">5</span>
-        <span class="sah-step-txt">Phòng 3D</span>
+        <span class="sah-step-txt">Đánh giá 3-2-1</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step6-ai5a" class="sah-step-pill" data-step="6" data-preview-img="assets/heritage/diagram_ai_5a.svg" data-preview-title="Bước 6 • Trợ Lý AI Art Assistant 5A" data-preview-sub="Đối thoại thông minh gợi ý hướng phát triển ý tưởng" data-preview-badge="BƯỚC 6 / 9" onclick="goToSlide(5); return false;">
+      <a href="#step6-ai5a" class="sah-step-pill" data-step="6" data-preview-img="assets/heritage/diagram_ai_5a.svg" data-preview-title="Bước 6 • Trợ Lý AI Art Assistant 5A" data-preview-sub="Chu trình 5A: Ask → Analyze → Advise → Adapt → Art" data-preview-badge="BƯỚC 6 / 12" onclick="goToSlide(5); return false;">
         <span class="sah-step-num">6</span>
         <span class="sah-step-txt">AI 5A</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step7-xuongsangtao" class="sah-step-pill" data-step="7" data-preview-img="assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg" data-preview-title="Bước 7 • Xưởng Sáng Tạo & Phác Thảo" data-preview-sub="Biến đổi mô-đun hoa văn di sản thành tác phẩm độc bản" data-preview-badge="BƯỚC 7 / 9" onclick="goToSlide(6); return false;">
+      <a href="#step7-hopchieu" class="sah-step-pill" data-step="7" data-preview-img="assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg" data-preview-title="Bước 7 • Hộp Chiếu Sáng Tạo" data-preview-sub="Thực nghiệm đa lớp ánh sáng & bóng đổ diorama" data-preview-badge="BƯỚC 7 / 12" onclick="goToSlide(6); return false;">
         <span class="sah-step-num">7</span>
-        <span class="sah-step-txt">Xưởng sáng tạo</span>
+        <span class="sah-step-txt">Hộp chiếu sáng tạo</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step8-argallery" class="sah-step-pill" data-step="8" data-preview-img="assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg" data-preview-title="Bước 8 • Triển Lãm Thực Tế Ảo (AR)" data-preview-sub="Trưng bày tác phẩm trong không gian thực qua camera" data-preview-badge="BƯỚC 8 / 9" onclick="goToSlide(7); return false;">
+      <a href="#step8-xuongsangtao" class="sah-step-pill" data-step="8" data-preview-img="assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg" data-preview-title="Bước 8 • Xưởng Phác Thảo Sáng Tạo" data-preview-sub="Thử nghiệm 3 phương án phác thảo & đánh giá chọn lọc" data-preview-badge="BƯỚC 8 / 12" onclick="goToSlide(7); return false;">
         <span class="sah-step-num">8</span>
-        <span class="sah-step-txt">Triển lãm AR</span>
+        <span class="sah-step-txt">Xưởng phác thảo</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step9-danhgia" class="sah-step-pill" data-step="9" data-preview-img="assets/heritage/diagram_hotspot_321.svg" data-preview-title="Bước 9 • Đánh Giá Và Tự Hoàn Thiện" data-preview-sub="Phiếu tự đánh giá 3-2-1 & Rubric sư phạm" data-preview-badge="BƯỚC 9 / 9" onclick="goToSlide(8); return false;">
+      <a href="#step9-banthuchanh" class="sah-step-pill" data-step="9" data-preview-img="assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg" data-preview-title="Bước 9 • Bản Thực Hành Tác Phẩm" data-preview-sub="Chuyển hóa phác thảo thành tác phẩm mĩ thuật độc bản" data-preview-badge="BƯỚC 9 / 12" onclick="goToSlide(8); return false;">
         <span class="sah-step-num">9</span>
-        <span class="sah-step-txt">Đánh giá và tự hoàn thiện</span>
+        <span class="sah-step-txt">Bản thực hành</span>
       </a>
-      <span class="sah-step-sep teacher-only" style="display:none;">|</span>
-      <a href="#step-dashboard" class="sah-step-pill sah-step-dash teacher-only" data-step="10" data-preview-img="assets/heritage/edu_avatar.svg" data-preview-title="Dashboard Giáo Viên" data-preview-sub="Quản trị hồ sơ bài làm học sinh & chấm điểm Rubric" data-preview-badge="QUẢN TRỊ" style="display:none;" onclick="goToSlide(9); return false;">
+      <span class="sah-step-arrow">→</span>
+      <a href="#step10-trainghiemar" class="sah-step-pill" data-step="10" data-preview-img="assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg" data-preview-title="Bước 10 • Trải Nghiệm Làm AR" data-preview-sub="Tạo mã QR và xem tranh nổi 3D trong không gian thực" data-preview-badge="BƯỚC 10 / 12" onclick="goToSlide(9); return false;">
+        <span class="sah-step-num">10</span>
+        <span class="sah-step-txt">Trải nghiệm AR</span>
+      </a>
+      <span class="sah-step-arrow">→</span>
+      <a href="#step11-phong3d" class="sah-step-pill" data-step="11" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 11 • Phòng 3D Tương Tác" data-preview-sub="Số hóa WebGL xoay 360° cảm nhận hình khối kiến trúc" data-preview-badge="BƯỚC 11 / 12" onclick="goToSlide(10); return false;">
+        <span class="sah-step-num">11</span>
+        <span class="sah-step-txt">Phòng 3D</span>
+      </a>
+      <span class="sah-step-arrow">→</span>
+      <a href="#step12-dashboard" class="sah-step-pill sah-step-dash" data-step="12" data-preview-img="assets/heritage/edu_avatar.svg" data-preview-title="Bước 12 • Dashboard Giáo Viên" data-preview-sub="Bảng điểm Rubric, Pre/Post test & Hồ sơ hành trình" data-preview-badge="BƯỚC 12 / 12" onclick="goToSlide(11); return false;">
         <span class="sah-step-icon">👩‍🏫</span>
         <span class="sah-step-txt">Dashboard GV</span>
       </a>
@@ -327,7 +341,7 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
         </h1>
 
         <p class="sah-landing-lead">
-          Chào mừng em đến với <b>Smart Art Heritage</b> — nền tảng học tập Mĩ thuật số chuyển hóa di sản văn hóa nghìn năm châu thổ Sông Hồng thành chất liệu sáng tạo đương đại. Trải nghiệm được thiết kế theo <b>bài giảng trình chiếu 9 bước tuần tự</b>: từ quan sát tư liệu, cảm thụ hình khối 3D 360°, đối thoại cùng trợ lý AI 5A đến trưng bày tác phẩm trong không gian thực qua thực tế tăng cường (AR).
+          Chào mừng em đến với <b>Smart Art Heritage</b> — nền tảng học tập Mĩ thuật số chuyển hóa di sản văn hóa nghìn năm châu thổ Sông Hồng thành chất liệu sáng tạo đương đại. Trải nghiệm được thiết kế theo <b>bài giảng trình chiếu 12 bước tuần tự</b>: từ quan sát tư liệu, cảm thụ hình khối 3D 360°, đối thoại cùng trợ lý AI 5A đến trưng bày tác phẩm trong không gian thực qua thực tế tăng cường (AR).
         </p>
 
         <div class="sah-landing-meta-strip">
@@ -338,15 +352,20 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 
         <div class="sah-landing-hero-actions">
           <button type="button" class="sah-btn-hero-primary" onclick="goToSlide(1)">
-            🚀 BẮT ĐẦU HÀNH TRÌNH 9 BƯỚC (Trang 2: Bản đồ) →
+            🚀 BẮT ĐẦU HÀNH TRÌNH 12 BƯỚC (Trang 2: Bản đồ) →
           </button>
           <div class="sah-hero-quick-row">
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(1)">🗺️ Bản đồ số</button>
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(2)">🏛️ 5 Khu di sản</button>
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(3)">🔍 15 Ảnh tư liệu</button>
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(4)">🧊 Phòng 3D 360°</button>
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(5)">🤖 Trợ lý AI 5A</button>
-            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(7)">📱 Triển lãm AR</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(1)">🗺️ Bản đồ</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(2)">🏛️ 5 Di sản</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(3)">🔍 15 Ảnh</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(4)">📝 3-2-1</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(5)">🤖 AI 5A</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(6)">✨ Hộp Chiếu</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(7)">✏️ Phác thảo</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(8)">🎨 Tác phẩm</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(9)">📱 Làm AR</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(10)">🧊 Phòng 3D</button>
+            <button type="button" class="sah-btn-hero-ghost" onclick="goToSlide(11)">👩‍🏫 Dashboard</button>
           </div>
         </div>
       </div>
@@ -625,10 +644,10 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
         <div class="sah-pillar-rule">📌 Nguyên tắc: "Không quan sát = Không AI"</div>
       </div>
 
-      <div class="sah-pillar-card" onclick="goToSlide(4)" style="cursor:pointer;" title="Bấm để tới Phòng 3D">
+      <div class="sah-pillar-card" onclick="goToSlide(10)" style="cursor:pointer;" title="Bấm để tới Phòng 3D">
         <div class="sah-pillar-top">
           <div class="sah-pillar-ico">🧊</div>
-          <span class="sah-pillar-step-tag">BƯỚC 5</span>
+          <span class="sah-pillar-step-tag">BƯỚC 11</span>
         </div>
         <div class="sah-pillar-name">Mô hình 3D tương tác WebGL</div>
         <div class="sah-pillar-desc">
@@ -637,10 +656,10 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
         <div class="sah-pillar-rule">📌 Trải nghiệm xoay 360° trực quan trên trình duyệt</div>
       </div>
 
-      <div class="sah-pillar-card" onclick="goToSlide(7)" style="cursor:pointer;" title="Bấm để tới Triển lãm AR">
+      <div class="sah-pillar-card" onclick="goToSlide(9)" style="cursor:pointer;" title="Bấm để tới Triển lãm AR">
         <div class="sah-pillar-top">
           <div class="sah-pillar-ico">📱</div>
-          <span class="sah-pillar-step-tag">BƯỚC 8</span>
+          <span class="sah-pillar-step-tag">BƯỚC 10</span>
         </div>
         <div class="sah-pillar-name">Triển lãm Thực tế Tăng cường (AR)</div>
         <div class="sah-pillar-desc">
@@ -667,63 +686,81 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
   <div class="sah-landing-section">
     <div class="sah-landing-sec-head">
       <span class="sah-tag-pill">QUY TRÌNH SƯ PHẠM</span>
-      <h2>Hành Trình Trải Nghiệm 9 Bước Tuần Tự</h2>
+      <h2>Hành Trình Trải Nghiệm 12 Bước Tuần Tự</h2>
       <p>Học sinh đi qua từng trang theo thứ tự khoa học để hình thành tác phẩm độc bản</p>
     </div>
 
     <div class="sah-roadmap-track">
-      <div class="sah-roadmap-step" onclick="goToSlide(0)" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="Bước 1 • Cổng Bảo Tàng Số" data-preview-sub="Khởi động & Khám phá trụ cột di sản" data-preview-badge="BƯỚC 1 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(0)" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="Bước 1 • Cổng Bảo Tàng Số" data-preview-sub="Khởi động & Khám phá trụ cột di sản" data-preview-badge="BƯỚC 1 / 12">
         <span class="sah-rm-num">1</span>
         <b>Trang chủ</b>
-        <small>Khởi động & Trụ cột</small>
+        <small>Cổng bảo tàng</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(1)" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="Bước 2 • Bản Đồ Văn Hóa Số" data-preview-sub="Định vị 5 di sản văn hóa trọng điểm Hưng Yên" data-preview-badge="BƯỚC 2 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(1)" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="Bước 2 • Bản Đồ Văn Hóa Số" data-preview-sub="Định vị 5 di sản văn hóa trọng điểm Hưng Yên" data-preview-badge="BƯỚC 2 / 12">
         <span class="sah-rm-num">2</span>
-        <b>Bản đồ số</b>
+        <b>Bản đồ</b>
         <small>Định vị di sản</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(2)" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="Bước 3 • 5 Kiệt Tác Di Sản • Đền Trần Long Hưng" data-preview-sub="xã Long Hưng • Lăng mộ các vua Trần & Điêu khắc đá" data-preview-badge="BƯỚC 3 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(2)" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="Bước 3 • 5 Kiệt Tác Di Sản" data-preview-sub="Khám phá 5 quần thể di tích trọng điểm" data-preview-badge="BƯỚC 3 / 12">
         <span class="sah-rm-num">3</span>
-        <b>5 Khu di sản</b>
-        <small>Chọn hồ sơ nghiên cứu</small>
+        <b>5 Di sản</b>
+        <small>Chọn hồ sơ</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(3)" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Phiếu 3-2-1" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & hình thành ý tưởng cá nhân" data-preview-badge="BƯỚC 4 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(3)" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Hotspot" data-preview-sub="Khám phá từ dễ đến sâu: Cấu trúc, kỹ thuật & biểu tượng" data-preview-badge="BƯỚC 4 / 12">
         <span class="sah-rm-num">4</span>
-        <b>15 Ảnh & Phiếu 3-2-1</b>
-        <small>Hotspot & Ý tưởng</small>
+        <b>Hồ sơ 15 ảnh</b>
+        <small>Hotspot 3 tầng</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(4)" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 5 • Phòng Tương Tác 3D" data-preview-sub="Số hóa WebGL xoay 360° cảm thụ hình khối" data-preview-badge="BƯỚC 5 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(4)" data-preview-img="assets/heritage/diagram_hotspot_321.svg" data-preview-title="Bước 5 • Đánh Giá & Tự Hoàn Thiện 3-2-1" data-preview-sub="Kho ngân hàng câu hỏi 3-2-1 & Phiếu ý tưởng độc bản" data-preview-badge="BƯỚC 5 / 12">
         <span class="sah-rm-num">5</span>
+        <b>Đánh giá 3-2-1</b>
+        <small>Ngân hàng câu hỏi</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(5)" data-preview-img="assets/heritage/diagram_ai_5a.svg" data-preview-title="Bước 6 • Trợ Lý AI Art Assistant 5A" data-preview-sub="Chu trình 5A: Ask → Analyze → Advise → Adapt → Art" data-preview-badge="BƯỚC 6 / 12">
+        <span class="sah-rm-num">6</span>
+        <b>AI 5A Studio</b>
+        <small>Gợi mở ý tưởng</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(6)" data-preview-img="assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg" data-preview-title="Bước 7 • Hộp Chiếu Sáng Tạo" data-preview-sub="Thực nghiệm đa lớp ánh sáng & bóng đổ diorama" data-preview-badge="BƯỚC 7 / 12">
+        <span class="sah-rm-num">7</span>
+        <b>Hộp Chiếu Sáng Tạo</b>
+        <small>Diorama ánh sáng</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(7)" data-preview-img="assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg" data-preview-title="Bước 8 • Xưởng Phác Thảo Sáng Tạo" data-preview-sub="Thử nghiệm 3 phương án phác thảo & chọn lọc" data-preview-badge="BƯỚC 8 / 12">
+        <span class="sah-rm-num">8</span>
+        <b>Xưởng phác thảo</b>
+        <small>3 Phương án phác thảo</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(8)" data-preview-img="assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg" data-preview-title="Bước 9 • Bản Thực Hành Tác Phẩm" data-preview-sub="Chuyển hóa phác thảo thành tác phẩm nghệ thuật độc bản" data-preview-badge="BƯỚC 9 / 12">
+        <span class="sah-rm-num">9</span>
+        <b>Bản thực hành</b>
+        <small>Tác phẩm hoàn thiện</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(9)" data-preview-img="assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg" data-preview-title="Bước 10 • Trải Nghiệm Làm AR" data-preview-sub="Tạo mã QR và xem tranh nổi 3D trong không gian thực" data-preview-badge="BƯỚC 10 / 12">
+        <span class="sah-rm-num">10</span>
+        <b>Trải nghiệm AR</b>
+        <small>Xem tranh nổi 3D</small>
+      </div>
+      <div class="sah-rm-arr">→</div>
+      <div class="sah-roadmap-step" onclick="goToSlide(10)" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 11 • Phòng 3D Tương Tác" data-preview-sub="Số hóa WebGL xoay 360° cảm nhận hình khối" data-preview-badge="BƯỚC 11 / 12">
+        <span class="sah-rm-num">11</span>
         <b>Phòng 3D</b>
         <small>Xoay 360° đa chiều</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(5)" data-preview-img="assets/heritage/diagram_ai_5a.svg" data-preview-title="Bước 6 • Trợ Lý AI Art Assistant 5A" data-preview-sub="Hỏi & Gợi mở ý tưởng sáng tạo mĩ thuật" data-preview-badge="BƯỚC 6 / 9">
-        <span class="sah-rm-num">6</span>
-        <b>AI 5A Studio</b>
-        <small>Hỏi & Gợi mở ý tưởng</small>
-      </div>
-      <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(6)" data-preview-img="assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg" data-preview-title="Bước 7 • Xưởng Sáng Tạo & Phác Thảo" data-preview-sub="Biến đổi mô-đun hoa văn thành tác phẩm độc bản" data-preview-badge="BƯỚC 7 / 9">
-        <span class="sah-rm-num">7</span>
-        <b>Xưởng sáng tạo</b>
-        <small>Phác thảo → Tác phẩm</small>
-      </div>
-      <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(7)" data-preview-img="assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg" data-preview-title="Bước 8 • Triển Lãm Thực Tế Ảo (AR)" data-preview-sub="Trưng bày thực tế tăng cường trong không gian thực" data-preview-badge="BƯỚC 8 / 9">
-        <span class="sah-rm-num">8</span>
-        <b>Triển lãm AR</b>
-        <small>Trưng bày thực tế ảo</small>
-      </div>
-      <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(8)" data-preview-img="assets/heritage/diagram_hotspot_321.svg" data-preview-title="Bước 9 • Đánh Giá Và Tự Hoàn Thiện" data-preview-sub="Phiếu tự đánh giá 3-2-1 & Rubric chấm điểm sư phạm" data-preview-badge="BƯỚC 9 / 9">
-        <span class="sah-rm-num">9</span>
-        <b>Đánh giá và tự hoàn thiện</b>
-        <small>Phiếu 3-2-1 & Rubric</small>
+      <div class="sah-roadmap-step" onclick="goToSlide(11)" data-preview-img="assets/heritage/edu_avatar.svg" data-preview-title="Bước 12 • Dashboard Giáo Viên" data-preview-sub="Bảng điểm Rubric, Pre/Post test & Hồ sơ hành trình" data-preview-badge="BƯỚC 12 / 12">
+        <span class="sah-rm-num">12</span>
+        <b>Dashboard GV</b>
+        <small>Đánh giá & Hồ sơ</small>
       </div>
     </div>
   </div>
@@ -836,7 +873,7 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>1</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>1</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
@@ -1075,12 +1112,12 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>2</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>2</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
       <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(2)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>5 Khu di sản</b></span> 
+          <span class="sah-ppt-lbl">Tiếp tục: <b>5 di sản</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
@@ -1089,7 +1126,7 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 
 <!-- STEP 3: 5 KHU DI SAN -->
 <section id="step3-5khudisan" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 3 / 9 • LỰA CHỌN KHU DI SẢN</div>
+  <div class="sah-step-badge">BƯỚC 3 / 12 • 5 DI SẢN VĂN HÓA TRỌNG ĐIỂM</div>
   <div class="sah-sec-header">
     <h2>🏛️ 5 KHU DI SẢN VĂN HÓA TRỌNG ĐIỂM</h2>
     <p class="sah-sec-sub">Chạm vào một trong 5 thẻ di sản bên dưới để kích hoạt hồ sơ học tập. Khi chọn một hồ sơ, chỉ hồ sơ đó và 15 ảnh tư liệu tương ứng sẽ mở ra ở Bước 4, các hồ sơ khác được ẩn gọn gàng.</p>
@@ -1124,28 +1161,28 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
     <div class="sah-ppt-nav-bar">
       <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(1)">
         <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>Bản đồ di sản</b></span>
+        <span class="sah-ppt-lbl">Quay lại: <b>Bản đồ di sản Hưng Yên</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>3</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>3</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
       <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(3)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>Hồ sơ 15 ảnh & Hotspot</b></span> 
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Hồ sơ 15 ảnh</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
     
 </section>
 
-<!-- STEP 4: HO SO KHAM PHA DI SAN -->
+<!-- STEP 4: HO SO 15 ANH & KHAM PHA TU DE DEN SAU -->
 <section id="step4-hosodisan" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 4 / 9 • QUAN SÁT TƯ LIỆU SỐ & PHIẾU 3-2-1</div>
+  <div class="sah-step-badge">BƯỚC 4 / 12 • HỒ SƠ 15 ẢNH TƯ LIỆU & HỆ THỐNG HOTSPOT 3 TẦNG</div>
   <div class="sah-sec-header">
-    <h2>🔍 HỒ SƠ KHÁM PHÁ DI SẢN • 15 ẢNH, HOTSPOT & PHIẾU TƯ DUY 3-2-1</h2>
-    <p class="sah-sec-sub">Mỗi di sản gồm 15 ảnh tư liệu độ phân giải cao và hệ thống Hotspot phân tích 3 tầng: <b>Tầng 1: Cấu trúc & bố cục</b> → <b>Tầng 2: Hoa văn & kỹ thuật</b> → <b>Tầng 3: Biểu tượng & ý nghĩa văn hóa</b>. Sau khi quan sát, học sinh hoàn thiện <b>Phiếu 3–2–1</b> để gieo hạt giống ý tưởng sáng tạo cá nhân.</p>
+    <h2>🔍 HỒ SƠ 15 ẢNH DI SẢN • KHÁM PHÁ TỪ DỄ ĐẾN SÂU</h2>
+    <p class="sah-sec-sub">Mỗi di sản gồm 15 ảnh tư liệu độ phân giải cao và hệ thống Hotspot phân tích 3 tầng: <b>Tầng 1: Cấu trúc & bố cục</b> → <b>Tầng 2: Hoa văn & kỹ thuật</b> → <b>Tầng 3: Biểu tượng & ý nghĩa văn hóa</b>. Học sinh quan sát kỹ tư liệu trước khi hình thành ý tưởng cá nhân.</p>
   </div>
 
   <div class="sah-rule-banner">
@@ -1398,8 +1435,43 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 
   <div class="switcher"><label for="home0">⌂ Trang chính</label><label for="h1" data-preview-img="assets/extracted/001_Pho_Hien_tong_quan.jpeg" data-preview-title="01 • Quần Thể Phố Hiến" data-preview-sub="TP. Hưng Yên • Thương cảng cổ thế kỷ XVII" data-preview-badge="HỒ SƠ 01">01 Phố Hiến</label><label for="h2" data-preview-img="assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg" data-preview-title="02 • Tuyệt Tác Chùa Keo" data-preview-sub="xã Vũ Tiên, Hưng Yên (Vũ Thư cũ) • Gác chuông 1632" data-preview-badge="HỒ SƠ 02">02 Chùa Keo</label><label for="h3" data-preview-img="assets/extracted/066_Nghi_mon_den_Tran.jpeg" data-preview-title="03 • Đền Trần Long Hưng" data-preview-sub="xã Long Hưng, Hưng Yên (Hưng Hà cũ) • Phát tích triều Trần" data-preview-badge="HỒ SƠ 03">03 Đền Trần Long Hưng</label><label for="h4" data-preview-img="assets/extracted/094_Chan_dung_bac_hoc_Le_Quy_Don.jpeg" data-preview-title="04 • Danh Nhân Lê Quý Đôn" data-preview-sub="xã Lê Quý Đôn, Hưng Yên (Hưng Hà cũ) • Danh nhân văn hóa" data-preview-badge="HỒ SƠ 04">04 Khu lưu niệm Lê Quý Đôn</label><label for="h5" data-preview-img="assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg" data-preview-title="05 • Chạm Bạc Đồng Xâm" data-preview-sub="xã Trà Giang, Hưng Yên (Kiến Xương cũ) • Kim hoàn 500 năm" data-preview-badge="HỒ SƠ 05">05 Làng nghề chạm bạc Đồng Xâm</label></div>
 
+  <div class="sah-flow-transition-card">
+    <div class="sah-ft-badge">✦ BƯỚC TIẾP THEO</div>
+    <h3>Đã quan sát trọn vẹn 15 ảnh tư liệu & hệ thống Hotspot?</h3>
+    <p>Hãy chuyển sang <b>Bước 5: Đánh giá và Tự hoàn thiện 3-2-1</b> để mở kho ngân hàng câu hỏi và ghi lại hạt giống ý tưởng sáng tạo của riêng em!</p>
+    <button type="button" class="rm-btn" onclick="goToSlide(4)">Chuyển sang Bước 5: Đánh giá 3-2-1 →</button>
+  </div>
+
+  
+    <div class="sah-ppt-nav-bar">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(2)">
+        <span class="sah-ppt-arr">←</span> 
+        <span class="sah-ppt-lbl">Quay lại: <b>5 di sản</b></span>
+      </button>
+      
+      <div class="sah-ppt-indicator">
+        <div class="sah-ppt-slide-num">Trang <b>4</b> / <span class="sah-dyn-total">12</span></div>
+        <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
+      </div>
+
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(4)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Đánh giá và Tự hoàn thiện 3-2-1</b></span> 
+          <span class="sah-ppt-arr">→</span>
+        </button>
+    </div>
+    
+</section>
+
+<!-- STEP 5: DANH GIA VA TU HOAN THIEN 3-2-1 -->
+<section id="step5-danhgia321" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 5 / 12 • ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN 3-2-1</div>
+  <div class="sah-sec-header">
+    <h2>📝 ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN 3-2-1 • KHO NGÂN HÀNG CÂU HỎI</h2>
+    <p class="sah-sec-sub">Hệ thống câu hỏi tư duy và tự hoàn thiện theo công thức 3-2-1: <b>3 điều em quan sát & phát hiện</b> → <b>2 nét đặc trưng muốn chuyển hóa</b> → <b>1 ý tưởng sáng tạo độc bản</b>. Dữ liệu từ phiếu sẽ là hạt giống ý tưởng đồng hành cùng em trong các bước tiếp theo.</p>
+  </div>
+
   <section id="sah321-integrated" class="sah321-integrated">
-<div class="sah-flow-note"><b>BƯỚC 4 • PHIẾU 3–2–1</b><span>Quan sát di sản → 3 Khám phá → 2 Lựa chọn & suy nghĩ → 1 Ý tưởng sáng tạo → AI 5A</span></div>
+<div class="sah-flow-note"><b>BƯỚC 5 • PHIẾU 3–2–1</b><span>Quan sát di sản → 3 Khám phá → 2 Lựa chọn & suy nghĩ → 1 Ý tưởng sáng tạo → AI 5A</span></div>
 <div class="sah321-card">
 <h2>Phiếu 3–2–1 • Hình thành ý tưởng cá nhân</h2><p class="sah321-instruction"><b>Cách làm:</b> Đọc câu hỏi → tự trả lời → chỉ mở gợi ý khi cần → lưu phiếu.</p>
 <p class="sah-muted">Chọn dự án và gói câu hỏi phù hợp. Mỗi lần chỉ mở một gói để tập trung. Câu “1 – Ý tưởng sáng tạo cá nhân” sẽ được ghi nhớ để chuyển sang bước AI 5A.</p>
@@ -2034,52 +2106,18 @@ R.querySelectorAll(".p312-project").forEach(box=>{
 
   
     <div class="sah-ppt-nav-bar">
-      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(2)">
-        <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>5 Khu di sản</b></span>
-      </button>
-      
-      <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>4</b> / <span class="sah-dyn-total">9</span></div>
-        <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
-      </div>
-
-      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(4)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>Phòng 3D tương tác</b></span> 
-          <span class="sah-ppt-arr">→</span>
-        </button>
-    </div>
-    
-</section>
-
-<!-- STEP 5: PHONG 3D TUONG TAC -->
-<section id="step5-phong3d" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 5 / 9 • KHÔNG GIAN 3 CHIỀU</div>
-
-  <section id="rmRoom3d" class="rm-sec">
-  <h2>🧊 PHÒNG 3D • XOAY 360° TỪNG DI SẢN</h2>
-  <p class="rm-sub">Mô hình 3D của 5 di sản, xoay và phóng to bằng chuột hoặc ngón tay (WebGL). Học sinh cảm nhận không gian và tỉ lệ kiến trúc trước khi sáng tạo.</p>
-  <div class="rm-frame" id="rm3dWrap">
-    <iframe id="rm3dFrame" title="Phòng 3D di sản" loading="lazy" allowfullscreen></iframe>
-    <button type="button" class="rm-frame-cta" id="rm3dCta">▶ Mở phòng 3D</button>
-  </div>
-  <p class="rm-note">Muốn xem toàn màn hình: <a href="models.html">mở models.html ↗</a></p>
-</section>
-
-  
-    <div class="sah-ppt-nav-bar">
       <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(3)">
         <span class="sah-ppt-arr">←</span> 
         <span class="sah-ppt-lbl">Quay lại: <b>Hồ sơ 15 ảnh</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>5</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>5</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
       <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(5)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>AI Art Assistant 5A</b></span> 
+          <span class="sah-ppt-lbl">Tiếp tục: <b>AI 5A</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
@@ -2088,7 +2126,7 @@ R.querySelectorAll(".p312-project").forEach(box=>{
 
 <!-- STEP 6: AI ART ASSISTANT 5A -->
 <section id="step6-ai5a" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 6 / 9 • TRỢ LÝ AI ĐỒNG HÀNH</div>
+  <div class="sah-step-badge">BƯỚC 6 / 12 • TRỢ LÝ AI ART ASSISTANT 5A</div>
   <div class="sah-sec-header">
     <h2>🤖 AI ART ASSISTANT – 5A • TỪ QUAN SÁT ĐẾN DẤU ẤN CÁ NHÂN</h2>
     <p class="sah-sec-sub">Quy trình sáng tạo 5A: <b>Ask (Hỏi & Khơi gợi)</b> → <b>Analyze (Phân tích nét di sản)</b> → <b>Advise (Gợi ý chất liệu/hình thức)</b> → <b>Adapt (Chuyển hóa phong cách cá nhân)</b> → <b>Art (Định hình tác phẩm)</b>. AI không làm thay học sinh, AI đặt câu hỏi gợi mở để em tự quyết định.</p>
@@ -2359,36 +2397,344 @@ load();
     <div class="sah-ppt-nav-bar">
       <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(4)">
         <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>Phòng 3D</b></span>
+        <span class="sah-ppt-lbl">Quay lại: <b>Đánh giá 3-2-1</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>6</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>6</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
       <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(6)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>Xưởng sáng tạo</b></span> 
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Hộp Chiếu Sáng Tạo</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
     
 </section>
 
-<!-- STEP 7: XUONG SANG TAO -->
-<section id="step7-xuongsangtao" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 7 / 9 • THỰC HÀNH SÁNG TẠO</div>
+<!-- STEP 7: HOP CHIEU SANG TAO -->
+<section id="step7-hopchieu" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 7 / 12 • HỘP CHIẾU SÁNG TẠO (CREATIVE LIGHTBOX / SHADOW BOX)</div>
   <div class="sah-sec-header">
-    <h2>✏️ XƯỞNG SÁNG TẠO • TỪ PHÁC THẢO ĐẾN TÁC PHẨM HOÀN THIỆN</h2>
-    <p class="sah-sec-sub">Hành trình 4 giai đoạn sáng tạo Mĩ thuật: <b>1. Ý tưởng cốt lõi</b> → <b>2. Thử nghiệm 3 phương án phác thảo</b> → <b>3. Phương án chọn</b> → <b>4. Bàn thực hành tác phẩm hoàn thiện</b>.</p>
+    <h2>✨ HỘP CHIẾU SÁNG TẠO • THỰC NGHIỆM ĐA LỚP ÁNH SÁNG & BÓNG ĐỔ</h2>
+    <p class="sah-sec-sub">Không gian mô phỏng Hộp Chiếu Mĩ thuật di sản (Shadow Box / Lightbox diorama). Học sinh thử nghiệm sắp đặt các lớp lang thị giác: <b>Tiền cảnh</b> (Hoa văn di sản), <b>Trung cảnh</b> (Kiến trúc biểu tượng), <b>Hậu cảnh</b> (Bầu trời & vầng trăng) với các chế độ ánh sáng lung linh (Hoàng hôn, Đêm trăng, Ánh đèn lồng, Bình minh).</p>
+  </div>
+
+  <div class="sah-lightbox-stage-container">
+    <div class="sah-lightbox-wrapper">
+      <!-- 3D SHADOW BOX DISPLAY STAGE -->
+      <div class="sah-lb-display-col">
+        <div class="sah-lb-box-wrap" id="sahLbBoxWrap">
+          <div class="sah-lb-box" id="sahLbBox" data-mood="hoanghon">
+            <!-- AMBIENT BACKLIGHT GLOW -->
+            <div class="sah-lb-light-aura" id="sahLbAura"></div>
+
+            <!-- LAYER 3: HẬU CẢNH (CELESTIAL / SKYLINE) -->
+            <div class="sah-lb-layer sah-lb-layer-bg" id="sahLbLayerBg">
+              <svg viewBox="0 0 600 400" class="sah-lb-svg" id="sahLbSvgBg">
+                <g class="sah-lb-bg-0" id="sahLbBg0">
+                  <!-- Trăng rằm & Sóng sông Hồng -->
+                  <circle cx="300" cy="130" r="65" fill="currentColor" opacity="0.9" />
+                  <circle cx="300" cy="130" r="85" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.4" />
+                  <path d="M 0 350 Q 150 330 300 350 T 600 350 L 600 400 L 0 400 Z" fill="currentColor" opacity="0.35"/>
+                  <path d="M 0 370 Q 150 355 300 370 T 600 370 L 600 400 L 0 400 Z" fill="currentColor" opacity="0.5"/>
+                </g>
+                <g class="sah-lb-bg-1" id="sahLbBg1" style="display:none;">
+                  <!-- Mặt trời Đông Sơn rạng rỡ -->
+                  <circle cx="300" cy="140" r="50" fill="currentColor" opacity="0.95" />
+                  <g stroke="currentColor" stroke-width="3" opacity="0.6">
+                    <line x1="300" y1="65" x2="300" y2="45" /><line x1="300" y1="215" x2="300" y2="235" />
+                    <line x1="225" y1="140" x2="205" y2="140" /><line x1="375" y1="140" x2="395" y2="140" />
+                    <line x1="247" y1="87" x2="233" y2="73" /><line x1="353" y1="193" x2="367" y2="207" />
+                    <line x1="247" y1="193" x2="233" y2="207" /><line x1="353" y1="87" x2="367" y2="73" />
+                  </g>
+                  <circle cx="300" cy="140" r="110" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 8" opacity="0.4"/>
+                </g>
+                <g class="sah-lb-bg-2" id="sahLbBg2" style="display:none;">
+                  <!-- Đàn cò bay qua rặng tre -->
+                  <path d="M 120 100 Q 130 90 140 100 Q 150 90 160 100 Q 140 96 120 100 Z" fill="currentColor"/>
+                  <path d="M 180 80 Q 188 72 196 80 Q 204 72 212 80 Q 196 76 180 80 Z" fill="currentColor"/>
+                  <path d="M 230 110 Q 236 104 242 110 Q 248 104 254 110 Q 242 107 230 110 Z" fill="currentColor"/>
+                  <path d="M 0 320 C 50 300 80 340 130 320 L 150 400 L 0 400 Z" fill="currentColor" opacity="0.4"/>
+                  <path d="M 450 310 C 500 290 550 330 600 310 L 600 400 L 450 400 Z" fill="currentColor" opacity="0.4"/>
+                </g>
+                <g class="sah-lb-bg-3" id="sahLbBg3" style="display:none;">
+                  <!-- Bầu trời sao đêm cổ tích -->
+                  <circle cx="80" cy="60" r="2.5" fill="currentColor"/><circle cx="150" cy="90" r="1.5" fill="currentColor"/>
+                  <circle cx="240" cy="50" r="3" fill="currentColor"/><circle cx="360" cy="70" r="2" fill="currentColor"/>
+                  <circle cx="480" cy="40" r="2.5" fill="currentColor"/><circle cx="530" cy="110" r="1.5" fill="currentColor"/>
+                  <circle cx="190" cy="130" r="2" fill="currentColor"/><circle cx="420" cy="120" r="3" fill="currentColor"/>
+                  <path d="M 400 80 Q 420 60 440 80 Q 420 100 400 80 Z" fill="currentColor" opacity="0.7"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- LAYER 2: TRUNG CẢNH (ARCHITECTURAL SILHOUETTE) -->
+            <div class="sah-lb-layer sah-lb-layer-mid" id="sahLbLayerMid">
+              <svg viewBox="0 0 600 400" class="sah-lb-svg" id="sahLbSvgMid">
+                <g class="sah-lb-mid-0" id="sahLbMid0">
+                  <!-- Gác chuông Chùa Keo 3 tầng 12 mái -->
+                  <!-- Nền móng & Lan can tầng 1 -->
+                  <rect x="210" y="320" width="180" height="60" rx="3" fill="currentColor" />
+                  <rect x="230" y="270" width="140" height="50" fill="currentColor" />
+                  <!-- Mái tầng 1 cong vút -->
+                  <path d="M 140 270 Q 220 250 300 245 Q 380 250 460 270 L 440 280 Q 370 262 300 258 Q 230 262 160 280 Z" fill="currentColor" />
+                  <!-- Tầng 2 -->
+                  <rect x="245" y="210" width="110" height="40" fill="currentColor" />
+                  <!-- Mái tầng 2 -->
+                  <path d="M 180 210 Q 240 195 300 190 Q 360 195 420 210 L 405 218 Q 355 204 300 200 Q 245 204 195 218 Z" fill="currentColor" />
+                  <!-- Tầng 3 (Gác chuông đồng) -->
+                  <rect x="260" y="165" width="80" height="30" fill="currentColor" />
+                  <circle cx="300" cy="180" r="7" fill="#000" opacity="0.3" />
+                  <!-- Mái thượng & Đỉnh nóc -->
+                  <path d="M 220 165 Q 260 150 300 146 Q 340 150 380 165 L 370 172 Q 335 158 300 155 Q 265 158 230 172 Z" fill="currentColor" />
+                  <polygon points="300,125 296,146 304,146" fill="currentColor" />
+                  <circle cx="300" cy="122" r="4" fill="currentColor" />
+                </g>
+                <g class="sah-lb-mid-1" id="sahLbMid1" style="display:none;">
+                  <!-- Cổng tam quan Phố Hiến -->
+                  <rect x="180" y="260" width="240" height="120" rx="4" fill="currentColor" />
+                  <!-- Vòm cửa chính & 2 vòm phụ -->
+                  <path d="M 270 380 L 270 300 Q 300 280 330 300 L 330 380 Z" fill="#000" opacity="0.4" />
+                  <path d="M 205 380 L 205 320 Q 225 305 245 320 L 245 380 Z" fill="#000" opacity="0.4" />
+                  <path d="M 355 380 L 355 320 Q 375 305 395 320 L 395 380 Z" fill="#000" opacity="0.4" />
+                  <!-- Mái hạ -->
+                  <path d="M 150 260 Q 300 230 450 260 L 435 272 Q 300 245 165 272 Z" fill="currentColor" />
+                  <!-- Cổ lầu tam quan -->
+                  <rect x="240" y="200" width="120" height="40" fill="currentColor" />
+                  <!-- Mái thượng -->
+                  <path d="M 210 200 Q 300 175 390 200 L 375 210 Q 300 188 225 210 Z" fill="currentColor" />
+                  <polygon points="300,165 295,178 305,178" fill="currentColor" />
+                </g>
+                <g class="sah-lb-mid-2" id="sahLbMid2" style="display:none;">
+                  <!-- Nghi môn Đền Trần Long Hưng -->
+                  <!-- 4 Trụ biểu uy nghiêm -->
+                  <rect x="170" y="220" width="24" height="160" rx="2" fill="currentColor" />
+                  <rect x="250" y="190" width="28" height="190" rx="2" fill="currentColor" />
+                  <rect x="322" y="190" width="28" height="190" rx="2" fill="currentColor" />
+                  <rect x="406" y="220" width="24" height="160" rx="2" fill="currentColor" />
+                  <!-- Đỉnh trụ chim Phượng & Đèn lồng lộng gió -->
+                  <polygon points="182,195 174,220 190,220" fill="currentColor" />
+                  <polygon points="264,160 254,190 274,190" fill="currentColor" />
+                  <polygon points="336,160 326,190 346,190" fill="currentColor" />
+                  <polygon points="418,195 410,220 426,220" fill="currentColor" />
+                  <!-- Xà ngang & Cuốn thư -->
+                  <rect x="270" y="230" width="60" height="25" rx="3" fill="currentColor" opacity="0.8" />
+                  <path d="M 194 280 L 250 280" stroke="currentColor" stroke-width="8" />
+                  <path d="M 350 280 L 406 280" stroke="currentColor" stroke-width="8" />
+                </g>
+                <g class="sah-lb-mid-3" id="sahLbMid3" style="display:none;">
+                  <!-- Khu lưu niệm & Tượng đài danh nhân Lê Quý Đôn -->
+                  <rect x="150" y="290" width="300" height="90" rx="4" fill="currentColor" />
+                  <!-- Tượng đài tay cầm bút nghiên & sách cổ -->
+                  <path d="M 285 300 Q 280 250 290 220 Q 300 205 310 220 Q 320 250 315 300 Z" fill="currentColor" />
+                  <circle cx="300" cy="195" r="16" fill="currentColor" />
+                  <!-- Bút lông & Cuốn thư vươn cao -->
+                  <polygon points="325,180 320,230 327,230" fill="currentColor" />
+                  <!-- Mái nhà lưu niệm phía sau -->
+                  <path d="M 120 290 Q 300 260 480 290 L 465 302 Q 300 275 135 302 Z" fill="currentColor" opacity="0.6"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- LAYER 1: TIỀN CẢNH (DECORATIVE CUTOUT FRAME & MOTIFS) -->
+            <div class="sah-lb-layer sah-lb-layer-fore" id="sahLbLayerFore">
+              <svg viewBox="0 0 600 400" class="sah-lb-svg" id="sahLbSvgFore">
+                <g class="sah-lb-fore-0" id="sahLbFore0">
+                  <!-- Khung hoa sen & Lá đề thời Trần -->
+                  <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 50 50 L 50 350 L 550 350 L 550 50 Z" fill="currentColor" fill-rule="evenodd" />
+                  <!-- Góc vòm hoa lá uốn lượn -->
+                  <path d="M 50 140 C 90 90 140 50 220 50 C 180 80 150 110 140 160 Z" fill="currentColor" />
+                  <path d="M 550 140 C 510 90 460 50 380 50 C 420 80 450 110 460 160 Z" fill="currentColor" />
+                  <!-- Đỉnh vòm: Lá đề chạm nổi -->
+                  <path d="M 300 50 C 275 75 270 100 300 120 C 330 100 325 75 300 50 Z" fill="currentColor" />
+                  <!-- Chân đế hoa sen -->
+                  <path d="M 50 350 Q 150 320 300 320 Q 450 320 550 350 L 550 350 L 50 350 Z" fill="currentColor" />
+                </g>
+                <g class="sah-lb-fore-1" id="sahLbFore1" style="display:none;">
+                  <!-- Song Long Chầu Nguyệt thời Trần -->
+                  <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 40 40 L 40 360 L 560 360 L 560 40 Z" fill="currentColor" fill-rule="evenodd" />
+                  <!-- Rồng tả uốn lượn hình sin -->
+                  <path d="M 40 300 Q 90 260 110 210 Q 130 160 100 120 Q 80 80 130 60 Q 170 50 200 80 Q 220 100 240 85" stroke="currentColor" stroke-width="26" fill="none" stroke-linecap="round"/>
+                  <!-- Rồng hữu uốn lượn đối xứng -->
+                  <path d="M 560 300 Q 510 260 490 210 Q 470 160 500 120 Q 520 80 470 60 Q 430 50 400 80 Q 380 100 360 85" stroke="currentColor" stroke-width="26" fill="none" stroke-linecap="round"/>
+                  <!-- Mặt nguyệt trung tâm -->
+                  <circle cx="300" cy="85" r="22" fill="currentColor" />
+                  <circle cx="300" cy="85" r="16" fill="#000" opacity="0.3" />
+                </g>
+                <g class="sah-lb-fore-2" id="sahLbFore2" style="display:none;">
+                  <!-- Khung viền chạm bạc Đồng Xâm hình học tinh xảo -->
+                  <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 45 45 L 45 355 L 555 355 L 555 45 Z" fill="currentColor" fill-rule="evenodd" />
+                  <rect x="55" y="55" width="490" height="290" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="12 8" />
+                  <!-- Góc hoa văn triện -->
+                  <rect x="45" y="45" width="60" height="60" fill="currentColor" />
+                  <rect x="495" y="45" width="60" height="60" fill="currentColor" />
+                  <rect x="45" y="295" width="60" height="60" fill="currentColor" />
+                  <rect x="495" y="295" width="60" height="60" fill="currentColor" />
+                </g>
+                <g class="sah-lb-fore-3" id="sahLbFore3" style="display:none;">
+                  <!-- Mái đao cong & Chuông đồng gác lửng -->
+                  <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 30 30 L 30 370 L 570 370 L 570 30 Z" fill="currentColor" fill-rule="evenodd" />
+                  <!-- Hai mái đao cong từ góc trên chúc xuống -->
+                  <path d="M 30 30 Q 140 40 210 110 L 190 125 Q 130 70 30 55 Z" fill="currentColor" />
+                  <path d="M 570 30 Q 460 40 390 110 L 410 125 Q 470 70 570 55 Z" fill="currentColor" />
+                  <!-- Chuông đồng treo lơ lửng -->
+                  <path d="M 210 110 L 210 140" stroke="currentColor" stroke-width="3" />
+                  <path d="M 200 140 Q 210 135 220 140 L 222 155 Q 210 160 198 155 Z" fill="currentColor" />
+                  <path d="M 390 110 L 390 140" stroke="currentColor" stroke-width="3" />
+                  <path d="M 380 140 Q 390 135 400 140 L 402 155 Q 390 160 378 155 Z" fill="currentColor" />
+                </g>
+              </svg>
+            </div>
+
+            <!-- FROSTED GLASS FRONT REFLECTION -->
+            <div class="sah-lb-glass-shine" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="sah-lb-hint-strip">
+          <span>💡 <b>Mẹo tương tác:</b> Rê chuột qua hộp để xoay 3D cảm thụ chiều sâu các lớp bóng đổ!</span>
+        </div>
+      </div>
+
+      <!-- CONTROL CONSOLE -->
+      <div class="sah-lb-controls-col">
+        <div class="sah-lb-panel">
+          <div class="sah-lb-panel-head">
+            <h3>🎨 BẢNG ĐIỀU KHIỂN HỘP CHIẾU</h3>
+            <span class="sah-lb-chip" id="sahLbCurrentMoodTag">🌅 Hoàng hôn Sông Hồng</span>
+          </div>
+
+          <!-- SECTION 1: LIGHTING MOOD PRESETS -->
+          <div class="sah-lb-group">
+            <label class="sah-lb-label">1. Chế độ ánh sáng nguồn (Lighting Mood)</label>
+            <div class="sah-lb-mood-grid">
+              <button type="button" class="sah-lb-mood-btn active" data-mood="hoanghon" onclick="setLightboxMood('hoanghon', this)">
+                <span class="sah-lbm-ico">🌅</span>
+                <b>Hoàng hôn Sông Hồng</b>
+                <small>Tone hổ phách & vàng cam ấm áp</small>
+              </button>
+              <button type="button" class="sah-lb-mood-btn" data-mood="demtrang" onclick="setLightboxMood('demtrang', this)">
+                <span class="sah-lbm-ico">🌕</span>
+                <b>Đêm trăng Phố Hiến</b>
+                <small>Tone lam ngọc & chàm huyền bí</small>
+              </button>
+              <button type="button" class="sah-lb-mood-btn" data-mood="hoadang" onclick="setLightboxMood('hoadang', this)">
+                <span class="sah-lbm-ico">🏮</span>
+                <b>Lễ hội hoa đăng</b>
+                <small>Tone đỏ ruby & lửa thiêng nồng ấm</small>
+              </button>
+              <button type="button" class="sah-lb-mood-btn" data-mood="binhminh" onclick="setLightboxMood('binhminh', this)">
+                <span class="sah-lbm-ico">🌄</span>
+                <b>Bình minh châu thổ</b>
+                <small>Tone hồng đào & tím sương sớm</small>
+              </button>
+            </div>
+          </div>
+
+          <!-- SECTION 2: LAYER SWITCHERS -->
+          <div class="sah-lb-group">
+            <label class="sah-lb-label">2. Chọn hoạ tiết Lớp 1: Tiền cảnh (Foreground Frame)</label>
+            <div class="sah-lb-pill-row">
+              <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxFore(0, this)">🌸 Hoa sen lá đề</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(1, this)">🐉 Song Long chầu nguyệt</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(2, this)">⚙️ Chạm bạc Đồng Xâm</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(3, this)">⛩️ Mái đao & Chuông</button>
+            </div>
+          </div>
+
+          <div class="sah-lb-group">
+            <label class="sah-lb-label">3. Chọn kiến trúc Lớp 2: Trung cảnh (Middleground Architecture)</label>
+            <div class="sah-lb-pill-row">
+              <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxMid(0, this)">🏛️ Gác chuông Chùa Keo</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(1, this)">⛩️ Tam quan Phố Hiến</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(2, this)">🏰 Nghi môn Đền Trần</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(3, this)">📜 Lưu niệm Lê Quý Đôn</button>
+            </div>
+          </div>
+
+          <div class="sah-lb-group">
+            <label class="sah-lb-label">4. Chọn biểu tượng Lớp 3: Hậu cảnh (Celestial Background)</label>
+            <div class="sah-lb-pill-row">
+              <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxBg(0, this)">🌕 Trăng rằm & Sông</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(1, this)">☀️ Mặt trời Đông Sơn</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(2, this)">🕊️ Đàn cò qua lũy tre</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(3, this)">✨ Sao đêm cổ tích</button>
+            </div>
+          </div>
+
+          <!-- SECTION 3: FINE-TUNING SLIDERS -->
+          <div class="sah-lb-group sah-lb-sliders-wrap">
+            <div class="sah-lb-slider-item">
+              <div class="sah-lbs-label">
+                <span>Độ sâu 3D (Z-Depth):</span>
+                <b id="sahLbDepthVal">45px</b>
+              </div>
+              <input type="range" id="sahLbDepthRange" min="20" max="80" value="45" oninput="updateLightboxDepth(this.value)">
+            </div>
+
+            <div class="sah-lb-slider-item">
+              <div class="sah-lbs-label">
+                <span>Cường độ sáng (Glow Intensity):</span>
+                <b id="sahLbGlowVal">85%</b>
+              </div>
+              <input type="range" id="sahLbGlowRange" min="30" max="100" value="85" oninput="updateLightboxGlow(this.value)">
+            </div>
+          </div>
+
+          <!-- ACTIONS BAR -->
+          <div class="sah-lb-actions">
+            <button type="button" class="sah-lb-btn-save" onclick="saveLightboxPreset()">
+              💾 Lưu bố cục Hộp Chiếu
+            </button>
+            <button type="button" class="sah-lb-btn-rand" onclick="randomizeLightbox()">
+              🎲 Phối ngẫu nhiên
+            </button>
+            <button type="button" class="sah-lb-btn-next" onclick="goToSlide(7)">
+              Sang Xưởng phác thảo (Bước 8) →
+            </button>
+          </div>
+          <div id="sahLbSaveToast" class="sah-lb-toast" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+    <div class="sah-ppt-nav-bar">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(5)">
+        <span class="sah-ppt-arr">←</span> 
+        <span class="sah-ppt-lbl">Quay lại: <b>AI 5A</b></span>
+      </button>
+      
+      <div class="sah-ppt-indicator">
+        <div class="sah-ppt-slide-num">Trang <b>7</b> / <span class="sah-dyn-total">12</span></div>
+        <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
+      </div>
+
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(7)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Xưởng phác thảo Sáng Tạo</b></span> 
+          <span class="sah-ppt-arr">→</span>
+        </button>
+    </div>
+    
+</section>
+
+<!-- STEP 8: XUONG PHAC THAO SANG TAO -->
+<section id="step8-xuongsangtao" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 8 / 12 • XƯỞNG PHÁC THẢO SÁNG TẠO</div>
+  <div class="sah-sec-header">
+    <h2>✏️ XƯỞNG PHÁC THẢO SÁNG TẠO • THỬ NGHIỆM 3 PHƯƠNG ÁN BỐ CỤC</h2>
+    <p class="sah-sec-sub">Từ hạt giống ý tưởng Bước 5, gợi ý AI Bước 6 và thực nghiệm đa lớp Bước 7, học sinh vẽ <b>3 phương án phác thảo</b> khác nhau. Tự đối sánh, phân tích ưu khuyết điểm để lựa chọn <b>1 phương án tối ưu</b> trước khi bước vào bàn thực hành hoàn thiện.</p>
   </div>
 
   <div class="sah-studio-flow">
-    <div class="sah-flow-badge">Giai đoạn 1: Ý tưởng cốt lõi</div>
+    <div class="sah-flow-badge active">Giai đoạn 1: Ý tưởng cốt lõi</div>
     <div class="sah-flow-sep">➔</div>
-    <div class="sah-flow-badge">Giai đoạn 2: Phác thảo 1, 2, 3</div>
+    <div class="sah-flow-badge active">Giai đoạn 2: Phác thảo 1, 2, 3</div>
     <div class="sah-flow-sep">➔</div>
-    <div class="sah-flow-badge">Giai đoạn 3: Phương án chọn</div>
+    <div class="sah-flow-badge active">Giai đoạn 3: Phương án chọn</div>
     <div class="sah-flow-sep">➔</div>
     <div class="sah-flow-badge">Giai đoạn 4: Tác phẩm hoàn thiện</div>
   </div>
@@ -2558,6 +2904,45 @@ refreshProjectHelp();
 .av-phelp{display:none}.av-phelp.show{display:block}
 </style>
 
+
+  
+    <div class="sah-ppt-nav-bar">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(6)">
+        <span class="sah-ppt-arr">←</span> 
+        <span class="sah-ppt-lbl">Quay lại: <b>Hộp Chiếu Sáng Tạo</b></span>
+      </button>
+      
+      <div class="sah-ppt-indicator">
+        <div class="sah-ppt-slide-num">Trang <b>8</b> / <span class="sah-dyn-total">12</span></div>
+        <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
+      </div>
+
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(8)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Bản thực hành từ phác thảo đến tác phẩm</b></span> 
+          <span class="sah-ppt-arr">→</span>
+        </button>
+    </div>
+    
+</section>
+
+<!-- STEP 9: BAN THUC HANH TU PHAC THAO DEN TAC PHAM -->
+<section id="step9-banthuchanh" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 9 / 12 • BẢN THỰC HÀNH TỪ PHÁC THẢO ĐẾN TÁC PHẨM</div>
+  <div class="sah-sec-header">
+    <h2>🎨 BẢN THỰC HÀNH • TỪ PHÁC THẢO ĐẾN TÁC PHẨM MĨ THUẬT HOÀN THIỆN</h2>
+    <p class="sah-sec-sub">Hành trình hiện thực hóa phương án phác thảo đã chọn thành tác phẩm nghệ thuật độc bản. Thực hiện qua 3 giai đoạn: <b>Dựng hình chuẩn xác</b> → <b>Phối màu & xử lý chất liệu</b> → <b>Hoàn thiện chi tiết & Viết thuyết minh mĩ thuật</b>.</p>
+  </div>
+
+  <div class="sah-studio-flow">
+    <div class="sah-flow-badge">Giai đoạn 1: Phác thảo chọn</div>
+    <div class="sah-flow-sep">➔</div>
+    <div class="sah-flow-badge active">Giai đoạn 2: Dựng hình & Bố cục</div>
+    <div class="sah-flow-sep">➔</div>
+    <div class="sah-flow-badge active">Giai đoạn 3: Kỹ thuật & Màu sắc</div>
+    <div class="sah-flow-sep">➔</div>
+    <div class="sah-flow-badge active">Giai đoạn 4: Tác phẩm độc bản</div>
+  </div>
+
   <section id="artV33">
 <h2>🖼️ BÀN THỰC HÀNH • TỪ PHÁC THẢO ĐẾN TÁC PHẨM</h2>
 <p class="av-sub">Biến phương án đã phát triển thành tác phẩm hoàn chỉnh. AI chỉ gợi mở khi cần, không làm thay học sinh.</p>
@@ -2624,29 +3009,29 @@ document.getElementById("avFinish").onclick=()=>{save();try{localStorage.setItem
 
   
     <div class="sah-ppt-nav-bar">
-      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(5)">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(7)">
         <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>AI Art Assistant 5A</b></span>
+        <span class="sah-ppt-lbl">Quay lại: <b>Xưởng phác thảo Sáng Tạo</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>7</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>9</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
-      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(7)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>Triển lãm AR Gallery</b></span> 
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(9)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Trải nghiệm làm AR</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
     
 </section>
 
-<!-- STEP 8: AR GALLERY -->
-<section id="step8-argallery" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 8 / 9 • TRIỂN LÃM & CÔNG NGHỆ AR</div>
+<!-- STEP 10: TRAI NGHIEM LAM AR -->
+<section id="step10-trainghiemar" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 10 / 12 • TRẢI NGHIỆM LÀM THỰC TẾ ẢO TĂNG CƯỜNG (AR)</div>
   <div class="sah-sec-header">
-    <h2>🖼️ AR GALLERY • TRIỂN LÃM THỰC TẾ TĂNG CƯỜNG (AR)</h2>
+    <h2>📱 TRẢI NGHIỆM LÀM AR • ĐƯA TÁC PHẨM VÀO KHÔNG GIAN THỰC</h2>
     <p class="sah-sec-sub">Không gian trưng bày tác phẩm số của học sinh kết hợp công nghệ Thực tế Tăng cường (AR). Quét mã QR bằng điện thoại để xem tranh nổi trong không gian thực qua camera di động.</p>
   </div>
 
@@ -2752,30 +3137,95 @@ document.getElementById("ex38Finish").onclick=function(){save();document.getElem
 
   
     <div class="sah-ppt-nav-bar">
-      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(6)">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(8)">
         <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>Xưởng sáng tạo</b></span>
+        <span class="sah-ppt-lbl">Quay lại: <b>Bản thực hành từ phác thảo đến tác phẩm</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>8</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>10</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
-      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(8)">
-          <span class="sah-ppt-lbl">Tiếp tục: <b>Đánh giá và tự hoàn thiện</b></span> 
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(10)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Phòng 3D</b></span> 
           <span class="sah-ppt-arr">→</span>
         </button>
     </div>
     
 </section>
 
-<!-- STEP 9: DANH GIA & TU HOAN THIEN -->
-<section id="step9-danhgia" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 9 / 9 • ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN</div>
+<!-- STEP 11: PHONG 3D TUONG TAC -->
+<section id="step11-phong3d" class="sah-step-sec sah-slide">
+  <div class="sah-step-badge">BƯỚC 11 / 12 • PHÒNG 3D TƯƠNG TÁC</div>
   <div class="sah-sec-header">
-    <h2>📝 ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN • RUBRIC CHUẨN & HỒ SƠ HÀNH TRÌNH</h2>
-    <p class="sah-sec-sub">Tự đánh giá của học sinh & Đánh giá của giáo viên theo Rubric chuẩn 4 mức độ. Đối sánh năng lực sư phạm trước – sau (Pre/Post test) và lưu trữ Hồ sơ hành trình sáng tạo cá nhân.</p>
+    <h2>🧊 PHÒNG 3D • KHÔNG GIAN SỐ HÓA XOAY 360° ĐA CHIỀU</h2>
+    <p class="sah-sec-sub">Khám phá chi tiết mô hình 3D số hóa của 5 di sản văn hóa. Tương tác xoay 360°, phóng to góc nhìn để cảm nhận trọn vẹn kết cấu kiến trúc và tỉ lệ không gian.</p>
+  </div>
+
+  <section id="rmRoom3d" class="rm-sec">
+  <h2>🧊 PHÒNG 3D • XOAY 360° TỪNG DI SẢN</h2>
+  <p class="rm-sub">Mô hình 3D của 5 di sản, xoay và phóng to bằng chuột hoặc ngón tay (WebGL). Học sinh cảm nhận không gian và tỉ lệ kiến trúc trước khi sáng tạo.</p>
+  <div class="rm-frame" id="rm3dWrap">
+    <iframe id="rm3dFrame" title="Phòng 3D di sản" loading="lazy" allowfullscreen></iframe>
+    <button type="button" class="rm-frame-cta" id="rm3dCta">▶ Mở phòng 3D</button>
+  </div>
+  <p class="rm-note">Muốn xem toàn màn hình: <a href="models.html">mở models.html ↗</a></p>
+</section>
+
+  
+    <div class="sah-ppt-nav-bar">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(9)">
+        <span class="sah-ppt-arr">←</span> 
+        <span class="sah-ppt-lbl">Quay lại: <b>Trải nghiệm làm AR</b></span>
+      </button>
+      
+      <div class="sah-ppt-indicator">
+        <div class="sah-ppt-slide-num">Trang <b>11</b> / <span class="sah-dyn-total">12</span></div>
+        <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
+      </div>
+
+      <button type="button" class="sah-ppt-btn sah-ppt-next" onclick="goToSlide(11)">
+          <span class="sah-ppt-lbl">Tiếp tục: <b>Dashboard GV</b></span> 
+          <span class="sah-ppt-arr">→</span>
+        </button>
+    </div>
+    
+</section>
+
+<!-- STEP 12: DASHBOARD GIAO VIEN -->
+<section id="step12-dashboard" class="sah-step-sec sah-slide sah-dashboard-sec">
+  <div class="sah-step-badge">BƯỚC 12 / 12 • DASHBOARD GIÁO VIÊN & ĐÁNH GIÁ SƯ PHẠM</div>
+  <div class="sah-sec-header">
+    <h2>👩‍🏫 DASHBOARD GIÁO VIÊN & ĐÁNH GIÁ SƯ PHẠM TOÀN DIỆN</h2>
+    <p class="sah-sec-sub">Theo dõi tiến độ toàn lớp theo thời gian thực qua trọn vẹn 12 bước, chấm bài theo Rubric chuẩn 4 mức độ, đối sánh năng lực trước – sau (Pre/Post test) và quản trị hồ sơ hành trình cá nhân của học sinh.</p>
+  </div>
+
+  <div class="sah-dash-grid">
+    <div class="sah-dash-card">
+      <div class="sah-dash-num">128</div>
+      <div class="sah-dash-lbl">Học sinh tích cực tham gia</div>
+      <small>Độ phủ đầy đủ cả 5 di sản văn hóa</small>
+    </div>
+    <div class="sah-dash-card">
+      <div class="sah-dash-num">86%</div>
+      <div class="sah-dash-lbl">Tỷ lệ hoàn thành trọn vẹn 12 bước</div>
+      <small>Tăng 34% so với lớp đối chứng</small>
+    </div>
+    <div class="sah-dash-card">
+      <div class="sah-dash-num">245</div>
+      <div class="sah-dash-lbl">Tác phẩm đã nộp vào triển lãm</div>
+      <small>Kèm đủ phác thảo và thuyết minh</small>
+    </div>
+    <div class="sah-dash-card">
+      <div class="sah-dash-num">100%</div>
+      <div class="sah-dash-lbl">Học sinh nhận phản hồi sư phạm</div>
+      <small>Từ trợ lý AI 5A và giáo viên bộ môn</small>
+    </div>
+  </div>
+
+  <div class="sah-dash-actions">
+    <a href="giao-vien.html" class="rm-btn" style="padding:14px 28px;font-size:15px;display:inline-block;text-decoration:none;">👩‍🏫 Mở Hệ Thống Quản Trị Giáo Viên Chi Tiết (giao-vien.html) ↗</a>
   </div>
 
   
@@ -2952,74 +3402,15 @@ document.getElementById("ex38Finish").onclick=function(){save();document.getElem
 </style>
 
 
-  <!-- Footer with dynamic Next/Finish handling -->
-  <div class="sah-ppt-nav-bar" id="step9NavBar">
-    <button type="button" class="sah-ppt-btn sah-ppt-prev" onclick="goToSlide(7)">
-      <span class="sah-ppt-arr">←</span> 
-      <span class="sah-ppt-lbl">Quay lại: <b>Triển lãm AR Gallery</b></span>
-    </button>
-    
-    <div class="sah-ppt-indicator">
-      <div class="sah-ppt-slide-num">Trang <b>9</b> / <span class="sah-dyn-total">9</span></div>
-      <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
-    </div>
-
-    <button type="button" class="sah-ppt-btn sah-ppt-next sah-ppt-finish student-or-guest-action" onclick="goToSlide(0)">
-      <span class="sah-ppt-lbl">Hoàn thành hành trình 🎉 (Về Trang chủ)</span> 
-      <span class="sah-ppt-arr">↑</span>
-    </button>
-    
-    <button type="button" class="sah-ppt-btn sah-ppt-next teacher-only" style="display:none;" onclick="goToSlide(9)">
-      <span class="sah-ppt-lbl">Tiếp tục: <b>Dashboard Quản trị GV</b></span> 
-      <span class="sah-ppt-arr">→</span>
-    </button>
-  </div>
-</section>
-
-<!-- STEP 10: TEACHER DASHBOARD (TEACHER ONLY) -->
-<section id="step-dashboard" class="sah-step-sec sah-dashboard-sec sah-slide teacher-only" style="display:none;">
-  <div class="sah-step-badge">DÀNH CHO GIÁO VIÊN • TRANG QUẢN TRỊ</div>
-  <div class="sah-sec-header">
-    <h2>👩‍🏫 DASHBOARD GIÁO VIÊN & THỐNG KÊ KẾT QUẢ</h2>
-    <p class="sah-sec-sub">Theo dõi tiến độ toàn lớp theo thời gian thực, chấm bài theo Rubric chuẩn, xuất báo cáo tổng kết và quản lý ngân hàng câu hỏi phục vụ giảng dạy.</p>
-  </div>
-
-  <div class="sah-dash-grid">
-    <div class="sah-dash-card">
-      <div class="sah-dash-num">128</div>
-      <div class="sah-dash-lbl">Học sinh tích cực tham gia</div>
-      <small>Độ phủ đầy đủ cả 5 di sản văn hóa</small>
-    </div>
-    <div class="sah-dash-card">
-      <div class="sah-dash-num">86%</div>
-      <div class="sah-dash-lbl">Tỷ lệ hoàn thành trọn vẹn 9 bước</div>
-      <small>Tăng 34% so với lớp đối chứng</small>
-    </div>
-    <div class="sah-dash-card">
-      <div class="sah-dash-num">245</div>
-      <div class="sah-dash-lbl">Tác phẩm đã nộp vào triển lãm</div>
-      <small>Kèm đủ phác thảo và thuyết minh</small>
-    </div>
-    <div class="sah-dash-card">
-      <div class="sah-dash-num">100%</div>
-      <div class="sah-dash-lbl">Học sinh nhận phản hồi sư phạm</div>
-      <small>Từ trợ lý AI 5A và giáo viên bộ môn</small>
-    </div>
-  </div>
-
-  <div class="sah-dash-actions">
-    <a href="giao-vien.html" class="rm-btn" style="padding:14px 28px;font-size:15px;display:inline-block;text-decoration:none;">👩‍🏫 Truy cập Trang Quản Trị Giáo Viên (giao-vien.html) ↗</a>
-  </div>
-
   
     <div class="sah-ppt-nav-bar">
-      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(8)">
+      <button type="button" class="sah-ppt-btn sah-ppt-prev" style="" onclick="goToSlide(10)">
         <span class="sah-ppt-arr">←</span> 
-        <span class="sah-ppt-lbl">Quay lại: <b>Đánh giá và tự hoàn thiện</b></span>
+        <span class="sah-ppt-lbl">Quay lại: <b>Phòng 3D</b></span>
       </button>
       
       <div class="sah-ppt-indicator">
-        <div class="sah-ppt-slide-num">Trang <b>10</b> / <span class="sah-dyn-total">9</span></div>
+        <div class="sah-ppt-slide-num">Trang <b>12</b> / <span class="sah-dyn-total">12</span></div>
         <div class="sah-ppt-key-hint">Dùng phím <kbd>←</kbd> <kbd>→</kbd> để chuyển trang</div>
       </div>
 
@@ -3361,186 +3752,125 @@ body[data-active-slide="step1-trangchu"]::before {
   filter: brightness(0.95) contrast(1.08) saturate(110%);
 }
 
-/* Slide 2: Ban Do - Phố Hiến Bên Sông Hồng & Đầm Bán Nguyệt (Red River Delta Cultural Port) */
+/* Slide 2: Ban Do - Phố Hiến Bên Sông Hồng & Đầm Bán Nguyệt */
 body[data-active-slide="step2-bando"]::before {
   background-image:
     linear-gradient(180deg, rgba(8, 14, 12, 0.38) 0%, rgba(10, 16, 14, 0.50) 50%, rgba(6, 10, 8, 0.74) 100%),
     radial-gradient(ellipse 85% 60% at 20% 30%, rgba(37, 99, 235, 0.20) 0%, transparent 65%),
     url("assets/extracted/001_Pho_Hien_tong_quan.jpeg");
 }
-body[data-active-slide="step2-bando"] {
-  background-color: #060b09;
-}
+body[data-active-slide="step2-bando"] { background-color: #060b09; }
 
-/* Slide 3: 5 Khu Di San - Nghi Môn Đền Trần Long Hưng (Royal Dynastic Sanctuary) */
+/* Slide 3: 5 Khu Di San - Nghi Môn Đền Trần Long Hưng */
 body[data-active-slide="step3-5khudisan"]::before {
   background-image:
     linear-gradient(180deg, rgba(16, 9, 8, 0.38) 0%, rgba(20, 11, 9, 0.50) 50%, rgba(12, 7, 6, 0.74) 100%),
     radial-gradient(ellipse 85% 60% at 50% 0%, rgba(185, 28, 28, 0.22) 0%, transparent 70%),
     url("assets/extracted/066_Nghi_mon_den_Tran.jpeg");
 }
-body[data-active-slide="step3-5khudisan"] {
-  background-color: #0e0706;
-}
+body[data-active-slide="step3-5khudisan"] { background-color: #0e0706; }
 
-/* Slide 4: Ho So Di San - Cấu Trúc Vì Kèo & Hệ Mái Cổ Truyền (15 Masterwork Photos) */
+/* Slide 4: Ho So 15 Anh - Cấu Trúc Vì Kèo & Hệ Mái */
 body[data-active-slide="step4-hosodisan"]::before {
   background-image:
     linear-gradient(180deg, rgba(8, 10, 20, 0.40) 0%, rgba(11, 14, 24, 0.52) 50%, rgba(7, 8, 16, 0.75) 100%),
     radial-gradient(ellipse 80% 55% at 30% 10%, rgba(37, 99, 235, 0.20) 0%, transparent 65%),
     url("assets/extracted/052_Khong_gian_kien_truc_go_va_mai.jpeg");
 }
-body[data-active-slide="step4-hosodisan"] {
-  background-color: #070912;
-}
+body[data-active-slide="step4-hosodisan"] { background-color: #070912; }
 
-/* Slide 5: Phong 3D - Khối Gác Chuông 3 Tầng Nhìn Phối Cảnh (3D Spatial Volumetric Viewer) */
-body[data-active-slide="step5-phong3d"]::before {
+/* Slide 5: Danh Gia & Tu Hoan Thien 3-2-1 - Cảnh Quan Hồ & Không Gian Thanh Tịnh */
+body[data-active-slide="step5-danhgia321"]::before {
   background-image:
-    linear-gradient(180deg, rgba(6, 9, 20, 0.40) 0%, rgba(8, 13, 24, 0.52) 50%, rgba(5, 7, 16, 0.75) 100%),
-    radial-gradient(ellipse 80% 55% at 50% 15%, rgba(6, 182, 212, 0.22) 0%, transparent 70%),
-    url("assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg");
+    linear-gradient(180deg, rgba(15, 12, 8, 0.40) 0%, rgba(18, 14, 10, 0.52) 50%, rgba(11, 9, 6, 0.75) 100%),
+    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(212, 175, 55, 0.22) 0%, transparent 70%),
+    url("assets/extracted/033_Khong_gian_ho_va_quan_the.jpeg");
 }
-body[data-active-slide="step5-phong3d"] {
-  background-color: #050812;
-}
+body[data-active-slide="step5-danhgia321"] { background-color: #0d0a07; }
 
-/* Slide 6: AI 5A - Khu Lưu Niệm Nhà Bác Học Lê Quý Đôn (Cultural AI Companion) */
+/* Slide 6: AI 5A - Khu Lưu Niệm Nhà Bác Học Lê Quý Đôn */
 body[data-active-slide="step6-ai5a"]::before {
   background-image:
     linear-gradient(180deg, rgba(12, 7, 24, 0.40) 0%, rgba(16, 10, 28, 0.52) 50%, rgba(9, 5, 18, 0.75) 100%),
     radial-gradient(ellipse 85% 55% at 50% 15%, rgba(147, 51, 234, 0.22) 0%, transparent 70%),
     url("assets/extracted/096_Khu_luu_niem_nha_bac_hoc.jpeg");
 }
-body[data-active-slide="step6-ai5a"] {
-  background-color: #0a0614;
-}
+body[data-active-slide="step6-ai5a"] { background-color: #0a0614; }
 
-/* Slide 7: Xuong Sang Tao - Xưởng Chạm Bạc Đồng Xâm Truyền Thống (Creative Craft Atelier) */
-body[data-active-slide="step7-xuongsangtao"]::before {
+/* Slide 7: Hop Chieu Sang Tao - Gác Chuông Hoàng Hôn */
+body[data-active-slide="step7-hopchieu"]::before {
+  background-image:
+    linear-gradient(180deg, rgba(20, 10, 6, 0.42) 0%, rgba(26, 14, 8, 0.54) 50%, rgba(14, 7, 4, 0.78) 100%),
+    radial-gradient(ellipse 85% 60% at 50% 20%, rgba(245, 158, 11, 0.25) 0%, transparent 70%),
+    url("assets/extracted/039_Gac_chuong_goc_nhin_khac.jpeg");
+}
+body[data-active-slide="step7-hopchieu"] { background-color: #120704; }
+
+/* Slide 8: Xuong Phac Thao - Xưởng Chạm Bạc Truyền Thống */
+body[data-active-slide="step8-xuongsangtao"]::before {
   background-image:
     linear-gradient(180deg, rgba(18, 12, 8, 0.40) 0%, rgba(22, 15, 10, 0.52) 50%, rgba(13, 9, 6, 0.75) 100%),
     radial-gradient(ellipse 80% 55% at 40% 15%, rgba(217, 119, 6, 0.22) 0%, transparent 65%),
     url("assets/extracted/126_Nghe_nhan_trong_xuong_cham_bac.jpeg");
 }
-body[data-active-slide="step7-xuongsangtao"] {
-  background-color: #0f0b07;
-}
+body[data-active-slide="step8-xuongsangtao"] { background-color: #0f0b07; }
 
-/* Slide 8: Trien Lam AR - Tuyệt Tác Điêu Khắc Rồng Chạm Nổi (AR Heritage Gallery) */
-body[data-active-slide="step8-argallery"]::before {
+/* Slide 9: Ban Thuc Hanh - Hoa Văn Rồng Chạm Nổi */
+body[data-active-slide="step9-banthuchanh"]::before {
+  background-image:
+    linear-gradient(180deg, rgba(16, 9, 8, 0.40) 0%, rgba(20, 11, 9, 0.52) 50%, rgba(12, 7, 6, 0.75) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 10%, rgba(220, 38, 38, 0.22) 0%, transparent 70%),
+    url("assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg");
+}
+body[data-active-slide="step9-banthuchanh"] { background-color: #0e0706; }
+
+/* Slide 10: Trai Nghiem AR - Mâm Chạm Kim Hoàn */
+body[data-active-slide="step10-trainghiemar"]::before {
   background-image:
     linear-gradient(180deg, rgba(6, 14, 12, 0.40) 0%, rgba(8, 18, 15, 0.52) 50%, rgba(5, 11, 9, 0.75) 100%),
     radial-gradient(ellipse 80% 50% at 50% 5%, rgba(16, 185, 129, 0.22) 0%, transparent 70%),
-    url("assets/extracted/150_Chi_tiet_hoa_van_rong_cham_noi.jpeg");
+    url("assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg");
 }
-body[data-active-slide="step8-argallery"] {
-  background-color: #050d0b;
-}
+body[data-active-slide="step10-trainghiemar"] { background-color: #050d0b; }
 
-/* Slide 9: Danh Gia & Tu Hoan Thien - Cảnh Quan Hồ Nước & Quần Thể Thanh Tịnh (Pedagogical Reflection) */
-body[data-active-slide="step9-danhgia"]::before {
+/* Slide 11: Phong 3D - Gác Chuông Ba Tầng */
+body[data-active-slide="step11-phong3d"]::before {
   background-image:
-    linear-gradient(180deg, rgba(15, 12, 8, 0.40) 0%, rgba(18, 14, 10, 0.52) 50%, rgba(11, 9, 6, 0.75) 100%),
-    radial-gradient(ellipse 85% 55% at 50% 15%, rgba(212, 175, 55, 0.22) 0%, transparent 70%),
-    url("assets/extracted/033_Khong_gian_ho_va_quan_the.jpeg");
+    linear-gradient(180deg, rgba(6, 9, 20, 0.40) 0%, rgba(8, 13, 24, 0.52) 50%, rgba(5, 7, 16, 0.75) 100%),
+    radial-gradient(ellipse 80% 55% at 50% 15%, rgba(6, 182, 212, 0.22) 0%, transparent 70%),
+    url("assets/extracted/053_Gac_chuong_ba_tang.jpeg");
 }
-body[data-active-slide="step9-danhgia"] {
-  background-color: #0d0a07;
-}
+body[data-active-slide="step11-phong3d"] { background-color: #050812; }
 
-/* Slide 10: Teacher Dashboard - Không Gian Nghiên Cứu & Hội Thảo Khoa Học Di Sản */
-body[data-active-slide="step-dashboard"]::before {
+/* Slide 12: Dashboard Giao Vien - Hội Thảo Khoa Học */
+body[data-active-slide="step12-dashboard"]::before {
   background-image:
     linear-gradient(180deg, rgba(8, 11, 24, 0.40) 0%, rgba(10, 14, 28, 0.52) 50%, rgba(5, 8, 18, 0.75) 100%),
     radial-gradient(ellipse 85% 50% at 50% 0%, rgba(59, 130, 246, 0.22) 0%, transparent 70%),
     url("assets/extracted/105_Hoi_thao_ky_niem_tai_khu_luu_n.jpeg");
 }
-body[data-active-slide="step-dashboard"] {
-  background-color: #060914;
+body[data-active-slide="step12-dashboard"] { background-color: #060914; }
+
+/* Slide Containers Styling */
+#step1-trangchu, #step2-bando, #step3-5khudisan, #step4-hosodisan,
+#step5-danhgia321, #step6-ai5a, #step7-hopchieu, #step8-xuongsangtao,
+#step9-banthuchanh, #step10-trainghiemar, #step11-phong3d, #step12-dashboard {
+  background: rgba(12, 14, 18, 0.75) !important;
+  backdrop-filter: blur(16px) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(125%) !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.82), 0 0 35px rgba(212, 175, 55, 0.12) !important;
 }
 
-/* Distinctive Slide Container Backgrounds (Glassmorphic Frosted Translucency) */
 #step1-trangchu {
-  position: relative;
-  overflow: hidden;
-  background: 
-    radial-gradient(ellipse 95% 45% at 50% -5%, rgba(212, 175, 55, 0.18) 0%, transparent 60%),
-    radial-gradient(circle 500px at 95% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 65%),
-    radial-gradient(circle 500px at 5% 35%, rgba(30, 95, 135, 0.12) 0%, transparent 65%),
-    rgba(10, 11, 16, 0.72) !important;
-  backdrop-filter: blur(20px) saturate(135%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(135%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.50) !important;
-  box-shadow: 
-    0 30px 90px rgba(0, 0, 0, 0.88),
-    0 0 55px rgba(212, 175, 55, 0.18),
-    inset 0 1px 0 rgba(255, 240, 190, 0.35) !important;
-}
-#step2-bando {
-  background: rgba(10, 16, 14, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(40, 91, 70, 0.50) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(37, 99, 235, 0.12) !important;
-}
-#step3-5khudisan {
-  background: rgba(20, 12, 10, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(185, 28, 28, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(185, 28, 28, 0.12) !important;
-}
-#step4-hosodisan {
-  background: rgba(11, 14, 24, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(59, 130, 246, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(59, 130, 246, 0.12) !important;
-}
-#step5-phong3d {
-  background: rgba(8, 13, 22, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(6, 182, 212, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(6, 182, 212, 0.14) !important;
-}
-#step6-ai5a {
-  background: rgba(14, 9, 24, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(147, 51, 234, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(147, 51, 234, 0.12) !important;
-}
-#step7-xuongsangtao {
-  background: rgba(18, 13, 9, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(217, 119, 6, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(217, 119, 6, 0.12) !important;
-}
-#step8-argallery {
-  background: rgba(9, 17, 15, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(16, 185, 129, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(16, 185, 129, 0.12) !important;
-}
-#step9-danhgia {
-  background: rgba(18, 15, 11, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(212, 175, 55, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(212, 175, 55, 0.12) !important;
-}
-#step-dashboard {
-  background: rgba(10, 13, 24, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(59, 130, 246, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(59, 130, 246, 0.14) !important;
+  border-color: rgba(212, 175, 55, 0.50) !important;
 }
 
+#step7-hopchieu {
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 40px rgba(245, 158, 11, 0.18) !important;
+}
 /* Classical Monogram Watermark */
 .sah-museum-watermark {
   position: fixed;
@@ -6251,6 +6581,341 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
 #h5:checked ~ * .switcher label[for="h5"] { background: var(--sah-gold-primary); color: #0c0b0a; font-weight: 800; }
 #home0:checked ~ * .switcher label[for="home0"] { background: var(--sah-gold-primary); color: #0c0b0a; font-weight: 800; }
 </style>
+
+/* --------------------------------------------------------------------------
+   LIGHTBOX / SHADOW BOX DIORAMA STYLES (STEP 7)
+   -------------------------------------------------------------------------- */
+.sah-lightbox-stage-container {
+  margin: 20px 0 30px;
+}
+.sah-lightbox-wrapper {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .sah-lightbox-wrapper { grid-template-columns: 1fr; }
+}
+.sah-lb-display-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sah-lb-box-wrap {
+  perspective: 1200px;
+  width: 100%;
+  aspect-ratio: 16/10;
+  min-height: 340px;
+  background: #090807;
+  border-radius: 18px;
+  padding: 16px;
+  border: 2px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
+}
+.sah-lb-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #080605;
+}
+.sah-lb-light-aura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  z-index: 1;
+}
+/* Mood Backlight Gradients */
+.sah-lb-box[data-mood="hoanghon"] .sah-lb-light-aura {
+  background: radial-gradient(circle at 50% 40%, rgba(251, 191, 36, 0.85) 0%, rgba(217, 119, 6, 0.65) 45%, rgba(120, 53, 15, 0.85) 80%, #150803 100%);
+}
+.sah-lb-box[data-mood="demtrang"] .sah-lb-light-aura {
+  background: radial-gradient(circle at 50% 35%, rgba(165, 243, 252, 0.85) 0%, rgba(14, 165, 233, 0.60) 45%, rgba(30, 27, 75, 0.88) 80%, #030712 100%);
+}
+.sah-lb-box[data-mood="hoadang"] .sah-lb-light-aura {
+  background: radial-gradient(circle at 50% 45%, rgba(254, 205, 211, 0.85) 0%, rgba(225, 29, 72, 0.68) 45%, rgba(136, 19, 55, 0.88) 80%, #17040a 100%);
+}
+.sah-lb-box[data-mood="binhminh"] .sah-lb-light-aura {
+  background: radial-gradient(circle at 50% 40%, rgba(253, 230, 138, 0.85) 0%, rgba(244, 63, 94, 0.62) 45%, rgba(88, 28, 135, 0.88) 80%, #0f031b 100%);
+}
+
+.sah-lb-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: transform 0.25s ease-out, filter 0.3s ease;
+}
+.sah-lb-layer-bg {
+  z-index: 2;
+  transform: translateZ(calc(var(--lb-depth, 45px) * -0.6));
+  color: #1a0f08;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+.sah-lb-layer-mid {
+  z-index: 3;
+  transform: translateZ(0px);
+  color: #120904;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.7));
+}
+.sah-lb-layer-fore {
+  z-index: 4;
+  transform: translateZ(calc(var(--lb-depth, 45px) * 0.7));
+  color: #0a0402;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9));
+}
+.sah-lb-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sah-lb-glass-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 60%);
+  border-radius: 12px;
+}
+.sah-lb-hint-strip {
+  font-size: 13px;
+  color: var(--sah-gold-bright);
+  background: rgba(28, 22, 16, 0.8);
+  border: 1px solid var(--sah-gold-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+/* Control Panel */
+.sah-lb-panel {
+  background: rgba(18, 15, 12, 0.9);
+  border: 1px solid var(--sah-gold-border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sah-lb-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 12px;
+}
+.sah-lb-panel-head h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--sah-gold-bright);
+}
+.sah-lb-chip {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.sah-lb-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sah-lb-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sah-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.sah-lb-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.sah-lb-mood-btn {
+  background: #14110e;
+  border: 1px solid var(--sah-gold-border);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--sah-text-body);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.2s ease;
+}
+.sah-lb-mood-btn:hover {
+  background: #201a14;
+  border-color: var(--sah-gold-bright);
+}
+.sah-lb-mood-btn.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(180, 83, 9, 0.3));
+  border-color: var(--sah-gold-bright);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}
+.sah-lb-mood-btn .sah-lbm-ico { font-size: 18px; }
+.sah-lb-mood-btn b { font-size: 13px; color: #fff; }
+.sah-lb-mood-btn small { font-size: 11px; color: var(--sah-text-muted); }
+
+.sah-lb-pill-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sah-lb-pill-btn {
+  background: #14110e;
+  border: 1px solid var(--sah-gold-border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--sah-text-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sah-lb-pill-btn:hover {
+  background: #221c16;
+  border-color: var(--sah-gold-bright);
+  color: #fff;
+}
+.sah-lb-pill-btn.active {
+  background: var(--sah-gold-primary);
+  color: #0c0b0a;
+  border-color: var(--sah-gold-bright);
+  font-weight: 700;
+}
+
+.sah-lb-sliders-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .sah-lb-sliders-wrap { grid-template-columns: 1fr; }
+}
+.sah-lb-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(14, 11, 9, 0.7);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+.sah-lbs-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--sah-text-muted);
+}
+.sah-lbs-label b { color: var(--sah-gold-bright); }
+.sah-lb-slider-item input[type="range"] {
+  width: 100%;
+  accent-color: var(--sah-gold-primary);
+  cursor: pointer;
+}
+
+.sah-lb-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.sah-lb-btn-save {
+  background: linear-gradient(135deg, #d4af37, #b38b22);
+  color: #0c0b0a;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.sah-lb-btn-save:hover { filter: brightness(1.15); }
+.sah-lb-btn-rand {
+  background: #1c1814;
+  border: 1px solid var(--sah-gold-border);
+  color: #f7f3ea;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.sah-lb-btn-rand:hover { background: #2a221a; }
+.sah-lb-btn-next {
+  background: rgba(40, 91, 70, 0.8);
+  border: 1px solid #10b981;
+  color: #ecfdf5;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: auto;
+}
+.sah-lb-btn-next:hover { background: #285b46; }
+.sah-lb-toast {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.sah-flow-transition-card {
+  margin: 30px auto;
+  max-width: 760px;
+  background: rgba(26, 20, 16, 0.85);
+  border: 1px solid var(--sah-gold-border);
+  border-left: 5px solid var(--sah-gold-primary);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sah-ft-badge {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--sah-gold-bright);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 999px;
+}
+.sah-flow-transition-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+}
+.sah-flow-transition-card p {
+  margin: 0;
+  color: var(--sah-text-muted);
+  max-width: 580px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 <!-- SAH-GUIDELINE-CSS-END -->
 <script src="js/restored-modules.js?v=46e2e4dca4"></script>
 
@@ -6362,25 +7027,29 @@ var SLIDE_IDS = [
   'step2-bando',
   'step3-5khudisan',
   'step4-hosodisan',
-  'step5-phong3d',
+  'step5-danhgia321',
   'step6-ai5a',
-  'step7-xuongsangtao',
-  'step8-argallery',
-  'step9-danhgia',
-  'step-dashboard'
+  'step7-hopchieu',
+  'step8-xuongsangtao',
+  'step9-banthuchanh',
+  'step10-trainghiemar',
+  'step11-phong3d',
+  'step12-dashboard'
 ];
 
 var SLIDE_NAMES = [
   'Trang chủ',
-  'Bản đồ di sản',
-  '5 Khu di sản',
-  'Hồ sơ 15 ảnh & Hotspot',
-  'Phòng 3D tương tác',
-  'AI Art Assistant 5A',
-  'Xưởng sáng tạo',
-  'Triển lãm AR Gallery',
-  'Đánh giá và tự hoàn thiện',
-  'Dashboard Quản trị GV'
+  'Bản đồ di sản Hưng Yên',
+  '5 di sản',
+  'Hồ sơ 15 ảnh',
+  'Đánh giá và Tự hoàn thiện 3-2-1',
+  'AI 5A',
+  'Hộp Chiếu Sáng Tạo',
+  'Xưởng phác thảo Sáng Tạo',
+  'Bản thực hành từ phác thảo đến tác phẩm',
+  'Trải nghiệm làm AR',
+  'Phòng 3D',
+  'Dashboard GV'
 ];
 
 var currentSlideIndex = 0;
@@ -6391,7 +7060,7 @@ function isTeacherRole() {
 }
 
 function getAvailableSlides() {
-  return isTeacherRole() ? SLIDE_IDS : SLIDE_IDS.slice(0, 9);
+  return SLIDE_IDS;
 }
 
 function updateTeacherVisibility() {
@@ -6831,7 +7500,161 @@ window.rotateExhibitThumb = rotateExhibitThumb;
   goToSlide(savedSlide);
   updateTeacherVisibility();
   initHoverPreview();
+  initLightbox3DTilt();
+
 });
+
+// Lightbox Interactive Studio Logic (Step 7)
+var lbCurrentMood = 'hoanghon';
+var lbForeIdx = 0;
+var lbMidIdx = 0;
+var lbBgIdx = 0;
+var lbDepth = 45;
+var lbGlow = 85;
+
+var MOOD_NAMES = {
+  'hoanghon': '🌅 Hoàng hôn Sông Hồng',
+  'demtrang': '🌕 Đêm trăng Phố Hiến',
+  'hoadang': '🏮 Lễ hội hoa đăng',
+  'binhminh': '🌄 Bình minh châu thổ'
+};
+
+function setLightboxMood(mood, btn) {
+  lbCurrentMood = mood;
+  var box = document.getElementById('sahLbBox');
+  if (box) box.setAttribute('data-mood', mood);
+  
+  var tag = document.getElementById('sahLbCurrentMoodTag');
+  if (tag) tag.textContent = MOOD_NAMES[mood] || mood;
+
+  document.querySelectorAll('.sah-lb-mood-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-mood') === mood);
+  });
+}
+
+function setLightboxFore(idx, btn) {
+  lbForeIdx = idx;
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('sahLbFore' + i);
+    if (el) el.style.display = (i === idx) ? 'block' : 'none';
+  }
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.sah-lb-pill-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+}
+
+function setLightboxMid(idx, btn) {
+  lbMidIdx = idx;
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('sahLbMid' + i);
+    if (el) el.style.display = (i === idx) ? 'block' : 'none';
+  }
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.sah-lb-pill-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+}
+
+function setLightboxBg(idx, btn) {
+  lbBgIdx = idx;
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('sahLbBg' + i);
+    if (el) el.style.display = (i === idx) ? 'block' : 'none';
+  }
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.sah-lb-pill-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+}
+
+function updateLightboxDepth(val) {
+  lbDepth = parseInt(val, 10);
+  var lbl = document.getElementById('sahLbDepthVal');
+  if (lbl) lbl.textContent = val + 'px';
+  var box = document.getElementById('sahLbBox');
+  if (box) box.style.setProperty('--lb-depth', val + 'px');
+}
+
+function updateLightboxGlow(val) {
+  lbGlow = parseInt(val, 10);
+  var lbl = document.getElementById('sahLbGlowVal');
+  if (lbl) lbl.textContent = val + '%';
+  var aura = document.getElementById('sahLbAura');
+  if (aura) aura.style.opacity = (val / 100);
+}
+
+function saveLightboxPreset() {
+  var preset = {
+    mood: lbCurrentMood,
+    fore: lbForeIdx,
+    mid: lbMidIdx,
+    bg: lbBgIdx,
+    depth: lbDepth,
+    glow: lbGlow,
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('sah_lightbox_preset', JSON.stringify(preset));
+  var toast = document.getElementById('sahLbSaveToast');
+  if (toast) {
+    toast.textContent = '✓ Đã lưu phương án Hộp Chiếu Sáng Tạo! Dữ liệu đã sẵn sàng cho Bước 8: Xưởng phác thảo.';
+    toast.style.display = 'block';
+    setTimeout(function() { toast.style.display = 'none'; }, 4000);
+  }
+}
+
+function randomizeLightbox() {
+  var moods = ['hoanghon', 'demtrang', 'hoadang', 'binhminh'];
+  var randMood = moods[Math.floor(Math.random() * moods.length)];
+  var randFore = Math.floor(Math.random() * 4);
+  var randMid = Math.floor(Math.random() * 4);
+  var randBg = Math.floor(Math.random() * 4);
+
+  setLightboxMood(randMood);
+  setLightboxFore(randFore);
+  setLightboxMid(randMid);
+  setLightboxBg(randBg);
+
+  // Update active pill UI buttons
+  var pillsFore = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(2) .sah-lb-pill-btn');
+  if (pillsFore[randFore]) setLightboxFore(randFore, pillsFore[randFore]);
+  var pillsMid = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(3) .sah-lb-pill-btn');
+  if (pillsMid[randMid]) setLightboxMid(randMid, pillsMid[randMid]);
+  var pillsBg = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(4) .sah-lb-pill-btn');
+  if (pillsBg[randBg]) setLightboxBg(randBg, pillsBg[randBg]);
+}
+
+// 3D Parallax Tilt Effect on Mouse Move
+function initLightbox3DTilt() {
+  var wrap = document.getElementById('sahLbBoxWrap');
+  var box = document.getElementById('sahLbBox');
+  if (!wrap || !box) return;
+
+  wrap.addEventListener('mousemove', function(e) {
+    var rect = wrap.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    var centerX = rect.width / 2;
+    var centerY = rect.height / 2;
+    var rotateX = -((y - centerY) / centerY) * 14;
+    var rotateY = ((x - centerX) / centerX) * 18;
+    box.style.transform = 'rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg)';
+  });
+
+  wrap.addEventListener('mouseleave', function() {
+    box.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+}
+
+window.setLightboxMood = setLightboxMood;
+window.setLightboxFore = setLightboxFore;
+window.setLightboxMid = setLightboxMid;
+window.setLightboxBg = setLightboxBg;
+window.updateLightboxDepth = updateLightboxDepth;
+window.updateLightboxGlow = updateLightboxGlow;
+window.saveLightboxPreset = saveLightboxPreset;
+window.randomizeLightbox = randomizeLightbox;
+
 </script>
 <!-- SAH-GUIDELINE-JS-END -->
 

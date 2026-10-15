@@ -731,32 +731,39 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 
     <div class="sah-video-showcase">
       <div class="sah-video-player-wrap">
-        <video id="landingVideoPlayer" controls playsinline style="width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; display: block;">
+        <iframe id="landingYoutubePlayer"
+                src="https://www.youtube.com/embed/T_oAr-GT-ho?autoplay=0&start=0&rel=0"
+                title="Phim tài liệu di sản"
+                referrerpolicy="strict-origin-when-cross-origin"
+                style="display: block; width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; border: 0;"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+        </iframe>
+        <video id="landingVideoPlayer" controls playsinline style="width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; display: none;">
           <source id="videoSource" src="video%20v%E1%BB%81%20qu%E1%BA%A7n%20th%E1%BB%83%20ph%E1%BB%91%20hi%E1%BA%BFn.mp4" type="video/mp4">
           Trình duyệt của em không hỗ trợ phát video HTML5.
         </video>
-        <iframe id="landingYoutubePlayer" referrerpolicy="strict-origin-when-cross-origin" style="display:none; width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <div class="sah-video-caption" id="videoCaption">
-          <b>Phim tài liệu:</b> Quần thể di tích lịch sử và văn hóa Phố Hiến – Hưng Yên
+          <b>Phim tài liệu:</b> Giá trị lịch sử - văn hóa quần thể di tích Phố Hiến – HYTV
         </div>
       </div>
 
       <div class="sah-video-playlist">
-        <div class="sah-video-item active" onclick="switchLandingVideo('video%20v%E1%BB%81%20qu%E1%BA%A7n%20th%E1%BB%83%20ph%E1%BB%91%20hi%E1%BA%BFn.mp4', 'Quần thể di tích lịch sử và văn hóa Phố Hiến – Hưng Yên', this)">
+        <div class="sah-video-item active" onclick="switchLandingVideo('https://www.youtube.com/watch?v=T_oAr-GT-ho', 'Giá trị lịch sử - văn hóa quần thể di tích Phố Hiến – HYTV', this)">
           <span class="sah-v-ico">▶</span>
           <div>
             <b>1. Quần thể di tích Phố Hiến</b>
             <small>Thương cảng cổ truyền & đô thị hưng thịnh thế kỷ XVII</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('Da%CC%81u%20a%CC%81n%20nha%CC%80%20Tra%CC%80n%20tre%CC%82n%20vu%CC%80ng%20%C4%91a%CC%81t%20Tha%CC%81i%20Bi%CC%80nh%20xWeb%20HYTV.mp4', 'Dấu ấn vương triều Trần trên vùng đất Thái Bình xưa', this)">
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=IusGR4z1Sag', 'Dấu ấn vương triều Trần trên vùng đất Thái Bình xưa – HYTV', this)">
           <span class="sah-v-ico">▶</span>
           <div>
             <b>2. Dấu ấn vương triều Trần</b>
             <small>Đền Trần Long Hưng & khu lăng mộ các vua Trần</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('Le%CC%82%20Quy%CC%81%20%C4%90o%CC%82n%20%E2%80%93%20Nha%CC%80%20Ba%CC%81c%20Ho%CC%A3c%20Vi%CC%83%20%C4%90a%CC%A3i%20Nha%CC%82%CC%81t%20Li%CC%A3ch%20Su%CC%9B%CC%89%20Phong%20Kie%CC%82%CC%81n%20Vie%CC%A3%CC%82t%20Nam.mp4', 'Nhà bác học Lê Quý Đôn – Cuộc đời và trước tác vĩ đại', this)">
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=8RBH0zcAOp0', 'Nhà bác học Lê Quý Đôn – Cuộc đời và trước tác vĩ đại', this)">
           <span class="sah-v-ico">▶</span>
           <div>
             <b>3. Nhà bác học Lê Quý Đôn</b>

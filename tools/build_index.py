@@ -208,7 +208,7 @@ NAV = """<!-- RM-NAV-START -->
 <nav class="rm-topnav">
   <a class="rm-topnav-brand" href="#step1-trangchu" onclick="goToSlide(0); return false;">SMART ART HERITAGE</a>
   <a class="rm-topnav-link" href="#step2-bando" onclick="goToSlide(1); return false;">🗺️ Bản đồ</a>
-  <a class="rm-topnav-link" href="#step4-hosodisan" onclick="goToSlide(3); return false;">🔍 15 Ảnh di sản</a>
+  <a class="rm-topnav-link" href="#step4-hosodisan" onclick="goToSlide(3); return false;">🔍 15 Ảnh & Phiếu 3-2-1</a>
   <a class="rm-topnav-link" href="#step5-phong3d" onclick="goToSlide(4); return false;">🧊 Phòng 3D</a>
   <a class="rm-topnav-link" href="#step6-ai5a" onclick="goToSlide(5); return false;">🤖 Trợ lý AI</a>
   <a class="rm-topnav-link" href="#step8-argallery" onclick="goToSlide(7); return false;">🖼️ Triển lãm AR</a>
@@ -278,9 +278,9 @@ GUIDELINE_STEPPER = """<!-- SAH-GUIDELINE-STEPPER-START -->
         <span class="sah-step-txt">5 Di sản</span>
       </a>
       <span class="sah-step-arrow">→</span>
-      <a href="#step4-hosodisan" class="sah-step-pill" data-step="4" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Hotspot" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & biểu tượng" data-preview-badge="BƯỚC 4 / 9" onclick="goToSlide(3); return false;">
+      <a href="#step4-hosodisan" class="sah-step-pill" data-step="4" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Phiếu 3-2-1" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & hình thành ý tưởng cá nhân" data-preview-badge="BƯỚC 4 / 9" onclick="goToSlide(3); return false;">
         <span class="sah-step-num">4</span>
-        <span class="sah-step-txt">Hồ sơ 15 ảnh</span>
+        <span class="sah-step-txt">15 Ảnh & Phiếu 3-2-1</span>
       </a>
       <span class="sah-step-arrow">→</span>
       <a href="#step5-phong3d" class="sah-step-pill" data-step="5" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 5 • Phòng Tương Tác 3D" data-preview-sub="Số hóa WebGL xoay 360° cảm thụ hình khối" data-preview-badge="BƯỚC 5 / 9" onclick="goToSlide(4); return false;">
@@ -758,10 +758,10 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
         <small>Chọn hồ sơ nghiên cứu</small>
       </div>
       <div class="sah-rm-arr">→</div>
-      <div class="sah-roadmap-step" onclick="goToSlide(3)" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Hotspot" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & biểu tượng" data-preview-badge="BƯỚC 4 / 9">
+      <div class="sah-roadmap-step" onclick="goToSlide(3)" data-preview-img="assets/extracted/042_Chi_tiet_trang_tri_kien_truc.jpeg" data-preview-title="Bước 4 • Hồ Sơ 15 Ảnh & Phiếu 3-2-1" data-preview-sub="Quan sát tư liệu cấu trúc, kỹ thuật & hình thành ý tưởng cá nhân" data-preview-badge="BƯỚC 4 / 9">
         <span class="sah-rm-num">4</span>
-        <b>Hồ sơ 15 ảnh</b>
-        <small>Hotspot 3 tầng</small>
+        <b>15 Ảnh & Phiếu 3-2-1</b>
+        <small>Hotspot & Ý tưởng</small>
       </div>
       <div class="sah-rm-arr">→</div>
       <div class="sah-roadmap-step" onclick="goToSlide(4)" data-preview-img="assets/heritage/diagram_3d_keo.svg" data-preview-title="Bước 5 • Phòng Tương Tác 3D" data-preview-sub="Số hóa WebGL xoay 360° cảm thụ hình khối" data-preview-badge="BƯỚC 5 / 9">
@@ -1006,10 +1006,10 @@ STEP3_HTML = f"""<!-- STEP 3: 5 KHU DI SAN -->
 # --------------------------------------------------------------------------
 STEP4_HTML = f"""<!-- STEP 4: HO SO KHAM PHA DI SAN -->
 <section id="step4-hosodisan" class="sah-step-sec sah-slide">
-  <div class="sah-step-badge">BƯỚC 4 / 9 • QUAN SÁT TƯ LIỆU SỐ</div>
+  <div class="sah-step-badge">BƯỚC 4 / 9 • QUAN SÁT TƯ LIỆU SỐ & PHIẾU 3-2-1</div>
   <div class="sah-sec-header">
-    <h2>🔍 HỒ SƠ KHÁM PHÁ DI SẢN • 15 ẢNH & HOTSPOT 3 TẦNG</h2>
-    <p class="sah-sec-sub">Mỗi di sản gồm 15 ảnh tư liệu độ phân giải cao và hệ thống Hotspot phân tích 3 tầng: <b>Tầng 1: Cấu trúc & bố cục</b> → <b>Tầng 2: Hoa văn & kỹ thuật</b> → <b>Tầng 3: Biểu tượng & ý nghĩa văn hóa</b>.</p>
+    <h2>🔍 HỒ SƠ KHÁM PHÁ DI SẢN • 15 ẢNH, HOTSPOT & PHIẾU TƯ DUY 3-2-1</h2>
+    <p class="sah-sec-sub">Mỗi di sản gồm 15 ảnh tư liệu độ phân giải cao và hệ thống Hotspot phân tích 3 tầng: <b>Tầng 1: Cấu trúc & bố cục</b> → <b>Tầng 2: Hoa văn & kỹ thuật</b> → <b>Tầng 3: Biểu tượng & ý nghĩa văn hóa</b>. Sau khi quan sát, học sinh hoàn thiện <b>Phiếu 3–2–1</b> để gieo hạt giống ý tưởng sáng tạo cá nhân.</p>
   </div>
 
   <div class="sah-rule-banner">
@@ -1022,6 +1022,9 @@ STEP4_HTML = f"""<!-- STEP 4: HO SO KHAM PHA DI SAN -->
 
   {PANELS_HTML}
   {SWITCHER_HTML}
+
+  {SAH321_BLOCK}
+  {P321_BLOCK}
 
   {make_ppt_footer(4, "5 Khu di sản", "Phòng 3D tương tác")}
 </section>
@@ -1331,12 +1334,10 @@ STEP9_HTML = f"""<!-- STEP 9: DANH GIA & TU HOAN THIEN -->
 <section id="step9-danhgia" class="sah-step-sec sah-slide">
   <div class="sah-step-badge">BƯỚC 9 / 9 • ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN</div>
   <div class="sah-sec-header">
-    <h2>📝 ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN • PHIẾU 3-2-1 & HỒ SƠ HÀNH TRÌNH</h2>
-    <p class="sah-sec-sub">Phiếu tổng kết 3-2-1, Tự đánh giá của học sinh & Đánh giá của giáo viên theo Rubric chuẩn. Đối sánh năng lực sư phạm và lưu trữ Hồ sơ hành trình sáng tạo cá nhân.</p>
+    <h2>📝 ĐÁNH GIÁ VÀ TỰ HOÀN THIỆN • RUBRIC CHUẨN & HỒ SƠ HÀNH TRÌNH</h2>
+    <p class="sah-sec-sub">Tự đánh giá của học sinh & Đánh giá của giáo viên theo Rubric chuẩn 4 mức độ. Đối sánh năng lực sư phạm trước – sau (Pre/Post test) và lưu trữ Hồ sơ hành trình sáng tạo cá nhân.</p>
   </div>
 
-  {SAH321_BLOCK}
-  {P321_BLOCK}
   {RUBRIC_PREPOST_HTML}
   {JOURNEY39_BLOCK}
 

@@ -763,18 +763,18 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
             <small>Khu lưu niệm danh nhân văn hóa & truyền thống hiếu học</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=c7KmpEGgN2s&t=56s', 'Độc đáo kiến trúc chùa Keo Thái Bình (Khởi phát t=56s)', this, 'https://www.youtube.com/watch?v=c7KmpEGgN2s&t=56s')">
-          <span class="sah-v-ico sah-v-yt">▶</span>
+        <div class="sah-video-item" onclick="switchLandingVideo('video%20v%E1%BB%81%20ki%E1%BA%BFn%20tr%C3%BAc%20ch%C3%B9a%20keo.mp4', 'Độc đáo kiến trúc chùa Keo Thái Bình', this, 'https://www.youtube.com/watch?v=c7KmpEGgN2s')">
+          <span class="sah-v-ico">▶</span>
           <div>
             <b>4. Kiến trúc độc đáo Chùa Keo</b>
-            <small>Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái (YouTube t=56s)</small>
+            <small>Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=zuZoxPZLPnE&t=69s', 'Làng nghề chạm bạc Đồng Xâm gắn với du lịch (Khởi phát t=69s)', this, 'https://www.youtube.com/watch?v=zuZoxPZLPnE&t=69s')">
-          <span class="sah-v-ico sah-v-yt">▶</span>
+        <div class="sah-video-item" onclick="switchLandingVideo('video%20v%E1%BB%81%20l%C3%A0ng%20ngh%E1%BB%81%20ch%E1%BA%A1m%20b%E1%BA%A1c%20%C4%91%E1%BB%93ng%20x%C3%A2m.mp4', 'Làng nghề chạm bạc Đồng Xâm gắn với du lịch', this, 'https://www.youtube.com/watch?v=zuZoxPZLPnE')">
+          <span class="sah-v-ico">▶</span>
           <div>
             <b>5. Làng nghề chạm bạc Đồng Xâm</b>
-            <small>Nghệ thuật kim hoàn truyền thống 500 năm chạm trổ tinh xảo (YouTube t=69s)</small>
+            <small>Nghệ thuật kim hoàn truyền thống 500 năm chạm trổ tinh xảo</small>
           </div>
         </div>
       </div>
@@ -5591,18 +5591,16 @@ function syncHeritagePanels() {
   });
 }
 
-// Video switcher on Landing Page (supports local MP4 & YouTube embeds)
+// Video switcher on Landing Page (supports local MP4 with zero redirect below, starting from the beginning)
 function parseYoutubeEmbed(url) {
   if (!url) return '';
   var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
   if (!match) return url;
   var id = match[1];
-  var startMatch = url.match(/[?&](?:t|start)=(\d+)/);
-  var startParam = startMatch ? ('?autoplay=1&start=' + startMatch[1]) : '?autoplay=1';
-  return 'https://www.youtube-nocookie.com/embed/' + id + startParam;
+  return 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&start=0';
 }
 
-function switchLandingVideo(srcUrl, caption, element, extUrl) {
+function switchLandingVideo(srcUrl, caption, element, ytFallbackUrl) {
   var player = document.getElementById('landingVideoPlayer');
   var ytPlayer = document.getElementById('landingYoutubePlayer');
   var source = document.getElementById('videoSource');
@@ -5619,7 +5617,6 @@ function switchLandingVideo(srcUrl, caption, element, extUrl) {
       ytPlayer.src = parseYoutubeEmbed(srcUrl);
       ytPlayer.style.display = 'block';
     }
-    if (!extUrl) extUrl = srcUrl;
   } else {
     if (ytPlayer) {
       ytPlayer.src = '';
@@ -5628,16 +5625,28 @@ function switchLandingVideo(srcUrl, caption, element, extUrl) {
     if (player && source) {
       player.style.display = 'block';
       source.src = srcUrl;
+      try { player.currentTime = 0; } catch(e) {}
       player.load();
+
+      // Graceful fallback to YouTube if local MP4 fails to load
+      if (ytFallbackUrl) {
+        player.onerror = function() {
+          player.onerror = null;
+          player.style.display = 'none';
+          if (ytPlayer) {
+            ytPlayer.src = parseYoutubeEmbed(ytFallbackUrl);
+            ytPlayer.style.display = 'block';
+          }
+        };
+      } else {
+        player.onerror = null;
+      }
     }
   }
 
+  // Exactly like the other 3: clean caption without any YouTube redirect link below
   if (cap) {
-    var capHtml = '<b>Phim tài liệu:</b> ' + caption;
-    if (extUrl) {
-      capHtml += ' &bull; <a href="' + extUrl + '" target="_blank" rel="noopener noreferrer" style="color: var(--sah-gold-bright); text-decoration: underline;">Mở trên YouTube ↗</a>';
-    }
-    cap.innerHTML = capHtml;
+    cap.innerHTML = '<b>Phim tài liệu:</b> ' + caption;
   }
 
   document.querySelectorAll('.sah-video-playlist .sah-video-item').forEach(function(item) {

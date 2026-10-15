@@ -731,12 +731,13 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
 
     <div class="sah-video-showcase">
       <div class="sah-video-player-wrap">
-        <video id="landingVideoPlayer" controls playsinline style="width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9;">
+        <video id="landingVideoPlayer" controls playsinline style="width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; display: block;">
           <source id="videoSource" src="video%20v%E1%BB%81%20qu%E1%BA%A7n%20th%E1%BB%83%20ph%E1%BB%91%20hi%E1%BA%BFn.mp4" type="video/mp4">
           Trình duyệt của em không hỗ trợ phát video HTML5.
         </video>
+        <iframe id="landingYoutubePlayer" style="display:none; width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <div class="sah-video-caption" id="videoCaption">
-          <b>Phim tài liệu:</b> Giới thiệu quần thể di tích quốc gia đặc biệt Phố Hiến
+          <b>Phim tài liệu:</b> Quần thể di tích lịch sử và văn hóa Phố Hiến – Hưng Yên
         </div>
       </div>
 
@@ -744,22 +745,36 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;bor
         <div class="sah-video-item active" onclick="switchLandingVideo('video%20v%E1%BB%81%20qu%E1%BA%A7n%20th%E1%BB%83%20ph%E1%BB%91%20hi%E1%BA%BFn.mp4', 'Quần thể di tích lịch sử và văn hóa Phố Hiến – Hưng Yên', this)">
           <span class="sah-v-ico">▶</span>
           <div>
-            <b>Quần thể di tích Phố Hiến</b>
+            <b>1. Quần thể di tích Phố Hiến</b>
             <small>Thương cảng cổ truyền & đô thị hưng thịnh thế kỷ XVII</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('Da%CC%81u%20a%CC%81n%20nha%CC%80%20Tra%CC%80n%20tre%CC%82n%20vu%CC%80ng%20%C4%91a%CC%81t%20Tha%CC%81i%20Bi%CC%80nh%20xWeb%20HYTV.mp4', 'Phim tài liệu 02: Dấu ấn vương triều Trần trên vùng đất Thái Bình xưa', this)">
+        <div class="sah-video-item" onclick="switchLandingVideo('Da%CC%81u%20a%CC%81n%20nha%CC%80%20Tra%CC%80n%20tre%CC%82n%20vu%CC%80ng%20%C4%91a%CC%81t%20Tha%CC%81i%20Bi%CC%80nh%20xWeb%20HYTV.mp4', 'Dấu ấn vương triều Trần trên vùng đất Thái Bình xưa', this)">
           <span class="sah-v-ico">▶</span>
           <div>
-            <b>Dấu ấn vương triều Trần</b>
+            <b>2. Dấu ấn vương triều Trần</b>
             <small>Đền Trần Long Hưng & khu lăng mộ các vua Trần</small>
           </div>
         </div>
-        <div class="sah-video-item" onclick="switchLandingVideo('Le%CC%82%20Quy%CC%81%20%C4%90o%CC%82n%20%E2%80%93%20Nha%CC%80%20Ba%CC%81c%20Ho%CC%A3c%20Vi%CC%83%20%C4%90a%CC%A3i%20Nha%CC%82%CC%81t%20Li%CC%A3ch%20Su%CC%9B%CC%89%20Phong%20Kie%CC%82%CC%81n%20Vie%CC%A3%CC%82t%20Nam.mp4', 'Phim tài liệu 03: Nhà bác học Lê Quý Đôn – Cuộc đời và trước tác vĩ đại', this)">
+        <div class="sah-video-item" onclick="switchLandingVideo('Le%CC%82%20Quy%CC%81%20%C4%90o%CC%82n%20%E2%80%93%20Nha%CC%80%20Ba%CC%81c%20Ho%CC%A3c%20Vi%CC%83%20%C4%90a%CC%A3i%20Nha%CC%82%CC%81t%20Li%CC%A3ch%20Su%CC%9B%CC%89%20Phong%20Kie%CC%82%CC%81n%20Vie%CC%A3%CC%82t%20Nam.mp4', 'Nhà bác học Lê Quý Đôn – Cuộc đời và trước tác vĩ đại', this)">
           <span class="sah-v-ico">▶</span>
           <div>
-            <b>Nhà bác học Lê Quý Đôn</b>
+            <b>3. Nhà bác học Lê Quý Đôn</b>
             <small>Khu lưu niệm danh nhân văn hóa & truyền thống hiếu học</small>
+          </div>
+        </div>
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=c7KmpEGgN2s&t=56s', 'Độc đáo kiến trúc chùa Keo Thái Bình (Khởi phát t=56s)', this, 'https://www.youtube.com/watch?v=c7KmpEGgN2s&t=56s')">
+          <span class="sah-v-ico sah-v-yt">▶</span>
+          <div>
+            <b>4. Kiến trúc độc đáo Chùa Keo</b>
+            <small>Đỉnh cao kiến trúc gỗ cổ truyền, gác chuông 3 tầng mái (YouTube t=56s)</small>
+          </div>
+        </div>
+        <div class="sah-video-item" onclick="switchLandingVideo('https://www.youtube.com/watch?v=zuZoxPZLPnE&t=69s', 'Làng nghề chạm bạc Đồng Xâm gắn với du lịch (Khởi phát t=69s)', this, 'https://www.youtube.com/watch?v=zuZoxPZLPnE&t=69s')">
+          <span class="sah-v-ico sah-v-yt">▶</span>
+          <div>
+            <b>5. Làng nghề chạm bạc Đồng Xâm</b>
+            <small>Nghệ thuật kim hoàn truyền thống 500 năm chạm trổ tinh xảo (YouTube t=69s)</small>
           </div>
         </div>
       </div>
@@ -4590,16 +4605,16 @@ body:not(.slide-mode) .sah-slide {
 }
 .sah-video-playlist {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 .sah-video-item {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
-  padding: 14px 16px;
+  padding: 11px 14px;
   background: #171411;
   border: 1px solid var(--sah-gold-border);
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -4608,16 +4623,22 @@ body:not(.slide-mode) .sah-slide {
   border-color: var(--sah-gold-primary);
 }
 .sah-v-ico {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: var(--sah-gold-primary);
   color: #0c0b0a;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   flex-shrink: 0;
+  font-weight: 700;
+}
+.sah-v-ico.sah-v-yt {
+  background: #e62117;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(230, 33, 23, 0.4);
 }
 .sah-video-item b {
   font-size: 13.5px;
@@ -5570,17 +5591,56 @@ function syncHeritagePanels() {
   });
 }
 
-// Video switcher on Landing Page
-function switchLandingVideo(srcUrl, caption, element) {
+// Video switcher on Landing Page (supports local MP4 & YouTube embeds)
+function parseYoutubeEmbed(url) {
+  if (!url) return '';
+  var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+  if (!match) return url;
+  var id = match[1];
+  var startMatch = url.match(/[?&](?:t|start)=(\d+)/);
+  var startParam = startMatch ? ('?autoplay=1&start=' + startMatch[1]) : '?autoplay=1';
+  return 'https://www.youtube-nocookie.com/embed/' + id + startParam;
+}
+
+function switchLandingVideo(srcUrl, caption, element, extUrl) {
   var player = document.getElementById('landingVideoPlayer');
+  var ytPlayer = document.getElementById('landingYoutubePlayer');
   var source = document.getElementById('videoSource');
   var cap = document.getElementById('videoCaption');
-  if (player && source) {
-    source.src = srcUrl;
-    player.load();
-    if (cap) cap.innerHTML = '<b>Phim tài liệu:</b> ' + caption;
+
+  var isYoutube = (typeof srcUrl === 'string') && (srcUrl.indexOf('youtube.com') !== -1 || srcUrl.indexOf('youtu.be') !== -1);
+
+  if (isYoutube) {
+    if (player) {
+      try { player.pause(); } catch(e) {}
+      player.style.display = 'none';
+    }
+    if (ytPlayer) {
+      ytPlayer.src = parseYoutubeEmbed(srcUrl);
+      ytPlayer.style.display = 'block';
+    }
+    if (!extUrl) extUrl = srcUrl;
+  } else {
+    if (ytPlayer) {
+      ytPlayer.src = '';
+      ytPlayer.style.display = 'none';
+    }
+    if (player && source) {
+      player.style.display = 'block';
+      source.src = srcUrl;
+      player.load();
+    }
   }
-  document.querySelectorAll('.sah-video-item').forEach(function(item) {
+
+  if (cap) {
+    var capHtml = '<b>Phim tài liệu:</b> ' + caption;
+    if (extUrl) {
+      capHtml += ' &bull; <a href="' + extUrl + '" target="_blank" rel="noopener noreferrer" style="color: var(--sah-gold-bright); text-decoration: underline;">Mở trên YouTube ↗</a>';
+    }
+    cap.innerHTML = capHtml;
+  }
+
+  document.querySelectorAll('.sah-video-playlist .sah-video-item').forEach(function(item) {
     item.classList.remove('active');
   });
   if (element) element.classList.add('active');

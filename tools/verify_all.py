@@ -36,10 +36,14 @@ async def verify_all():
             
         print("--- [PASS 1] VERIFYING CONTENT & TEXT STRINGS ---")
         
-        # 0. Check Đơn vị nghiên cứu
+        # 0. Check Đơn vị nghiên cứu & Đối tượng
         research_unit = await page.locator('.sah-meta-item:first-of-type').inner_text()
         print(f"Đơn vị nghiên cứu text: '{research_unit.strip()}'")
         assert "Trường Trung học cơ sở Lê Quý Đôn, xã Lê Quý Đôn, tỉnh Hưng Yên" in research_unit, f"Unexpected research unit: {research_unit}"
+        
+        target_audience = await page.locator('.sah-meta-item:nth-of-type(2)').inner_text()
+        print(f"Đối tượng text: '{target_audience.strip()}'")
+        assert "Học sinh THCS Lê Quý Đôn, xã Lê Quý Đôn và giáo viên Mĩ thuật" in target_audience, f"Unexpected target audience: {target_audience}"
 
         # 1. Check "Đánh giá và tự hoàn thiện"
         topnav_step9 = await page.locator('.rm-topnav-link[href="#step9-danhgia"]').inner_text()

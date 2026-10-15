@@ -376,8 +376,15 @@ def make_ppt_footer(step_idx, prev_name, next_name, is_last=False):
 # --------------------------------------------------------------------------
 STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -->
 <section id="step1-trangchu" class="sah-step-sec sah-slide active-slide sah-landing-page">
-  <!-- Monogram Heritage Watermark -->
-  <div class="sah-museum-watermark" aria-hidden="true">S</div>
+  <!-- Ambient Luminous Backdrop & Sacred Solar Mandala -->
+  <div class="sah-landing-bg-decor" aria-hidden="true">
+    <div class="sah-bg-aurora sah-bg-aurora-gold"></div>
+    <div class="sah-bg-aurora sah-bg-aurora-crimson"></div>
+    <div class="sah-bg-aurora sah-bg-aurora-cyan"></div>
+    <div class="sah-solar-mandala"></div>
+    <div class="sah-bg-grid-mesh"></div>
+    <div class="sah-bg-stardust"></div>
+  </div>
 
   <!-- HERO SECTION -->
   <div class="sah-landing-hero">
@@ -1555,13 +1562,20 @@ body::after {
   }
 }
 
-/* Default / Slide 1: Trang Chu - Chùa Keo 12 Mái Chồng Diêm (Pinnacle of Wooden Architecture) */
+/* Default / Slide 1: Trang Chu - Epic Cinematic Heritage Sanctuary */
 body::before,
 body[data-active-slide="step1-trangchu"]::before {
   background-image:
-    linear-gradient(180deg, rgba(12, 10, 8, 0.38) 0%, rgba(14, 11, 9, 0.48) 50%, rgba(10, 8, 6, 0.72) 100%),
-    radial-gradient(ellipse 95% 65% at 50% -10%, rgba(212, 175, 55, 0.22) 0%, transparent 65%),
-    url("assets/heritage/hero_heritage_keo.jpg");
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(243, 195, 84, 0.28) 0%, transparent 70%),
+    radial-gradient(circle 800px at 85% 30%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+    radial-gradient(circle 700px at 15% 45%, rgba(20, 85, 120, 0.18) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(6, 8, 14, 0.35) 0%, rgba(10, 12, 18, 0.50) 45%, rgba(6, 7, 10, 0.85) 100%),
+    url("assets/heritage/hero_landing_cinematic.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: brightness(0.92) contrast(1.12) saturate(115%);
 }
 
 /* Slide 2: Ban Do - Phố Hiến Bên Sông Hồng & Đầm Bán Nguyệt (Red River Delta Cultural Port) */
@@ -1665,11 +1679,20 @@ body[data-active-slide="step-dashboard"] {
 
 /* Distinctive Slide Container Backgrounds (Glassmorphic Frosted Translucency) */
 #step1-trangchu {
-  background: rgba(18, 14, 11, 0.70) !important;
-  backdrop-filter: blur(14px) saturate(120%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
-  border-color: rgba(212, 175, 55, 0.45) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.80), 0 0 35px rgba(212, 175, 55, 0.12) !important;
+  position: relative;
+  overflow: hidden;
+  background: 
+    radial-gradient(ellipse 95% 45% at 50% -5%, rgba(212, 175, 55, 0.18) 0%, transparent 60%),
+    radial-gradient(circle 500px at 95% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 65%),
+    radial-gradient(circle 500px at 5% 35%, rgba(30, 95, 135, 0.12) 0%, transparent 65%),
+    rgba(10, 11, 16, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(135%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(135%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.50) !important;
+  box-shadow: 
+    0 30px 90px rgba(0, 0, 0, 0.88),
+    0 0 55px rgba(212, 175, 55, 0.18),
+    inset 0 1px 0 rgba(255, 240, 190, 0.35) !important;
 }
 #step2-bando {
   background: rgba(10, 16, 14, 0.70) !important;
@@ -2199,8 +2222,127 @@ body:not(.slide-mode) .sah-slide {
    LANDING PAGE (STEP 1) — MUSEUM SHOWCASE STYLES
    ========================================================================== */
 .sah-landing-page {
+  position: relative;
+  overflow: hidden;
   padding: 38px;
 }
+.sah-landing-hero,
+.sah-exhibits-section,
+.sah-video-section,
+.sah-roadmap-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ambient Luminous Backdrop & Sacred Solar Mandala */
+.sah-landing-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* 1. Sacred Rotating Dong Son Solar Drum Mandala in Hero Center */
+.sah-solar-mandala {
+  position: absolute;
+  top: 220px;
+  left: 52%;
+  transform: translate(-50%, -50%);
+  width: 820px;
+  height: 820px;
+  background: url("assets/heritage/bg_dong_son_motif.svg") no-repeat center center;
+  background-size: contain;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 50px rgba(243, 195, 84, 0.45));
+  animation: sahMandalaRotate 180s linear infinite;
+}
+
+@keyframes sahMandalaRotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 2. Ambient Floating Auroras */
+.sah-bg-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  animation: sahAuroraFloat 18s ease-in-out infinite alternate;
+}
+.sah-bg-aurora-gold {
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(243, 195, 84, 0.55) 0%, rgba(212, 175, 55, 0.25) 45%, transparent 75%);
+}
+.sah-bg-aurora-crimson {
+  top: 80px;
+  right: -80px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(220, 60, 35, 0.38) 0%, rgba(150, 30, 20, 0.15) 50%, transparent 75%);
+  animation-duration: 22s;
+  animation-delay: -5s;
+}
+.sah-bg-aurora-cyan {
+  top: 300px;
+  left: -100px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(30, 110, 145, 0.35) 0%, rgba(15, 60, 85, 0.12) 50%, transparent 75%);
+  animation-duration: 26s;
+  animation-delay: -9s;
+}
+
+@keyframes sahAuroraFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 20px) scale(1.08); }
+  100% { transform: translate(-25px, -15px) scale(0.96); }
+}
+
+/* 3. Subtle Cybernetic Gold Grid / Cultural Fabric Weave */
+.sah-bg-grid-mesh {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, black 0%, transparent 80%);
+  opacity: 0.65;
+}
+
+/* 4. Golden Stardust / Cultural Sparkles */
+.sah-bg-stardust {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 20%, rgba(255, 235, 170, 0.8), transparent),
+    radial-gradient(2px 2px at 35% 12%, rgba(212, 175, 55, 0.9), transparent),
+    radial-gradient(2px 2px at 58% 28%, rgba(255, 245, 210, 0.95), transparent),
+    radial-gradient(1.5px 1.5px at 78% 16%, rgba(243, 195, 84, 0.85), transparent),
+    radial-gradient(2px 2px at 88% 35%, rgba(255, 220, 130, 0.75), transparent),
+    radial-gradient(2px 2px at 22% 42%, rgba(212, 175, 55, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 48% 52%, rgba(255, 235, 170, 0.85), transparent),
+    radial-gradient(2px 2px at 68% 46%, rgba(243, 195, 84, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 82% 58%, rgba(212, 175, 55, 0.7), transparent);
+  background-size: 100% 100%;
+  animation: sahStardustTwinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes sahStardustTwinkle {
+  0% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 0.85; transform: translateY(-4px); }
+  100% { opacity: 0.45; transform: translateY(2px); }
+}
+
 .sah-landing-hero {
   border-bottom: 1px solid var(--sah-gold-border);
   padding-bottom: 38px;
@@ -2353,20 +2495,26 @@ body:not(.slide-mode) .sah-slide {
 }
 .sah-pedestal-glow {
   position: absolute;
-  inset: -20px;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
-  filter: blur(20px);
+  inset: -30px;
+  background: radial-gradient(circle at 50% 50%, rgba(245, 175, 45, 0.45) 0%, rgba(212, 175, 55, 0.22) 45%, transparent 70%);
+  filter: blur(28px);
   pointer-events: none;
   z-index: 0;
+  animation: sahPedestalPulse 8s ease-in-out infinite alternate;
+}
+@keyframes sahPedestalPulse {
+  0% { transform: scale(0.95); opacity: 0.65; }
+  100% { transform: scale(1.06); opacity: 0.95; }
 }
 .sah-pedestal-card {
   position: relative;
   z-index: 1;
-  background: #181512;
-  border: 1px solid var(--sah-gold-border);
+  background: linear-gradient(145deg, rgba(30, 24, 18, 0.92) 0%, rgba(16, 13, 10, 0.96) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.50);
   border-radius: 22px;
-  padding: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.20), inset 0 1px 0 rgba(255, 235, 175, 0.3);
+  backdrop-filter: blur(16px);
 }
 .sah-pedestal-media-wrap {
   position: relative;

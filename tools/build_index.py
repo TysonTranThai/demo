@@ -1562,20 +1562,19 @@ body::after {
   }
 }
 
-/* Default / Slide 1: Trang Chu - Epic Cinematic Heritage Sanctuary */
+/* Default / Slide 1: Trang Chu - Real Cultural Heritage (Gác chuông Chùa Keo) */
 body::before,
 body[data-active-slide="step1-trangchu"]::before {
   background-image:
-    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(243, 195, 84, 0.28) 0%, transparent 70%),
-    radial-gradient(circle 800px at 85% 30%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
-    radial-gradient(circle 700px at 15% 45%, rgba(20, 85, 120, 0.18) 0%, transparent 65%),
-    linear-gradient(180deg, rgba(6, 8, 14, 0.35) 0%, rgba(10, 12, 18, 0.50) 45%, rgba(6, 7, 10, 0.85) 100%),
-    url("assets/heritage/hero_landing_cinematic.jpg");
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(243, 195, 84, 0.22) 0%, transparent 65%),
+    radial-gradient(circle 800px at 85% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(8, 9, 14, 0.35) 0%, rgba(12, 11, 14, 0.50) 45%, rgba(6, 7, 10, 0.85) 100%),
+    url("assets/heritage/hero_real_keo_aerial.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  filter: brightness(0.92) contrast(1.12) saturate(115%);
+  filter: brightness(0.95) contrast(1.08) saturate(110%);
 }
 
 /* Slide 2: Ban Do - Phố Hiến Bên Sông Hồng & Đầm Bán Nguyệt (Red River Delta Cultural Port) */

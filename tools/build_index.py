@@ -810,7 +810,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
           <source id="videoSource" src="video%20v%E1%BB%81%20qu%E1%BA%A7n%20th%E1%BB%83%20ph%E1%BB%91%20hi%E1%BA%BFn.mp4" type="video/mp4">
           Trình duyệt của em không hỗ trợ phát video HTML5.
         </video>
-        <iframe id="landingYoutubePlayer" style="display:none; width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe id="landingYoutubePlayer" referrerpolicy="strict-origin-when-cross-origin" style="display:none; width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         <div class="sah-video-caption" id="videoCaption">
           <b>Phim tài liệu:</b> Quần thể di tích lịch sử và văn hóa Phố Hiến – Hưng Yên
         </div>
@@ -3733,6 +3733,7 @@ function switchLandingVideo(srcUrl, caption, element, ytFallbackUrl) {
       player.style.display = 'none';
     }
     if (ytPlayer) {
+      ytPlayer.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
       ytPlayer.src = parseYoutubeEmbed(srcUrl);
       ytPlayer.style.display = 'block';
     }

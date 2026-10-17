@@ -1963,6 +1963,161 @@ RUBRIC_PREPOST_HTML = """
 </div>
 """
 
+THEME_STUDIO_STEP12_HTML = """
+  <!-- THEME & TYPOGRAPHY STUDIO FOR TEACHERS IN STEP 12 -->
+  <div class="sah-theme-studio-s12" id="s12ThemeStudio">
+    <div class="s12-ts-head">
+      <div class="s12-ts-title-box">
+        <span class="sah-step-tag">🎨 BỘ CÔNG CỤ TÙY BIẾN CHO GIÁO VIÊN</span>
+        <h3 class="s12-ts-title">Quản Trị Font Chữ &amp; Không Gian Triển Lãm Tri Thức Mĩ Thuật</h3>
+        <p class="s12-ts-desc">Tùy biến phông chữ di sản, chuyển đổi tức thì 5 không gian màu sắc bảo tàng và tối ưu hiển thị cho máy chiếu lớp học.</p>
+      </div>
+      <div class="s12-ts-actions">
+        <a href="index.html?studio=1" class="rm-btn" id="s12BtnOpenStudioModal" style="text-decoration:none;">🎨 Mở Trình Tùy Biến Nâng Cao ↗</a>
+        <button type="button" class="rm-btn rm-btn-ghost" id="s12BtnResetTheme">🔄 Khôi Phục Gốc</button>
+      </div>
+    </div>
+
+    <div class="s12-ts-grid">
+      <!-- Cột 1: 5 Bộ mẫu font -->
+      <div class="s12-ts-col">
+        <div class="s12-col-header">
+          <span class="s12-col-icon">🔤</span>
+          <div>
+            <h4>5 Bộ Phông Chữ Di Sản</h4>
+            <small>Chọn bộ font phù hợp chủ đề tiết dạy</small>
+          </div>
+        </div>
+        <div class="s12-preset-list" id="s12PresetList">
+          <button type="button" class="s12-preset-btn active" data-preset="preset-heritage">
+            <span class="s12-p-name">🏛️ Bảo tàng Hoàng gia</span>
+            <span class="s12-p-sub">Cinzel • Playfair • Plus Jakarta</span>
+          </button>
+          <button type="button" class="s12-preset-btn" data-preset="preset-classical">
+            <span class="s12-p-name">📜 Chữ Khắc Cổ Điển / Văn Miếu</span>
+            <span class="s12-p-sub">Cormorant Garamond • Nét bia đá</span>
+          </button>
+          <button type="button" class="s12-preset-btn" data-preset="preset-modern">
+            <span class="s12-p-name">🎨 Mĩ Thuật Đương Đại</span>
+            <span class="s12-p-sub">Montserrat • Hình khối tối giản</span>
+          </button>
+          <button type="button" class="s12-preset-btn" data-preset="preset-vietnam">
+            <span class="s12-p-name">🏮 Bản Sắc Việt Nam</span>
+            <span class="s12-p-sub">Be Vietnam Pro • Tròn đầy ngữ điệu</span>
+          </button>
+          <button type="button" class="s12-preset-btn" data-preset="preset-pedagogy">
+            <span class="s12-p-name">📖 Thân Thiện Học Đường</span>
+            <span class="s12-p-sub">Lexend • Chống mỏi mắt học sinh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cột 2: 5 Bảng màu không gian triển lãm -->
+      <div class="s12-ts-col">
+        <div class="s12-col-header">
+          <span class="s12-col-icon">🎨</span>
+          <div>
+            <h4>5 Không Gian Màu Bảo Tàng</h4>
+            <small>Đổi gam màu toàn bộ trang web</small>
+          </div>
+        </div>
+        <div class="s12-palette-list" id="s12PaletteList">
+          <button type="button" class="s12-palette-btn active" data-palette="theme-gold">
+            <div class="s12-pal-bar">
+              <span style="background:#090807"></span><span style="background:#161310"></span><span style="background:#d4af37"></span><span style="background:#34d399"></span>
+            </div>
+            <div class="s12-pal-info">
+              <span class="s12-p-name">🌟 Hoàng Kim Bảo Tàng</span>
+              <span class="s12-p-sub">Nền mun &amp; thếp vàng hoàng gia</span>
+            </div>
+          </button>
+          <button type="button" class="s12-palette-btn" data-palette="theme-cinnabar">
+            <div class="s12-pal-bar">
+              <span style="background:#120807"></span><span style="background:#1c0f0d"></span><span style="background:#d97736"></span><span style="background:#c0392b"></span>
+            </div>
+            <div class="s12-pal-info">
+              <span class="s12-p-name">🏯 Cung Đình Chu Sa</span>
+              <span class="s12-p-sub">Gỗ lim trầm ấm &amp; đồng thau cổ</span>
+            </div>
+          </button>
+          <button type="button" class="s12-palette-btn" data-palette="theme-indigo">
+            <div class="s12-pal-bar">
+              <span style="background:#060913"></span><span style="background:#0e1424"></span><span style="background:#38bdf8"></span><span style="background:#818cf8"></span>
+            </div>
+            <div class="s12-pal-info">
+              <span class="s12-p-name">🌕 Đêm Trăng Phố Hiến</span>
+              <span class="s12-p-sub">Xanh chàm tĩnh lặng &amp; lam ngọc</span>
+            </div>
+          </button>
+          <button type="button" class="s12-palette-btn" data-palette="theme-emerald">
+            <div class="s12-pal-bar">
+              <span style="background:#06120b"></span><span style="background:#0e2217"></span><span style="background:#10b981"></span><span style="background:#eab308"></span>
+            </div>
+            <div class="s12-pal-info">
+              <span class="s12-p-name">🌿 Châu Thổ Sông Hồng</span>
+              <span class="s12-p-sub">Rêu phong cổ kính &amp; phù sa ngọc bích</span>
+            </div>
+          </button>
+          <button type="button" class="s12-palette-btn" data-palette="theme-daylight">
+            <div class="s12-pal-bar">
+              <span style="background:#f7f4ed"></span><span style="background:#ffffff"></span><span style="background:#996515"></span><span style="background:#059669"></span>
+            </div>
+            <div class="s12-pal-info">
+              <span class="s12-p-name">🏛️ Bảo Tàng Ban Ngày</span>
+              <span class="s12-p-sub">Nền sáng ngà thanh thoát (Phòng sáng)</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cột 3: Trình chiếu lớp học & Live Preview -->
+      <div class="s12-ts-col">
+        <div class="s12-col-header">
+          <span class="s12-col-icon">📽️</span>
+          <div>
+            <h4>Tối Ưu Trình Chiếu Lớp Học</h4>
+            <small>Cỡ chữ &amp; chống lóa phông máy chiếu</small>
+          </div>
+        </div>
+        <div class="s12-controls-card">
+          <div class="s12-ctrl-group">
+            <label for="s12FontScaleSelect" class="s12-ctrl-label">Cỡ chữ bài giảng:</label>
+            <select id="s12FontScaleSelect" class="s12-select">
+              <option value="0.9">90% — Gọn gàng thanh mảnh</option>
+              <option value="1.0" selected>100% — Chuẩn bảo tàng</option>
+              <option value="1.1">110% — Lớn rõ cho phòng học</option>
+              <option value="1.2">120% — Phóng lớn cho máy chiếu xa</option>
+            </select>
+          </div>
+
+          <div class="s12-ctrl-group">
+            <label for="s12CardRadiusSelect" class="s12-ctrl-label">Độ bo góc thẻ bài:</label>
+            <select id="s12CardRadiusSelect" class="s12-select">
+              <option value="8px">8px — Vuông góc hiện đại</option>
+              <option value="18px" selected>18px — Chuẩn di sản mềm mại</option>
+              <option value="26px">26px — Bo tròn mĩ thuật</option>
+            </select>
+          </div>
+
+          <label class="s12-checkbox-label">
+            <input type="checkbox" id="s12ProjectorContrastCheck">
+            <span><strong>Tăng tương phản máy chiếu</strong> (Nâng sáng viền vàng kim, chống lóa phông chiếu)</span>
+          </label>
+
+          <div class="s12-preview-mini" id="s12PreviewMini">
+            <h5 id="s12PrevTitle">🏛️ Khám Phá Di Sản Mĩ Thuật</h5>
+            <p id="s12PrevText">Chùa Keo &amp; Phố Hiến — Không gian thực tế ảo và giáo dục di sản mĩ thuật thế kỷ XVII.</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+              <span class="sah-theme-badge" id="s12ActiveBadge">🌟 Hoàng Kim Bảo Tàng</span>
+              <button type="button" class="rm-btn" id="s12BtnSaveTheme" style="padding:6px 14px;font-size:12px;">💾 Lưu Cài Đặt</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+"""
+
 STEP12_HTML = f"""<!-- STEP 12: DASHBOARD GIAO VIEN -->
 <section id="step12-dashboard" class="sah-step-sec sah-slide sah-dashboard-sec">
   <div class="sah-step-badge">BƯỚC 12 / 12 • DASHBOARD GIÁO VIÊN & ĐÁNH GIÁ SƯ PHẠM</div>
@@ -1997,6 +2152,8 @@ STEP12_HTML = f"""<!-- STEP 12: DASHBOARD GIAO VIEN -->
   <div class="sah-dash-actions">
     <a href="giao-vien.html" class="rm-btn" style="padding:14px 28px;font-size:15px;display:inline-block;text-decoration:none;">👩‍🏫 Mở Hệ Thống Quản Trị Giáo Viên Chi Tiết (giao-vien.html) ↗</a>
   </div>
+
+  {THEME_STUDIO_STEP12_HTML}
 
   {RUBRIC_PREPOST_HTML}
   {JOURNEY39_BLOCK}
@@ -6151,6 +6308,191 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   font-size: 14px;
   line-height: 1.6;
 }
+
+/* ==========================================================================
+   TEACHER THEME & TYPOGRAPHY STUDIO (STEP 12)
+   ========================================================================== */
+.sah-theme-studio-s12 {
+  margin: 32px 0 24px;
+  background: var(--sah-bg-card);
+  border: 1px solid var(--sah-gold-border);
+  border-radius: var(--sah-card-radius, 18px);
+  padding: 24px 28px;
+  backdrop-filter: blur(var(--sah-glass-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--sah-glass-blur, 16px));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+.s12-ts-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--sah-gold-border);
+  margin-bottom: 22px;
+}
+.s12-ts-title-box { flex: 1; min-width: 280px; }
+.s12-ts-title {
+  font-family: var(--sah-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--sah-gold-bright);
+  margin: 8px 0 4px;
+}
+.s12-ts-desc {
+  font-size: 13px;
+  color: var(--sah-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+.s12-ts-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.s12-ts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 980px) {
+  .s12-ts-grid { grid-template-columns: 1fr; }
+}
+.s12-ts-col {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.s12-col-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+.s12-col-icon { font-size: 24px; line-height: 1; }
+.s12-col-header h4 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sah-text-heading);
+}
+.s12-col-header small {
+  font-size: 11px;
+  color: var(--sah-text-muted);
+}
+.s12-preset-list, .s12-palette-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.s12-preset-btn, .s12-palette-btn {
+  text-align: left;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--sah-text-body);
+}
+.s12-preset-btn:hover, .s12-palette-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--sah-gold-primary);
+  transform: translateY(-1px);
+}
+.s12-preset-btn.active, .s12-palette-btn.active {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--sah-gold-bright);
+  box-shadow: 0 0 0 1px var(--sah-gold-bright), 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+.s12-p-name {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--sah-text-heading);
+}
+.s12-p-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--sah-text-muted);
+  margin-top: 2px;
+}
+.s12-pal-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.s12-pal-bar span { flex: 1; height: 100%; }
+.s12-controls-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.s12-ctrl-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s12-ctrl-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sah-text-muted);
+}
+.s12-select {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--sah-gold-border);
+  border-radius: 8px;
+  color: var(--sah-text-heading);
+  font-size: 12px;
+  font-family: inherit;
+}
+.s12-checkbox-label {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: var(--sah-text-body);
+  line-height: 1.4;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(212, 175, 55, 0.2);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.s12-checkbox-label input { margin-top: 2px; accent-color: var(--sah-gold-primary); }
+.s12-preview-mini {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--sah-gold-border);
+  background: var(--sah-bg-card);
+}
+.s12-preview-mini h5 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-family: var(--sah-font-display);
+  color: var(--sah-text-heading);
+}
+.s12-preview-mini p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--sah-text-muted);
+  font-family: var(--sah-font-sans);
+}
 </style>
 
 <!-- SAH-GUIDELINE-CSS-END -->"""
@@ -7102,6 +7444,137 @@ window.updateLightboxGlow = updateLightboxGlow;
 window.saveLightboxPreset = saveLightboxPreset;
 window.randomizeLightbox = randomizeLightbox;
 
+// ==========================================================================
+// Step 12 Theme Studio Interactive Controller
+// ==========================================================================
+(function initStep12ThemeStudio() {
+  function setup() {
+    var engine = window.SahTheme;
+    if (!engine) return;
+
+    var cur = engine.getConfig();
+
+    var presetBtns = document.querySelectorAll('.s12-preset-btn');
+    var paletteBtns = document.querySelectorAll('.s12-palette-btn');
+    var scaleSelect = document.getElementById('s12FontScaleSelect');
+    var radiusSelect = document.getElementById('s12CardRadiusSelect');
+    var projCheck = document.getElementById('s12ProjectorContrastCheck');
+    var statusBadge = document.getElementById('s12ActiveBadge');
+    var prevTitle = document.getElementById('s12PrevTitle');
+    var prevText = document.getElementById('s12PrevText');
+    var prevBox = document.getElementById('s12PreviewMini');
+    var btnSave = document.getElementById('s12BtnSaveTheme');
+    var btnReset = document.getElementById('s12BtnResetTheme');
+
+    function syncUI() {
+      presetBtns.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-preset') === cur.fontPreset);
+      });
+      paletteBtns.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-palette') === cur.themePalette);
+      });
+      if (scaleSelect) scaleSelect.value = String(cur.fontScale);
+      if (radiusSelect) radiusSelect.value = cur.cardRadius;
+      if (projCheck) projCheck.checked = !!cur.projectorContrast;
+
+      var pal = engine.THEME_PALETTES[cur.themePalette] || engine.THEME_PALETTES['theme-gold'];
+      if (statusBadge) {
+        statusBadge.textContent = pal.name;
+        statusBadge.style.color = pal.goldPrimary;
+        statusBadge.style.borderColor = pal.goldBorder;
+        statusBadge.style.background = pal.isLight ? 'rgba(153, 101, 21, 0.12)' : 'rgba(212, 175, 55, 0.15)';
+      }
+      if (prevBox) {
+        prevBox.style.background = pal.bgCard || pal.bgSurface;
+        prevBox.style.borderColor = pal.goldBorder || pal.goldPrimary;
+        prevBox.style.borderRadius = cur.cardRadius || '18px';
+      }
+      if (prevTitle) {
+        prevTitle.style.fontFamily = cur.displayFont;
+        prevTitle.style.color = pal.textHeading;
+      }
+      if (prevText) {
+        prevText.style.fontFamily = cur.sansFont;
+        prevText.style.color = pal.textBody;
+      }
+    }
+
+    presetBtns.forEach(function(b) {
+      b.addEventListener('click', function() {
+        var pid = b.getAttribute('data-preset');
+        var p = engine.FONT_PRESETS[pid];
+        if (p) {
+          cur.fontPreset = pid;
+          cur.displayFont = p.displayFont;
+          cur.serifFont = p.serifFont;
+          cur.sansFont = p.sansFont;
+          engine.applyConfig(cur);
+          syncUI();
+        }
+      });
+    });
+
+    paletteBtns.forEach(function(b) {
+      b.addEventListener('click', function() {
+        var tid = b.getAttribute('data-palette');
+        if (engine.THEME_PALETTES[tid]) {
+          cur.themePalette = tid;
+          engine.applyConfig(cur);
+          syncUI();
+        }
+      });
+    });
+
+    if (scaleSelect) {
+      scaleSelect.addEventListener('change', function() {
+        cur.fontScale = parseFloat(scaleSelect.value) || 1.0;
+        engine.applyConfig(cur);
+        syncUI();
+      });
+    }
+
+    if (radiusSelect) {
+      radiusSelect.addEventListener('change', function() {
+        cur.cardRadius = radiusSelect.value;
+        engine.applyConfig(cur);
+        syncUI();
+      });
+    }
+
+    if (projCheck) {
+      projCheck.addEventListener('change', function() {
+        cur.projectorContrast = projCheck.checked;
+        engine.applyConfig(cur);
+        syncUI();
+      });
+    }
+
+    if (btnSave) {
+      btnSave.addEventListener('click', function() {
+        engine.saveConfig(cur, true);
+        alert('Đã lưu cấu hình font chữ & giao diện triển lãm thành công! 🎉');
+      });
+    }
+
+    if (btnReset) {
+      btnReset.addEventListener('click', function() {
+        if (!confirm('Khôi phục giao diện về mặc định?')) return;
+        cur = Object.assign({}, engine.DEFAULT_CONFIG);
+        engine.saveConfig(cur, true);
+        syncUI();
+      });
+    }
+
+    syncUI();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setup);
+  } else {
+    setup();
+  }
+})();
+
 </script>
 <!-- SAH-GUIDELINE-JS-END -->
 """
@@ -7328,24 +7801,38 @@ assembled_body = "\n".join(body_parts)
 final_html = HEADER_HTML + "\n" + assembled_body + "\n</body>\n</html>"
 
 # Inject Google Fonts
+font_url = (
+    "https://fonts.googleapis.com/css2?"
+    "family=Cinzel:wght@400;600;700;800;900&"
+    "family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&"
+    "family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&"
+    "family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&"
+    "family=Montserrat:wght@400;600;700;800&"
+    "family=Lexend:wght@400;500;600;700&"
+    "family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&"
+    "family=Inter:wght@400;500;600;700&display=swap"
+)
 final_html = final_html.replace(
     "<title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-    '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">\n'
+    f'<link href="{font_url}" rel="stylesheet">\n'
     "<title>", 1)
 
-# Inject content-studio.js and cache-control meta into <head>
+# Inject teacher-theme.js, content-studio.js and cache-control meta into <head>
+theme_js = os.path.join(ROOT, "js", "teacher-theme.js")
+theme_hash = hashlib.md5(open(theme_js, "rb").read()).hexdigest()[:10]
 studio_js = os.path.join(ROOT, "js", "content-studio.js")
 studio_hash = hashlib.md5(open(studio_js, "rb").read()).hexdigest()[:10]
-studio_tag = (
-    f'<script src="js/content-studio.js?v={studio_hash}"></script>\n'
+scripts_head_tag = (
+    f'<script src="js/teacher-theme.js?v={theme_hash}"></script>\n'
+    f'  <script src="js/content-studio.js?v={studio_hash}"></script>\n'
     '  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n'
     '  <meta http-equiv="Pragma" content="no-cache">\n'
     '  <meta http-equiv="Expires" content="0">\n'
 )
 head_end = final_html.index("<head>") + len("<head>")
-final_html = final_html[:head_end] + "\n" + studio_tag + final_html[head_end:]
+final_html = final_html[:head_end] + "\n  " + scripts_head_tag + final_html[head_end:]
 
 # Sync trien-lam.html
 trien_lam_path = os.path.join(ROOT, "trien-lam.html")

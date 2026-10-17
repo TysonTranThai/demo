@@ -9,7 +9,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="js/teacher-theme.js?v=20261017v2"></script>
 
   <style>
     :root {
@@ -442,6 +443,7 @@
         <button class="gv-tab" data-tab="ai" type="button">Trợ Lý AI</button>
         <button class="gv-tab" data-tab="settings" type="button">Cài đặt</button>
         <button class="gv-tab" data-tab="security" type="button">Bảo mật</button>
+        <button class="gv-tab" data-tab="customization" type="button">🎨 Giao diện &amp; Font chữ</button>
         <a class="gv-tab" href="index.html?studio=1" title="Bấm vào câu chữ trên trang để sửa — sửa xong là học sinh thấy ngay">✏️ Nội dung &amp; thiết kế ↗</a>
       </nav>
 
@@ -697,6 +699,148 @@
         </div>
       </section>
 
+      <!-- ============ CUSTOMIZATION & THEME STUDIO ============ -->
+      <section id="tab-customization" class="gv-panel" hidden>
+        <div class="gv-card">
+          <div class="gv-card-head" style="align-items:flex-start;">
+            <div>
+              <div class="gv-card-label">BỘ TÙY BIẾN DI SẢN MĨ THUẬT CHO GIÁO VIÊN</div>
+              <h3 class="gv-card-title">Quản Trị Font Chữ &amp; Bảng Màu Không Gian Triển Lãm</h3>
+              <p class="gv-sub" style="margin-top:4px;">
+                Cấu hình hệ thống phông chữ, cỡ chữ bài giảng và chuyển đổi 5 không gian màu sắc bảo tàng. Mọi thay đổi áp dụng tức thì cho học sinh trên thiết bị này và qua hệ thống xuất bản.
+              </p>
+            </div>
+            <div class="gv-actions-bar" style="margin-top:4px;">
+              <button id="gvBtnSaveTheme" class="gv-pill gold" type="button">💾 Lưu cấu hình</button>
+              <button id="gvBtnResetTheme" class="gv-pill" type="button">🔄 Mặc định</button>
+              <a href="index.html" target="_blank" class="gv-pill" style="text-decoration:none;">👁 Mở trang triển lãm ↗</a>
+            </div>
+          </div>
+
+          <!-- Customization Layout Grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px;">
+            <!-- Column 1: Typography -->
+            <div style="background:var(--field); border:1px solid var(--hair); border-radius:16px; padding:18px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                <h4 style="margin:0; font-size:0.92rem; color:var(--gold); font-weight:700;">🔤 Phông chữ &amp; Kiểu chữ Di sản</h4>
+                <span class="gv-badge ok" id="gvFontActiveBadge">Bảo tàng Hoàng gia</span>
+              </div>
+
+              <!-- 5 Presets -->
+              <label style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:8px;">BỘ MẪU ĐỊNH SẴN</label>
+              <div id="gvPresetGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+                <!-- Filled dynamically -->
+              </div>
+
+              <!-- Custom Headings & Body Selects -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                <div>
+                  <label for="gvHeadFontSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">PHÔNG TIÊU ĐỀ</label>
+                  <select id="gvHeadFontSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="'Cinzel', serif">Cinzel (Cổ điển hoàng gia)</option>
+                    <option value="'Playfair Display', Georgia, serif">Playfair Display (Serif thanh lịch)</option>
+                    <option value="'Cormorant Garamond', serif">Cormorant Garamond (Nét bia đá)</option>
+                    <option value="'Montserrat', sans-serif">Montserrat (Đương đại kỷ hà)</option>
+                    <option value="'Be Vietnam Pro', sans-serif">Be Vietnam Pro (Bản sắc Việt)</option>
+                    <option value="'Lexend', sans-serif">Lexend (Học đường dễ đọc)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="gvBodyFontSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">PHÔNG VĂN BẢN</label>
+                  <select id="gvBodyFontSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="'Plus Jakarta Sans', system-ui, sans-serif">Plus Jakarta Sans (Sắc nét)</option>
+                    <option value="'Inter', system-ui, sans-serif">Inter (Chuẩn màn hình)</option>
+                    <option value="'Be Vietnam Pro', system-ui, sans-serif">Be Vietnam Pro (Ngữ điệu Việt)</option>
+                    <option value="'Lexend', 'Plus Jakarta Sans', sans-serif">Lexend (Chống mỏi mắt)</option>
+                    <option value="'Playfair Display', Georgia, serif">Playfair Display (Kinh viện)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Font Scale & Line Height -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div>
+                  <label for="gvFontScaleSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">TỶ LỆ CỠ CHỮ</label>
+                  <select id="gvFontScaleSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="0.9">90% — Gọn gàng</option>
+                    <option value="1.0" selected>100% — Tiêu chuẩn</option>
+                    <option value="1.1">110% — Lớn rõ ràng</option>
+                    <option value="1.2">120% — Phóng lớn chiếu lớp</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="gvLineHeightSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">GIÃN DÒNG</label>
+                  <select id="gvLineHeightSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="1.4">1.4 — Gọn</option>
+                    <option value="1.6" selected>1.6 — Chuẩn bảo tàng</option>
+                    <option value="1.8">1.8 — Thoáng rộng</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Theme Palettes & Display -->
+            <div style="background:var(--field); border:1px solid var(--hair); border-radius:16px; padding:18px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                <h4 style="margin:0; font-size:0.92rem; color:var(--gold); font-weight:700;">🎨 Bảng màu Triển lãm (5 Không gian)</h4>
+                <span class="gv-badge ok" id="gvPaletteActiveBadge">Hoàng Kim</span>
+              </div>
+
+              <div id="gvPaletteGrid" style="display:grid; grid-template-columns:1fr; gap:8px; margin-bottom:16px;">
+                <!-- Palettes populated dynamically -->
+              </div>
+
+              <!-- Classroom and Display settings -->
+              <label style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:8px;">TỐI ƯU MÁY CHIẾU LỚP HỌC</label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                <div>
+                  <label for="gvRadiusSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">BO GÓC THẺ</label>
+                  <select id="gvRadiusSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="8px">8px (Gọn gàng hiện đại)</option>
+                    <option value="18px" selected>18px (Chuẩn di sản mềm mại)</option>
+                    <option value="26px">26px (Bo tròn mĩ thuật)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="gvBlurSelect" style="display:block; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; color:var(--ink-faint); margin-bottom:6px;">KÍNH MỜ (BLUR)</label>
+                  <select id="gvBlurSelect" style="width:100%; font-family:inherit; color:var(--ink); background:var(--glass-strong); border:1px solid var(--hair); border-radius:10px; padding:9px 12px; outline:none; font-size:0.8rem;">
+                    <option value="0px">0px (Tắt làm mờ)</option>
+                    <option value="10px">10px (Kính mờ vừa)</option>
+                    <option value="18px" selected>18px (Sâu lắng bảo tàng)</option>
+                  </select>
+                </div>
+              </div>
+
+              <label style="display:flex; align-items:flex-start; gap:10px; background:var(--glass-strong); border:1px solid var(--hair); border-radius:12px; padding:10px 14px; cursor:pointer;">
+                <input type="checkbox" id="gvContrastCheck" style="margin-top:2px; accent-color:var(--gold);">
+                <span style="font-size:0.78rem; line-height:1.4; color:var(--ink);">
+                  <strong>Chế độ máy chiếu tương phản cao (High Contrast)</strong><br>
+                  <span style="color:var(--ink-dim); font-size:0.72rem;">Tăng độ đậm nét chữ và viền sáng vàng kim để chống lóa trên phông chiếu cũ hoặc phòng nhiều ánh sáng.</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Live Preview Box -->
+          <div style="margin-top:20px; background:var(--glass-strong); border:1px solid var(--hair); border-radius:16px; padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:0.75rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);">👁 Khung Xem Thử Thời Gian Thực (Live Preview)</span>
+              <small style="color:var(--ink-dim);">Xem trước kiểu chữ và màu sắc hiển thị</small>
+            </div>
+            <div id="gvPreviewCard" style="border:1px solid #d4af37; border-radius:18px; padding:20px 24px; background:#090807; transition:all 0.25s ease;">
+              <h3 id="gvPrevHeading" style="margin:0 0 8px; font-size:1.3rem; font-family:'Cinzel', serif; color:#fcfaf6;">Khám Phá Di Sản Mĩ Thuật Chùa Keo &amp; Phố Hiến</h3>
+              <p id="gvPrevBody" style="margin:0 0 16px; font-size:0.88rem; line-height:1.6; font-family:'Plus Jakarta Sans', sans-serif; color:#e2dacf;">
+                Trải nghiệm 12 bước tích hợp giáo dục di sản: chiêm ngưỡng 15 hồ sơ bảo vật mĩ thuật điêu khắc gỗ thế kỷ XVII, tham gia thực tế ảo 3D và tự tay sáng tạo tác phẩm nghệ thuật truyền thống.
+              </p>
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                <span class="gv-badge ok" id="gvPrevBadge" style="font-size:0.72rem;">✨ Không gian văn hóa tiêu biểu</span>
+                <span style="font-size:0.75rem; color:var(--ink-faint);" id="gvPrevSpecs">Font: Cinzel / Plus Jakarta Sans • 100%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -944,6 +1088,7 @@
       if (name === 'works') renderWorks();
       if (name === 'grading') renderGradingQueue();
       if (name === 'overview') renderOverview();
+      if (name === 'customization') renderCustomization();
     }
     document.querySelectorAll('.gv-tab').forEach(function (t) {
       t.addEventListener('click', function () { switchTab(t.dataset.tab); });
@@ -1612,7 +1757,7 @@
         version: 1,
         data: {}
       };
-      ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_chatgpt_cfg', 'sah_teacher_creds', 'sah_teacher_log'].forEach(function (k) {
+      ['sah_321_draft', 'sah_student_works', 'sah_work_grades', 'sah_321_feedback', 'sah_chatgpt_cfg', 'sah_teacher_creds', 'sah_teacher_log', 'sah_custom_theme_v1'].forEach(function (k) {
         var v = localStorage.getItem(k);
         if (v !== null) backup.data[k] = v;
       });
@@ -1711,9 +1856,206 @@
       renderWorksheets();
       renderAiConfig();
       renderLog();
+      renderCustomization();
+    }
+
+    /* ================= customization & theme studio ================= */
+    var themeEngine = window.SahTheme;
+    var customCfg = null;
+
+    function renderCustomization() {
+      if (!window.SahTheme) return;
+      themeEngine = window.SahTheme;
+      customCfg = themeEngine.getConfig();
+
+      // Render Presets
+      var presetGrid = document.getElementById('gvPresetGrid');
+      if (presetGrid) {
+        presetGrid.innerHTML = '';
+        Object.keys(themeEngine.FONT_PRESETS).forEach(function (pid) {
+          var p = themeEngine.FONT_PRESETS[pid];
+          var isActive = customCfg.fontPreset === pid;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'gv-mini' + (isActive ? ' ok' : '');
+          btn.style.textAlign = 'left';
+          btn.style.padding = '8px 10px';
+          btn.style.borderRadius = '10px';
+          btn.style.display = 'block';
+          btn.style.width = '100%';
+          btn.style.borderColor = isActive ? 'var(--gold)' : 'var(--hair)';
+          btn.style.background = isActive ? 'rgba(241, 208, 132, 0.12)' : 'transparent';
+          btn.innerHTML = '<b style="display:block;color:var(--ink);font-size:0.75rem;">' + p.name + '</b><small style="color:var(--ink-faint);font-size:0.64rem;">' + p.desc.slice(0, 48) + '…</small>';
+          btn.onclick = function () {
+            customCfg.fontPreset = pid;
+            customCfg.displayFont = p.displayFont;
+            customCfg.serifFont = p.serifFont;
+            customCfg.sansFont = p.sansFont;
+            themeEngine.applyConfig(customCfg);
+            renderCustomization();
+          };
+          presetGrid.appendChild(btn);
+        });
+      }
+
+      // Render Palettes
+      var palGrid = document.getElementById('gvPaletteGrid');
+      if (palGrid) {
+        palGrid.innerHTML = '';
+        Object.keys(themeEngine.THEME_PALETTES).forEach(function (tid) {
+          var p = themeEngine.THEME_PALETTES[tid];
+          var isActive = customCfg.themePalette === tid;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'gv-mini' + (isActive ? ' ok' : '');
+          btn.style.textAlign = 'left';
+          btn.style.padding = '10px 12px';
+          btn.style.borderRadius = '12px';
+          btn.style.display = 'block';
+          btn.style.width = '100%';
+          btn.style.borderColor = isActive ? 'var(--gold)' : 'var(--hair)';
+          btn.style.background = isActive ? 'rgba(241, 208, 132, 0.14)' : 'rgba(255,255,255,0.02)';
+
+          var swatches = '<div style="display:flex;height:6px;border-radius:3px;overflow:hidden;margin:5px 0 6px;">' +
+            '<span style="flex:2;background:' + p.bgObsidian + '"></span>' +
+            '<span style="flex:2;background:' + p.bgCard + '"></span>' +
+            '<span style="flex:1.5;background:' + p.goldPrimary + '"></span>' +
+            '<span style="flex:1.5;background:' + p.accentColor + '"></span>' +
+          '</div>';
+
+          btn.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<b style="color:var(--ink);font-size:0.8rem;">' + p.name + '</b>' +
+            (isActive ? '<span class="gv-badge ok" style="font-size:0.6rem;">Đang chọn</span>' : '') +
+            '</div>' + swatches +
+            '<small style="color:var(--ink-faint);font-size:0.68rem;line-height:1.3;display:block;">' + p.desc + '</small>';
+
+          btn.onclick = function () {
+            customCfg.themePalette = tid;
+            themeEngine.applyConfig(customCfg);
+            renderCustomization();
+          };
+          palGrid.appendChild(btn);
+        });
+      }
+
+      // Sync select dropdowns & inputs
+      var headSel = document.getElementById('gvHeadFontSelect');
+      var bodySel = document.getElementById('gvBodyFontSelect');
+      var scaleSel = document.getElementById('gvFontScaleSelect');
+      var lhSel = document.getElementById('gvLineHeightSelect');
+      var radSel = document.getElementById('gvRadiusSelect');
+      var blurSel = document.getElementById('gvBlurSelect');
+      var contrastChk = document.getElementById('gvContrastCheck');
+
+      if (headSel) headSel.value = customCfg.displayFont;
+      if (bodySel) bodySel.value = customCfg.sansFont;
+      if (scaleSel) scaleSel.value = String(customCfg.fontScale);
+      if (lhSel) lhSel.value = String(customCfg.lineHeight);
+      if (radSel) radSel.value = customCfg.cardRadius;
+      if (blurSel) blurSel.value = customCfg.glassBlur;
+      if (contrastChk) contrastChk.checked = !!customCfg.projectorContrast;
+
+      var fontBadge = document.getElementById('gvFontActiveBadge');
+      if (fontBadge) {
+        var presetObj = themeEngine.FONT_PRESETS[customCfg.fontPreset];
+        fontBadge.textContent = presetObj ? presetObj.name.replace(/^[^\s]+\s/, '') : 'Tùy chỉnh riêng';
+      }
+
+      var palBadge = document.getElementById('gvPaletteActiveBadge');
+      if (palBadge) {
+        var palObj = themeEngine.THEME_PALETTES[customCfg.themePalette];
+        palBadge.textContent = palObj ? palObj.name.replace(/^[^\s]+\s/, '') : customCfg.themePalette;
+      }
+
+      // Live Preview updates
+      var pal = themeEngine.THEME_PALETTES[customCfg.themePalette] || themeEngine.THEME_PALETTES['theme-gold'];
+      var prevCard = document.getElementById('gvPreviewCard');
+      var prevHeading = document.getElementById('gvPrevHeading');
+      var prevBody = document.getElementById('gvPrevBody');
+      var prevBadge = document.getElementById('gvPrevBadge');
+      var prevSpecs = document.getElementById('gvPrevSpecs');
+
+      if (prevCard) {
+        prevCard.style.background = pal.bgCard || pal.bgSurface;
+        prevCard.style.borderColor = pal.goldBorder || pal.goldPrimary;
+        prevCard.style.borderRadius = customCfg.cardRadius;
+        prevCard.style.boxShadow = customCfg.projectorContrast ? '0 0 0 2px ' + pal.goldPrimary + ', 0 12px 28px rgba(0,0,0,0.8)' : '0 10px 24px rgba(0,0,0,0.3)';
+      }
+      if (prevHeading) {
+        prevHeading.style.fontFamily = customCfg.displayFont;
+        prevHeading.style.color = pal.textHeading;
+        prevHeading.style.fontSize = Math.round(20 * customCfg.fontScale) + 'px';
+      }
+      if (prevBody) {
+        prevBody.style.fontFamily = customCfg.sansFont;
+        prevBody.style.color = pal.textBody;
+        prevBody.style.fontSize = Math.round(14 * customCfg.fontScale) + 'px';
+        prevBody.style.lineHeight = customCfg.lineHeight;
+      }
+      if (prevBadge) {
+        prevBadge.style.color = pal.goldPrimary;
+        prevBadge.style.borderColor = pal.goldBorder;
+      }
+      if (prevSpecs) {
+        prevSpecs.textContent = 'Font: ' + customCfg.displayFont.split(',')[0].replace(/'/g, '') + ' / ' + customCfg.sansFont.split(',')[0].replace(/'/g, '') + ' • Cỡ: ' + Math.round(customCfg.fontScale * 100) + '%';
+      }
+    }
+
+    function initCustomizationListeners() {
+      if (!window.SahTheme) return;
+      var headSel = document.getElementById('gvHeadFontSelect');
+      var bodySel = document.getElementById('gvBodyFontSelect');
+      var scaleSel = document.getElementById('gvFontScaleSelect');
+      var lhSel = document.getElementById('gvLineHeightSelect');
+      var radSel = document.getElementById('gvRadiusSelect');
+      var blurSel = document.getElementById('gvBlurSelect');
+      var contrastChk = document.getElementById('gvContrastCheck');
+      var btnSave = document.getElementById('gvBtnSaveTheme');
+      var btnReset = document.getElementById('gvBtnResetTheme');
+
+      function onCtrlChange() {
+        if (!customCfg) customCfg = window.SahTheme.getConfig();
+        if (headSel) customCfg.displayFont = headSel.value;
+        if (bodySel) customCfg.sansFont = bodySel.value;
+        if (scaleSel) customCfg.fontScale = parseFloat(scaleSel.value) || 1.0;
+        if (lhSel) customCfg.lineHeight = parseFloat(lhSel.value) || 1.6;
+        if (radSel) customCfg.cardRadius = radSel.value;
+        if (blurSel) customCfg.glassBlur = blurSel.value;
+        if (contrastChk) customCfg.projectorContrast = contrastChk.checked;
+        customCfg.fontPreset = 'custom';
+        window.SahTheme.applyConfig(customCfg);
+        renderCustomization();
+      }
+
+      if (headSel) headSel.addEventListener('change', onCtrlChange);
+      if (bodySel) bodySel.addEventListener('change', onCtrlChange);
+      if (scaleSel) scaleSel.addEventListener('change', onCtrlChange);
+      if (lhSel) lhSel.addEventListener('change', onCtrlChange);
+      if (radSel) radSel.addEventListener('change', onCtrlChange);
+      if (blurSel) blurSel.addEventListener('change', onCtrlChange);
+      if (contrastChk) contrastChk.addEventListener('change', onCtrlChange);
+
+      if (btnSave) {
+        btnSave.addEventListener('click', function () {
+          window.SahTheme.saveConfig(customCfg, true);
+          toast('Đã lưu cấu hình Font chữ & Giao diện thành công! 🎉');
+        });
+      }
+
+      if (btnReset) {
+        btnReset.addEventListener('click', function () {
+          if (!confirm('Khôi phục giao diện về mặc định ban đầu?')) return;
+          customCfg = Object.assign({}, window.SahTheme.DEFAULT_CONFIG);
+          window.SahTheme.saveConfig(customCfg, true);
+          renderCustomization();
+          toast('Đã khôi phục cài đặt giao diện gốc.');
+        });
+      }
     }
 
     /* ================= boot ================= */
+    initCustomizationListeners();
+    renderCustomization();
     requireLogin();  })();
   </script>
 

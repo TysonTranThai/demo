@@ -488,6 +488,15 @@
       "#sahModal details{margin-top:10px;border-top:1px solid #e6ece8;padding-top:8px}",
       "#sahModal summary{cursor:pointer;color:#5d6b63;font-weight:700}",
       "#sahModal input[type=text],#sahModal input[type=password]{width:100%;padding:9px;border:1px solid #c9d5cd;border-radius:9px;font:inherit}",
+      "#sahModal select{width:100%;padding:9px;border:1px solid #c9d5cd;border-radius:9px;font:inherit;background:#fff}",
+      "#sahModal .sah-c-tab{background:#f1f5f3;border:1px solid #d7e0da;border-radius:20px;padding:7px 14px;font-weight:700;font-size:12px;cursor:pointer;color:#285b46;transition:all .2s}",
+      "#sahModal .sah-c-tab:hover{background:#e3ede7}",
+      "#sahModal .sah-c-tab.active{background:#285b46;color:#fff;border-color:#285b46}",
+      "#sahModal .sah-preset-card:hover{border-color:#285b46!important;background:#f9fdfa!important}",
+      "#sahModal .sah-preset-card.active{border-color:#285b46!important;background:#f2f8f4!important;box-shadow:0 0 0 2px rgba(40,91,70,.2)}",
+      "#sahModal .sah-palette-card:hover{border-color:#d4af37!important;background:#fffdf7!important}",
+      "#sahModal .sah-palette-card.active{border-color:#d4af37!important;background:#fefbf2!important;box-shadow:0 0 0 2px rgba(212,175,55,.3)}",
+      "#sahModal .sah-scale-btn.active,#sahModal .sah-lh-btn.active,#sahModal .sah-rad-btn.active,#sahModal .sah-blur-btn.active,#sahModal .sah-wm-btn.active{background:#285b46!important;color:#fff!important;border-color:#285b46!important}",
       "#sahToast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);z-index:9004;background:#12281f;color:#fff;padding:11px 16px;border-radius:11px;font:13px/1.4 system-ui,sans-serif;max-width:88vw;box-shadow:0 10px 30px rgba(0,0,0,.3)}",
       "#sahToast.err{background:#8c2f21}",
       "@media(max-width:700px){#sahBar{left:8px;right:8px;bottom:8px}#sahPanel{width:100vw}#sahEdit{width:94vw}}"
@@ -945,6 +954,8 @@
     if (UI.bar) return;
     UI.meta = el('span', { class: 'sah-meta', 'data-sah-ui': '1' });
     UI.btnStudio = el('button', { class: 'sah-b', 'data-sah-ui': '1' });
+    UI.btnTheme = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '🎨 Font & Giao diện',
+                                title: 'Tùy chỉnh Font chữ, cỡ chữ & bảng màu triển lãm' });
     UI.btnPreview = el('button', { class: 'sah-b', 'data-sah-ui': '1' });
     UI.btnUndo = el('button', { class: 'sah-b', 'data-sah-ui': '1', text: '↩️ Hoàn tác',
                                 title: 'Trả lại nội dung vừa sửa' });
@@ -952,10 +963,11 @@
                                 title: 'Danh sách câu chữ, ẩn/hiện khối, quay lại bản trước' });
 
     UI.bar = el('div', { 'data-sah-ui': '1', id: 'sahBar' },
-      [UI.btnStudio, UI.btnPreview, UI.btnUndo, UI.meta, UI.btnMore]);
+      [UI.btnStudio, UI.btnTheme, UI.btnPreview, UI.btnUndo, UI.meta, UI.btnMore]);
     D.body.appendChild(UI.bar);
 
     UI.btnStudio.onclick = function () { toggleStudio(!STUDIO_ON); };
+    UI.btnTheme.onclick = function () { openThemeCustomizer(); };
     UI.btnPreview.onclick = function () { previewPublished = !previewPublished; repaint(true); };
     UI.btnUndo.onclick = function () { undoLast(); };
     UI.btnMore.onclick = function () { openMore(); };
@@ -980,6 +992,7 @@
     var items = [];
     if (!signed) items.push(['🔐 Đăng nhập để học sinh thấy bài mới', openSettings]);
     items = items.concat([
+      ['🎨 Tùy chỉnh Font chữ & Giao diện Triển lãm', openThemeCustomizer],
       ['🔎 Tìm câu chữ cần sửa', openPanel],
       ['🙈 Ẩn / hiện từng phần', openDesign],
       ['📚 Thư viện thiết kế', openLibrary],
@@ -1271,6 +1284,428 @@
         return SIGNED_IN;
       })
       .catch(function () { return false; });
+  }
+
+  /* ------------------------------------------------------------- tùy chỉnh font & giao diện */
+  function openThemeCustomizer() {
+    var themeEngine = window.SahTheme;
+    if (!themeEngine) {
+      toast('Bộ tùy biến giao diện chưa sẵn sàng. Vui lòng tải lại trang.', true);
+      return;
+    }
+
+    var originalConfig = themeEngine.getConfig();
+    var cur = Object.assign({}, originalConfig);
+    var savedApplied = false;
+
+    var m = el('div', { class: 'sah-mcard sah-customizer-modal', 'data-sah-ui': '1', style: 'max-width:760px;width:100%;' });
+
+    // Sub-nav tabs
+    var tabWrap = el('div', { class: 'sah-customizer-tabs', style: 'display:flex;gap:8px;border-bottom:1px solid #e3eae6;padding-bottom:10px;margin-bottom:14px;flex-wrap:wrap;' });
+    var btnTabFonts = el('button', { class: 'sah-c-tab active', type: 'button', text: '🔤 Font chữ & Cỡ chữ' });
+    var btnTabPalettes = el('button', { class: 'sah-c-tab', type: 'button', text: '🎨 Bảng màu triển lãm (5 không gian)' });
+    var btnTabDisplay = el('button', { class: 'sah-c-tab', type: 'button', text: '📽️ Trình chiếu & Hiệu ứng' });
+    tabWrap.appendChild(btnTabFonts);
+    tabWrap.appendChild(btnTabPalettes);
+    tabWrap.appendChild(btnTabDisplay);
+
+    var paneFonts = el('div', { class: 'sah-c-pane', style: 'display:block;' });
+    var panePalettes = el('div', { class: 'sah-c-pane', style: 'display:none;' });
+    var paneDisplay = el('div', { class: 'sah-c-pane', style: 'display:none;' });
+
+    function switchTab(t) {
+      btnTabFonts.classList.toggle('active', t === 'fonts');
+      btnTabPalettes.classList.toggle('active', t === 'palettes');
+      btnTabDisplay.classList.toggle('active', t === 'display');
+      paneFonts.style.display = t === 'fonts' ? 'block' : 'none';
+      panePalettes.style.display = t === 'palettes' ? 'block' : 'none';
+      paneDisplay.style.display = t === 'display' ? 'block' : 'none';
+    }
+    btnTabFonts.onclick = function () { switchTab('fonts'); };
+    btnTabPalettes.onclick = function () { switchTab('palettes'); };
+    btnTabDisplay.onclick = function () { switchTab('display'); };
+
+    // Live preview element
+    var previewCard = el('div', {
+      class: 'sah-preview-box',
+      style: 'margin-top:16px;padding:16px 20px;border-radius:16px;border:1px solid #d4af37;background:#090807;color:#e2dacf;transition:all 0.25s ease;'
+    });
+    var previewTitle = el('h4', {
+      style: 'margin:0 0 6px;font-size:18px;font-weight:700;color:#fcfaf6;',
+      text: '🏛️ Khám Phá Di Sản Mĩ Thuật Chùa Keo & Phố Hiến'
+    });
+    var previewText = el('p', {
+      style: 'margin:0 0 12px;font-size:13px;line-height:1.6;color:#e2dacf;',
+      text: 'Trải nghiệm không gian thực tế ảo 3D, chiêm ngưỡng 15 hồ sơ bảo vật điêu khắc gỗ thế kỷ XVII và thực hành sáng tạo nghệ thuật tương tác.'
+    });
+    var sampleBadge = el('span', { class: 'sah-theme-badge', text: '✨ Tỷ lệ cân bằng di sản' });
+    var sampleBtn = el('button', {
+      class: 'sah-btn-sample',
+      style: 'background:linear-gradient(135deg, #d4af37, #aa8010);color:#090807;font-weight:700;border:0;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;',
+      text: 'Khám phá ngay ↗'
+    });
+    var previewFooter = el('div', { style: 'display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;' }, [
+      sampleBadge, sampleBtn
+    ]);
+    previewCard.appendChild(previewTitle);
+    previewCard.appendChild(previewText);
+    previewCard.appendChild(previewFooter);
+
+    function updateLivePreview() {
+      themeEngine.applyConfig(cur);
+      var pal = themeEngine.THEME_PALETTES[cur.themePalette] || themeEngine.THEME_PALETTES['theme-gold'];
+      previewCard.style.background = pal.bgCard || pal.bgSurface;
+      previewCard.style.borderColor = pal.goldBorder || pal.goldPrimary;
+      previewCard.style.borderRadius = cur.cardRadius || '18px';
+      previewCard.style.boxShadow = cur.projectorContrast ? '0 0 0 2px ' + pal.goldPrimary + ', 0 12px 30px rgba(0,0,0,0.8)' : '0 10px 25px rgba(0,0,0,0.3)';
+      previewTitle.style.fontFamily = cur.displayFont;
+      previewTitle.style.color = pal.textHeading;
+      previewTitle.style.fontSize = Math.round(18 * cur.fontScale) + 'px';
+      previewText.style.fontFamily = cur.sansFont;
+      previewText.style.color = pal.textBody;
+      previewText.style.fontSize = Math.round(13 * cur.fontScale) + 'px';
+      previewText.style.lineHeight = cur.lineHeight;
+      sampleBtn.style.background = 'linear-gradient(135deg, ' + pal.goldPrimary + ', ' + pal.goldBright + ')';
+      sampleBtn.style.color = pal.isLight ? '#ffffff' : '#090807';
+      sampleBtn.style.borderRadius = Math.max(6, parseInt(cur.cardRadius, 10) / 2) + 'px';
+      sampleBadge.style.color = pal.goldPrimary;
+      sampleBadge.style.borderColor = pal.goldBorder;
+      sampleBadge.style.background = pal.isLight ? 'rgba(153,101,21,0.1)' : 'rgba(212,175,55,0.15)';
+    }
+
+    // --- PANE 1: FONTS & SCALE ---
+    var presetList = el('div', { class: 'sah-preset-grid', style: 'display:grid;grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));gap:10px;margin-bottom:14px;' });
+    var presetBtns = {};
+
+    Object.keys(themeEngine.FONT_PRESETS).forEach(function (pid) {
+      var p = themeEngine.FONT_PRESETS[pid];
+      var b = el('button', {
+        class: 'sah-preset-card' + (cur.fontPreset === pid ? ' active' : ''),
+        type: 'button',
+        style: 'text-align:left;padding:10px 12px;border:1px solid #d7e0da;border-radius:12px;background:#fff;cursor:pointer;transition:all 0.2s;'
+      }, [
+        el('div', { style: 'font-weight:700;font-size:13px;color:#1d2a24;', text: p.name }),
+        el('div', { style: 'font-size:11px;color:#6b7a72;margin-top:3px;line-height:1.35;', text: p.desc })
+      ]);
+      b.onclick = function () {
+        cur.fontPreset = pid;
+        cur.displayFont = p.displayFont;
+        cur.serifFont = p.serifFont;
+        cur.sansFont = p.sansFont;
+        selHeading.value = p.displayFont;
+        selBody.value = p.sansFont;
+        Object.keys(presetBtns).forEach(function (k) { presetBtns[k].classList.remove('active'); });
+        b.classList.add('active');
+        updateLivePreview();
+      };
+      presetBtns[pid] = b;
+      presetList.appendChild(b);
+    });
+
+    // Custom Font Selectors
+    var selHeading = el('select', { style: 'width:100%;padding:9px;border:1px solid #c9d5cd;border-radius:9px;font:inherit;' });
+    var headingFonts = [
+      ["'Cinzel', serif", "Cinzel (Cổ điển hoàng gia La Mã & Đại Việt)"],
+      ["'Playfair Display', Georgia, serif", "Playfair Display (Serif thanh lịch bảo tàng)"],
+      ["'Cormorant Garamond', serif", "Cormorant Garamond (Nét khắc văn miếu, bia đá)"],
+      ["'Montserrat', sans-serif", "Montserrat (Hiện đại, hình khối kỷ hà)"],
+      ["'Be Vietnam Pro', sans-serif", "Be Vietnam Pro (Bản sắc Việt, tối ưu dấu tiếng Việt)"],
+      ["'Lexend', sans-serif", "Lexend (Học đường thân thiện, dễ đọc)"]
+    ];
+    headingFonts.forEach(function (hf) {
+      var opt = el('option', { value: hf[0], text: hf[1] });
+      if (cur.displayFont === hf[0]) opt.selected = true;
+      selHeading.appendChild(opt);
+    });
+    selHeading.onchange = function () {
+      cur.displayFont = selHeading.value;
+      cur.fontPreset = 'custom';
+      Object.keys(presetBtns).forEach(function (k) { presetBtns[k].classList.remove('active'); });
+      updateLivePreview();
+    };
+
+    var selBody = el('select', { style: 'width:100%;padding:9px;border:1px solid #c9d5cd;border-radius:9px;font:inherit;' });
+    var bodyFonts = [
+      ["'Plus Jakarta Sans', system-ui, sans-serif", "Plus Jakarta Sans (Hiện đại, sắc nét cao)"],
+      ["'Inter', system-ui, sans-serif", "Inter (Chuẩn công nghệ, tối ưu màn hình)"],
+      ["'Be Vietnam Pro', system-ui, sans-serif", "Be Vietnam Pro (Chuẩn ngữ điệu tiếng Việt)"],
+      ["'Lexend', 'Plus Jakarta Sans', sans-serif", "Lexend (Chống mỏi mắt học sinh)"],
+      ["'Playfair Display', Georgia, serif", "Playfair Display (Văn bản dạng sách kinh viện)"]
+    ];
+    bodyFonts.forEach(function (bf) {
+      var opt = el('option', { value: bf[0], text: bf[1] });
+      if (cur.sansFont === bf[0]) opt.selected = true;
+      selBody.appendChild(opt);
+    });
+    selBody.onchange = function () {
+      cur.sansFont = selBody.value;
+      cur.fontPreset = 'custom';
+      Object.keys(presetBtns).forEach(function (k) { presetBtns[k].classList.remove('active'); });
+      updateLivePreview();
+    };
+
+    // Font Scale buttons
+    var scaleRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;' });
+    var scaleBtns = {};
+    [
+      [0.9, '90% (Gọn)'],
+      [1.0, '100% (Chuẩn)'],
+      [1.1, '110% (Lớn rõ)'],
+      [1.2, '120% (Chiếu lớp)']
+    ].forEach(function (sc) {
+      var sb = el('button', {
+        class: 'sah-scale-btn' + (cur.fontScale === sc[0] ? ' active' : ''),
+        type: 'button',
+        text: sc[1],
+        style: 'flex:1;min-width:70px;padding:8px 10px;border-radius:8px;border:1px solid #c9d5cd;background:#fff;cursor:pointer;font-weight:600;font-size:12px;'
+      });
+      sb.onclick = function () {
+        cur.fontScale = sc[0];
+        Object.keys(scaleBtns).forEach(function (k) { scaleBtns[k].classList.remove('active'); });
+        sb.classList.add('active');
+        updateLivePreview();
+      };
+      scaleBtns[sc[0]] = sb;
+      scaleRow.appendChild(sb);
+    });
+
+    // Line Height buttons
+    var lhRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;' });
+    var lhBtns = {};
+    [
+      [1.4, '1.4 (Gọn gàng)'],
+      [1.6, '1.6 (Chuẩn bảo tàng)'],
+      [1.8, '1.8 (Thoáng mắt)']
+    ].forEach(function (lh) {
+      var lb = el('button', {
+        class: 'sah-lh-btn' + (cur.lineHeight === lh[0] ? ' active' : ''),
+        type: 'button',
+        text: lh[1],
+        style: 'flex:1;min-width:80px;padding:8px 10px;border-radius:8px;border:1px solid #c9d5cd;background:#fff;cursor:pointer;font-weight:600;font-size:12px;'
+      });
+      lb.onclick = function () {
+        cur.lineHeight = lh[0];
+        Object.keys(lhBtns).forEach(function (k) { lhBtns[k].classList.remove('active'); });
+        lb.classList.add('active');
+        updateLivePreview();
+      };
+      lhBtns[lh[0]] = lb;
+      lhRow.appendChild(lb);
+    });
+
+    paneFonts.appendChild(el('h4', { text: '1. Bộ mẫu Font chữ định sẵn theo phong cách mĩ thuật' }));
+    paneFonts.appendChild(presetList);
+    paneFonts.appendChild(el('div', { style: 'display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;' }, [
+      el('label', {}, [el('span', { text: 'Phông chữ tiêu đề (Display & Heading)' }), selHeading]),
+      el('label', {}, [el('span', { text: 'Phông chữ văn bản & giao diện (Body & Sans)' }), selBody])
+    ]));
+    paneFonts.appendChild(el('div', { style: 'display:grid;grid-template-columns:1fr 1fr;gap:12px;' }, [
+      el('div', {}, [el('label', {}, [el('span', { text: 'Tỷ lệ cỡ chữ toàn trang' })]), scaleRow]),
+      el('div', {}, [el('label', {}, [el('span', { text: 'Khoảng cách dòng (Line Height)' })]), lhRow])
+    ]));
+
+    // --- PANE 2: PALETTES ---
+    var palList = el('div', { class: 'sah-palette-grid', style: 'display:grid;grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));gap:10px;' });
+    var palBtns = {};
+
+    Object.keys(themeEngine.THEME_PALETTES).forEach(function (tid) {
+      var p = themeEngine.THEME_PALETTES[tid];
+      var swatches = el('div', { style: 'display:flex;height:12px;border-radius:6px;overflow:hidden;margin:8px 0;' }, [
+        el('div', { style: 'flex:2;background:' + p.bgObsidian + ';' }),
+        el('div', { style: 'flex:2;background:' + p.bgCard + ';' }),
+        el('div', { style: 'flex:1.5;background:' + p.goldPrimary + ';' }),
+        el('div', { style: 'flex:1.5;background:' + p.accentColor + ';' })
+      ]);
+      var pb = el('button', {
+        class: 'sah-palette-card' + (cur.themePalette === tid ? ' active' : ''),
+        type: 'button',
+        style: 'text-align:left;padding:12px;border:1px solid #d7e0da;border-radius:12px;background:#fff;cursor:pointer;transition:all 0.2s;'
+      }, [
+        el('div', { style: 'font-weight:700;font-size:13px;color:#1d2a24;', text: p.name }),
+        swatches,
+        el('div', { style: 'font-size:11px;color:#6b7a72;line-height:1.35;', text: p.desc })
+      ]);
+      pb.onclick = function () {
+        cur.themePalette = tid;
+        Object.keys(palBtns).forEach(function (k) { palBtns[k].classList.remove('active'); });
+        pb.classList.add('active');
+        updateLivePreview();
+      };
+      palBtns[tid] = pb;
+      palList.appendChild(pb);
+    });
+
+    panePalettes.appendChild(el('h4', { text: '2. Chọn 1 trong 5 không gian màu sắc bảo tàng' }));
+    panePalettes.appendChild(palList);
+
+    // --- PANE 3: DISPLAY & CLASSROOM CONTROLS ---
+    var radiusRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;' });
+    var radBtns = {};
+    [
+      ['8px', '8px (Gọn gàng)'],
+      ['18px', '18px (Chuẩn di sản)'],
+      ['26px', '26px (Bo tròn mĩ thuật)']
+    ].forEach(function (r) {
+      var rb = el('button', {
+        class: 'sah-rad-btn' + (cur.cardRadius === r[0] ? ' active' : ''),
+        type: 'button',
+        text: r[1],
+        style: 'flex:1;min-width:90px;padding:8px 10px;border-radius:8px;border:1px solid #c9d5cd;background:#fff;cursor:pointer;font-weight:600;font-size:12px;'
+      });
+      rb.onclick = function () {
+        cur.cardRadius = r[0];
+        Object.keys(radBtns).forEach(function (k) { radBtns[k].classList.remove('active'); });
+        rb.classList.add('active');
+        updateLivePreview();
+      };
+      radBtns[r[0]] = rb;
+      radiusRow.appendChild(rb);
+    });
+
+    var blurRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;' });
+    var blurBtns = {};
+    [
+      ['0px', '0px (Tắt làm mờ)'],
+      ['10px', '10px (Kính mờ vừa)'],
+      ['18px', '18px (Sâu lắng bảo tàng)']
+    ].forEach(function (b) {
+      var bb = el('button', {
+        class: 'sah-blur-btn' + (cur.glassBlur === b[0] ? ' active' : ''),
+        type: 'button',
+        text: b[1],
+        style: 'flex:1;min-width:90px;padding:8px 10px;border-radius:8px;border:1px solid #c9d5cd;background:#fff;cursor:pointer;font-weight:600;font-size:12px;'
+      });
+      bb.onclick = function () {
+        cur.glassBlur = b[0];
+        Object.keys(blurBtns).forEach(function (k) { blurBtns[k].classList.remove('active'); });
+        bb.classList.add('active');
+        updateLivePreview();
+      };
+      blurBtns[b[0]] = bb;
+      blurRow.appendChild(bb);
+    });
+
+    var wmRow = el('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;' });
+    var wmBtns = {};
+    [
+      [0, 'Tắt hoa văn'],
+      [0.022, 'Mờ nhẹ 2.2% (Chuẩn)'],
+      [0.06, 'Nổi bật 6%']
+    ].forEach(function (w) {
+      var wb = el('button', {
+        class: 'sah-wm-btn' + (cur.watermarkOpacity === w[0] ? ' active' : ''),
+        type: 'button',
+        text: w[1],
+        style: 'flex:1;min-width:80px;padding:8px 10px;border-radius:8px;border:1px solid #c9d5cd;background:#fff;cursor:pointer;font-weight:600;font-size:12px;'
+      });
+      wb.onclick = function () {
+        cur.watermarkOpacity = w[0];
+        Object.keys(wmBtns).forEach(function (k) { wmBtns[k].classList.remove('active'); });
+        wb.classList.add('active');
+        updateLivePreview();
+      };
+      wmBtns[w[0]] = wb;
+      wmRow.appendChild(wb);
+    });
+
+    var chkProjector = el('input', { type: 'checkbox' });
+    chkProjector.checked = !!cur.projectorContrast;
+    chkProjector.onchange = function () {
+      cur.projectorContrast = chkProjector.checked;
+      updateLivePreview();
+    };
+
+    paneDisplay.appendChild(el('h4', { text: '3. Hiệu ứng hiển thị & Tối ưu máy chiếu phòng học' }));
+    paneDisplay.appendChild(el('div', { style: 'display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;' }, [
+      el('div', {}, [el('label', {}, [el('span', { text: 'Độ bo góc các thẻ bài (Card Radius)' })]), radiusRow]),
+      el('div', {}, [el('label', {}, [el('span', { text: 'Hiệu ứng kính mờ (Backdrop Blur)' })]), blurRow])
+    ]));
+    paneDisplay.appendChild(el('div', { style: 'display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;' }, [
+      el('div', {}, [el('label', {}, [el('span', { text: 'Độ mờ hoa văn chìm mặt trống đồng' })]), wmRow]),
+      el('label', { class: 'sah-lib', style: 'margin-top:20px;padding:10px;border-radius:10px;border:1px solid #e3eae6;' }, [
+        chkProjector,
+        el('b', {}, [
+          el('span', { text: 'Tăng tương phản cho máy chiếu lớp học' }),
+          el('small', { text: 'Nâng sáng nét chữ và viền khung nổi bật, chống lóa khi phòng học có ánh sáng ban ngày.' })
+        ])
+      ])
+    ]));
+
+    // Bottom Action Row
+    var btnSave = el('button', { class: 'sah-save', text: '💾 Lưu & Áp Dụng Ngay' });
+    var btnReset = el('button', { class: 'sah-cancel', text: '🔄 Khôi Phục Mặc Định', style: 'background:#fef3c7;color:#92400e;' });
+    var btnClose = el('button', { class: 'sah-cancel', text: '✕ Đóng' });
+
+    btnSave.onclick = function () {
+      themeEngine.saveConfig(cur, true);
+      savedApplied = true;
+      try {
+        var d = draft();
+        if (d) {
+          d.themeConfig = Object.assign({}, cur);
+          saveDraft(d);
+          DIRTY = true;
+          commitAll();
+        }
+      } catch (e) {}
+      toast('Đã lưu tùy biến font chữ & giao diện triển lãm thành công! 🎉');
+      closeModal();
+    };
+
+    btnReset.onclick = function () {
+      if (!confirm('Bạn có chắc chắn muốn khôi phục về phông chữ & màu sắc bảo tàng mặc định ban đầu không?')) return;
+      cur = Object.assign({}, themeEngine.DEFAULT_CONFIG);
+      themeEngine.saveConfig(cur, true);
+      savedApplied = true;
+      try {
+        var d = draft();
+        if (d) {
+          d.themeConfig = Object.assign({}, cur);
+          saveDraft(d);
+          DIRTY = true;
+          commitAll();
+        }
+      } catch (e) {}
+      toast('Đã khôi phục cài đặt giao diện mặc định.');
+      closeModal();
+      openThemeCustomizer();
+    };
+
+    btnClose.onclick = function () {
+      if (!savedApplied) {
+        themeEngine.applyConfig(originalConfig);
+      }
+      closeModal();
+    };
+
+    m.appendChild(el('div', { style: 'display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;' }, [
+      el('h3', { text: '🎨 Tùy Chỉnh Font Chữ & Giao Diện Triển Lãm', style: 'margin:0;' }),
+      el('span', { class: 'sah-theme-badge', text: 'Dành Cho Giáo Viên Bộ Môn' })
+    ]));
+    m.appendChild(el('p', {
+      style: 'margin:0 0 12px;color:#5d6b63;font-size:12px;line-height:1.4;',
+      text: 'Lựa chọn bộ phông chữ di sản trang trọng, điều chỉnh cỡ chữ phù hợp với máy chiếu lớp học và chuyển đổi 5 không gian màu sắc bảo tàng theo từng chủ đề bài giảng.'
+    }));
+
+    m.appendChild(tabWrap);
+    m.appendChild(paneFonts);
+    m.appendChild(panePalettes);
+    m.appendChild(paneDisplay);
+
+    m.appendChild(el('div', { style: 'margin-top:14px;' }, [
+      el('div', { style: 'display:flex;align-items:center;justify-content:space-between;' }, [
+        el('b', { text: '👁 Khung xem thử trực quan (Live Preview):', style: 'font-size:12px;color:#5d6b63;' }),
+        el('small', { text: 'Toàn bộ trang web cũng đang cập nhật xem trước trực tiếp', style: 'color:#8a5a12;font-weight:600;' })
+      ]),
+      previewCard
+    ]));
+
+    m.appendChild(el('div', { class: 'sah-row', style: 'margin-top:16px;border-top:1px solid #e3eae6;padding-top:12px;' }, [
+      btnSave, btnReset, btnClose
+    ]));
+
+    showModal(m);
+    updateLivePreview();
   }
 
   /* ------------------------------------------------------------------ đăng nhập */

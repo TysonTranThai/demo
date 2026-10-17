@@ -60,6 +60,11 @@ async def verify_all():
         print(f"Đối tượng text: '{target_audience.strip()}'")
         assert "Học sinh THCS Lê Quý Đôn, xã Lê Quý Đôn và giáo viên Mĩ thuật" in target_audience, f"Unexpected target audience: {target_audience}"
 
+        # Check hero sub badge
+        badge_sub = await page.locator('.sah-badge-sub').inner_text()
+        print(f"Hero Sub Badge: '{badge_sub.strip()}'")
+        assert "TỈNH HƯNG YÊN (THÁI BÌNH CŨ) • CHÂU THỔ SÔNG HỒNG" in badge_sub, f"Unexpected badge sub: {badge_sub}"
+
         # 1. Check all 12 Stepper pills exist in the correct sequence
         stepper_pills = await page.locator('.sah-stepper-track .sah-step-pill').count()
         assert stepper_pills == 12, f"Expected 12 stepper pills, found {stepper_pills}"

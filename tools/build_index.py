@@ -407,7 +407,7 @@ STEP1_HTML = f"""<!-- STEP 1: TRANG CHU - DEDICATED LUXURY MUSEUM LANDING PAGE -
       <div class="sah-hero-left">
         <div class="sah-landing-badge-bar">
           <span class="sah-badge-accent">✦ DỰ ÁN MĨ THUẬT SỐ DI SẢN VĂN HÓA ĐỊA PHƯƠNG</span>
-          <span class="sah-badge-sub">TỈNH HƯNG YÊN & THÁI BÌNH • CHÂU THỔ SÔNG HỒNG</span>
+          <span class="sah-badge-sub">TỈNH HƯNG YÊN (THÁI BÌNH CŨ) • CHÂU THỔ SÔNG HỒNG</span>
         </div>
         
         <h1 class="sah-landing-title">

@@ -2419,14 +2419,41 @@ load();
   <div class="sah-step-badge">BƯỚC 7 / 12 • HỘP CHIẾU SÁNG TẠO (CREATIVE LIGHTBOX / SHADOW BOX)</div>
   <div class="sah-sec-header">
     <h2>✨ HỘP CHIẾU SÁNG TẠO • THỰC NGHIỆM ĐA LỚP ÁNH SÁNG & BÓNG ĐỔ</h2>
-    <p class="sah-sec-sub">Không gian mô phỏng Hộp Chiếu Mĩ thuật di sản (Shadow Box / Lightbox diorama). Học sinh thử nghiệm sắp đặt các lớp lang thị giác: <b>Tiền cảnh</b> (Hoa văn di sản), <b>Trung cảnh</b> (Kiến trúc biểu tượng), <b>Hậu cảnh</b> (Bầu trời & vầng trăng) với các chế độ ánh sáng lung linh (Hoàng hôn, Đêm trăng, Ánh đèn lồng, Bình minh).</p>
+    <p class="sah-sec-sub">Không gian trưng bày & thực nghiệm Hộp Chiếu Mĩ thuật (Creative Lightbox / Shadow Box diorama). <b>Học sinh tải lên tranh vẽ hoặc ảnh chụp tác phẩm của mình</b>, sau đó phối hợp cùng các lớp ánh sáng hào quang lung linh, bóng đổ kiến trúc di sản và khung hoạ tiết tiền cảnh thời Trần để chiêm ngưỡng hiệu ứng thị giác 3D đa tầng.</p>
+  </div>
+
+  <!-- WORKFLOW 3-STEP GUIDE BANNER -->
+  <div class="sah-lightbox-guide-banner">
+    <div class="sah-lgb-step active" id="sahLgbStep1">
+      <span class="sah-lgb-badge">BƯỚC 1</span>
+      <div class="sah-lgb-info">
+        <b>Tải lên tác phẩm mĩ thuật</b>
+        <small>Tải ảnh tranh vẽ, bài xé dán hoặc chọn mẫu thực hành</small>
+      </div>
+    </div>
+    <div class="sah-lgb-arr">➔</div>
+    <div class="sah-lgb-step" id="sahLgbStep2">
+      <span class="sah-lgb-badge">BƯỚC 2</span>
+      <div class="sah-lgb-info">
+        <b>Phối ánh sáng & Khung di sản</b>
+        <small>Chọn tone Hoàng hôn, Đêm trăng, Hoa đăng & hoa văn</small>
+      </div>
+    </div>
+    <div class="sah-lgb-arr">➔</div>
+    <div class="sah-lgb-step" id="sahLgbStep3">
+      <span class="sah-lgb-badge">BƯỚC 3</span>
+      <div class="sah-lgb-info">
+        <b>Chiêm ngưỡng 3D & Lưu bài</b>
+        <small>Rê chuột xoay 3D cảm thụ chiều sâu & lưu vào hồ sơ</small>
+      </div>
+    </div>
   </div>
 
   <div class="sah-lightbox-stage-container">
     <div class="sah-lightbox-wrapper">
       <!-- 3D SHADOW BOX DISPLAY STAGE -->
       <div class="sah-lb-display-col">
-        <div class="sah-lb-box-wrap" id="sahLbBoxWrap">
+        <div class="sah-lb-box-wrap" id="sahLbBoxWrap" title="Kéo thả file ảnh tác phẩm vào đây hoặc rê chuột để xoay 3D">
           <div class="sah-lb-box" id="sahLbBox" data-mood="hoanghon">
             <!-- AMBIENT BACKLIGHT GLOW -->
             <div class="sah-lb-light-aura" id="sahLbAura"></div>
@@ -2476,19 +2503,13 @@ load();
               <svg viewBox="0 0 600 400" class="sah-lb-svg" id="sahLbSvgMid">
                 <g class="sah-lb-mid-0" id="sahLbMid0">
                   <!-- Gác chuông Chùa Keo 3 tầng 12 mái -->
-                  <!-- Nền móng & Lan can tầng 1 -->
                   <rect x="210" y="320" width="180" height="60" rx="3" fill="currentColor" />
                   <rect x="230" y="270" width="140" height="50" fill="currentColor" />
-                  <!-- Mái tầng 1 cong vút -->
                   <path d="M 140 270 Q 220 250 300 245 Q 380 250 460 270 L 440 280 Q 370 262 300 258 Q 230 262 160 280 Z" fill="currentColor" />
-                  <!-- Tầng 2 -->
                   <rect x="245" y="210" width="110" height="40" fill="currentColor" />
-                  <!-- Mái tầng 2 -->
                   <path d="M 180 210 Q 240 195 300 190 Q 360 195 420 210 L 405 218 Q 355 204 300 200 Q 245 204 195 218 Z" fill="currentColor" />
-                  <!-- Tầng 3 (Gác chuông đồng) -->
                   <rect x="260" y="165" width="80" height="30" fill="currentColor" />
                   <circle cx="300" cy="180" r="7" fill="#000" opacity="0.3" />
-                  <!-- Mái thượng & Đỉnh nóc -->
                   <path d="M 220 165 Q 260 150 300 146 Q 340 150 380 165 L 370 172 Q 335 158 300 155 Q 265 158 230 172 Z" fill="currentColor" />
                   <polygon points="300,125 296,146 304,146" fill="currentColor" />
                   <circle cx="300" cy="122" r="4" fill="currentColor" />
@@ -2496,31 +2517,24 @@ load();
                 <g class="sah-lb-mid-1" id="sahLbMid1" style="display:none;">
                   <!-- Cổng tam quan Phố Hiến -->
                   <rect x="180" y="260" width="240" height="120" rx="4" fill="currentColor" />
-                  <!-- Vòm cửa chính & 2 vòm phụ -->
                   <path d="M 270 380 L 270 300 Q 300 280 330 300 L 330 380 Z" fill="#000" opacity="0.4" />
                   <path d="M 205 380 L 205 320 Q 225 305 245 320 L 245 380 Z" fill="#000" opacity="0.4" />
                   <path d="M 355 380 L 355 320 Q 375 305 395 320 L 395 380 Z" fill="#000" opacity="0.4" />
-                  <!-- Mái hạ -->
                   <path d="M 150 260 Q 300 230 450 260 L 435 272 Q 300 245 165 272 Z" fill="currentColor" />
-                  <!-- Cổ lầu tam quan -->
                   <rect x="240" y="200" width="120" height="40" fill="currentColor" />
-                  <!-- Mái thượng -->
                   <path d="M 210 200 Q 300 175 390 200 L 375 210 Q 300 188 225 210 Z" fill="currentColor" />
                   <polygon points="300,165 295,178 305,178" fill="currentColor" />
                 </g>
                 <g class="sah-lb-mid-2" id="sahLbMid2" style="display:none;">
                   <!-- Nghi môn Đền Trần Long Hưng -->
-                  <!-- 4 Trụ biểu uy nghiêm -->
                   <rect x="170" y="220" width="24" height="160" rx="2" fill="currentColor" />
                   <rect x="250" y="190" width="28" height="190" rx="2" fill="currentColor" />
                   <rect x="322" y="190" width="28" height="190" rx="2" fill="currentColor" />
                   <rect x="406" y="220" width="24" height="160" rx="2" fill="currentColor" />
-                  <!-- Đỉnh trụ chim Phượng & Đèn lồng lộng gió -->
                   <polygon points="182,195 174,220 190,220" fill="currentColor" />
                   <polygon points="264,160 254,190 274,190" fill="currentColor" />
                   <polygon points="336,160 326,190 346,190" fill="currentColor" />
                   <polygon points="418,195 410,220 426,220" fill="currentColor" />
-                  <!-- Xà ngang & Cuốn thư -->
                   <rect x="270" y="230" width="60" height="25" rx="3" fill="currentColor" opacity="0.8" />
                   <path d="M 194 280 L 250 280" stroke="currentColor" stroke-width="8" />
                   <path d="M 350 280 L 406 280" stroke="currentColor" stroke-width="8" />
@@ -2528,15 +2542,37 @@ load();
                 <g class="sah-lb-mid-3" id="sahLbMid3" style="display:none;">
                   <!-- Khu lưu niệm & Tượng đài danh nhân Lê Quý Đôn -->
                   <rect x="150" y="290" width="300" height="90" rx="4" fill="currentColor" />
-                  <!-- Tượng đài tay cầm bút nghiên & sách cổ -->
                   <path d="M 285 300 Q 280 250 290 220 Q 300 205 310 220 Q 320 250 315 300 Z" fill="currentColor" />
                   <circle cx="300" cy="195" r="16" fill="currentColor" />
-                  <!-- Bút lông & Cuốn thư vươn cao -->
                   <polygon points="325,180 320,230 327,230" fill="currentColor" />
-                  <!-- Mái nhà lưu niệm phía sau -->
                   <path d="M 120 290 Q 300 260 480 290 L 465 302 Q 300 275 135 302 Z" fill="currentColor" opacity="0.6"/>
                 </g>
               </svg>
+            </div>
+
+            <!-- CORE CENTERPIECE: TÁC PHẨM CỦA HỌC SINH (STUDENT ARTWORK DISPLAY STAGE) -->
+            <div class="sah-lb-layer sah-lb-layer-artwork" id="sahLbArtworkLayer">
+              <!-- Empty state: prompted upload card -->
+              <div class="sah-lb-empty-card" id="sahLbEmptyState" onclick="triggerLightboxUpload()">
+                <div class="sah-lbe-glow"></div>
+                <div class="sah-lbe-icon">🖼️</div>
+                <div class="sah-lbe-title">BẤM VÀO ĐÂY ĐỂ ĐƯA TRANH VÀO HỘP CHIẾU</div>
+                <div class="sah-lbe-sub">Tải lên tranh vẽ mĩ thuật của em (JPG, PNG) hoặc chọn nhanh mẫu bên phải</div>
+                <button type="button" class="sah-lbe-btn">
+                  <span>📤</span> Chọn ảnh từ máy tính
+                </button>
+              </div>
+
+              <!-- Mounted artwork container -->
+              <div class="sah-lb-artwork-mount" id="sahLbArtworkMount" style="display:none;">
+                <div class="sah-lb-artwork-frame">
+                  <img id="sahLbUploadedImg" src="" alt="Tác phẩm mĩ thuật của học sinh" />
+                </div>
+                <div class="sah-lb-plaque" id="sahLbPlaque">
+                  <div class="sah-lb-plaque-title" id="sahLbPlaqueTitle">Hoàng hôn bên Gác chuông Chùa Keo</div>
+                  <div class="sah-lb-plaque-author" id="sahLbPlaqueAuthor">Học sinh: Nguyễn Văn An • Lớp 7A</div>
+                </div>
+              </div>
             </div>
 
             <!-- LAYER 1: TIỀN CẢNH (DECORATIVE CUTOUT FRAME & MOTIFS) -->
@@ -2545,22 +2581,16 @@ load();
                 <g class="sah-lb-fore-0" id="sahLbFore0">
                   <!-- Khung hoa sen & Lá đề thời Trần -->
                   <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 50 50 L 50 350 L 550 350 L 550 50 Z" fill="currentColor" fill-rule="evenodd" />
-                  <!-- Góc vòm hoa lá uốn lượn -->
                   <path d="M 50 140 C 90 90 140 50 220 50 C 180 80 150 110 140 160 Z" fill="currentColor" />
                   <path d="M 550 140 C 510 90 460 50 380 50 C 420 80 450 110 460 160 Z" fill="currentColor" />
-                  <!-- Đỉnh vòm: Lá đề chạm nổi -->
                   <path d="M 300 50 C 275 75 270 100 300 120 C 330 100 325 75 300 50 Z" fill="currentColor" />
-                  <!-- Chân đế hoa sen -->
                   <path d="M 50 350 Q 150 320 300 320 Q 450 320 550 350 L 550 350 L 50 350 Z" fill="currentColor" />
                 </g>
                 <g class="sah-lb-fore-1" id="sahLbFore1" style="display:none;">
                   <!-- Song Long Chầu Nguyệt thời Trần -->
                   <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 40 40 L 40 360 L 560 360 L 560 40 Z" fill="currentColor" fill-rule="evenodd" />
-                  <!-- Rồng tả uốn lượn hình sin -->
                   <path d="M 40 300 Q 90 260 110 210 Q 130 160 100 120 Q 80 80 130 60 Q 170 50 200 80 Q 220 100 240 85" stroke="currentColor" stroke-width="26" fill="none" stroke-linecap="round"/>
-                  <!-- Rồng hữu uốn lượn đối xứng -->
                   <path d="M 560 300 Q 510 260 490 210 Q 470 160 500 120 Q 520 80 470 60 Q 430 50 400 80 Q 380 100 360 85" stroke="currentColor" stroke-width="26" fill="none" stroke-linecap="round"/>
-                  <!-- Mặt nguyệt trung tâm -->
                   <circle cx="300" cy="85" r="22" fill="currentColor" />
                   <circle cx="300" cy="85" r="16" fill="#000" opacity="0.3" />
                 </g>
@@ -2568,7 +2598,6 @@ load();
                   <!-- Khung viền chạm bạc Đồng Xâm hình học tinh xảo -->
                   <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 45 45 L 45 355 L 555 355 L 555 45 Z" fill="currentColor" fill-rule="evenodd" />
                   <rect x="55" y="55" width="490" height="290" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="12 8" />
-                  <!-- Góc hoa văn triện -->
                   <rect x="45" y="45" width="60" height="60" fill="currentColor" />
                   <rect x="495" y="45" width="60" height="60" fill="currentColor" />
                   <rect x="45" y="295" width="60" height="60" fill="currentColor" />
@@ -2577,10 +2606,8 @@ load();
                 <g class="sah-lb-fore-3" id="sahLbFore3" style="display:none;">
                   <!-- Mái đao cong & Chuông đồng gác lửng -->
                   <path d="M 0 0 L 600 0 L 600 400 L 0 400 Z M 30 30 L 30 370 L 570 370 L 570 30 Z" fill="currentColor" fill-rule="evenodd" />
-                  <!-- Hai mái đao cong từ góc trên chúc xuống -->
                   <path d="M 30 30 Q 140 40 210 110 L 190 125 Q 130 70 30 55 Z" fill="currentColor" />
                   <path d="M 570 30 Q 460 40 390 110 L 410 125 Q 470 70 570 55 Z" fill="currentColor" />
-                  <!-- Chuông đồng treo lơ lửng -->
                   <path d="M 210 110 L 210 140" stroke="currentColor" stroke-width="3" />
                   <path d="M 200 140 Q 210 135 220 140 L 222 155 Q 210 160 198 155 Z" fill="currentColor" />
                   <path d="M 390 110 L 390 140" stroke="currentColor" stroke-width="3" />
@@ -2595,7 +2622,7 @@ load();
         </div>
 
         <div class="sah-lb-hint-strip">
-          <span>💡 <b>Mẹo tương tác:</b> Rê chuột qua hộp để xoay 3D cảm thụ chiều sâu các lớp bóng đổ!</span>
+          <span>💡 <b>Mẹo tương tác:</b> Rê chuột qua hộp để xoay 3D cảm thụ chiều sâu các lớp bóng đổ! Có thể kéo-thả file ảnh trực tiếp vào hộp chiếu.</span>
         </div>
       </div>
 
@@ -2607,9 +2634,55 @@ load();
             <span class="sah-lb-chip" id="sahLbCurrentMoodTag">🌅 Hoàng hôn Sông Hồng</span>
           </div>
 
-          <!-- SECTION 1: LIGHTING MOOD PRESETS -->
+          <!-- SECTION 1: STUDENT ARTWORK UPLOAD & METADATA -->
+          <div class="sah-lb-group sah-lb-upload-card">
+            <div class="sah-lbu-header">
+              <label class="sah-lb-label">1. Tác phẩm của học sinh (Student Artwork)</label>
+              <span class="sah-lbu-status" id="sahLbUploadStatus">Chưa tải ảnh</span>
+            </div>
+
+            <!-- Hidden File Input -->
+            <input type="file" id="sahLbFileInput" accept="image/*" style="display:none" onchange="handleLightboxUpload(event)">
+
+            <!-- Upload Action Buttons -->
+            <div class="sah-lbu-btn-row">
+              <button type="button" class="sah-lbu-btn-main" onclick="triggerLightboxUpload()">
+                <span class="sah-lbu-ico">📤</span>
+                <span id="sahLbUploadBtnText">Tải ảnh tranh vẽ của em</span>
+              </button>
+              <button type="button" class="sah-lbu-btn-sub" id="sahLbRemoveBtn" style="display:none;" onclick="removeLightboxArtwork()" title="Gỡ ảnh">
+                ✕ Gỡ ảnh
+              </button>
+            </div>
+
+            <!-- Artwork Title & Author Inputs -->
+            <div class="sah-lbu-meta-grid">
+              <div class="sah-lbu-input-wrap">
+                <span class="sah-lbu-field-tag">Tên tác phẩm:</span>
+                <input type="text" id="sahLbTitleInput" placeholder="Ví dụ: Hoàng hôn bên Gác chuông Chùa Keo" value="Hoàng hôn bên Gác chuông Chùa Keo" oninput="updateLightboxMeta()">
+              </div>
+              <div class="sah-lbu-input-wrap">
+                <span class="sah-lbu-field-tag">Học sinh sáng tác:</span>
+                <input type="text" id="sahLbAuthorInput" placeholder="Ví dụ: Nguyễn Văn An • Lớp 7A" value="Nguyễn Văn An • Lớp 7A" oninput="updateLightboxMeta()">
+              </div>
+            </div>
+
+            <!-- Quick Samples -->
+            <div class="sah-lbu-samples">
+              <span class="sah-lbu-samples-label">Hoặc chọn nhanh tác phẩm mẫu thực hành:</span>
+              <div class="sah-lbu-sample-chips">
+                <button type="button" class="sah-lbu-chip" onclick="selectLightboxSample('assets/extracted/032_Toan_canh_quan_the_Chua_Keo_tu.jpeg', 'Gác chuông Chùa Keo cổ kính', 'Nhóm Sáng Tạo 1 • Lớp 7A')">🏛️ Chùa Keo</button>
+                <button type="button" class="sah-lbu-chip" onclick="selectLightboxSample('assets/extracted/001_Pho_Hien_tong_quan.jpeg', 'Thương cảng Phố Hiến sầm uất', 'Trần Thảo Ly • Lớp 7B')">⛩️ Phố Hiến</button>
+                <button type="button" class="sah-lbu-chip" onclick="selectLightboxSample('assets/extracted/066_Nghi_mon_den_Tran.jpeg', 'Hào khí Nghi môn Đền Trần', 'Lê Hoàng Nam • Lớp 7A')">🏰 Đền Trần</button>
+                <button type="button" class="sah-lbu-chip" onclick="selectLightboxSample('assets/extracted/094_Chan_dung_bac_hoc_Le_Quy_Don.jpeg', 'Bút nghiên Bác học Lê Quý Đôn', 'Phạm Minh Anh • Lớp 7C')">📜 Lê Quý Đôn</button>
+                <button type="button" class="sah-lbu-chip" onclick="selectLightboxSample('assets/extracted/136_San_pham_mam_cham_trang_tri.jpeg', 'Hoa văn Mâm chạm Đồng Xâm', 'Vũ Quốc Khánh • Lớp 7B')">🌸 Đồng Xâm</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: LIGHTING MOOD PRESETS -->
           <div class="sah-lb-group">
-            <label class="sah-lb-label">1. Chế độ ánh sáng nguồn (Lighting Mood)</label>
+            <label class="sah-lb-label">2. Chế độ ánh sáng nguồn (Lighting Mood)</label>
             <div class="sah-lb-mood-grid">
               <button type="button" class="sah-lb-mood-btn active" data-mood="hoanghon" onclick="setLightboxMood('hoanghon', this)">
                 <span class="sah-lbm-ico">🌅</span>
@@ -2634,38 +2707,48 @@ load();
             </div>
           </div>
 
-          <!-- SECTION 2: LAYER SWITCHERS -->
+          <!-- SECTION 3: FOREGROUND CUTOUT FRAME -->
           <div class="sah-lb-group">
-            <label class="sah-lb-label">2. Chọn hoạ tiết Lớp 1: Tiền cảnh (Foreground Frame)</label>
+            <label class="sah-lb-label">3. Khung hoạ tiết Tiền cảnh (Foreground Cutout Frame)</label>
             <div class="sah-lb-pill-row">
               <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxFore(0, this)">🌸 Hoa sen lá đề</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(1, this)">🐉 Song Long chầu nguyệt</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(2, this)">⚙️ Chạm bạc Đồng Xâm</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(3, this)">⛩️ Mái đao & Chuông</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxFore(-1, this)">🚫 Không dùng khung</button>
             </div>
           </div>
 
+          <!-- SECTION 4: BACKGROUND CELESTIAL SYMBOL -->
           <div class="sah-lb-group">
-            <label class="sah-lb-label">3. Chọn kiến trúc Lớp 2: Trung cảnh (Middleground Architecture)</label>
-            <div class="sah-lb-pill-row">
-              <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxMid(0, this)">🏛️ Gác chuông Chùa Keo</button>
-              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(1, this)">⛩️ Tam quan Phố Hiến</button>
-              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(2, this)">🏰 Nghi môn Đền Trần</button>
-              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(3, this)">📜 Lưu niệm Lê Quý Đôn</button>
-            </div>
-          </div>
-
-          <div class="sah-lb-group">
-            <label class="sah-lb-label">4. Chọn biểu tượng Lớp 3: Hậu cảnh (Celestial Background)</label>
+            <label class="sah-lb-label">4. Vầng sáng Hậu cảnh (Celestial Background)</label>
             <div class="sah-lb-pill-row">
               <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxBg(0, this)">🌕 Trăng rằm & Sông</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(1, this)">☀️ Mặt trời Đông Sơn</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(2, this)">🕊️ Đàn cò qua lũy tre</button>
               <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(3, this)">✨ Sao đêm cổ tích</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxBg(-1, this)">🚫 Tắt hậu cảnh</button>
             </div>
           </div>
 
-          <!-- SECTION 3: FINE-TUNING SLIDERS -->
+          <!-- SECTION 5: ARCHITECTURAL SILHOUETTE ACCENT -->
+          <div class="sah-lb-group">
+            <div class="sah-lb-subhead-row">
+              <label class="sah-lb-label">5. Bóng đổ Kiến trúc Trung cảnh (Heritage Silhouette)</label>
+              <label class="sah-lb-toggle-label">
+                <input type="checkbox" id="sahLbMidToggle" checked onchange="toggleLightboxMid(this.checked)">
+                <span>Bật bóng kiến trúc</span>
+              </label>
+            </div>
+            <div class="sah-lb-pill-row" id="sahLbMidPillRow">
+              <button type="button" class="sah-lb-pill-btn active" onclick="setLightboxMid(0, this)">🏛️ Chùa Keo</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(1, this)">⛩️ Phố Hiến</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(2, this)">🏰 Đền Trần</button>
+              <button type="button" class="sah-lb-pill-btn" onclick="setLightboxMid(3, this)">📜 Lê Quý Đôn</button>
+            </div>
+          </div>
+
+          <!-- SECTION 6: FINE-TUNING SLIDERS -->
           <div class="sah-lb-group sah-lb-sliders-wrap">
             <div class="sah-lb-slider-item">
               <div class="sah-lbs-label">
@@ -2677,7 +2760,7 @@ load();
 
             <div class="sah-lb-slider-item">
               <div class="sah-lbs-label">
-                <span>Cường độ sáng (Glow Intensity):</span>
+                <span>Cường độ sáng (Glow):</span>
                 <b id="sahLbGlowVal">85%</b>
               </div>
               <input type="range" id="sahLbGlowRange" min="30" max="100" value="85" oninput="updateLightboxGlow(this.value)">
@@ -2687,7 +2770,7 @@ load();
           <!-- ACTIONS BAR -->
           <div class="sah-lb-actions">
             <button type="button" class="sah-lb-btn-save" onclick="saveLightboxPreset()">
-              💾 Lưu bố cục Hộp Chiếu
+              💾 Lưu tác phẩm & Hộp Chiếu
             </button>
             <button type="button" class="sah-lb-btn-rand" onclick="randomizeLightbox()">
               🎲 Phối ngẫu nhiên
@@ -6837,13 +6920,71 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
 #h4:checked ~ * .switcher label[for="h4"],
 #h5:checked ~ * .switcher label[for="h5"] { background: var(--sah-gold-primary); color: #0c0b0a; font-weight: 800; }
 #home0:checked ~ * .switcher label[for="home0"] { background: var(--sah-gold-primary); color: #0c0b0a; font-weight: 800; }
-</style>
-
 /* --------------------------------------------------------------------------
    LIGHTBOX / SHADOW BOX DIORAMA STYLES (STEP 7)
    -------------------------------------------------------------------------- */
+.sah-lightbox-guide-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(28, 22, 16, 0.95), rgba(18, 14, 10, 0.98));
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin: 12px 0 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 768px) {
+  .sah-lightbox-guide-banner { flex-direction: column; align-items: stretch; gap: 8px; }
+  .sah-lgb-arr { display: none; }
+}
+.sah-lgb-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.sah-lgb-badge {
+  background: rgba(212, 175, 55, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.sah-lgb-step.active .sah-lgb-badge {
+  background: var(--sah-gold-primary);
+  color: #0c0b0a;
+  border-color: #f59e0b;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+.sah-lgb-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sah-lgb-info b {
+  font-size: 13.5px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.sah-lgb-info small {
+  font-size: 11.5px;
+  color: #d1c7bd;
+  line-height: 1.35;
+}
+.sah-lgb-arr {
+  font-size: 16px;
+  color: rgba(212, 175, 55, 0.6);
+  font-weight: 700;
+}
+
 .sah-lightbox-stage-container {
-  margin: 20px 0 30px;
+  margin: 10px 0 30px;
 }
 .sah-lightbox-wrapper {
   display: grid;
@@ -6874,6 +7015,11 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   justify-content: center;
   overflow: hidden;
   cursor: grab;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.sah-lb-box-wrap.drag-over {
+  border-color: #fbbf24;
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 25px rgba(245, 158, 11, 0.4);
 }
 .sah-lb-box {
   width: 100%;
@@ -6925,10 +7071,19 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   transform: translateZ(0px);
   color: #120904;
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.7));
+  transition: opacity 0.3s ease, transform 0.25s ease-out;
+}
+.sah-lb-layer-artwork {
+  z-index: 4;
+  transform: translateZ(calc(var(--lb-depth, 45px) * 0.25));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
 }
 .sah-lb-layer-fore {
-  z-index: 4;
-  transform: translateZ(calc(var(--lb-depth, 45px) * 0.7));
+  z-index: 5;
+  transform: translateZ(calc(var(--lb-depth, 45px) * 0.75));
   color: #0a0402;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9));
 }
@@ -6937,6 +7092,124 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   height: 100%;
   display: block;
 }
+
+/* Empty upload card */
+.sah-lb-empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 78%;
+  max-width: 440px;
+  padding: 24px 18px;
+  background: rgba(14, 11, 8, 0.88);
+  border: 2px dashed rgba(212, 175, 55, 0.75);
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+.sah-lb-empty-card:hover {
+  background: rgba(24, 18, 12, 0.95);
+  border-color: #fbbf24;
+  transform: scale(1.03);
+  box-shadow: 0 16px 40px rgba(245, 158, 11, 0.3);
+}
+.sah-lbe-icon {
+  font-size: 38px;
+  filter: drop-shadow(0 4px 10px rgba(245, 158, 11, 0.4));
+}
+.sah-lbe-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+.sah-lbe-sub {
+  font-size: 12px;
+  color: #fde68a;
+  max-width: 320px;
+  line-height: 1.4;
+}
+.sah-lbe-btn {
+  margin-top: 6px;
+  background: linear-gradient(135deg, #d4af37, #b45309);
+  color: #0c0b0a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 800;
+  font-size: 12.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+/* Mounted artwork container */
+.sah-lb-artwork-mount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 82%;
+  max-height: 82%;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+.sah-lb-artwork-frame {
+  background: #fbf8f2;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid rgba(212, 175, 55, 0.9);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), inset 0 0 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+.sah-lb-artwork-frame img {
+  max-width: 440px;
+  max-height: 220px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  display: block;
+}
+@media (max-width: 600px) {
+  .sah-lb-artwork-frame img { max-width: 260px; max-height: 160px; }
+}
+
+.sah-lb-plaque {
+  margin-top: 8px;
+  background: linear-gradient(135deg, #2a2015, #140e09);
+  border: 1px solid rgba(212, 175, 55, 0.8);
+  border-radius: 6px;
+  padding: 4px 14px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.sah-lb-plaque-title {
+  font-family: 'Cinzel', serif, Georgia;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fef3c7;
+  letter-spacing: 0.04em;
+}
+.sah-lb-plaque-author {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fbbf24;
+}
+
 .sah-lb-glass-shine {
   position: absolute;
   inset: 0;
@@ -7000,6 +7273,156 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+
+/* Upload card styles */
+.sah-lb-upload-card {
+  background: rgba(28, 22, 16, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 12px;
+  padding: 14px;
+  gap: 12px;
+}
+.sah-lbu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sah-lbu-status {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.sah-lbu-btn-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.sah-lbu-btn-main {
+  flex: 1;
+  background: linear-gradient(135deg, #10b981, #047857);
+  border: 1px solid #34d399;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+.sah-lbu-btn-main:hover {
+  background: linear-gradient(135deg, #059669, #065f46);
+  transform: translateY(-1px);
+}
+.sah-lbu-btn-sub {
+  background: rgba(185, 28, 28, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sah-lbu-btn-sub:hover {
+  background: rgba(185, 28, 28, 0.4);
+  color: #ffffff;
+}
+.sah-lbu-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .sah-lbu-meta-grid { grid-template-columns: 1fr; }
+}
+.sah-lbu-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sah-lbu-field-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sah-gold-bright);
+}
+.sah-lbu-input-wrap input {
+  background: #120e0b;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.sah-lbu-input-wrap input:focus {
+  border-color: #fbbf24;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+.sah-lbu-samples {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding-top: 10px;
+}
+.sah-lbu-samples-label {
+  font-size: 11px;
+  color: var(--sah-text-muted);
+  font-weight: 600;
+}
+.sah-lbu-sample-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sah-lbu-chip {
+  background: #17130f;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  color: #e5ded5;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sah-lbu-chip:hover {
+  background: #2a2015;
+  border-color: var(--sah-gold-bright);
+  color: #ffffff;
+}
+
+.sah-lb-subhead-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sah-lb-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--sah-gold-bright);
+  cursor: pointer;
+  font-weight: 600;
+}
+.sah-lb-toggle-label input[type="checkbox"] {
+  accent-color: var(--sah-gold-primary);
+  cursor: pointer;
+}
+
 .sah-lb-mood-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -7172,6 +7595,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   font-size: 14px;
   line-height: 1.6;
 }
+</style>
 
 <!-- SAH-GUIDELINE-CSS-END -->
 <script src="js/restored-modules.js?v=46e2e4dca4"></script>
@@ -7768,6 +8192,10 @@ var lbMidIdx = 0;
 var lbBgIdx = 0;
 var lbDepth = 45;
 var lbGlow = 85;
+var lbShowMid = true;
+var lbArtworkData = null; // DataURL or image path
+var lbArtworkTitle = 'Hoàng hôn bên Gác chuông Chùa Keo';
+var lbArtworkAuthor = 'Nguyễn Văn An • Lớp 7A';
 
 var MOOD_NAMES = {
   'hoanghon': '🌅 Hoàng hôn Sông Hồng',
@@ -7775,6 +8203,124 @@ var MOOD_NAMES = {
   'hoadang': '🏮 Lễ hội hoa đăng',
   'binhminh': '🌄 Bình minh châu thổ'
 };
+
+function triggerLightboxUpload() {
+  var input = document.getElementById('sahLbFileInput');
+  if (input) input.click();
+}
+
+function handleLightboxUpload(e) {
+  var file = e.target.files && e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(evt) {
+    setLightboxArtwork(evt.target.result, file.name.replace(/\.[^/.]+$/, ""));
+  };
+  reader.readAsDataURL(file);
+}
+
+function setLightboxArtwork(imgSrc, defaultTitle) {
+  lbArtworkData = imgSrc;
+  var imgEl = document.getElementById('sahLbUploadedImg');
+  var mountEl = document.getElementById('sahLbArtworkMount');
+  var emptyEl = document.getElementById('sahLbEmptyState');
+  var removeBtn = document.getElementById('sahLbRemoveBtn');
+  var statusBadge = document.getElementById('sahLbUploadStatus');
+  var uploadBtnText = document.getElementById('sahLbUploadBtnText');
+  var titleInput = document.getElementById('sahLbTitleInput');
+
+  if (imgEl) imgEl.src = imgSrc;
+  if (mountEl) mountEl.style.display = 'flex';
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (removeBtn) removeBtn.style.display = 'inline-block';
+  if (statusBadge) {
+    statusBadge.textContent = '✓ Đã gắn vào Hộp';
+    statusBadge.style.color = '#34d399';
+    statusBadge.style.borderColor = '#10b981';
+    statusBadge.style.background = 'rgba(16, 185, 129, 0.15)';
+  }
+  if (uploadBtnText) uploadBtnText.textContent = 'Đổi ảnh tác phẩm khác';
+
+  if (defaultTitle && titleInput && !titleInput.value) {
+    titleInput.value = defaultTitle;
+    updateLightboxMeta();
+  }
+
+  // Update guide banner step 1
+  var step1 = document.getElementById('sahLgbStep1');
+  var step2 = document.getElementById('sahLgbStep2');
+  if (step1) step1.classList.remove('active');
+  if (step2) step2.classList.add('active');
+
+  try {
+    if (imgSrc.length < 2500000) {
+      localStorage.setItem('sah_lightbox_artwork', imgSrc);
+    }
+  } catch(err) {
+    console.warn('LocalStorage quota:', err);
+  }
+}
+
+function selectLightboxSample(path, title, author) {
+  var titleInput = document.getElementById('sahLbTitleInput');
+  var authorInput = document.getElementById('sahLbAuthorInput');
+  if (titleInput) titleInput.value = title;
+  if (authorInput) authorInput.value = author;
+  updateLightboxMeta();
+  setLightboxArtwork(path, title);
+}
+
+function removeLightboxArtwork() {
+  lbArtworkData = null;
+  var imgEl = document.getElementById('sahLbUploadedImg');
+  var mountEl = document.getElementById('sahLbArtworkMount');
+  var emptyEl = document.getElementById('sahLbEmptyState');
+  var removeBtn = document.getElementById('sahLbRemoveBtn');
+  var statusBadge = document.getElementById('sahLbUploadStatus');
+  var uploadBtnText = document.getElementById('sahLbUploadBtnText');
+  var fileInput = document.getElementById('sahLbFileInput');
+
+  if (imgEl) imgEl.src = '';
+  if (mountEl) mountEl.style.display = 'none';
+  if (emptyEl) emptyEl.style.display = 'flex';
+  if (removeBtn) removeBtn.style.display = 'none';
+  if (statusBadge) {
+    statusBadge.textContent = 'Chưa tải ảnh';
+    statusBadge.style.color = '#fbbf24';
+    statusBadge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+    statusBadge.style.background = 'rgba(245, 158, 11, 0.15)';
+  }
+  if (uploadBtnText) uploadBtnText.textContent = 'Tải ảnh tranh vẽ của em';
+  if (fileInput) fileInput.value = '';
+
+  localStorage.removeItem('sah_lightbox_artwork');
+}
+
+function updateLightboxMeta() {
+  var titleInput = document.getElementById('sahLbTitleInput');
+  var authorInput = document.getElementById('sahLbAuthorInput');
+  var plaqueTitle = document.getElementById('sahLbPlaqueTitle');
+  var plaqueAuthor = document.getElementById('sahLbPlaqueAuthor');
+
+  lbArtworkTitle = (titleInput && titleInput.value.trim()) ? titleInput.value.trim() : 'Tác phẩm Mĩ thuật Di sản';
+  lbArtworkAuthor = (authorInput && authorInput.value.trim()) ? authorInput.value.trim() : 'Học sinh sáng tác';
+
+  if (plaqueTitle) plaqueTitle.textContent = lbArtworkTitle;
+  if (plaqueAuthor) plaqueAuthor.textContent = 'Học sinh: ' + lbArtworkAuthor;
+
+  localStorage.setItem('sah_lightbox_meta', JSON.stringify({
+    title: lbArtworkTitle,
+    author: lbArtworkAuthor
+  }));
+}
+
+function toggleLightboxMid(checked) {
+  lbShowMid = checked;
+  var layerMid = document.getElementById('sahLbLayerMid');
+  var pills = document.getElementById('sahLbMidPillRow');
+  if (layerMid) layerMid.style.display = checked ? 'block' : 'none';
+  if (pills) pills.style.opacity = checked ? '1' : '0.4';
+}
 
 function setLightboxMood(mood, btn) {
   lbCurrentMood = mood;
@@ -7784,7 +8330,7 @@ function setLightboxMood(mood, btn) {
   var tag = document.getElementById('sahLbCurrentMoodTag');
   if (tag) tag.textContent = MOOD_NAMES[mood] || mood;
 
-  document.querySelectorAll('.sah-lb-mood-btn').forEach(function(b) {
+  document.querySelectorAll('#step7-hopchieu .sah-lb-mood-btn').forEach(function(b) {
     b.classList.toggle('active', b.getAttribute('data-mood') === mood);
   });
 }
@@ -7849,12 +8395,23 @@ function saveLightboxPreset() {
     bg: lbBgIdx,
     depth: lbDepth,
     glow: lbGlow,
+    showMid: lbShowMid,
+    title: lbArtworkTitle,
+    author: lbArtworkAuthor,
+    hasArtwork: !!lbArtworkData,
     savedAt: new Date().toISOString()
   };
   localStorage.setItem('sah_lightbox_preset', JSON.stringify(preset));
+  
+  // Highlight step 3
+  var step2 = document.getElementById('sahLgbStep2');
+  var step3 = document.getElementById('sahLgbStep3');
+  if (step2) step2.classList.remove('active');
+  if (step3) step3.classList.add('active');
+
   var toast = document.getElementById('sahLbSaveToast');
   if (toast) {
-    toast.textContent = '✓ Đã lưu phương án Hộp Chiếu Sáng Tạo! Dữ liệu đã sẵn sàng cho Bước 8: Xưởng phác thảo.';
+    toast.textContent = '✓ Đã lưu tác phẩm & bố cục Hộp Chiếu Sáng Tạo! Dữ liệu đã sẵn sàng cho Bước 8: Xưởng phác thảo.';
     toast.style.display = 'block';
     setTimeout(function() { toast.style.display = 'none'; }, 4000);
   }
@@ -7872,16 +8429,15 @@ function randomizeLightbox() {
   setLightboxMid(randMid);
   setLightboxBg(randBg);
 
-  // Update active pill UI buttons
-  var pillsFore = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(2) .sah-lb-pill-btn');
+  var pillsFore = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(3) .sah-lb-pill-btn');
   if (pillsFore[randFore]) setLightboxFore(randFore, pillsFore[randFore]);
-  var pillsMid = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(3) .sah-lb-pill-btn');
-  if (pillsMid[randMid]) setLightboxMid(randMid, pillsMid[randMid]);
   var pillsBg = document.querySelectorAll('#step7-hopchieu .sah-lb-group:nth-of-type(4) .sah-lb-pill-btn');
   if (pillsBg[randBg]) setLightboxBg(randBg, pillsBg[randBg]);
+  var pillsMid = document.querySelectorAll('#step7-hopchieu #sahLbMidPillRow .sah-lb-pill-btn');
+  if (pillsMid[randMid]) setLightboxMid(randMid, pillsMid[randMid]);
 }
 
-// 3D Parallax Tilt Effect on Mouse Move
+// 3D Parallax Tilt Effect on Mouse Move & Drag-Drop Handling
 function initLightbox3DTilt() {
   var wrap = document.getElementById('sahLbBoxWrap');
   var box = document.getElementById('sahLbBox');
@@ -7901,8 +8457,59 @@ function initLightbox3DTilt() {
   wrap.addEventListener('mouseleave', function() {
     box.style.transform = 'rotateX(0deg) rotateY(0deg)';
   });
+
+  // Drag and drop image files directly onto box
+  wrap.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    wrap.classList.add('drag-over');
+  });
+
+  wrap.addEventListener('dragleave', function() {
+    wrap.classList.remove('drag-over');
+  });
+
+  wrap.addEventListener('drop', function(e) {
+    e.preventDefault();
+    wrap.classList.remove('drag-over');
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+      var file = e.dataTransfer.files[0];
+      if (file.type && file.type.indexOf('image/') === 0) {
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+          setLightboxArtwork(evt.target.result, file.name.replace(/\.[^/.]+$/, ""));
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+
+  // Restore saved artwork & meta from localStorage
+  try {
+    var savedMeta = localStorage.getItem('sah_lightbox_meta');
+    if (savedMeta) {
+      var m = JSON.parse(savedMeta);
+      var ti = document.getElementById('sahLbTitleInput');
+      var ai = document.getElementById('sahLbAuthorInput');
+      if (ti && m.title) ti.value = m.title;
+      if (ai && m.author) ai.value = m.author;
+      updateLightboxMeta();
+    }
+    var savedArt = localStorage.getItem('sah_lightbox_artwork');
+    if (savedArt) {
+      setLightboxArtwork(savedArt);
+    }
+  } catch(e) {
+    console.warn('Init lightbox state:', e);
+  }
 }
 
+window.triggerLightboxUpload = triggerLightboxUpload;
+window.handleLightboxUpload = handleLightboxUpload;
+window.setLightboxArtwork = setLightboxArtwork;
+window.selectLightboxSample = selectLightboxSample;
+window.removeLightboxArtwork = removeLightboxArtwork;
+window.updateLightboxMeta = updateLightboxMeta;
+window.toggleLightboxMid = toggleLightboxMid;
 window.setLightboxMood = setLightboxMood;
 window.setLightboxFore = setLightboxFore;
 window.setLightboxMid = setLightboxMid;

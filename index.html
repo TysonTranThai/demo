@@ -64,17 +64,17 @@ input[type=radio]{position:absolute;opacity:0;pointer-events:none}
 .hot-card{background:#fff;border:1px solid #d9cebd;border-radius:16px;overflow:hidden}
 .hot-card>img{width:100%;height:210px;object-fit:cover;display:block}
 .hot-body{padding:12px}.hot-no{font-size:11px;font-weight:900;color:var(--red)}.hot-body h4{font-size:18px;margin:4px 0 10px}
-details{border-top:1px solid #eee2d0;padding-top:8px}summary{cursor:pointer;font-weight:900;color:var(--green);padding:6px 0;list-style:none}
-summary::-webkit-details-marker{display:none}.hot-content{background:#f7f2e8;border-radius:12px;padding:11px;margin-top:6px}.hot-content p{font-size:13px;line-height:1.5;color:var(--muted)}
-.question{font-size:13px;font-weight:700;border-left:3px solid var(--red);padding-left:9px}
+details{border-top:1px solid rgba(212,175,55,0.2);padding-top:8px}summary{cursor:pointer;font-weight:900;color:var(--green);padding:6px 0;list-style:none}
+summary::-webkit-details-marker{display:none}.hot-content{background:#120e0b;border:1px solid rgba(212,175,55,0.3);border-radius:12px;padding:12px;margin-top:6px}.hot-content p{font-size:14px;line-height:1.6;color:#f7f3ea}
+.question{font-size:14px;font-weight:600;color:#ffffff;border-left:3px solid var(--red);padding-left:10px}
 .creative321{margin:22px 0;background:#173122;color:#fff;border-radius:18px;padding:16px}.creative321 p{line-height:1.5;color:#e1e9e4}
 .c321{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.c321>div{background:#ffffff10;border:1px solid #ffffff28;border-radius:12px;padding:12px;text-align:center}.c321 b{display:block;font-size:32px;color:#f1d084}.c321 span{font-size:12px}
 @media(min-width:760px){.hot-grid{grid-template-columns:repeat(3,1fr)}.hot-card>img{height:180px}}
 
-.logic{font-size:13px;line-height:1.5;margin-bottom:10px}
+.logic{font-size:14px;line-height:1.6;margin-bottom:6px;color:#ffffff}
 .hot-no{letter-spacing:.2px}
 
-.hot-card details+details{margin-top:6px}.know{font-size:13px;line-height:1.55;color:#37483d}
+.hot-card details+details{margin-top:6px}.know{font-size:14px;line-height:1.6;color:#fde68a}
 .hot-card details:nth-of-type(2) summary{color:#8d5b18}.hot-card details:nth-of-type(3) summary{color:#8d2f23}
 </style>
 <style>
@@ -5863,18 +5863,71 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   color: var(--sah-text-body) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
 }
+.hot-card details {
+  border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
+  padding-top: 8px !important;
+  margin-top: 6px !important;
+}
 .hot-card details summary {
   color: var(--sah-gold-bright) !important;
   font-weight: 700 !important;
+  font-size: 13.5px !important;
+  cursor: pointer !important;
+  padding: 6px 0 !important;
+  transition: color 0.2s ease !important;
+}
+.hot-card details summary:hover {
+  color: #fef08a !important;
 }
 .hot-card details:nth-of-type(2) summary {
   color: #f59e0b !important;
 }
+.hot-card details:nth-of-type(2) summary:hover {
+  color: #fde68a !important;
+}
 .hot-card details:nth-of-type(3) summary {
   color: #ef4444 !important;
 }
+.hot-card details:nth-of-type(3) summary:hover {
+  color: #fca5a5 !important;
+}
+.hot-card .hot-content,
+.hot-content {
+  background: rgba(12, 9, 7, 0.96) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  margin-top: 8px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+.hot-card .hot-content .logic,
+.logic {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+.hot-card .hot-content .know,
 .know {
-  color: var(--sah-text-body) !important;
+  color: #fde68a !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+}
+.hot-card .hot-content .question,
+.question {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 600 !important;
+  border-left: 3px solid #ef4444 !important;
+  padding-left: 10px !important;
+}
+.hot-card .hot-content p {
+  color: #f7f3ea !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
 }
 .hot-card .sahed-tools {
   border-top: 1px dashed rgba(212, 175, 55, 0.25) !important;

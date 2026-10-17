@@ -4033,18 +4033,71 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   color: var(--sah-text-body) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
 }
+.hot-card details {
+  border-top: 1px solid rgba(212, 175, 55, 0.2) !important;
+  padding-top: 8px !important;
+  margin-top: 6px !important;
+}
 .hot-card details summary {
   color: var(--sah-gold-bright) !important;
   font-weight: 700 !important;
+  font-size: 13.5px !important;
+  cursor: pointer !important;
+  padding: 6px 0 !important;
+  transition: color 0.2s ease !important;
+}
+.hot-card details summary:hover {
+  color: #fef08a !important;
 }
 .hot-card details:nth-of-type(2) summary {
   color: #f59e0b !important;
 }
+.hot-card details:nth-of-type(2) summary:hover {
+  color: #fde68a !important;
+}
 .hot-card details:nth-of-type(3) summary {
   color: #ef4444 !important;
 }
+.hot-card details:nth-of-type(3) summary:hover {
+  color: #fca5a5 !important;
+}
+.hot-card .hot-content,
+.hot-content {
+  background: rgba(12, 9, 7, 0.96) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  margin-top: 8px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+.hot-card .hot-content .logic,
+.logic {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+.hot-card .hot-content .know,
 .know {
-  color: var(--sah-text-body) !important;
+  color: #fde68a !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+}
+.hot-card .hot-content .question,
+.question {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 600 !important;
+  border-left: 3px solid #ef4444 !important;
+  padding-left: 10px !important;
+}
+.hot-card .hot-content p {
+  color: #f7f3ea !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
 }
 .hot-card .sahed-tools {
   border-top: 1px dashed rgba(212, 175, 55, 0.25) !important;

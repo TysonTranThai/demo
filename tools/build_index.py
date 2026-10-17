@@ -6965,6 +6965,8 @@ function initLightbox3DTilt() {
   } catch(e) {
     console.warn('Init lightbox state:', e);
   }
+}
+
 // Animated Engagement Counter Logic for Landing Page (Yêu cầu: thống kê số HS tương tác & số bài đã gửi)
 function initLandingStatsCounter() {
   var step1 = document.getElementById('step1-trangchu');

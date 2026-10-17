@@ -6195,42 +6195,57 @@ var currentSlideIndex = 0;
 var isSlideMode = true; // Default: PowerPoint Slide Mode!
 
 function isTeacherRole() {
-  return document.body.classList.contains('role-teacher') || (localStorage.getItem('rm_role') || '') === 'teacher';
+  try {
+    return document.body.classList.contains('role-teacher') || (localStorage.getItem('rm_role') || '') === 'teacher';
+  } catch(e) {
+    return false;
+  }
 }
 
 function getAvailableSlides() {
   return SLIDE_IDS;
 }
 
+var _isUpdatingTeacher = false;
 function updateTeacherVisibility() {
-  var isTeacher = isTeacherRole();
-  document.body.classList.toggle('role-teacher', isTeacher);
-  
-  // Guard topnav & stepper links
-  document.querySelectorAll('.teacher-only').forEach(function(el) {
-    if (el.tagName === 'SECTION') {
-      if (isTeacher) {
-        if (!isSlideMode || el.classList.contains('active-slide')) el.style.display = 'block';
-        else el.style.display = 'none';
-      } else {
-        el.style.display = 'none';
-      }
-    } else {
-      el.style.display = isTeacher ? '' : 'none';
+  if (_isUpdatingTeacher) return;
+  _isUpdatingTeacher = true;
+  try {
+    var isTeacher = isTeacherRole();
+    if (document.body.classList.contains('role-teacher') !== isTeacher) {
+      document.body.classList.toggle('role-teacher', isTeacher);
     }
-  });
+    
+    // Guard topnav & stepper links
+    document.querySelectorAll('.teacher-only').forEach(function(el) {
+      if (el.tagName === 'SECTION') {
+        if (isTeacher) {
+          if (!isSlideMode || el.classList.contains('active-slide')) el.style.display = 'block';
+          else el.style.display = 'none';
+        } else {
+          el.style.display = 'none';
+        }
+      } else {
+        el.style.display = isTeacher ? '' : 'none';
+      }
+    });
 
-  // Guard step9 finish button vs continue to teacher dashboard
-  var studentAction = document.querySelector('.student-or-guest-action');
-  if (studentAction) {
-    studentAction.style.display = isTeacher ? 'none' : 'inline-flex';
+    // Guard step9 finish button vs continue to teacher dashboard
+    var studentAction = document.querySelector('.student-or-guest-action');
+    if (studentAction) {
+      studentAction.style.display = isTeacher ? 'none' : 'inline-flex';
+    }
+
+    // Update total slide indicator text
+    var total = getAvailableSlides().length;
+    document.querySelectorAll('.sah-dyn-total').forEach(function(el) { el.textContent = total; });
+    var stepperTotal = document.getElementById('stepperTotalNum');
+    if (stepperTotal) stepperTotal.textContent = total;
+  } catch(e) {
+    console.warn('updateTeacherVisibility:', e);
+  } finally {
+    _isUpdatingTeacher = false;
   }
-
-  // Update total slide indicator text
-  var total = getAvailableSlides().length;
-  document.querySelectorAll('.sah-dyn-total').forEach(function(el) { el.textContent = total; });
-  var stepperTotal = document.getElementById('stepperTotalNum');
-  if (stepperTotal) stepperTotal.textContent = total;
 }
 
 function goToSlide(index) {
@@ -6238,7 +6253,9 @@ function goToSlide(index) {
   if (index < 0) index = 0;
   if (index >= slides.length) index = slides.length - 1;
   currentSlideIndex = index;
-  localStorage.setItem('sah_current_slide', index);
+  try {
+    localStorage.setItem('sah_current_slide', index);
+  } catch(e) {}
 
   if (isSlideMode) {
     document.body.classList.add('slide-mode');
@@ -6249,13 +6266,21 @@ function goToSlide(index) {
     var curEl = document.getElementById(slides[currentSlideIndex]);
     if (curEl) {
       curEl.classList.add('active-slide');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch(e) {
+        window.scrollTo(0, 0);
+      }
     }
   } else {
     document.body.classList.remove('slide-mode');
     var curEl = document.getElementById(slides[currentSlideIndex]);
     if (curEl) {
-      curEl.scrollIntoView({ behavior: 'smooth' });
+      try {
+        curEl.scrollIntoView({ behavior: 'smooth' });
+      } catch(e) {
+        curEl.scrollIntoView();
+      }
     }
   }
 
@@ -6288,9 +6313,24 @@ function toggleViewMode() {
     if (btnTxt) btnTxt.textContent = 'Xem toàn trang';
     document.body.classList.remove('slide-mode');
     var curEl = document.getElementById(SLIDE_IDS[currentSlideIndex]);
-    if (curEl) curEl.scrollIntoView({ behavior: 'smooth' });
+    if (curEl) {
+      try {
+        curEl.scrollIntoView({ behavior: 'smooth' });
+      } catch(e) {
+        curEl.scrollIntoView();
+      }
+    }
   }
 }
+
+// Immediate Top-Level Window Exports for Instant Global Availability
+window.goToSlide = goToSlide;
+window.nextSlide = nextSlide;
+window.prevSlide = prevSlide;
+window.toggleViewMode = toggleViewMode;
+window.toggleSlideMode = toggleViewMode;
+window.updateTeacherVisibility = updateTeacherVisibility;
+window.getAvailableSlides = getAvailableSlides;
 
 function updateSlideUI() {
   var slides = getAvailableSlides();
@@ -6304,7 +6344,7 @@ function updateSlideUI() {
 
   // Trigger engagement stats animation when entering landing page
   if (activeSlideId === 'step1-trangchu' && typeof initLandingStatsCounter === 'function') {
-    initLandingStatsCounter();
+    try { initLandingStatsCounter(); } catch(e) {}
   }
 
   // Update stepper pills
@@ -6312,7 +6352,11 @@ function updateSlideUI() {
   pills.forEach(function(pill, idx) {
     if (idx === currentSlideIndex) {
       pill.classList.add('active');
-      pill.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      try {
+        pill.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      } catch(e) {
+        try { pill.scrollIntoView(); } catch(e2) {}
+      }
     } else {
       pill.classList.remove('active');
     }
@@ -6630,8 +6674,11 @@ window.rotateExhibitThumb = rotateExhibitThumb;
     if (e.key === 'rm_role') updateTeacherVisibility();
   });
 
-  // Check URL hash or saved slide
-  var savedSlide = parseInt(localStorage.getItem('sah_current_slide') || '0', 10);
+  // Check URL hash or saved slide safely
+  var savedSlide = 0;
+  try {
+    savedSlide = parseInt(localStorage.getItem('sah_current_slide') || '0', 10);
+  } catch(e) {}
   if (isNaN(savedSlide) || savedSlide < 0) savedSlide = 0;
   
   var hash = window.location.hash.replace('#', '');
@@ -6643,9 +6690,9 @@ window.rotateExhibitThumb = rotateExhibitThumb;
   // Activate default slide mode
   goToSlide(savedSlide);
   updateTeacherVisibility();
-  initHoverPreview();
-  initLightbox3DTilt();
-  initLandingStatsCounter();
+  try { initHoverPreview(); } catch(e) {}
+  try { initLightbox3DTilt(); } catch(e) {}
+  try { initLandingStatsCounter(); } catch(e) {}
 
 });
 
@@ -7288,10 +7335,15 @@ final_html = final_html.replace(
     '<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">\n'
     "<title>", 1)
 
-# Inject content-studio.js into <head>
+# Inject content-studio.js and cache-control meta into <head>
 studio_js = os.path.join(ROOT, "js", "content-studio.js")
 studio_hash = hashlib.md5(open(studio_js, "rb").read()).hexdigest()[:10]
-studio_tag = f'<script src="js/content-studio.js?v={studio_hash}"></script>\n'
+studio_tag = (
+    f'<script src="js/content-studio.js?v={studio_hash}"></script>\n'
+    '  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n'
+    '  <meta http-equiv="Pragma" content="no-cache">\n'
+    '  <meta http-equiv="Expires" content="0">\n'
+)
 head_end = final_html.index("<head>") + len("<head>")
 final_html = final_html[:head_end] + "\n" + studio_tag + final_html[head_end:]
 

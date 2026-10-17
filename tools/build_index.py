@@ -4594,7 +4594,175 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   border-color: var(--sah-gold-primary) !important;
 }
 .sah-prompt {
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+}
+.sah-question-label {
+  background: rgba(212, 175, 55, 0.15) !important;
   color: var(--sah-gold-bright) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+}
+.sah-answer details summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+}
+.sah-answer details summary:hover {
+  color: #fde68a !important;
+}
+.sah-answer details p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
+#direct321-module {
+  background: rgba(26, 20, 16, 0.88) !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 18px !important;
+  color: var(--sah-text-body) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  padding: 20px 24px !important;
+  margin: 16px 0 !important;
+}
+#direct321-module h2 {
+  color: var(--sah-gold-bright) !important;
+  font-family: var(--sah-font-serif) !important;
+  font-size: 22px !important;
+  margin: 0 0 8px !important;
+}
+#direct321-module p {
+  color: var(--sah-text-body) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+.direct321-project {
+  background: rgba(20, 16, 12, 0.95) !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 14px !important;
+  margin: 14px 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+.direct321-project > summary {
+  background: linear-gradient(135deg, rgba(23, 61, 50, 0.95), rgba(15, 40, 32, 0.95)) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  padding: 14px 18px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.direct321-project > summary:hover {
+  background: linear-gradient(135deg, rgba(30, 78, 64, 0.98), rgba(20, 52, 42, 0.98)) !important;
+  color: var(--sah-gold-bright) !important;
+}
+.direct321-body {
+  background: rgba(14, 11, 8, 0.96) !important;
+  padding: 18px !important;
+  color: var(--sah-text-body) !important;
+}
+.direct321-body h2 {
+  color: var(--sah-gold-bright) !important;
+  font-family: var(--sah-font-serif) !important;
+  font-size: 20px !important;
+  margin: 0 0 14px !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  padding-bottom: 8px !important;
+}
+.direct321-step {
+  background: rgba(22, 17, 13, 0.85) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+  margin: 14px 0 !important;
+}
+.direct321-step h3 {
+  color: var(--sah-gold-bright) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 0 8px !important;
+}
+.direct321-q {
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 12px !important;
+}
+.direct321-help {
+  margin: 10px 0 !important;
+}
+.direct321-help summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+  transition: color 0.2s ease !important;
+}
+.direct321-help summary:hover {
+  color: #fde68a !important;
+}
+.direct321-help p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
+.direct321-step textarea {
+  background: #14110e !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 10px !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.direct321-step textarea:focus {
+  border-color: var(--sah-gold-primary) !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
+  outline: none !important;
+}
+.direct321-save {
+  background: linear-gradient(135deg, #1f5142, #163c31) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #ffffff !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.direct321-save:hover {
+  background: linear-gradient(135deg, #276754, #1b4a3c) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+.direct321-msg {
+  color: #10b981 !important;
+  font-weight: 700 !important;
+  margin-left: 10px !important;
 }
 .sah-project {
   background: rgba(24, 18, 14, 0.85) !important;
@@ -4618,6 +4786,27 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   background: rgba(30, 24, 18, 0.9) !important;
   color: var(--sah-text-body) !important;
 }
+.sah-pack-help summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+}
+.sah-pack-help summary:hover {
+  color: #fde68a !important;
+}
+.sah-pack-help p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
 .sah-pill {
   background: rgba(212, 175, 55, 0.15) !important;
   color: var(--sah-gold-bright) !important;
@@ -4628,6 +4817,20 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   border-left: 4px solid var(--sah-gold-primary) !important;
   color: var(--sah-text-body) !important;
   border-radius: 8px !important;
+}
+.sah-q b {
+  color: var(--sah-gold-bright) !important;
+}
+.sah-q p {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+.sah-pack-answer {
+  background: #14110e !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 9px !important;
 }
 
 #p321V312 {

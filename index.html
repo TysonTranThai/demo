@@ -122,12 +122,13 @@ summary::-webkit-details-marker{display:none}.hot-content{background:#120e0b;bor
 #sah321-integrated .sah-answer details{display:block!important}
 </style><style id="direct321-css">
 #direct321-module{display:block!important;visibility:visible!important;opacity:1!important}
-.direct321-project{display:block!important;margin:10px 0;border:1px solid #cad8d1;border-radius:13px;overflow:hidden;background:#fff}
-.direct321-project>summary{display:block!important;cursor:pointer;padding:14px 16px;background:#173d32;color:#fff;font-weight:800;list-style:none}
-.direct321-project>summary::-webkit-details-marker{display:none}.direct321-body{padding:14px}
-.direct321-step{padding:13px;margin:10px 0;border:1px solid #d8e0dc;border-radius:12px}.direct321-q{font-weight:700;line-height:1.55;margin:7px 0}
-.direct321-help{display:block!important;margin:8px 0}.direct321-help summary{cursor:pointer;font-weight:800}.direct321-help p{background:#fff7df;padding:10px;border-radius:8px}
-.direct321-step textarea{display:block!important;width:100%;min-height:90px;box-sizing:border-box;padding:9px;border:1px solid #cbd5d0;border-radius:9px}
+.direct321-project{display:block!important;margin:12px 0;border:1px solid rgba(212,175,55,0.3);border-radius:13px;overflow:hidden;background:rgba(20,16,12,0.95)}
+.direct321-project>summary{display:block!important;cursor:pointer;padding:14px 16px;background:linear-gradient(135deg,rgba(23,61,50,0.95),rgba(15,40,32,0.95));color:#ffffff;font-weight:800;font-size:15px;list-style:none}
+.direct321-project>summary::-webkit-details-marker{display:none}.direct321-body{padding:16px;background:rgba(14,11,8,0.96);color:#f7f3ea}
+.direct321-body h2{color:var(--sah-gold-bright)!important;margin:0 0 12px;font-size:20px}
+.direct321-step{padding:14px;margin:12px 0;border:1px solid rgba(212,175,55,0.25);border-radius:12px;background:rgba(22,17,13,0.85)}.direct321-q{font-weight:700;line-height:1.6;margin:7px 0;color:#ffffff;font-size:15px}
+.direct321-help{display:block!important;margin:8px 0}.direct321-help summary{cursor:pointer;font-weight:800;color:#f59e0b;font-size:13.5px}.direct321-help p{background:rgba(45,34,18,0.95);border:1px solid rgba(245,158,11,0.35);border-left:4px solid #f59e0b;color:#fef3c7;padding:12px;border-radius:8px;font-size:14px;line-height:1.6}
+.direct321-step textarea{display:block!important;width:100%;min-height:90px;box-sizing:border-box;padding:10px;border:1px solid rgba(212,175,55,0.3);border-radius:9px;background:#14110e;color:#ffffff;font-size:14px;line-height:1.6}
 </style><style id="ai5a-studio-css">
 .ai5studio{max-width:1120px;margin:32px auto;padding:24px;border:1px solid #d8e2dc;border-radius:22px;background:linear-gradient(180deg,#f8fbf9,#eef6f1);box-shadow:0 10px 30px rgba(20,55,42,.08)}
 .studio-head{display:grid;grid-template-columns:1fr 280px;gap:18px;align-items:start}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.1em;color:#285b46}.studio-head h2{margin:5px 0}.ownership{background:#173d32;color:white;border-radius:14px;padding:14px;display:grid;gap:5px}.ownership b{font-size:12px;letter-spacing:.08em}.progress5{display:flex;align-items:center;justify-content:center;gap:9px;background:white;padding:13px;border-radius:14px;margin:18px 0;overflow:auto}.progress5 div{min-width:85px;text-align:center;opacity:.45;font-weight:800}.progress5 div.on{opacity:1;color:#173d32}.progress5 span{display:block;font-size:12px}.progress5 i{font-style:normal;opacity:.35}.project-label{font-weight:900}.ai5studio select{width:100%;padding:11px;border:1px solid #cbd9d1;border-radius:10px;margin:6px 0 12px;background:white}
@@ -6424,7 +6425,175 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   border-color: var(--sah-gold-primary) !important;
 }
 .sah-prompt {
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+}
+.sah-question-label {
+  background: rgba(212, 175, 55, 0.15) !important;
   color: var(--sah-gold-bright) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+}
+.sah-answer details summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+}
+.sah-answer details summary:hover {
+  color: #fde68a !important;
+}
+.sah-answer details p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
+#direct321-module {
+  background: rgba(26, 20, 16, 0.88) !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 18px !important;
+  color: var(--sah-text-body) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  padding: 20px 24px !important;
+  margin: 16px 0 !important;
+}
+#direct321-module h2 {
+  color: var(--sah-gold-bright) !important;
+  font-family: var(--sah-font-serif) !important;
+  font-size: 22px !important;
+  margin: 0 0 8px !important;
+}
+#direct321-module p {
+  color: var(--sah-text-body) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+.direct321-project {
+  background: rgba(20, 16, 12, 0.95) !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 14px !important;
+  margin: 14px 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+.direct321-project > summary {
+  background: linear-gradient(135deg, rgba(23, 61, 50, 0.95), rgba(15, 40, 32, 0.95)) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  padding: 14px 18px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.direct321-project > summary:hover {
+  background: linear-gradient(135deg, rgba(30, 78, 64, 0.98), rgba(20, 52, 42, 0.98)) !important;
+  color: var(--sah-gold-bright) !important;
+}
+.direct321-body {
+  background: rgba(14, 11, 8, 0.96) !important;
+  padding: 18px !important;
+  color: var(--sah-text-body) !important;
+}
+.direct321-body h2 {
+  color: var(--sah-gold-bright) !important;
+  font-family: var(--sah-font-serif) !important;
+  font-size: 20px !important;
+  margin: 0 0 14px !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  padding-bottom: 8px !important;
+}
+.direct321-step {
+  background: rgba(22, 17, 13, 0.85) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 16px !important;
+  margin: 14px 0 !important;
+}
+.direct321-step h3 {
+  color: var(--sah-gold-bright) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 0 8px !important;
+}
+.direct321-q {
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 12px !important;
+}
+.direct321-help {
+  margin: 10px 0 !important;
+}
+.direct321-help summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+  transition: color 0.2s ease !important;
+}
+.direct321-help summary:hover {
+  color: #fde68a !important;
+}
+.direct321-help p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
+.direct321-step textarea {
+  background: #14110e !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 10px !important;
+  padding: 12px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.direct321-step textarea:focus {
+  border-color: var(--sah-gold-primary) !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3) !important;
+  outline: none !important;
+}
+.direct321-save {
+  background: linear-gradient(135deg, #1f5142, #163c31) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #ffffff !important;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+.direct321-save:hover {
+  background: linear-gradient(135deg, #276754, #1b4a3c) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+.direct321-msg {
+  color: #10b981 !important;
+  font-weight: 700 !important;
+  margin-left: 10px !important;
 }
 .sah-project {
   background: rgba(24, 18, 14, 0.85) !important;
@@ -6448,6 +6617,27 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   background: rgba(30, 24, 18, 0.9) !important;
   color: var(--sah-text-body) !important;
 }
+.sah-pack-help summary {
+  color: #f59e0b !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+}
+.sah-pack-help summary:hover {
+  color: #fde68a !important;
+}
+.sah-pack-help p {
+  background: rgba(45, 34, 18, 0.95) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-left: 4px solid #f59e0b !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  color: #fef3c7 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin: 8px 0 !important;
+}
 .sah-pill {
   background: rgba(212, 175, 55, 0.15) !important;
   color: var(--sah-gold-bright) !important;
@@ -6458,6 +6648,20 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   border-left: 4px solid var(--sah-gold-primary) !important;
   color: var(--sah-text-body) !important;
   border-radius: 8px !important;
+}
+.sah-q b {
+  color: var(--sah-gold-bright) !important;
+}
+.sah-q p {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+.sah-pack-answer {
+  background: #14110e !important;
+  color: #ffffff !important;
+  border: 1px solid var(--sah-gold-border) !important;
+  border-radius: 9px !important;
 }
 
 #p321V312 {
